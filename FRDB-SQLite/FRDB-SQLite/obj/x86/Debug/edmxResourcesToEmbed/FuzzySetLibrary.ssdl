@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FuzzySetLibraryModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="FuzzySetLibraryModelStoreContainer">
+    <EntitySet Name="ContinuousLibrary" EntityType="FuzzySetLibraryModel.Store.ContinuousLibrary" store:Type="Tables" />
+    <EntitySet Name="DiscreteLibary" EntityType="FuzzySetLibraryModel.Store.DiscreteLibary" store:Type="Tables" />
+    <EntitySet Name="MotherLibrary" EntityType="FuzzySetLibraryModel.Store.MotherLibrary" store:Type="Tables" />
+  </EntityContainer>
+  <EntityType Name="ContinuousLibrary">
+    <Key>
+      <PropertyRef Name="LanguisticLabel" />
+    </Key>
+    <Property Name="LanguisticLabel" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="BottomLeft" Type="float" Nullable="false" />
+    <Property Name="TopLeft" Type="float" Nullable="false" />
+    <Property Name="TopRight" Type="float" Nullable="false" />
+    <Property Name="BottomRight" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DiscreteLibary">
+    <Key>
+      <PropertyRef Name="LanguisticLabel" />
+    </Key>
+    <Property Name="LanguisticLabel" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="Values" Type="nvarchar" />
+    <Property Name="Memberships" Type="nvarchar" />
+  </EntityType>
+  <EntityType Name="MotherLibrary">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="LanguisticLabel" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="FuzzySet" Type="nvarchar" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,729 @@
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Properties.Resources.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe.licenses
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmAbout.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmContinuousEditor.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDataType.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDescreteEditor.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmFuzzySetAction.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmHelp.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListContinuous.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmNewName.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmProgressBar.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmQueryEditor.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmRelationEditor.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.frmRunAsAdministrator.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMain.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSaveScheme.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSchemeEditor.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe.config
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.pdb
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.BonusSkins.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Charts.v11.1.Core.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.OfficeSkins.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v11.1.Core.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraCharts.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraCharts.v11.1.UI.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v11.1.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\Microsoft.CSharp.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.DataSetExtensions.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Deployment.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Drawing.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Runtime.Serialization.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Security.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.ServiceModel.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.DataVisualization.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.Linq.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListDescrete.resources
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.pdb
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.Entity.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Configuration.Install.dll
+C:\Users\tieubinhbinh\Documents\Visual Studio 2010\Projects\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Management.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe.config
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.BonusSkins.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Charts.v16.1.Core.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v16.1.Core.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraPrinting.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\Microsoft.CSharp.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Configuration.Install.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.DataSetExtensions.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.Entity.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Deployment.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Drawing.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Management.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Runtime.Serialization.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Security.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.ServiceModel.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.DataVisualization.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.Linq.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v16.1.Core.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraPrinting.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Data.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Data.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Data.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Data.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Printing.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Printing.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Printing.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Printing.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Utils.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Utils.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Utils.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Utils.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraBars.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraBars.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraBars.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraBars.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraEditors.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraEditors.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraEditors.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraEditors.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraPrinting.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraPrinting.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraPrinting.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraPrinting.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraLayout.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraLayout.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraLayout.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraLayout.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraNavBar.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraNavBar.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraNavBar.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraNavBar.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csprojResolveAssemblyReference.cache
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmAbout.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmContinuousEditor.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDataType.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDescreteEditor.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmFuzzySetAction.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmHelp.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListContinuous.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListDescrete.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmNewName.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmProgressBar.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmQueryEditor.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmRelationEditor.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.frmRunAsAdministrator.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMain.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSaveScheme.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSchemeEditor.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Properties.Resources.resources
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csproj.GenerateResource.Cache
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe.licenses
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.pdb
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.pdb
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.xml
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Sparkline.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Sparkline.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Sparkline.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Sparkline.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.RichEdit.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.RichEdit.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.RichEdit.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.RichEdit.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Pdf.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Pdf.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Pdf.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Pdf.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraTreeList.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraTreeList.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraTreeList.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraTreeList.v16.1.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Office.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Office.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Office.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Downloads\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Office.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe.config
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.pdb
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.pdb
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.BonusSkins.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Charts.v16.1.Core.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v16.1.Core.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraPrinting.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\Microsoft.CSharp.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Configuration.Install.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.DataSetExtensions.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.Entity.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Deployment.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Drawing.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Management.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Runtime.Serialization.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Security.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.ServiceModel.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.DataVisualization.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.Linq.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v16.1.Core.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraPrinting.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.xml
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Data.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Data.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Data.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Data.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Printing.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Printing.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Printing.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Printing.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Utils.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Utils.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Utils.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Utils.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraBars.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraBars.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraBars.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraBars.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Sparkline.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Sparkline.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Sparkline.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Sparkline.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.RichEdit.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.RichEdit.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.RichEdit.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.RichEdit.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraEditors.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraEditors.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraEditors.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraEditors.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraPrinting.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraPrinting.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraPrinting.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraPrinting.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraLayout.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraLayout.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraLayout.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraLayout.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraNavBar.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraNavBar.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraNavBar.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraNavBar.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Pdf.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Pdf.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Pdf.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Pdf.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraTreeList.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraTreeList.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraTreeList.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraTreeList.v16.1.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Office.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Office.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Office.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Office.v16.1.Core.resources.dll
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csprojResolveAssemblyReference.cache
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmAbout.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmContinuousEditor.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDataType.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDescreteEditor.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmFuzzySetAction.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmHelp.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListContinuous.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListDescrete.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmNewName.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmProgressBar.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmQueryEditor.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmRelationEditor.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.frmRunAsAdministrator.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMain.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSaveScheme.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSchemeEditor.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Properties.Resources.resources
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csproj.GenerateResource.Cache
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe.licenses
+C:\Users\TieuTieu\Desktop\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDisFSRelation.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe.config
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.pdb
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csprojResolveAssemblyReference.cache
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmAbout.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmContinuousEditor.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDataType.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDescreteEditor.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDisFSRelation.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmFuzzySetAction.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmHelp.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListContinuous.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListDescrete.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmNewName.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmProgressBar.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmQueryEditor.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmRelationEditor.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.frmRunAsAdministrator.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMain.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSaveScheme.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSchemeEditor.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Properties.Resources.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csproj.GenerateResource.Cache
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe.licenses
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.pdb
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.BonusSkins.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Charts.v16.1.Core.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v16.1.Core.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraPrinting.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\Microsoft.CSharp.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Configuration.Install.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.DataSetExtensions.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.Entity.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.Linq.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Deployment.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Drawing.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Management.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Runtime.Serialization.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Security.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.ServiceModel.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.DataVisualization.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.Linq.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v16.1.Core.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraPrinting.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.xml
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Data.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Data.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Data.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Data.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Printing.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Printing.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Printing.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Printing.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Utils.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Utils.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Utils.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Utils.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraBars.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraBars.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraBars.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraBars.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Sparkline.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Sparkline.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Sparkline.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Sparkline.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.RichEdit.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.RichEdit.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.RichEdit.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.RichEdit.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraEditors.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraEditors.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraEditors.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraEditors.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraPrinting.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraPrinting.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraPrinting.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraPrinting.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraGrid.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraGrid.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraGrid.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraGrid.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraLayout.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraLayout.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraLayout.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraLayout.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraNavBar.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraNavBar.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraNavBar.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraNavBar.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Pdf.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Pdf.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Pdf.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Pdf.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraTreeList.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraTreeList.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraTreeList.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraTreeList.v16.1.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Office.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Office.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Office.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Office.v16.1.Core.resources.dll
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMessageBoxCreateMemFS.resources
+D:\KLTN CSDL Quan he mo (final) 2\Source code\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMessBoxCreateFN.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe.config
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.pdb
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.pdb
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\Microsoft.CSharp.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Configuration.Install.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.DataSetExtensions.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.Entity.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.Linq.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Deployment.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Drawing.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Management.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Runtime.Serialization.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Security.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.ServiceModel.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.DataVisualization.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.Linq.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraPrinting.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.xml
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Data.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Data.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Data.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Data.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Printing.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Printing.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Printing.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Printing.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Utils.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Utils.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Utils.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Utils.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraBars.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraBars.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraBars.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraBars.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraEditors.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraEditors.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraEditors.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraEditors.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraPrinting.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraPrinting.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraPrinting.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraPrinting.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraLayout.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraLayout.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraLayout.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraLayout.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraNavBar.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraNavBar.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraNavBar.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraNavBar.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Pdf.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Pdf.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Pdf.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Pdf.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Sparkline.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Sparkline.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Sparkline.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Sparkline.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.RichEdit.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.RichEdit.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.RichEdit.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.RichEdit.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraTreeList.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraTreeList.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraTreeList.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraTreeList.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Office.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Office.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Office.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Office.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csprojResolveAssemblyReference.cache
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMessBoxCreateFN.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmAbout.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmContinuousEditor.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDataType.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDescreteEditor.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDisFSRelation.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmFuzzySetAction.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmHelp.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListContinuous.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListDescrete.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMessageBoxCreateMemFS.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmNewName.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmProgressBar.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmQueryEditor.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmRelationEditor.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.frmRunAsAdministrator.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMain.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSaveScheme.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSchemeEditor.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Properties.Resources.resources
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csproj.GenerateResource.Cache
+E:\KhoaLuanTotNghiep\source-code3\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe.licenses
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe.config
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.pdb
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.exe
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\FRDB-SQLite.pdb
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\Microsoft.CSharp.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Configuration.Install.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.DataSetExtensions.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.Entity.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Data.SQLite.Linq.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Deployment.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Drawing.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Management.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Runtime.Serialization.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Security.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.ServiceModel.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.DataVisualization.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Windows.Forms.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\System.Xml.Linq.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Data.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Printing.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Utils.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraBars.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraEditors.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraPrinting.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraGrid.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraLayout.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraNavBar.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraVerticalGrid.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Sparkline.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.RichEdit.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.XtraTreeList.v16.1.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Office.v16.1.Core.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\DevExpress.Pdf.v16.1.Drawing.xml
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Data.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Data.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Data.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Data.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Printing.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Printing.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Printing.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Printing.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Utils.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Utils.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Utils.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Utils.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraBars.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraBars.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraBars.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraBars.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraEditors.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraEditors.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraEditors.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraEditors.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraPrinting.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraPrinting.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraPrinting.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraPrinting.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraLayout.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraLayout.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraLayout.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraLayout.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraNavBar.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraNavBar.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraNavBar.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraNavBar.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraVerticalGrid.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Pdf.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Pdf.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Pdf.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Pdf.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Sparkline.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Sparkline.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Sparkline.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Sparkline.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.RichEdit.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.RichEdit.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.RichEdit.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.RichEdit.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.XtraTreeList.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.XtraTreeList.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.XtraTreeList.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.XtraTreeList.v16.1.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\de\DevExpress.Office.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\es\DevExpress.Office.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ja\DevExpress.Office.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\bin\Debug\ru\DevExpress.Office.v16.1.Core.resources.dll
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csprojResolveAssemblyReference.cache
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMessBoxCreateFN.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmAbout.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmContinuousEditor.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDataType.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDescreteEditor.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmDisFSRelation.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmFuzzySetAction.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmHelp.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListContinuous.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmListDescrete.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMessageBoxCreateMemFS.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmNewName.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmProgressBar.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmQueryEditor.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmRelationEditor.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.frmRunAsAdministrator.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmMain.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSaveScheme.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Gui.frmSchemeEditor.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB_SQLite.Properties.Resources.resources
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.csproj.GenerateResource.Cache
+E:\KhoaLuanTotNghiep\KhoaLuanTotNghiep\FRDB-SQLite\FRDB-SQLite\obj\x86\Debug\FRDB-SQLite.exe.licenses

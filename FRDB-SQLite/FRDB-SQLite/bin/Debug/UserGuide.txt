@@ -1,0 +1,21 @@
+﻿- Step 1: Close the application
+- Step 2: Right click on application icon 
+	--> Select tab Compatibility --> 
+	--> On group Privilege Level check on 'Run this program as an administrator'
+	--> apply --> OK
+- Step 3: Rerun application and enjoy full access control
+
+ *If this way can not help to you, please read "huong dan cai dat.doc"
+----------------------------------------------------------
+- Bước 1: Đóng ứng dụng
+- Bước 2: Click phải vô icon dứng dụng->chọn tab Compatibility ->
+	Ở nhóm privilege Level, chọn 'Run this program as an administrator
+	-> apply -> OK
+- Bước 3: Chạy lại ứng dụng để được toàn quyền
+
+*Nếu vẫn không chạy được ứng dụng, vui lòng đọc file "huong dan cai dat.doc"
+
+Thanks and regard.
+----------------------------------------------------------
+Fuzzy Relational databse of Trinh Ngoc Luu and To Ni Pham
+SGU - 2013

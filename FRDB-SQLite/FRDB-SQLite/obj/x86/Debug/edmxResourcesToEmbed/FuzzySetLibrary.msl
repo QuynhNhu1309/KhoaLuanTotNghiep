@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FuzzySetLibraryModelStoreContainer" CdmEntityContainer="FuzzySetLibraryEntities">
+    <EntitySetMapping Name="ContinuousLibraries">
+      <EntityTypeMapping TypeName="FuzzySetLibraryModel.ContinuousLibrary">
+        <MappingFragment StoreEntitySet="ContinuousLibrary">
+          <ScalarProperty Name="LanguisticLabel" ColumnName="LanguisticLabel" />
+          <ScalarProperty Name="BottomLeft" ColumnName="BottomLeft" />
+          <ScalarProperty Name="TopLeft" ColumnName="TopLeft" />
+          <ScalarProperty Name="TopRight" ColumnName="TopRight" />
+          <ScalarProperty Name="BottomRight" ColumnName="BottomRight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiscreteLibaries">
+      <EntityTypeMapping TypeName="FuzzySetLibraryModel.DiscreteLibary">
+        <MappingFragment StoreEntitySet="DiscreteLibary">
+          <ScalarProperty Name="LanguisticLabel" ColumnName="LanguisticLabel" />
+          <ScalarProperty Name="Values" ColumnName="Values" />
+          <ScalarProperty Name="Memberships" ColumnName="Memberships" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MotherLibraries">
+      <EntityTypeMapping TypeName="FuzzySetLibraryModel.MotherLibrary">
+        <MappingFragment StoreEntitySet="MotherLibrary">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LanguisticLabel" ColumnName="LanguisticLabel" />
+          <ScalarProperty Name="FuzzySet" ColumnName="FuzzySet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
