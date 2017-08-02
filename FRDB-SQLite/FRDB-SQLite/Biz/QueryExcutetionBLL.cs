@@ -153,8 +153,14 @@ namespace FRDB_SQLite
                 if (condition[i] == '(')//(young=age) and (weight>=20 or height<=60)
                 {
                     j = i + 1;
-                    while (condition[j] != ')') j++;// Get index of ')'
-
+                    while (condition[j] != ')')
+                    { 
+                        j++; // Get index of ')'
+                    }
+                    if(j < condition.Length)
+                    {
+                        if (condition[j] == ')' && condition[j + 1] == ')') j++;
+                    } 
                     String exps = condition.Substring(i + 1, j - i - 1);
                     item.elements = SplitExpressions(exps);
 
@@ -538,6 +544,14 @@ namespace FRDB_SQLite
 
             }
 
+            if (expression.Contains("in"))
+            {
+                expression = expression.Insert(expression.IndexOf("in"), "|");
+                expression = expression.Insert(expression.IndexOf("in") + 2, "|");
+
+            }
+
+
             for (int i = 1; i < expression.Length - 1; i++)
             {
                 
@@ -645,7 +659,7 @@ namespace FRDB_SQLite
             for (int i = 0; i < condition.Length - 5; i++)
             {
                 String logic = condition.Substring(i, 5);// " and ", " or "
-                if (condition[i] == '(')
+                if (condition[i] == '(' && !condition.Contains(")"))
                 {
                     int j = i + 1;
                     while (condition[j] != ')') i = j++;
@@ -723,16 +737,20 @@ namespace FRDB_SQLite
                     }
                 }
             }
-            if (condition[0] != '(')
+            if (condition[0] != '(' && condition[condition.Length - 1] != ')')
             {
+                condition += ")";
                 if (condition.Substring(0, 4) == "not ")
                     condition = condition.Insert(4, "(");
                 else
                     condition = condition.Insert(0, "(");
             }
-            if (condition[condition.Length - 1] != ')')
-                condition += ")";
 
+            if (condition[0] != '(' && condition[condition.Length - 1] == ')')
+            {
+                condition += ")";
+                condition = condition.Insert(0, "(");
+            }
             return condition;
         }
 

@@ -1234,6 +1234,43 @@ namespace FRDB_SQLite
             return false;
         }
 
+        private Boolean ListCompare(Object value, Object input, String opr, string type)
+        {
+            //List<String> stringInput = new List<string>();
+            String stringValue = value.ToString();
+            String stringInput = input.ToString();
+            if (stringInput.Contains("("))
+            {
+                int indexFirst = stringInput.IndexOf("(");
+                stringInput = stringInput.Substring(indexFirst + 1, stringInput.Length - indexFirst - 1);
+            }
+
+            if (stringInput.Contains(")"))
+            {
+                int indexLast = stringInput.IndexOf(")");
+                stringInput = stringInput.Substring(0, indexLast);
+            }
+            String[] listInput;
+            if (stringInput.Contains(","))
+                listInput = stringInput.Split(',');
+            else
+                listInput = stringInput.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+            int count = 0;
+            for (int i = 0; i < listInput.Length; i++)
+            {
+                listInput[i] = listInput[i].Trim();// Prevent user query with spaces
+                if(StringCompare(stringValue, listInput[i], "="))
+                {
+                    count++;
+                    return true;
+                }
+                if (count > 0) break;
+
+            }
+            return false;
+        }
+
+
         //---edit
         public bool IsNumber(string pText)
         {
@@ -1255,14 +1292,29 @@ namespace FRDB_SQLite
                 case "Int64":
                 case "Int32":
                 case "Byte":
-                case "Currency": return IntCompare(Convert.ToInt32(value), Convert.ToInt32(input), opr);
+                case "Currency":
+                    if(input.Contains(",") || (input.Contains("(") && input.Contains(")")))
+                    {
+                        return ListCompare(Convert.ToInt32(value), input, opr, type);
+                    }
+                    else return IntCompare(Convert.ToInt32(value), Convert.ToInt32(input), opr);
                 case "String":
                 case "DateTime":
                 case "UserDefined":
-                case "Binary": return StringCompare(value.ToString().ToLower(), input.ToLower(), opr);
+                case "Binary":
+                    if (input.Contains(",") || (input.Contains("(") && input.Contains(")")))
+                    {
+                        return ListCompare(value.ToString().ToLower(), input, opr, type);
+                    }
+                    else return StringCompare(value.ToString().ToLower(), input.ToLower(), opr);
                 case "Decimal":
                 case "Single":
-                case "Double": return DoubleCompare(Convert.ToDouble(value), Convert.ToDouble(input), opr);
+                case "Double":
+                    if (input.Contains(",") || (input.Contains("(") && input.Contains(")")))
+                    {
+                        return ListCompare(Convert.ToDouble(value), input, opr, type);
+                    }
+                    else return DoubleCompare(Convert.ToDouble(value), Convert.ToDouble(input), opr);
                 case "Boolean": return BoolCompare(Convert.ToBoolean(value), Convert.ToBoolean(input), opr);
             }
 
