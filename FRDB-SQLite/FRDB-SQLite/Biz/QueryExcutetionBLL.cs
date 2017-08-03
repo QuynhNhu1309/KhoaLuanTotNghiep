@@ -157,7 +157,7 @@ namespace FRDB_SQLite
                     { 
                         j++; // Get index of ')'
                     }
-                    if(j < condition.Length)
+                    if(j == condition.Length - 2)
                     {
                         if (condition[j] == ')' && condition[j + 1] == ')') j++;
                     } 
