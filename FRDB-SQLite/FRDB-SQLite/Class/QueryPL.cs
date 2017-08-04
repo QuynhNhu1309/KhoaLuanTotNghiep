@@ -214,6 +214,7 @@ namespace FRDB_SQLite.Class
                     while (query[j] != '(' && j<query.Length-1) j++;
                     String s = query.Substring(i + 1, j - i -1 );
                     int count = 0;
+                    if (s.Length == 0) count++;
                     if (s.Length >= 5) { if (s.Substring(0, 5) == " and ") count++; }
                     if (s.Length >= 4) { if (s.Substring(0, 4) == " or ") count++; }
                     if (s.Length >= 9) { if (s.Substring(0, 9) == " and not ") count++; }
@@ -234,6 +235,7 @@ namespace FRDB_SQLite.Class
         private static String CheckNested(String query)
         {
             String message = "";
+            String s = "";
             int i = 1, j = 0;
             while (i < query.Length - 1)
             {
@@ -250,12 +252,18 @@ namespace FRDB_SQLite.Class
                         if (query[j] == ')')
                         {
                             if (j < query.Length - 1 && query[j + 1] != ' ')
-                                return message = "Incorrect syntax near ')': missing space";
+                            {
+                                s = query.Substring(i, j - i - 1);
+                                if (!s.Contains(" in ") && !s.Contains(" not in "))
+                                {
+                                    return message = "Incorrect syntax near ')': missing space";
+                                }
+                            }
 
                             i = j + 1;
                             break;
                         }
-                        if (query[j] == '(')
+                        if (query[j] == '(' && query.Substring(j-4, 4) != " in ")
                             return message = "Do not support nested parenthesis near the key word '('.";
                         j++;
                     }
@@ -273,12 +281,34 @@ namespace FRDB_SQLite.Class
                     j = i - 1;
                     while (j > 1)
                     {
-                        if (query[j] == ')')
-                            if (!query.Substring(j + 1, i - j).Contains("("))
+                        int count = 0;
+                        if (query.Substring(j + 1, i - j) == " " || query.Substring(j + 1, i - j) == ")")
+                        {
+                            string sub = query.Substring(0, j);
+                            int lastIndex = sub.LastIndexOf("(");
+                            if(lastIndex > 0)
                             {
+                                if(query.Length >=4)
+                                {
+                                    string tmpIn = query.Substring(lastIndex - 4, 4);
+                                    if (tmpIn != " in ")
+                                        count++;
+                                }
+                            }
+                                  
+                        }
+                        else if ((query[j] == ')' && !query.Substring(j + 1, i - j).Contains("(")) || (query[j] != ')' && query.IndexOf("(") < 0))
+                            {
+                                count++;      
+                            }
+                            if (count > 0 )
+                            {
+                                count = 0;
                                 i = j;
                                 return message = "Missing open parenthesis '('.";
                             }
+                            
+                        
                         j--;
                     }
                 }
