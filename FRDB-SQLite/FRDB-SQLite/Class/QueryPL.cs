@@ -176,7 +176,7 @@ namespace FRDB_SQLite.Class
                 if ( m!= "")
                     return m;
 
-                m=CheckLogic(query);
+                m=CheckLogic(query); // checking logical(and, or) between 2 or more than conditions
                 if (m != "")
                     return m;
                 m=CheckQuote(query);
@@ -214,10 +214,10 @@ namespace FRDB_SQLite.Class
                     while (query[j] != '(' && j<query.Length-1) j++;
                     String s = query.Substring(i + 1, j - i -1 );
                     int count = 0;
-                    if (s == " and ") count++;
-                    if (s == " or ") count++;
-                    if (s == " and not ") count++;
-                    if (s == " or not ") count++;
+                    if (s.Substring(0, 5) == " and ") count++;
+                    if (s.Substring(0, 4) == " or ") count++;
+                    if (s.Substring(0, 9) == " and not ") count++;
+                    if (s.Substring(0, 8) == " or not ") count++;
                     if (count == 0)
                     {
                         i = j + 1;

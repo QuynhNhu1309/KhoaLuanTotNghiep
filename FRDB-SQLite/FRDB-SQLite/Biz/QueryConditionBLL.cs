@@ -1261,13 +1261,19 @@ namespace FRDB_SQLite
                 for (int i = 0; i < listInput.Length; i++)
                 {
                     listInput[i] = listInput[i].Trim();// Prevent user query with spaces
-                    if (StringCompare(stringValue, listInput[i], "="))
+                    if (opr == "in")
                     {
-                        count++;
-                        return true;
+                        if (StringCompare(stringValue, listInput[i], "="))
+                        {
+                            return true;
+                        }
                     }
-                    if (count > 0)
-                    { count = 0; break; }
+                    else if (opr == "not in")
+                    {
+                        if (StringCompare(stringValue, listInput[i], "="))
+                            return false;
+                        else count++;
+                    }
 
                 }
             }
@@ -1279,13 +1285,17 @@ namespace FRDB_SQLite
                 for (int i = 0; i < listInt.Length; i++)
                 {
                     listInt[i] = int.Parse(listInput[i].Trim());
-                    if (IntCompare(intValue, listInt[i], "="))
+                    if (opr == "in")
                     {
-                        count++;
-                        return true;
+                        if (IntCompare(intValue, listInt[i], "="))
+                                return true;
+                   }
+                   else if (opr == "not in")
+                    {
+                        if (IntCompare(intValue, listInt[i], "="))
+                            return false;
+                        else count++;
                     }
-                    if (count > 0) { count = 0; break; }
-
                 }
             }
 
@@ -1296,16 +1306,20 @@ namespace FRDB_SQLite
                 for (int i = 0; i < listDouble.Length; i++)
                 {
                     listDouble[i] = double.Parse(listInput[i].Trim());
-                    if (DoubleCompare(doubleValue, listDouble[i], "="))
+                    if (opr == "in")
                     {
-                        count++;
-                        return true;
+                        if (DoubleCompare(doubleValue, listDouble[i], "="))
+                            return true;
                     }
-                    if (count > 0) { count = 0; break; }
-
+                    else if (opr == "not in")
+                    {
+                        if (DoubleCompare(doubleValue, listDouble[i], "="))
+                            return false;
+                        else count++;
+                    }
                 }
             }
-
+            if (count > 0) return true;
             return false;
         }
 

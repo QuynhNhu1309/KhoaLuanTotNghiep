@@ -157,7 +157,7 @@ namespace FRDB_SQLite
                     { 
                         j++; // Get index of ')'
                     }
-                    if(j == condition.Length - 2)
+                    if(j < condition.Length - 1)
                     {
                         if (condition[j] == ')' && condition[j + 1] == ')') j++;
                     } 
@@ -532,7 +532,13 @@ namespace FRDB_SQLite
                     expression = expression.Insert(expression.IndexOf("like") + 4, "|");
 
                 }
-                else
+                if (expression.Contains("not in "))
+                {
+                    expression = expression.Insert(expression.IndexOf("not in "), "|");
+                    expression = expression.Insert(expression.IndexOf("not in ") + 6, "|");
+
+                }
+                else if (!expression.Contains("not like") && !expression.Contains("not in "))
                 {
                     expression = expression.Insert(expression.IndexOf("not ") + 3, "|");
                 }   
@@ -669,7 +675,7 @@ namespace FRDB_SQLite
                 {
                     if (logic == " and ")
                     {
-                        if (condition[i - 1] != ')' && condition[i + 5] != '(')
+                        if (((condition[i - 1] != ')') || (condition[i - 1] == ')' && condition.Contains(" in ("))) && condition[i + 5] != '(')
                         {
                             if (condition.Substring(i + 5, 4) == "not " && condition[i + 9] != '(')
                             {
@@ -689,7 +695,10 @@ namespace FRDB_SQLite
                                 i += 2;
                             }
                         }
-                        else if (condition[i - 1] == ')' && condition[i + 5] != '(')
+                        else if ((condition[i - 1] != ')') || (condition[i - 1] == ')' && condition.Contains(" in (")) && condition[i + 5] == '(')
+                            condition = condition.Insert(i++, ")");
+
+                        else if (((condition[i - 1] == ')') || (condition[i - 1] == ')' && condition.Contains(" in (")) && condition[i-2] == ')') && condition[i + 5] != '(')
                         {
                             if (condition.Substring(i + 5, 4) == "not " && condition[i + 9] != '(')
                                 condition = condition.Insert(i + 9, "(");
@@ -697,8 +706,7 @@ namespace FRDB_SQLite
                                 condition = condition.Insert(i + 5, "(");
                             i +=5;
                         }
-                        else if (condition[i - 1] != ')' && condition[i + 5] == '(')
-                            condition = condition.Insert(i++, ")");
+                        
                         i += 4;// Jump to the '('
                     }
                     if (logic.Substring(0, logic.Length - 1) == " or ")
