@@ -1236,8 +1236,6 @@ namespace FRDB_SQLite
 
         private Boolean ListCompare(Object value, Object input, String opr, string type)
         {
-            //List<String> stringInput = new List<string>();
-            String stringValue = value.ToString();
             String stringInput = input.ToString();
             if (stringInput.Contains("("))
             {
@@ -1250,23 +1248,64 @@ namespace FRDB_SQLite
                 int indexLast = stringInput.IndexOf(")");
                 stringInput = stringInput.Substring(0, indexLast);
             }
+
             String[] listInput;
             if (stringInput.Contains(","))
                 listInput = stringInput.Split(',');
             else
                 listInput = stringInput.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
             int count = 0;
-            for (int i = 0; i < listInput.Length; i++)
+            if (type == "String" || type == "DateTime" || type == "UserDefined" || type == "Binary")
             {
-                listInput[i] = listInput[i].Trim();// Prevent user query with spaces
-                if(StringCompare(stringValue, listInput[i], "="))
+                String stringValue = value.ToString();
+                for (int i = 0; i < listInput.Length; i++)
                 {
-                    count++;
-                    return true;
-                }
-                if (count > 0) break;
+                    listInput[i] = listInput[i].Trim();// Prevent user query with spaces
+                    if (StringCompare(stringValue, listInput[i], "="))
+                    {
+                        count++;
+                        return true;
+                    }
+                    if (count > 0)
+                    { count = 0; break; }
 
+                }
             }
+
+            if (type == "Int16" || type == "Int64" || type == "Int32" || type == "Byte" || type == "Currency")
+            {
+                int[] listInt = new int[listInput.Length];
+                int intValue = Convert.ToInt32(value);
+                for (int i = 0; i < listInt.Length; i++)
+                {
+                    listInt[i] = int.Parse(listInput[i].Trim());
+                    if (IntCompare(intValue, listInt[i], "="))
+                    {
+                        count++;
+                        return true;
+                    }
+                    if (count > 0) { count = 0; break; }
+
+                }
+            }
+
+            if (type == "Decimal" || type == "Single" || type == "Double")
+            {
+                double[] listDouble = new double[listInput.Length];
+                double doubleValue = Convert.ToDouble(value);
+                for (int i = 0; i < listDouble.Length; i++)
+                {
+                    listDouble[i] = double.Parse(listInput[i].Trim());
+                    if (DoubleCompare(doubleValue, listDouble[i], "="))
+                    {
+                        count++;
+                        return true;
+                    }
+                    if (count > 0) { count = 0; break; }
+
+                }
+            }
+
             return false;
         }
 
@@ -1295,7 +1334,7 @@ namespace FRDB_SQLite
                 case "Currency":
                     if(input.Contains(",") || (input.Contains("(") && input.Contains(")")))
                     {
-                        return ListCompare(Convert.ToInt32(value), input, opr, type);
+                        return ListCompare(value, input, opr, type);
                     }
                     else return IntCompare(Convert.ToInt32(value), Convert.ToInt32(input), opr);
                 case "String":
@@ -1312,7 +1351,7 @@ namespace FRDB_SQLite
                 case "Double":
                     if (input.Contains(",") || (input.Contains("(") && input.Contains(")")))
                     {
-                        return ListCompare(Convert.ToDouble(value), input, opr, type);
+                        return ListCompare(value, input, opr, type);
                     }
                     else return DoubleCompare(Convert.ToDouble(value), Convert.ToDouble(input), opr);
                 case "Boolean": return BoolCompare(Convert.ToBoolean(value), Convert.ToBoolean(input), opr);

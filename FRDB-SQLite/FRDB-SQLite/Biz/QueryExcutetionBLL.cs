@@ -524,30 +524,30 @@ namespace FRDB_SQLite
         private String AddSeperator(String expression)
         {
             //expression = expression.Replace(" ", "");//here
-            if (expression.Contains("not"))
+            if (expression.Contains("not "))
             {
                 if (expression.Contains("not like"))
                 {
-                    expression = expression.Insert(expression.IndexOf("not"), "|");
+                    expression = expression.Insert(expression.IndexOf("not "), "|");
                     expression = expression.Insert(expression.IndexOf("like") + 4, "|");
 
                 }
                 else
                 {
-                    expression = expression.Insert(expression.IndexOf("not") + 3, "|");
+                    expression = expression.Insert(expression.IndexOf("not ") + 3, "|");
                 }   
             }
-            if (expression.Contains("like") && !expression.Contains("not like"))
+            if (expression.Contains("like ") && !expression.Contains("not like "))
             {
                 expression = expression.Insert(expression.IndexOf("like") , "|");
                 expression = expression.Insert(expression.IndexOf("like") + 4, "|");
 
             }
 
-            if (expression.Contains("in"))
+            if (expression.Contains("in "))
             {
-                expression = expression.Insert(expression.IndexOf("in"), "|");
-                expression = expression.Insert(expression.IndexOf("in") + 2, "|");
+                expression = expression.Insert(expression.IndexOf("in "), "|");
+                expression = expression.Insert(expression.IndexOf("in ") + 2, "|");
 
             }
 
