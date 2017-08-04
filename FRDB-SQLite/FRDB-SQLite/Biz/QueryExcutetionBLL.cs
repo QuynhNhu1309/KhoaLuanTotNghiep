@@ -753,11 +753,18 @@ namespace FRDB_SQLite
                 else
                     condition = condition.Insert(0, "(");
             }
-
-            if (condition[0] != '(' && condition[condition.Length - 1] == ')')
+            else if (condition[0] != '(' && condition[condition.Length - 1] == ')')
+            {
+                int pos = condition.LastIndexOf("(");
+                if(condition.Substring(pos - 4, 4) == " in " || condition.Substring(pos - 8, 8) == " not in ")
+                {
+                    condition += ")";
+                }
+                condition = condition.Insert(0, "(");
+            }
+            else if (condition[0] == '(' && condition[condition.Length - 1] != ')')
             {
                 condition += ")";
-                condition = condition.Insert(0, "(");
             }
             return condition;
         }

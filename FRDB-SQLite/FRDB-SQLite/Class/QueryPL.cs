@@ -214,10 +214,10 @@ namespace FRDB_SQLite.Class
                     while (query[j] != '(' && j<query.Length-1) j++;
                     String s = query.Substring(i + 1, j - i -1 );
                     int count = 0;
-                    if (s.Substring(0, 5) == " and ") count++;
-                    if (s.Substring(0, 4) == " or ") count++;
-                    if (s.Substring(0, 9) == " and not ") count++;
-                    if (s.Substring(0, 8) == " or not ") count++;
+                    if (s.Length >= 5) { if (s.Substring(0, 5) == " and ") count++; }
+                    if (s.Length >= 4) { if (s.Substring(0, 4) == " or ") count++; }
+                    if (s.Length >= 9) { if (s.Substring(0, 9) == " and not ") count++; }
+                    if (s.Length >= 8) { if (s.Substring(0, 8) == " or not ") count++; }
                     if (count == 0)
                     {
                         i = j + 1;
