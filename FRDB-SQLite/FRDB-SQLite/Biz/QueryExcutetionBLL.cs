@@ -675,7 +675,7 @@ namespace FRDB_SQLite
                 {
                     if (logic == " and ")
                     {
-                        if (((condition[i - 1] != ')') || (condition[i - 1] == ')' && condition.Contains(" in ("))) && condition[i + 5] != '(')
+                        if (condition[i - 1] != ')' && condition[i + 5] != '(')
                         {
                             if (condition.Substring(i + 5, 4) == "not " && condition[i + 9] != '(')
                             {
@@ -695,10 +695,10 @@ namespace FRDB_SQLite
                                 i += 2;
                             }
                         }
-                        else if ((condition[i - 1] != ')') || (condition[i - 1] == ')' && condition.Contains(" in (")) && condition[i + 5] == '(')
+                        else if (condition[i - 1] != ')' && condition[i + 5] == '(')
                             condition = condition.Insert(i++, ")");
 
-                        else if (((condition[i - 1] == ')') || (condition[i - 1] == ')' && condition.Contains(" in (")) && condition[i-2] == ')') && condition[i + 5] != '(')
+                        else if (condition[i - 1] == ')' && condition[i + 5] != '(')
                         {
                             if (condition.Substring(i + 5, 4) == "not " && condition[i + 9] != '(')
                                 condition = condition.Insert(i + 9, "(");
@@ -706,7 +706,7 @@ namespace FRDB_SQLite
                                 condition = condition.Insert(i + 5, "(");
                             i +=5;
                         }
-                        
+
                         i += 4;// Jump to the '('
                     }
                     if (logic.Substring(0, logic.Length - 1) == " or ")
@@ -745,27 +745,65 @@ namespace FRDB_SQLite
                     }
                 }
             }
-            if (condition[0] != '(' && condition[condition.Length - 1] != ')')
+            if (condition[0] != '(')
             {
-                condition += ")";
                 if (condition.Substring(0, 4) == "not ")
                     condition = condition.Insert(4, "(");
                 else
                     condition = condition.Insert(0, "(");
             }
-            else if (condition[0] != '(' && condition[condition.Length - 1] == ')')
-            {
-                int pos = condition.LastIndexOf("(");
-                if(condition.Substring(pos - 4, 4) == " in " || condition.Substring(pos - 8, 8) == " not in ")
-                {
-                    condition += ")";
-                }
-                condition = condition.Insert(0, "(");
-            }
-            else if (condition[0] == '(' && condition[condition.Length - 1] != ')')
-            {
+            if (condition[condition.Length - 1] != ')')
                 condition += ")";
+
+            if(condition.Contains(" in "))
+            {
+                int p1 = 0, p2 = 0, pos = 0;
+                pos = condition.IndexOf(" in ", 0, condition.Length -1);
+                for (int i = pos; i < condition.Length -1; i= pos)
+                {
+                    if (pos > 0)
+                    {
+                        p1 = condition.IndexOf(")", pos, condition.Length - pos);
+                        if (p1 < condition.Length - 1)
+                        {
+                            p2 = condition.IndexOf(")", p1 + 1, 1);
+                            if (p2 < 0)
+                            {
+                                condition = condition.Insert(p1 + 1, ")");
+                            }
+                        }
+                        else if (p1 == condition.Length - 1)
+                        {
+                            condition += ")";
+                            break;
+                        }
+
+                    }
+                    else break;
+                    pos = condition.IndexOf(" in ", i + 2, condition.Length - i - 2);
+                }
             }
+            //if (condition[0] != '(' && condition[condition.Length - 1] != ')')
+            //{
+            //    condition += ")";
+            //    if (condition.Substring(0, 4) == "not ")
+            //        condition = condition.Insert(4, "(");
+            //    else
+            //        condition = condition.Insert(0, "(");
+            //}
+            //else if (condition[0] != '(' && condition[condition.Length - 1] == ')')
+            //{
+            //    int pos = condition.LastIndexOf("(");
+            //    if(condition.Substring(pos - 4, 4) == " in " || condition.Substring(pos - 8, 8) == " not in ")
+            //    {
+            //        condition += ")";
+            //    }
+            //    condition = condition.Insert(0, "(");
+            //}
+            //else if (condition[0] == '(' && condition[condition.Length - 1] != ')')
+            //{
+            //    condition += ")";
+            //}
             return condition;
         }
 
