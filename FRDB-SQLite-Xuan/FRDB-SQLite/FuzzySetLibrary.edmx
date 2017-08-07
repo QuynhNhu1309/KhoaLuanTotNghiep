@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FuzzySetLibraryModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="FuzzySetLibraryModelStoreContainer">
+          <EntitySet Name="ContinuousLibrary" EntityType="FuzzySetLibraryModel.Store.ContinuousLibrary" store:Type="Tables" />
+          <EntitySet Name="DiscreteLibary" EntityType="FuzzySetLibraryModel.Store.DiscreteLibary" store:Type="Tables" />
+          <EntitySet Name="MotherLibrary" EntityType="FuzzySetLibraryModel.Store.MotherLibrary" store:Type="Tables" />
+        </EntityContainer>
+        <EntityType Name="ContinuousLibrary">
+          <Key>
+            <PropertyRef Name="LanguisticLabel" />
+          </Key>
+          <Property Name="LanguisticLabel" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="BottomLeft" Type="float" Nullable="false" />
+          <Property Name="TopLeft" Type="float" Nullable="false" />
+          <Property Name="TopRight" Type="float" Nullable="false" />
+          <Property Name="BottomRight" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DiscreteLibary">
+          <Key>
+            <PropertyRef Name="LanguisticLabel" />
+          </Key>
+          <Property Name="LanguisticLabel" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="Values" Type="nvarchar" />
+          <Property Name="Memberships" Type="nvarchar" />
+        </EntityType>
+        <EntityType Name="MotherLibrary">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="LanguisticLabel" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="FuzzySet" Type="nvarchar" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FuzzySetLibraryModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="FuzzySetLibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ContinuousLibraries" EntityType="FuzzySetLibraryModel.ContinuousLibrary" />
+          <EntitySet Name="DiscreteLibaries" EntityType="FuzzySetLibraryModel.DiscreteLibary" />
+          <EntitySet Name="MotherLibraries" EntityType="FuzzySetLibraryModel.MotherLibrary" />
+        </EntityContainer>
+        <EntityType Name="ContinuousLibrary">
+          <Key>
+            <PropertyRef Name="LanguisticLabel" />
+          </Key>
+          <Property Name="LanguisticLabel" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="BottomLeft" Type="Double" Nullable="false" />
+          <Property Name="TopLeft" Type="Double" Nullable="false" />
+          <Property Name="TopRight" Type="Double" Nullable="false" />
+          <Property Name="BottomRight" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DiscreteLibary">
+          <Key>
+            <PropertyRef Name="LanguisticLabel" />
+          </Key>
+          <Property Name="LanguisticLabel" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="Values" Type="String" MaxLength="2147483647" Unicode="true" FixedLength="false" />
+          <Property Name="Memberships" Type="String" MaxLength="2147483647" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="MotherLibrary">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="LanguisticLabel" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="FuzzySet" Type="String" MaxLength="2147483647" Unicode="true" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FuzzySetLibraryModelStoreContainer" CdmEntityContainer="FuzzySetLibraryEntities">
+          <EntitySetMapping Name="ContinuousLibraries"><EntityTypeMapping TypeName="FuzzySetLibraryModel.ContinuousLibrary"><MappingFragment StoreEntitySet="ContinuousLibrary">
+            <ScalarProperty Name="LanguisticLabel" ColumnName="LanguisticLabel" />
+            <ScalarProperty Name="BottomLeft" ColumnName="BottomLeft" />
+            <ScalarProperty Name="TopLeft" ColumnName="TopLeft" />
+            <ScalarProperty Name="TopRight" ColumnName="TopRight" />
+            <ScalarProperty Name="BottomRight" ColumnName="BottomRight" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DiscreteLibaries"><EntityTypeMapping TypeName="FuzzySetLibraryModel.DiscreteLibary"><MappingFragment StoreEntitySet="DiscreteLibary">
+            <ScalarProperty Name="LanguisticLabel" ColumnName="LanguisticLabel" />
+            <ScalarProperty Name="Values" ColumnName="Values" />
+            <ScalarProperty Name="Memberships" ColumnName="Memberships" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MotherLibraries"><EntityTypeMapping TypeName="FuzzySetLibraryModel.MotherLibrary"><MappingFragment StoreEntitySet="MotherLibrary">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="LanguisticLabel" ColumnName="LanguisticLabel" />
+            <ScalarProperty Name="FuzzySet" ColumnName="FuzzySet" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="FuzzySetLibrary">
+        <EntityTypeShape EntityType="FuzzySetLibraryModel.ContinuousLibrary" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333331" IsExpanded="true" />
+        <EntityTypeShape EntityType="FuzzySetLibraryModel.DiscreteLibary" Width="1.5" PointX="2.75" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="FuzzySetLibraryModel.MotherLibrary" Width="1.5" PointX="0.75" PointY="3.75" Height="1.5956835937499996" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

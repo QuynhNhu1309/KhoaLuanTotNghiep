@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BDF8D71F-9CD8-4AF7-B71D-B092DE2FE9F6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FRDB_SQLite</RootNamespace>
+    <AssemblyName>FRDB-SQLite</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.1.Wizard, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.1.UI, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration.Install">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=2.0.38.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\Checker.cs" />
+    <Compile Include="Class\QueryPL.cs" />
+    <Compile Include="Class\RelationPL.cs" />
+    <Compile Include="Class\SchemePL.cs" />
+    <Compile Include="Biz\ContinuousFuzzySetBLL.cs" />
+    <Compile Include="Biz\DiscreteFuzzySetBLL.cs" />
+    <Compile Include="Biz\FdbBLL.cs" />
+    <Compile Include="Biz\FuzzySetBLL.cs" />
+    <Compile Include="Biz\FzDataTypeBLL.cs" />
+    <Compile Include="Biz\FzQueryBLL.cs" />
+    <Compile Include="Biz\FzRelationBLL.cs" />
+    <Compile Include="Biz\FzSchemeBLL.cs" />
+    <Compile Include="Dal\ContinuousFuzzySetDAL.cs" />
+    <Compile Include="Dal\DiscreteFuzzySetDAL.cs" />
+    <Compile Include="Dal\FdbDAL.cs" />
+    <Compile Include="Dal\FuzzyProcess.cs" />
+    <Compile Include="Dal\FuzzySetDAL.cs" />
+    <Compile Include="Dal\FzDataTypeDAL.cs" />
+    <Compile Include="Dal\FzQueryDAL.cs" />
+    <Compile Include="Dal\FzRelationDAL.cs" />
+    <Compile Include="Dal\FzSchemeDAL.cs" />
+    <Compile Include="Entity\FdbEntity.cs" />
+    <Compile Include="Entity\FzAttributeEntity.cs" />
+    <Compile Include="Entity\FzContinuousFuzzySetEntity.cs" />
+    <Compile Include="Entity\FzDataTypeEntity.cs" />
+    <Compile Include="Entity\FzDiscreteFuzzySetEntity.cs" />
+    <Compile Include="Entity\FzQueryEntity.cs" />
+    <Compile Include="Entity\FzRelationEntity.cs" />
+    <Compile Include="Entity\FzSchemeEntity.cs" />
+    <Compile Include="Entity\FzTupleEntity.cs" />
+    <Compile Include="FuzzySetLibrary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FuzzySetLibrary.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmMessBoxCreateFN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmMessBoxCreateFN.Designer.cs">
+      <DependentUpon>frmMessBoxCreateFN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmAbout.designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmContinuousEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmContinuousEditor.designer.cs">
+      <DependentUpon>frmContinuousEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmDataType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmDataType.designer.cs">
+      <DependentUpon>frmDataType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmDescreteEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmDescreteEditor.designer.cs">
+      <DependentUpon>frmDescreteEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmDisFSRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmDisFSRelation.Designer.cs">
+      <DependentUpon>frmDisFSRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmFuzzySetAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmFuzzySetAction.designer.cs">
+      <DependentUpon>frmFuzzySetAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmHelp.designer.cs">
+      <DependentUpon>frmHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmListContinuous.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmListContinuous.designer.cs">
+      <DependentUpon>frmListContinuous.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmListDescrete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmListDescrete.designer.cs">
+      <DependentUpon>frmListDescrete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmMessageBoxCreateMemFS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmMessageBoxCreateMemFS.Designer.cs">
+      <DependentUpon>frmMessageBoxCreateMemFS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmNewName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmNewName.designer.cs">
+      <DependentUpon>frmNewName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmProgressBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmProgressBar.designer.cs">
+      <DependentUpon>frmProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmQueryEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmQueryEditor.designer.cs">
+      <DependentUpon>frmQueryEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmRelationEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmRelationEditor.designer.cs">
+      <DependentUpon>frmRelationEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmRunAsAdministrator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmRunAsAdministrator.designer.cs">
+      <DependentUpon>frmRunAsAdministrator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmMain.designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Biz\OldAlgorithm.cs" />
+    <Compile Include="Gui\frmSaveScheme.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmSaveScheme.designer.cs">
+      <DependentUpon>frmSaveScheme.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\frmSchemeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\frmSchemeEditor.designer.cs">
+      <DependentUpon>frmSchemeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Installer1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installer1.Designer.cs">
+      <DependentUpon>Installer1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Biz\QueryConditionBLL.cs" />
+    <Compile Include="Biz\QueryExcutetionBLL.cs" />
+    <Compile Include="Dal\SqliteConnection.cs" />
+    <Compile Include="SyntaxHighlighter\SyntaxRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Biz\ThreadBLL.cs" />
+    <EmbeddedResource Include="Gui\frmMessBoxCreateFN.resx">
+      <DependentUpon>frmMessBoxCreateFN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmContinuousEditor.resx">
+      <DependentUpon>frmContinuousEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmDataType.resx">
+      <DependentUpon>frmDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmDescreteEditor.resx">
+      <DependentUpon>frmDescreteEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmDisFSRelation.resx">
+      <DependentUpon>frmDisFSRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmFuzzySetAction.resx">
+      <DependentUpon>frmFuzzySetAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmHelp.resx">
+      <DependentUpon>frmHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmListContinuous.resx">
+      <DependentUpon>frmListContinuous.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmListDescrete.resx">
+      <DependentUpon>frmListDescrete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmMessageBoxCreateMemFS.resx">
+      <DependentUpon>frmMessageBoxCreateMemFS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmNewName.resx">
+      <DependentUpon>frmNewName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmProgressBar.resx">
+      <DependentUpon>frmProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmQueryEditor.resx">
+      <DependentUpon>frmQueryEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmRelationEditor.resx">
+      <DependentUpon>frmRelationEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmRunAsAdministrator.resx">
+      <DependentUpon>frmRunAsAdministrator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmSaveScheme.resx">
+      <DependentUpon>frmSaveScheme.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\frmSchemeEditor.resx">
+      <DependentUpon>frmSchemeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="FuzzySetLibrary.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FuzzySetLibrary.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\about_100km.conFS" />
+    <None Include="Data\about_10h.conFS" />
+    <None Include="Data\about_10kg.conFS" />
+    <None Include="Data\about_10km.conFS" />
+    <None Include="Data\about_1thang.conFS" />
+    <None Include="Data\about_2kg.conFS" />
+    <None Include="Data\about_36h.conFS" />
+    <None Include="Data\cheap_price.conFS" />
+    <None Include="Data\Example.tbb" />
+    <None Include="Data\FuzzySetLibrary.s3db" />
+    <None Include="Data\heavy.disFS" />
+    <None Include="Data\Hospital.tbb" />
+    <None Include="Data\Huong dan cai dat va su dung.doc" />
+    <None Include="Data\lib.rar" />
+    <None Include="Data\middle.conFS" />
+    <None Include="Data\middle.disFS" />
+    <None Include="Data\new fs.disFS" />
+    <None Include="Data\old.conFS" />
+    <None Include="Data\old.disFS" />
+    <None Include="Data\Postal.tbb" />
+    <None Include="Data\tall.disFS" />
+    <None Include="Data\young.conFS" />
+    <None Include="Data\young.disFS" />
+    <None Include="Libs\FuzzySetLibrary.s3db" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Data\license.txt" />
+    <Content Include="Data\UserGuide.txt" />
+    <Content Include="Images\back-alt-16.png" />
+    <Content Include="Images\Calendar_16x16.png" />
+    <Content Include="Images\chart_bar.png" />
+    <Content Include="Images\close.png" />
+    <Content Include="Images\close_folder.png" />
+    <Content Include="Images\curved_arrow-32.png" />
+    <Content Include="Images\database_add.png" />
+    <Content Include="Images\database_connect.png" />
+    <Content Include="Images\database_refresh.png" />
+    <Content Include="Images\database_save.png" />
+    <Content Include="Images\delete_query.png" />
+    <Content Include="Images\deny.png" />
+    <Content Include="Images\discrete.png" />
+    <Content Include="Images\Drafts_16x16.png" />
+    <Content Include="Images\execute result.png" />
+    <Content Include="Images\Flow_block.png" />
+    <Content Include="Images\flow_chart-32 %281%29.png" />
+    <Content Include="Images\flow_chart-32.png" />
+    <Content Include="Images\folder_table.png" />
+    <Content Include="Images\gear_forbidden.png" />
+    <Content Include="Images\help-512.png" />
+    <Content Include="Images\icon.ico" />
+    <Content Include="Images\icon.jpg" />
+    <Content Include="Images\Inbox_16x16.png" />
+    <Content Include="Images\inbox_table.png" />
+    <Content Include="Images\Line-Chart-Up-32.png" />
+    <Content Include="Images\list-32.png" />
+    <Content Include="Images\list_nested-32.png" />
+    <Content Include="Images\Mail_16x16.png" />
+    <Content Include="Images\new_query.png" />
+    <Content Include="Images\new_relation.png" />
+    <Content Include="Images\open1.png" />
+    <Content Include="Images\open2.png" />
+    <Content Include="Images\open3.png" />
+    <Content Include="Images\open_database1.png" />
+    <Content Include="Images\open_database2.png" />
+    <Content Include="Images\Organizer_16x16.png" />
+    <Content Include="Images\Outbox_16x16.png" />
+    <Content Include="Images\point.png" />
+    <Content Include="Images\remove-from-database.png" />
+    <Content Include="Images\Ribbon_AlignCenter_16x16.png" />
+    <Content Include="Images\Ribbon_AlignLeft_16x16.png" />
+    <Content Include="Images\Ribbon_AlignRight_16x16.png" />
+    <Content Include="Images\Ribbon_Bold_16x16.png" />
+    <Content Include="Images\Ribbon_Close_16x16.png" />
+    <Content Include="Images\Ribbon_Close_32x32.png" />
+    <Content Include="Images\Ribbon_Content_16x16.png" />
+    <Content Include="Images\Ribbon_Content_32x32.png" />
+    <Content Include="Images\Ribbon_Exit_16x16.png" />
+    <Content Include="Images\Ribbon_Exit_32x32.png" />
+    <Content Include="Images\Ribbon_Find_16x16.png" />
+    <Content Include="Images\Ribbon_Find_32x32.png" />
+    <Content Include="Images\Ribbon_Info_16x16.png" />
+    <Content Include="Images\Ribbon_Info_32x32.png" />
+    <Content Include="Images\Ribbon_Italic_16x16.png" />
+    <Content Include="Images\Ribbon_New_16x16.png" />
+    <Content Include="Images\Ribbon_New_32x32.png" />
+    <Content Include="Images\Ribbon_Open_16x16.png" />
+    <Content Include="Images\Ribbon_Open_32x32.png" />
+    <Content Include="Images\Ribbon_SaveAs_16x16.png" />
+    <Content Include="Images\Ribbon_SaveAs_32x32.png" />
+    <Content Include="Images\Ribbon_Save_16x16.png" />
+    <Content Include="Images\Ribbon_Save_32x32.png" />
+    <Content Include="Images\Ribbon_Underline_16x16.png" />
+    <Content Include="Images\Save_Data.png" />
+    <Content Include="Images\save_relation.png" />
+    <Content Include="Images\script_record-32.png" />
+    <Content Include="Images\script_save.png" />
+    <Content Include="Images\sgu.png" />
+    <Content Include="Images\small_add1.png" />
+    <Content Include="Images\small_cancel.png" />
+    <Content Include="Images\small_database.png" />
+    <Content Include="Images\small_dell.png" />
+    <Content Include="Images\small_OK.png" />
+    <Content Include="Images\small_query.png" />
+    <Content Include="Images\stock_data-tables.png" />
+    <Content Include="Images\stop execute.png" />
+    <Content Include="Images\table-delete.png" />
+    <Content Include="Images\table-star.png" />
+    <Content Include="Images\table_save.png" />
+    <Content Include="Images\table_small.png" />
+    <Content Include="Images\Tasks_16x16.png" />
+    <Content Include="Images\trapozium.png" />
+    <Content Include="Images\Trash_16x16.png" />
+    <Content Include="Libs\DevExpress.BonusSkins.v11.1.dll" />
+    <Content Include="Libs\DevExpress.Charts.v11.1.Core.dll" />
+    <Content Include="Libs\DevExpress.Data.v11.1.dll" />
+    <Content Include="Libs\DevExpress.OfficeSkins.v11.1.dll" />
+    <Content Include="Libs\DevExpress.Printing.v11.1.Core.dll" />
+    <Content Include="Libs\DevExpress.Utils.v11.1.dll" />
+    <Content Include="Libs\DevExpress.XtraBars.v11.1.dll" />
+    <Content Include="Libs\DevExpress.XtraCharts.v11.1.dll" />
+    <Content Include="Libs\DevExpress.XtraCharts.v11.1.UI.dll" />
+    <Content Include="Libs\DevExpress.XtraEditors.v11.1.dll" />
+    <Content Include="Libs\DevExpress.XtraGrid.v11.1.dll" />
+    <Content Include="Libs\DevExpress.XtraLayout.v11.1.dll" />
+    <Content Include="Libs\DevExpress.XtraNavBar.v11.1.dll" />
+    <Content Include="Libs\DevExpress.XtraVerticalGrid.v11.1.dll" />
+    <Content Include="Libs\SQLite-1.0.66.0-setup.exe" />
+    <Content Include="Libs\System.Data.SQLite.dll" />
+    <Content Include="Libs\System.Data.SQLite.Linq.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
