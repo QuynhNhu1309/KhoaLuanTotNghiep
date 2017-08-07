@@ -642,7 +642,7 @@ namespace FRDB_SQLite
                     {
                         int k = i;
                         // Find the index of the first ')' before "between"
-                        while (k > 0 && (condition.Substring(k,5) == " and " || (condition.Substring(k, 4) == " or ")))
+                        while (k > 0 && (condition.Substring(k,5) != " and " || (condition.Substring(k, 4) != " or ")))
                             k--;
                         // Get the attribute name before "between"
                         if (condition.Substring(k,5) == " and ")
