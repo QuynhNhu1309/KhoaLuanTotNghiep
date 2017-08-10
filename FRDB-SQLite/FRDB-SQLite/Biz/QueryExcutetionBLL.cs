@@ -662,9 +662,9 @@ namespace FRDB_SQLite
         // edit-----
         private String AddParenthesis(String condition)
         {
-            for (int i = 0; i < condition.Length - 5; i++)
+            for (int i = 0; i < condition.Length - 8; i++)
             {
-                String logic = condition.Substring(i, 5);// " and ", " or "
+                String logic = condition.Substring(i, 8);// "between"
                 if (condition[i] == '(' && !condition.Contains(")"))
                 {
                     int j = i + 1;
@@ -673,6 +673,30 @@ namespace FRDB_SQLite
                 }
                 else
                 {
+                    if (logic == "between ")
+                    {
+                        int k = i;
+                        // Find the index of the first ')' before "between"
+                        while (k > 0 && (condition.Substring(k, 5) != " and " || (condition.Substring(k, 4) != " or ")))
+                            k--;
+                        // Get the attribute name before "between"
+                        if (condition.Substring(k, 5) == " and ")
+                        {
+                            k = k + 5;
+                        }
+                        if (condition.Substring(k, 4) == " or ")
+                        {
+                            k = k + 4;
+                        }
+                        String attributeName = condition.Substring(k, i - k);
+                        // Replace the text "between" with the comparison operator ">="
+                        condition = condition.Replace("between", ">=");
+                        int j = i + 1;
+                        // Find the index of the text " and "
+                        while (j < (condition.Length - 5) && condition.Substring(j, 5) != " and ") j++;
+                        // Insert the attribute name and the comparison operator "<=" for the second value
+                        condition = condition.Insert(j + 5, attributeName + " <= ");
+                    }
                     if (logic == " and ")
                     {
                         if (condition[i - 1] != ')' && condition[i + 5] != '(')
