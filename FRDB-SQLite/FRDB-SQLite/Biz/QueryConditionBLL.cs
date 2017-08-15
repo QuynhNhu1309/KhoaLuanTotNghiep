@@ -1176,11 +1176,30 @@ namespace FRDB_SQLite
         private Boolean StringCompare(String a, String b, String opr)
         {
             //a = "\"" + a + "\"";
+            int indexOpen = 0, indexClose = 0;
+            if(b.Contains("\""))
+            {
+                //indexOpen = b.IndexOf("\"");
+                //indexClose = b.IndexOf("\"");
+                a = "\"" + a + "\"";
+            }
+            else if (b.Contains("\'"))
+            {
+                //indexOpen = b.IndexOf("\'");
+                //indexClose = b.IndexOf("\'");
+                a = "\'" + a + "\'";
+            }
+            //if(indexOpen < 0 || indexClose < 0)
+            //{
+            //    return false;
+            //}
+
             switch (opr)
             {
-                case "=": return (a.CompareTo(b) == 0);
+                case "=":  return (a.CompareTo(b) == 0);
                 case "!=": return (a.CompareTo(b) != 0);
-                case "like": return new Regex(@"\A" + new Regex(@"\.|\$|\^|\{|\[|\(|\||\)|\*|\+|\?|\\").Replace(b, ch => @"\" + ch).Replace('_', '.').Replace("%", ".*") + @"\z", RegexOptions.Singleline).IsMatch(a);
+                case "like":
+                    return new Regex(@"\A" + new Regex(@"\.|\$|\^|\{|\[|\(|\||\)|\*|\+|\?|\\").Replace(b, ch => @"\" + ch).Replace('_', '.').Replace("%", ".*") + @"\z", RegexOptions.Singleline).IsMatch(a);
                 case "not like":
                     Regex regx = new Regex(@"\A" + new Regex(@"\.|\$|\^|\{|\[|\(|\||\)|\*|\+|\?|\\").Replace(b, ch => @"\" + ch).Replace('_', '.').Replace("%", ".*") + @"\z", RegexOptions.Singleline);
                     if (!regx.IsMatch(a))

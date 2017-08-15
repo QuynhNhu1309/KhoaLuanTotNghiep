@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using FRDB_SQLite;
+using System.Text.RegularExpressions;
 
 namespace FRDB_SQLite.Class
 {
@@ -88,8 +89,8 @@ namespace FRDB_SQLite.Class
                 }
 
                 result = result.Replace("\n", "");
-                result = result.Replace("'", "");
-                result = result.Replace("\"", "");
+                //result = result.Replace("'", "");
+                //result = result.Replace("\"", "");
                 result = result.Replace("<>", "!=");
                 result = result.Replace("->", "→");
 
@@ -101,6 +102,14 @@ namespace FRDB_SQLite.Class
             }
 
             return "";
+        }
+
+        public static String ReplaceLetter(String query)
+        {
+            String result = String.Empty;
+            result = query.Replace("'", "");
+            result = query.Replace("\"", "");
+            return result;
         }
 
         public static String CheckSyntax(String query)// Query must be standarded and remain single space between specify word
@@ -186,8 +195,8 @@ namespace FRDB_SQLite.Class
                 m = CheckFuzzySet(query);
                 if (m != "")
                     return m;
-                m = CaseCheckFuzzySet(query, "->", 2);
-                if (m != "")
+                //m = CaseCheckFuzzySet(query, "->", 2);
+                //if (m != "")
                     return m;
             }
 
@@ -202,27 +211,28 @@ namespace FRDB_SQLite.Class
 
             if (select.Contains(" and ") || select.Contains(" or ") || select.Contains(" not ") || select.Contains("(") || select.Contains(")") || select.Contains("\""))
                 return message = "Select clause do not allow 'and', 'or', 'not', '(', ')' and '\"'.";
-
-            if (query.Contains("()"))
-                return message = "Incorrect syntax '()'.";
             int i = 0, j = 0;
             while (i < query.Length)
             {
                 if (query[i] == ')' && i < query.Length - 1)
                 {
                     j = i + 1;
-                    while (query[j] != '(' && j<query.Length-1) j++;
-                    String s = query.Substring(i + 1, j - i -1 );
-                    int count = 0;
-                    if (s.Length == 0) count++;
-                    if (s.Length >= 5) { if (s.Substring(0, 5) == " and ") count++; }
-                    if (s.Length >= 4) { if (s.Substring(0, 4) == " or ") count++; }
-                    if (s.Length >= 9) { if (s.Substring(0, 9) == " and not ") count++; }
-                    if (s.Length >= 8) { if (s.Substring(0, 8) == " or not ") count++; }
-                    if (count == 0)
+                    if (query[j] != ')')
                     {
-                        i = j + 1;
-                        return message = "Missing logicality between two expression.";
+                        while (query[j] != '(' && j < query.Length - 1) j++;
+                        String s = query.Substring(i + 1, j - i - 1);
+                        int count = 0;
+                        if (s.Length == 0) count++;
+                        if (s.Length >= 5) { if (s.Substring(0, 5) == " and ") count++; }
+                        if (s.Length >= 4) { if (s.Substring(0, 4) == " or ") count++; }
+                        if (s.Length >= 9) { if (s.Substring(0, 9) == " and not ") count++; }
+                        if (s.Length >= 8) { if (s.Substring(0, 8) == " or not ") count++; }
+
+                        if (count == 0)
+                        {
+                            i = j + 1;
+                            return message = "Missing logicality between two expression.";
+                        }
                     }
                 }
                 i++;
@@ -235,120 +245,94 @@ namespace FRDB_SQLite.Class
         private static String CheckNested(String query)
         {
             String message = "";
-            String s1 = "", s2 = "";
-            int i = 1, j = 0, index, countOpen = 0, countClose = 0,pos = 0, posOpen = 0, posClose = 0, k = 0;
+            string tmp = query;
+            int i = 0, countOpen = 0, countClose = 0,pos = 0, posOpen = 0, posClose = 0, k = 0;
             pos = query.IndexOf("(", 0, query.Length - 1);
-            for (k = pos; k < query.Length; k = pos)
+            if (pos > 0 && ((pos < query.IndexOf(")", 0, query.Length - 1) && query.IndexOf(")", 0, query.Length - 1) > 0)
+                || (query.IndexOf(")", 0, query.Length - 1) < 0)))
+                countOpen++;
+            else if(pos > 0 && pos > query.IndexOf(")", 0, query.Length - 1) && query.IndexOf(")", 0, query.Length - 1) > 0)
             {
-                if (pos > 0 && pos <= query.Length - 1)
+                countClose++;
+                pos = query.IndexOf(")", 0, query.Length - 1);
+            }   
+            for (k = pos + 1; k < query.Length; k = pos)
+            {
+                string open = query.Substring(k, query.Length - k);
+                string close = query.Substring(k, query.Length - k);
+                posOpen = query.IndexOf("(", k, query.Length - k);
+                posClose = query.IndexOf(")", k, query.Length - k);
+                if (posClose > 0 && (posClose < posOpen || posOpen < 0))
                 {
-                    string open = query.Substring(k, query.Length - k);
-                    string close = query.Substring(k, query.Length - k);
-                    posOpen = query.IndexOf("(", k, query.Length - k);
-                    posClose = query.IndexOf(")", k, query.Length - k);
-                    if (posClose > 0 && (posClose < posOpen || posOpen < 0))
-                    {
-                        countClose++;
-                        pos = posClose + 1;
+                    countClose++;
+                    pos = posClose + 1;
 
-                    }
-                    else if (posOpen > 0 && (posClose > posOpen || posClose < 0))
-                    {
-                        countOpen++;
-                        pos = posOpen + 1;
-                    }
-                    else if (posOpen < 0 && posClose < 0)
-                    {
-                        countOpen++;
-                        break;
-                    }
                 }
-                else if (pos == query.Length || pos < 0) break;
+                else if (posOpen > 0 && (posClose > posOpen || posClose < 0))
+                {
+                    countOpen++;
+                    pos = posOpen + 1;
+                }
+                else if (posOpen > 0 && posClose > 0 && 
+                    !Regex.IsMatch(query.Substring(posOpen + 1, posClose - posOpen - 1), @"[a-zA-z1-9]")) // case ()
+                    return message = "Incorrect syntax betwwen ()";
+                if (pos == query.Length || (posOpen < 0 && posClose < 0)) break;
             }
-
             if (countOpen > countClose)
                 return message = "Missing close parenthesis ')'. 0.1";
             else if (countOpen < countClose)
                 return message = "Missing open parenthesis '('. 0.2";
-
-            while (i < query.Length - 1)
+            else if (countOpen == countClose)
             {
-                if (query[i] == '(')
+                while (i < query.Length - 1)
                 {
-                    if (query[i - 1] != ' ')
-                        return message = "Incorrect syntax near '(': missing space 1";
-                    if (!query.Substring(i).Contains(")"))
-                        return message = "Missing close parenthesis ')'.";
-
-                    j = i + 1;
-                    while (j < query.Length)
+                    posOpen = query.IndexOf("(", i);
+                    posClose = query.IndexOf(")", i);
+                    if (posOpen < posClose)
                     {
-                        if (query[j] == ')')
+                        if (posOpen > 0)
                         {
-                            if(j < query.Length - 1)
-                            { 
-                                if (query[j + 1] != ' ')
-                                {
-                                    s1 = query.Substring(i, j - i - 1);
-                                    if (!s1.Contains(" in ") && query[j + 1] != ')')
-                                    {
-                                        return message = "Incorrect syntax near ')': missing space 2";
-                                    }
-                                }
-                            }
-
-                            i = j + 1;
-                            break;
+                            if (query[posOpen - 1] != ' ' && query[posOpen - 1] != '(')// must have space or '(' before (
+                                return message = "Incorrect syntax near '(': missing space 1";
                         }
-                        if (query[j] == '(' && query.Substring(j - 4, 4) != " in ")
-                            return message = "Do not support nested parenthesis near the key word '('. 3";
-                        j++;
+                        if (posClose < query.Length - 1)
+                            if (query[posClose + 1] != ' ' && query[posClose + 1] != ')')// must have space or ')' after )
+                                return message = "Incorrect syntax near ')': missing space 2";
+                        query = query.Remove(posOpen, 1); //remove (
+                        query = query.Remove(posClose - 1, 1);//remove )
                     }
-
-                }// close for query[i] == '('
-
-                i++;
-            }// close for i < query.Length - 1
-
-            i = j = query.Length - 1;
-            while (i > 0)
-            {
-                if (query[i] == ')')
-                { 
-                    if (!query.Substring(0).Contains("("))
-                        return message = "Missing open parenthesis '('.";
-                    j = i - 1;
-                    while (j > 1)
-                    {
-                        if (query[j] == ')')
-                        {
-                            if (j == i - 1 && query.Contains(" in "))
-                            {
-                                s1 = query.Substring(0, j);
-                                index = s1.LastIndexOf("(");
-                                if (index >= 4)
-                                {
-                                    if (!query.Substring(index - 4, 4).Contains(" in "))
-                                    {
-                                        i = j;
-                                        return message = "Missing open parenthesis '('. 5";
-                                    }
-                                }
-
-                            }
-                            else if (!query.Substring(j + 1, i - j).Contains("(") && j != i - 1)
-                            {
-                                i = j;
-                                return message = "Missing open parenthesis '('. 6";
-                            }
-
-                          }
-                        j--;
-                    }
+                    else if (posOpen > posClose)
+                        return message = "Incorrect syntax near '"+query[posOpen]+"'";
+                    else if (posOpen < 0 && posClose < 0)
+                        break;
+                    i = posOpen;
                 }
-
-                i--;
+                // case: Age in 19, 20 and Height > 100 => missing 
+                //tmp = query, because query string is removed () after above while()
+                posOpen = tmp.IndexOf(" in ", 0);
+                while (posOpen >= 0 && posOpen < tmp.Length - 5)
+                {
+                    posClose = tmp.IndexOf(")", posOpen);
+                    if (tmp[posOpen + 4] != '(')
+                        return message = "Missing open parenthesis near 'in'";
+                    else if (posClose < 0)
+                        return message = "Missing close parenthesis near 'in'";
+                    else if(posClose > posOpen && posOpen >= 0)
+                    {
+                        string s = tmp.Substring(posOpen + 5, posClose - posOpen - 5);// substring only between ()
+                        string[] arrs = s.Split(',');
+                        foreach (string arr in arrs)
+                        {
+                            //if in ("abc") must contain word, didit; in (20, 21) must contain only digit
+                            if (!Regex.IsMatch(arr, "^(\"|\\s\"|'|'\\s)([a-z0-9A-Z\\s/.])+(\"|\"\\s|'|'\\s)$|\\d"))
+                                return message = "Incorrect syntax between () near 'in'";
+                        }
+                    }
+                    posOpen = tmp.IndexOf(" in ", posClose  + 1);
+                }
             }
+            
+            
             return message;
         }
 
@@ -356,116 +340,82 @@ namespace FRDB_SQLite.Class
         {
             string message = "";
             int index = query.IndexOf("where");
-            
+            int countQuoteSingle = 0,countQuoteDouble = 0, indexSecond = 0;
             //Remove space next to operator
             String str = query.Substring(index);
-            for (int i = 1; i < str.Length  - 1; i++)
+            for (int i = 0; i < str.Length; i=indexSecond)
             {
-                if (str[i] == '>' || str[i] == '<' || str[i] == '!' || str[i] == '=')
+                if (str[i] == '\'')
                 {
-                    if (str[i - 1] == ' ')
+                    countQuoteSingle++;
+                    if(i < str.Length - 1)
                     {
-                        str = str.Remove(i - 1, 1);
-                        i--;
-                    }
-                    if (str[i + 1] == ' ')
-                        str = str.Remove(i + 1, 1);
-                }
-            }
-            // Check quote
-            int j = 1, k = 0;
-            while (j < str.Length - 1)
-            {
-                if (str[j] == '\"')
-                {
-                    if (Count(str[j - 1].ToString()) == 0)// Mean " is open quote in the left operator
-                    {
-                        k = j + 1;
-                        while (k < str.Length)
+                        indexSecond = str.IndexOf("'", i + 1);
+                        if (indexSecond > 0) //syntax betwwen two quote
                         {
-                            if (Count(str[k].ToString()) > 0)
+                            countQuoteSingle++;
+                            if (!CheckBetweenQuote(str.Substring(i + 1, indexSecond - i - 1)))
+                                return message = "Incorrect syntax betwwen two quote";
+                            if (indexSecond < str.Length - 1)
                             {
-                                if (str[k - 1] != '\"')
-                                    return message = "Missing close quote '\"'";
-                                else
+                                if (str[indexSecond + 1] != ' ' && str[indexSecond + 1] != ')')
                                 {
-                                    j = k;
-                                    break;
+                                    return message = "Missing space next to quote";
                                 }
                             }
-                            else if (k == str.Length - 1)
-                            {
-                                return message = "Incorrect near '"+ str.Substring(j - 1) +"'.";
-                            }
-                            k++;
-                        }
-                    }
-                    else// Mean " is open quote in the right of operator
-                    {
-                        String s = str.Substring(j + 1);
-                        int a = int.MaxValue, b= int.MaxValue, c= int.MaxValue;
-                        if (s.Contains(" and "))
-                            a = s.IndexOf(" and ");
-                        if (s.Contains(" or "))
-                            b = s.IndexOf(" or ");
-                        if (s.Contains(" or not "))
-                            c = s.IndexOf(" not ");
-                        if (s.Contains(" and not "))
-                            c = s.IndexOf(" not ");
-                        int m = Math.Min(Math.Min(a, b), c);
 
-                        if (s.Contains("\""))
-                        {
-                            if (s.IndexOf("\"") > m - 1)
-                                return message = "Missing close quote.";
-                            else
-                            {
-                                j = m;
-                                break;
-                            }
                         }
-                        else
-                            return message = "Missing close quote.";
-                            
-                    }
-                }
-                
-                j++;
-            }
-
-            if (str[str.Length - 1] == '\"')
-            {
-                j = k = str.Length - 2;
-                while (k > 1)
-                {
-                    if (str[k] == '\"' )
-                    {
-                        if (Count(str[k - 1].ToString()) == 0)
-                            message = "Incorrect syntax '" + str.Substring(k) + "': missing string compare and close quote.";
-                        break;
                     }
                     
-                    k--;
                 }
+                else if (str[i] == '\"')
+                {
+                    countQuoteDouble++;
+                    if (i < str.Length - 1)
+                    {
+                        indexSecond = str.IndexOf("\"", i + 1);
+                        if (indexSecond > 0) //syntax betwwen two quote
+                        {
+                            countQuoteDouble++;
+                            if (!CheckBetweenQuote(str.Substring(i + 1, indexSecond - i - 1)))
+                                return message = "Incorrect syntax betwwen two quote";
+                            if (indexSecond < str.Length - 1)
+                            {
+                                if (str[indexSecond + 1] != ' ' && str[indexSecond + 1] != ')' )
+                                {
+                                    return message = "Missing space next to quote";
+                                }
+                            }
+
+                        }
+                    }
+                        
+                        
+                }
+                if(indexSecond < 0)
+                {
+                    indexSecond = i;
+                }
+                
+                indexSecond++;
             }
-            // Check String
-           
+            if((str.Contains("\'") && countQuoteSingle%2 != 0) || (str.Contains("\"") && countQuoteDouble % 2 != 0))
+            {
+                return message = "Missing quote ";
+            }
+            
 
             return message;
         }
 
-        private static int Count(String c)
+        private static Boolean CheckBetweenQuote(String c)
         {
-            int count = 0;
-            if (c.Contains(">")) count++;
-            if (c.Contains("<")) count++;
-            if (c.Contains("=")) count++;
-            if (c.Contains("!")) count++;
-            if (c.Contains("→")) count++;
-
-            return count;
+            if (c.Contains(" and ") || c.Contains(" or ") || c.Contains(" like ") || c.Contains(" not "))
+                return false;
+            return Regex.IsMatch(c, @"[a-zA-z1-9]");
         }
 
+       
         private static String CheckObject(String query, FdbEntity fdb)
         {
             String message = "";
@@ -489,37 +439,24 @@ namespace FRDB_SQLite.Class
 
         private static String CheckFuzzySet(String query)
         {
-            if (query.Contains("->"))
-                return CaseCheckFuzzySet(query, "->", 2);
-            else if (query.Contains("→"))
-                return CaseCheckFuzzySet(query, "→", 1);
-            else
-                return CaseCheckFuzzySet(query, "→", 2);
-        }
-
-        private static String CaseCheckFuzzySet(String query, String key, int l)
-        {
             String message = "";
-            if (query.Contains(key))
+            int index = -1;
+            while (query.Contains("→") && index < query.Length - 1)
             {
-                int k = query.IndexOf(key) + l;
-                if (query[k].ToString() == "\"")
-                    return message = "The name of fuzzy set must be outside of quotes";
-                else
+                index = query.IndexOf("→", index + 1);
+                if (index > 0 && index < query.Length - 2)
                 {
-                    for (int i = 0; i < query.Length; i++)
-                    {
-                        if (query[i] == ' ')
-                        {
-                            if (query[i + 1] == '"')
-                                return message = "Incorrect syntax near \". Fuzzy set must be outside of quotes";
-                        }
-                    }
+                    if ((query[index + 2].ToString() == "\"" || query[index + 2].ToString() == "'") || 
+                        (query[index + 1].ToString() == "\"" || query[index + 1].ToString() == "'"))
+                        return message = "The name of fuzzy set must be outside of quotes ";
                 }
+                else if (index < 0) break;
+                index++;
             }
-
             return message;
         }
+
+       
         
         #endregion
     }

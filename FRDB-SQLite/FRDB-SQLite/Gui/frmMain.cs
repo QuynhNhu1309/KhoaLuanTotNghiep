@@ -1703,6 +1703,7 @@ namespace FRDB_SQLite.Gui
                     ShowMessage(message, Color.Red);
                     return;
                 }
+                //query = QueryPL.ReplaceLetter(query);
                 FdbEntity newFdb = new FdbEntity() { Relations = fdbEntity.Relations, Schemes = fdbEntity.Schemes, DiscreteFuzzyNumbers = fdbEntity.DiscreteFuzzyNumbers, ContinuousFuzzyNumbers = fdbEntity.ContinuousFuzzyNumbers };
 
                 QueryExcutetionBLL excutetion = new QueryExcutetionBLL(query.ToLower(), newFdb);
