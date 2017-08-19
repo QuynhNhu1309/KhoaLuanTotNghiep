@@ -1177,22 +1177,69 @@ namespace FRDB_SQLite
         {
             //a = "\"" + a + "\"";
             int indexOpen = 0, indexClose = 0;
-            if(b.Contains("\""))
+
+            int maxLength = a.Length;
+            if (maxLength > b.Length)
+            {
+                maxLength = b.Length;
+            }
+            if (b.Contains("\""))
             {
                 //indexOpen = b.IndexOf("\"");
                 //indexClose = b.IndexOf("\"");
                 a = "\"" + a + "\"";
+                maxLength--;
             }
             else if (b.Contains("\'"))
             {
                 //indexOpen = b.IndexOf("\'");
                 //indexClose = b.IndexOf("\'");
                 a = "\'" + a + "\'";
+                maxLength--;
             }
             //if(indexOpen < 0 || indexClose < 0)
             //{
             //    return false;
             //}
+
+            string STRING_BIGGER = "string_bigger";
+            string STRING_SMALLER = "string_smaller";
+            string STRING_EQUAL = "string_equal";
+            string result = "";
+            bool? isFirstBiggerSecond = null;
+            for (int i = 0; i < maxLength; i++)
+            {
+                if (a[i] > b[i])
+                {
+                    isFirstBiggerSecond = true;
+                    break;
+                }
+                if (a[i] < b[i])
+                {
+                    isFirstBiggerSecond = false;
+                    break;
+                }
+            }
+            if (isFirstBiggerSecond == true)
+            {
+                result = STRING_BIGGER;
+            }
+            else if (isFirstBiggerSecond == false)
+            {
+                result = STRING_SMALLER;
+            }
+            else if (a.Length > b.Length)
+            {
+                result = STRING_BIGGER;
+            }
+            else if (a.Length < b.Length)
+            {
+                result = STRING_SMALLER;
+            }
+            else
+            {
+                result = STRING_EQUAL;
+            }
 
             switch (opr)
             {
@@ -1205,8 +1252,32 @@ namespace FRDB_SQLite
                     if (!regx.IsMatch(a))
                     {
                         return true;
-                    }break;
-    
+                    }
+                    break;
+                case ">":
+                    if (result == STRING_BIGGER)
+                    {
+                        return true;
+                    }
+                    return false;
+                case "<":
+                    if (result == STRING_SMALLER)
+                    {
+                        return true;
+                    }
+                    return false;
+                case ">=":
+                    if (result == STRING_SMALLER)
+                    {
+                        return false;
+                    }
+                    return true;
+                case "<=":
+                    if (result == STRING_BIGGER)
+                    {
+                        return false;
+                    }
+                    return true;
             }
 
             return false;
