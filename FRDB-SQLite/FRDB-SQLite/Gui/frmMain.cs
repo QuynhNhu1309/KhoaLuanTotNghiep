@@ -1202,7 +1202,7 @@ namespace FRDB_SQLite.Gui
                 }
 
                 FzTupleEntity tuple = new FzTupleEntity() { ValuesOnPerRow = objs };
-                currentRelation.Tuples.Add(tuple);
+                currentRelation.Add(tuple);
             }
         }
 

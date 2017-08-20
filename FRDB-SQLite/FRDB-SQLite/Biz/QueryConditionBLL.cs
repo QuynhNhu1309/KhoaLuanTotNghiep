@@ -1420,6 +1420,33 @@ namespace FRDB_SQLite
             Regex regex = new Regex(@"^[-+]?[0-9]*\.?[0-9]+$");
             return regex.IsMatch(pText);
         }
+        //---edit
+        public bool DateTimeCompare(string val, string input, string opr)
+        {
+            if ((input[0] == '\'' && input[input.Length - 1] == '\'') || (input[0] == '\"' && input[input.Length - 1] == '\"'))
+            {
+                input = input.Remove(input.Length - 1);
+                input = input.Remove(0, 1);
+                DateTime inpDtime = DateTime.Parse(input);
+                DateTime valDtime = DateTime.Parse(val);
+                switch (opr)
+                {
+                    case ">":
+                        return valDtime > inpDtime;
+                    case "<":
+                        return valDtime < inpDtime;
+                    case ">=":
+                        return valDtime >= inpDtime;
+                    case "<=":
+                        return valDtime <= inpDtime;
+                    case "=":
+                        return valDtime == inpDtime;
+
+                }
+                return false;
+            }
+            throw new Exception("Missing quote");
+        }
         //-----
         #region Fuzzy Set
         /// <summary>
@@ -1441,8 +1468,9 @@ namespace FRDB_SQLite
                         return ListCompare(value, input, opr, type);
                     }
                     else return IntCompare(Convert.ToInt32(value), Convert.ToInt32(input), opr);
-                case "String":
                 case "DateTime":
+                    return DateTimeCompare(value.ToString(), input, opr);
+                case "String":
                 case "UserDefined":
                 case "Binary":
                     if (input.Contains(",") || (input.Contains("(") && input.Contains(")")))

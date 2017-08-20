@@ -676,6 +676,7 @@ namespace FRDB_SQLite
                     if (logic == "between ")
                     {
                         int k = i;
+                        bool isNotEle = false;
                         // Find the index of the first ')' before "between"
                         while (k > 0 && (condition.Substring(k, 5) != " and " || (condition.Substring(k, 4) != " or ")))
                             k--;
@@ -688,14 +689,36 @@ namespace FRDB_SQLite
                         {
                             k = k + 4;
                         }
+                        if (condition.Substring(k, 4) == "not ")
+                        {
+                            k = k + 4;
+                            isNotEle = true;
+                        }
                         String attributeName = condition.Substring(k, i - k);
                         // Replace the text "between" with the comparison operator ">="
-                        condition = condition.Replace("between", ">=");
+                        if (isNotEle)
+                        {
+                            condition = condition.Replace("between", "<");
+                        }
+                        else
+                        {
+                            condition = condition.Replace("between", ">=");
+                        }
                         int j = i + 1;
                         // Find the index of the text " and "
                         while (j < (condition.Length - 5) && condition.Substring(j, 5) != " and ") j++;
                         // Insert the attribute name and the comparison operator "<=" for the second value
-                        condition = condition.Insert(j + 5, attributeName + " <= ");
+                        // If there is "not" statement, we add the comparison operator ">" for the second value and replace "and" to "or" and remove "not" 
+                        if (isNotEle)
+                        {
+                            condition = condition.Insert(j + 5, attributeName + " > ");
+                            condition = condition.Replace("and", "or");
+                            condition = condition.Replace("not ", "");
+                        }
+                        else
+                        {
+                            condition = condition.Insert(j + 5, attributeName + " <= ");
+                        }
                     }
                     if (logic == " and ")
                     {

@@ -81,6 +81,30 @@ namespace FRDB_SQLite
 
         #region 4. Methods (none)
 
+        public void Add(FzTupleEntity tuple)
+        {
+            List<Object> objs = new List<Object>();
+            for (int i = 0; i < this._scheme.Attributes.Count; i++)
+            {
+                FzAttributeEntity attribute = this._scheme.Attributes[i];
+                string typeName = attribute.DataType.TypeName;
+                if (typeName == "String")
+                {
+                    objs.Add(tuple.ValuesOnPerRow[i].ToString());
+                }
+                else if (typeName == "DateTime")
+                {
+                    objs.Add(DateTime.Parse(tuple.ValuesOnPerRow[i].ToString()));
+                }
+                else
+                {
+                    objs.Add(tuple.ValuesOnPerRow[i]);
+                }
+            }
+            FzTupleEntity insertTuple = new FzTupleEntity() { ValuesOnPerRow = objs };
+            this.Tuples.Add(insertTuple);
+        }
+
         #endregion
 
         #region 5. Privates (none)
