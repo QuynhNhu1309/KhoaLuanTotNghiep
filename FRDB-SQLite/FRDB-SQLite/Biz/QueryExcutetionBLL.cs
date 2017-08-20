@@ -123,6 +123,7 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
+                //result = SatisfyAttributes(result); // đừng xóa cmt này :)
             }
             catch (Exception ex)
             {
@@ -192,6 +193,14 @@ namespace FRDB_SQLite
             }
 
             return result;
+        }
+
+
+        public bool IsNumeric(object Expression)
+        {
+            double retNum;
+            bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            return isNum;
         }
         #endregion
 
@@ -307,16 +316,22 @@ namespace FRDB_SQLite
             //String was standardzied and cut space,....
             if (!s.Contains("*"))
             {
+
                 int i = 7;//Attribute after "select"
                 int j = s.IndexOf("from");
                 String tmp = s.Substring(i, j - i);
+                //if (s.Contains("min")) //đừng xóa cmt này :)
+                //{
+                //    tmp = tmp.Replace("min", "");
+                //    tmp = tmp.Replace("(", "");
+                //    tmp = tmp.Replace(")", "");
+                //}
                 tmp = tmp.Replace(" ", "");
                 result = tmp.Split(',');
             }
 
             return result;
         }
-
         private String[] GetRelationTexts(String s)
         {//the relations which user input such: select attr1, att2... from
             String[] result = null;
@@ -853,6 +868,68 @@ namespace FRDB_SQLite
             //}
             return condition;
         }
+
+        private FzRelationEntity SatisfyAttributes(FzRelationEntity result)
+        {
+            //FzRelationEntity r = new FzRelationEntity();
+            List<FzTupleEntity> listtuple = new List<FzTupleEntity>();
+            int indexofAttr = 0;// Int32.Parse(result.Scheme.Attributes[0].ToString());
+            Boolean checknum = IsNumeric(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
+            double value = double.Parse(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
+            double temp;
+            for (int i = 0; i < result.Tuples.Count - 1; i++)
+            {
+                #region "for loop find min, max,.. value"
+                temp = double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString());
+                //if (query.Contains("max"))
+                //{
+                //    if (temp > value)
+                //    {
+                //        value = temp;
+                //    }
+                //}
+                //if (query.Contains("min"))
+                //{
+                if (temp < value)
+                {
+                    value = temp;
+                }
+                //}
+                //if (query.Contains("sum") || query.Contains("avg"))
+                //{
+                //    if (query.Contains("max") || query.Contains("min"))
+                //    {
+                //        //value += temp;
+                //    }
+                //    else
+                //    {
+                //        value += temp;
+                //    }
+                //    if (membership > double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString()))
+                //    {
+                //        membership = double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString());
+                //    }
+                //}
+                #endregion
+            }
+            //if (query.Contains("max") || query.Contains("min"))
+            //{
+
+            for (int i = 0; i < result.Tuples.Count; i++)
+            {
+                if (double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString()) == value)
+                {
+                    listtuple.Add(result.Tuples[i]);
+                }
+            }
+            result.Tuples.Clear();
+            foreach (FzTupleEntity tuple in listtuple)
+            {
+                result.Tuples.Add(tuple);
+            }
+            return result;
+        }
+
 
         #endregion
 

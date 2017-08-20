@@ -128,13 +128,27 @@ namespace FRDB_SQLite.Class
                 return message = "Query is missing 'from' structure!";
 
             int select = query.IndexOf("select");
-            int mark = query.IndexOf("*");
+            int selectAttr = query.IndexOf("*");
             int from = query.IndexOf("from");
+            int where = 0, groupby = 0, having = 0 , orderby = 0, startGroupbyAttr = 0, endGroupbyAttr = 0;
+            string groupbyAttr = "", selectAttrStr = "";
+            string[] selectAttrArr = null;
             if (select != query.LastIndexOf("select"))// Select must be unique
                 return message = "Not support multi 'select'!";
 
-            if (mark != query.LastIndexOf("*"))// * must be unique
+            if (selectAttr != query.LastIndexOf("*"))// * must be unique
                 return message = "Not support multi '*'!";
+            // selected attributes
+            if(selectAttr < 0)
+            {
+                selectAttrStr = query.Substring(select + 7, from - select - 8);
+                MatchCollection attr = Regex.Matches(groupbyAttr, @"[\w]+");// count word in group by clause
+                MatchCollection attrComma = Regex.Matches(groupbyAttr, @"[,]+");// count comma in group by clause
+                if (attr.Count > 1 && attrComma.Count == attr.Count - 1)
+                    selectAttrArr = selectAttrStr.Split(',');
+                else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
+                    return message = "Missing comma near 'select' clause";
+            }
 
             if (from != query.LastIndexOf("from"))// From must be unique
                 return message = "Not support multi 'from'!";
@@ -146,7 +160,7 @@ namespace FRDB_SQLite.Class
             }
             else// Check syntax of condition: where (age="young" not weight>=45 or height>150) and height>155
             {
-                int where = query.IndexOf("where");
+                where = query.IndexOf("where");
 
                 if (where != query.LastIndexOf("where"))// Where must be unique
                     return message = "Not support multi condition with 'where'!";
@@ -198,6 +212,68 @@ namespace FRDB_SQLite.Class
                 //m = CaseCheckFuzzySet(query, "->", 2);
                 //if (m != "")
                     return m;
+            }
+            //group by
+            if (query.Contains(" group by "))
+            {
+                groupby = query.IndexOf(" group by ");
+                if (groupby < selectAttr || groupby < select || groupby < from || groupby < where)
+                {
+                    return message = "'Group by' clause is reuquired after 'select, from, where'";
+                }
+            }
+
+            //having
+            if (query.Contains(" having "))
+            {
+                having = query.IndexOf(" having ");
+                if (having < groupby || groupby < 0)
+                {
+                    return message = "'Group by' clause is reuquired before 'having'";
+                }
+            }
+
+            //order by
+            if (query.Contains(" order by "))
+            {
+                orderby = query.IndexOf(" order by ");
+                if (orderby < having || orderby < selectAttr || orderby < select || orderby < from || orderby < where)
+                {
+                    return message = "'Order by' clause is reuquired after 'select, from, where, group by, having'";
+                }
+            }
+
+            //Check select in 'group by clause'
+            if (groupby > 0)
+            {
+                startGroupbyAttr = groupby + 9;
+                if (having > 0)
+                    endGroupbyAttr = having - 1;
+                else if (having <= 0 && orderby > 0)
+                    endGroupbyAttr = orderby - 1;
+                else if (having <= 0 && orderby <= 0)
+                    endGroupbyAttr = query.Length;
+                groupbyAttr = query.Substring(startGroupbyAttr + 1, endGroupbyAttr - startGroupbyAttr - 1);
+                MatchCollection attr = Regex.Matches(groupbyAttr, @"[\w]+");// count word in group by clause
+                MatchCollection attrComma = Regex.Matches(groupbyAttr, @"[,]+");// count comma in group by clause
+                if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1)
+                {
+                    string[] groupbyAttrArr = null;
+                    groupbyAttrArr = groupbyAttr.Split(',');
+                    if (selectAttr < 0)
+                    {
+                        for (int i = 0; i < groupbyAttrArr.Length; i++)
+                        {
+                            if (!selectAttrStr.Contains(groupbyAttrArr[i]))
+                                return message = "Attributes in 'group by' must be included in 'select'";
+                        }
+                    }
+                }
+                else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
+                    return message = "Missing comma in 'group by' clause";
+                //if (selectAttr < 0) // not contain * in select
+
+
             }
 
             return message;
