@@ -1427,7 +1427,11 @@ namespace FRDB_SQLite
             {
                 input = input.Remove(input.Length - 1);
                 input = input.Remove(0, 1);
-                DateTime inpDtime = DateTime.Parse(input);
+                DateTime inpDtime;
+                if (DateTime.TryParse(input, out inpDtime) == false)
+                {
+                    throw new Exception("Invalid DateTime format: MM/dd/yyyy hh:mm:ss");
+                }
                 DateTime valDtime = DateTime.Parse(val);
                 switch (opr)
                 {

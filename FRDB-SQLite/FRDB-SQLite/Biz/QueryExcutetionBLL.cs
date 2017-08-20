@@ -123,7 +123,6 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
-                //result = SatisfyAttributes(result); // đừng xóa cmt này :)
             }
             catch (Exception ex)
             {
@@ -193,14 +192,6 @@ namespace FRDB_SQLite
             }
 
             return result;
-        }
-
-
-        public bool IsNumeric(object Expression)
-        {
-            double retNum;
-            bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
-            return isNum;
         }
         #endregion
 
@@ -316,22 +307,16 @@ namespace FRDB_SQLite
             //String was standardzied and cut space,....
             if (!s.Contains("*"))
             {
-
                 int i = 7;//Attribute after "select"
                 int j = s.IndexOf("from");
                 String tmp = s.Substring(i, j - i);
-                //if (s.Contains("min")) //đừng xóa cmt này :)
-                //{
-                //    tmp = tmp.Replace("min", "");
-                //    tmp = tmp.Replace("(", "");
-                //    tmp = tmp.Replace(")", "");
-                //}
                 tmp = tmp.Replace(" ", "");
                 result = tmp.Split(',');
             }
 
             return result;
         }
+
         private String[] GetRelationTexts(String s)
         {//the relations which user input such: select attr1, att2... from
             String[] result = null;
@@ -614,7 +599,7 @@ namespace FRDB_SQLite
             }
             return expression;
         }
-        
+
         /// <summary>
         /// Add quotes mark to each expression: Do not allow quotes nest((
         /// </summary>
@@ -677,9 +662,9 @@ namespace FRDB_SQLite
         // edit-----
         private String AddParenthesis(String condition)
         {
-            for (int i = 0; i < condition.Length - 8; i++)
+            for (int i = 0; i < condition.Length - 5; i++)
             {
-                String logic = condition.Substring(i, 8);// "between"
+                String logic = condition.Substring(i, 5);// " and ", " or "
                 if (condition[i] == '(' && !condition.Contains(")"))
                 {
                     int j = i + 1;
@@ -688,7 +673,7 @@ namespace FRDB_SQLite
                 }
                 else
                 {
-                    if (logic == "between ")
+                    if (i < (condition.Length - 8) && condition.Substring(i, 8) == "between ")
                     {
                         int k = i;
                         bool isNotEle = false;
@@ -766,7 +751,7 @@ namespace FRDB_SQLite
                                 condition = condition.Insert(i + 9, "(");
                             else if (condition.Substring(i + 5, 4) != "not ")
                                 condition = condition.Insert(i + 5, "(");
-                            i +=5;
+                            i += 5;
                         }
 
                         i += 4;// Jump to the '('
@@ -799,7 +784,7 @@ namespace FRDB_SQLite
                                 condition = condition.Insert(i + 8, "(");
                             else if (condition.Substring(i + 4, 4) != "not ")
                                 condition = condition.Insert(i + 4, "(");
-                            i +=5;
+                            i += 5;
                         }
                         else if (condition[i - 1] != ')' && condition[i + 4] == '(')
                             condition = condition.Insert(i++, ")");
@@ -817,11 +802,11 @@ namespace FRDB_SQLite
             if (condition[condition.Length - 1] != ')')
                 condition += ")";
 
-            if(condition.Contains(" in "))
+            if (condition.Contains(" in "))
             {
                 int p1 = 0, p2 = 0, pos = 0;
-                pos = condition.IndexOf(" in ", 0, condition.Length -1);
-                for (int i = pos; i < condition.Length -1; i= pos)
+                pos = condition.IndexOf(" in ", 0, condition.Length - 1);
+                for (int i = pos; i < condition.Length - 1; i = pos)
                 {
                     if (pos > 0)
                     {
@@ -845,91 +830,203 @@ namespace FRDB_SQLite
                     pos = condition.IndexOf(" in ", i + 2, condition.Length - i - 2);
                 }
             }
-            //if (condition[0] != '(' && condition[condition.Length - 1] != ')')
-            //{
-            //    condition += ")";
-            //    if (condition.Substring(0, 4) == "not ")
-            //        condition = condition.Insert(4, "(");
-            //    else
-            //        condition = condition.Insert(0, "(");
-            //}
-            //else if (condition[0] != '(' && condition[condition.Length - 1] == ')')
-            //{
-            //    int pos = condition.LastIndexOf("(");
-            //    if(condition.Substring(pos - 4, 4) == " in " || condition.Substring(pos - 8, 8) == " not in ")
-            //    {
-            //        condition += ")";
-            //    }
-            //    condition = condition.Insert(0, "(");
-            //}
-            //else if (condition[0] == '(' && condition[condition.Length - 1] != ')')
-            //{
-            //    condition += ")";
-            //}
+
             return condition;
         }
 
-        private FzRelationEntity SatisfyAttributes(FzRelationEntity result)
-        {
-            //FzRelationEntity r = new FzRelationEntity();
-            List<FzTupleEntity> listtuple = new List<FzTupleEntity>();
-            int indexofAttr = 0;// Int32.Parse(result.Scheme.Attributes[0].ToString());
-            Boolean checknum = IsNumeric(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
-            double value = double.Parse(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
-            double temp;
-            for (int i = 0; i < result.Tuples.Count - 1; i++)
-            {
-                #region "for loop find min, max,.. value"
-                temp = double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString());
-                //if (query.Contains("max"))
-                //{
-                //    if (temp > value)
-                //    {
-                //        value = temp;
-                //    }
-                //}
-                //if (query.Contains("min"))
-                //{
-                if (temp < value)
-                {
-                    value = temp;
-                }
-                //}
-                //if (query.Contains("sum") || query.Contains("avg"))
-                //{
-                //    if (query.Contains("max") || query.Contains("min"))
-                //    {
-                //        //value += temp;
-                //    }
-                //    else
-                //    {
-                //        value += temp;
-                //    }
-                //    if (membership > double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString()))
-                //    {
-                //        membership = double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString());
-                //    }
-                //}
-                #endregion
-            }
-            //if (query.Contains("max") || query.Contains("min"))
-            //{
+        //private String AddParenthesis(String condition)
+        //{
+        //    for (int i = 0; i < condition.Length - 8; i++)
+        //    {
+        //        String logic = condition.Substring(i, 8);// "between"
+        //        if (condition[i] == '(' && !condition.Contains(")"))
+        //        {
+        //            int j = i + 1;
+        //            while (condition[j] != ')') i = j++;
+        //            i -= 5;// Prevent Index was outside the bounds of the array
+        //        }
+        //        else
+        //        {
+        //            if (logic == "between ")
+        //            {
+        //                int k = i;
+        //                bool isNotEle = false;
+        //                // Find the index of the first ')' before "between"
+        //                while (k > 0 && (condition.Substring(k, 5) != " and " || (condition.Substring(k, 4) != " or ")))
+        //                    k--;
+        //                // Get the attribute name before "between"
+        //                if (condition.Substring(k, 5) == " and ")
+        //                {
+        //                    k = k + 5;
+        //                }
+        //                if (condition.Substring(k, 4) == " or ")
+        //                {
+        //                    k = k + 4;
+        //                }
+        //                if (condition.Substring(k, 4) == "not ")
+        //                {
+        //                    k = k + 4;
+        //                    isNotEle = true;
+        //                }
+        //                String attributeName = condition.Substring(k, i - k);
+        //                // Replace the text "between" with the comparison operator ">="
+        //                if (isNotEle)
+        //                {
+        //                    condition = condition.Replace("between", "<");
+        //                }
+        //                else
+        //                {
+        //                    condition = condition.Replace("between", ">=");
+        //                }
+        //                int j = i + 1;
+        //                // Find the index of the text " and "
+        //                while (j < (condition.Length - 5) && condition.Substring(j, 5) != " and ") j++;
+        //                // Insert the attribute name and the comparison operator "<=" for the second value
+        //                // If there is "not" statement, we add the comparison operator ">" for the second value and replace "and" to "or" and remove "not" 
+        //                if (isNotEle)
+        //                {
+        //                    condition = condition.Insert(j + 5, attributeName + " > ");
+        //                    condition = condition.Replace("and", "or");
+        //                    condition = condition.Replace("not ", "");
+        //                }
+        //                else
+        //                {
+        //                    condition = condition.Insert(j + 5, attributeName + " <= ");
+        //                }
+        //            }
+        //            if (logic == " and ")
+        //            {
+        //                if (condition[i - 1] != ')' && condition[i + 5] != '(')
+        //                {
+        //                    if (condition.Substring(i + 5, 4) == "not " && condition[i + 9] != '(')
+        //                    {
+        //                        condition = condition.Insert(i + 9, "(");
+        //                        condition = condition.Insert(i, ")");
+        //                        i += 6;
+        //                    }
+        //                    else if (condition.Substring(i + 5, 4) == "not " && condition[i + 9] == '(')
+        //                    {
+        //                        condition = condition.Insert(i, ")");
+        //                        i += 5;
+        //                    }
+        //                    else if (condition.Substring(i + 5, 4) != "not ")
+        //                    {
+        //                        condition = condition.Insert(i + 5, "(");
+        //                        condition = condition.Insert(i, ")");
+        //                        i += 2;
+        //                    }
+        //                }
+        //                else if (condition[i - 1] != ')' && condition[i + 5] == '(')
+        //                    condition = condition.Insert(i++, ")");
 
-            for (int i = 0; i < result.Tuples.Count; i++)
-            {
-                if (double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString()) == value)
-                {
-                    listtuple.Add(result.Tuples[i]);
-                }
-            }
-            result.Tuples.Clear();
-            foreach (FzTupleEntity tuple in listtuple)
-            {
-                result.Tuples.Add(tuple);
-            }
-            return result;
-        }
+        //                else if (condition[i - 1] == ')' && condition[i + 5] != '(')
+        //                {
+        //                    if (condition.Substring(i + 5, 4) == "not " && condition[i + 9] != '(')
+        //                        condition = condition.Insert(i + 9, "(");
+        //                    else if (condition.Substring(i + 5, 4) != "not ")
+        //                        condition = condition.Insert(i + 5, "(");
+        //                    i +=5;
+        //                }
 
+        //                i += 4;// Jump to the '('
+        //            }
+        //            if (logic.Substring(0, logic.Length - 1) == " or ")
+        //            {
+        //                if (condition[i - 1] != ')' && condition[i + 4] != '(')
+        //                {
+        //                    if (condition.Substring(i + 4, 4) == "not " && condition[i + 8] != '(')
+        //                    {
+        //                        condition = condition.Insert(i + 8, "(");
+        //                        condition = condition.Insert(i, ")");
+        //                        i += 6;
+        //                    }
+        //                    else if (condition.Substring(i + 4, 4) == "not " && condition[i + 8] == '(')
+        //                    {
+        //                        condition = condition.Insert(i, ")");
+        //                        i += 5;
+        //                    }
+        //                    else if (condition.Substring(i + 4, 4) != "not ")
+        //                    {
+        //                        condition = condition.Insert(i + 4, "(");
+        //                        condition = condition.Insert(i, ")");
+        //                        i += 2;
+        //                    }
+        //                }
+        //                else if (condition[i - 1] == ')' && condition[i + 4] != '(')
+        //                {
+        //                    if (condition.Substring(i + 4, 4) == "not " && condition[i + 8] != '(')
+        //                        condition = condition.Insert(i + 8, "(");
+        //                    else if (condition.Substring(i + 4, 4) != "not ")
+        //                        condition = condition.Insert(i + 4, "(");
+        //                    i +=5;
+        //                }
+        //                else if (condition[i - 1] != ')' && condition[i + 4] == '(')
+        //                    condition = condition.Insert(i++, ")");
+        //                i += 3;// Jump to the '('
+        //            }
+        //        }
+        //    }
+        //    if (condition[0] != '(')
+        //    {
+        //        if (condition.Substring(0, 4) == "not ")
+        //            condition = condition.Insert(4, "(");
+        //        else
+        //            condition = condition.Insert(0, "(");
+        //    }
+        //    if (condition[condition.Length - 1] != ')')
+        //        condition += ")";
+
+        //    if(condition.Contains(" in "))
+        //    {
+        //        int p1 = 0, p2 = 0, pos = 0;
+        //        pos = condition.IndexOf(" in ", 0, condition.Length -1);
+        //        for (int i = pos; i < condition.Length -1; i= pos)
+        //        {
+        //            if (pos > 0)
+        //            {
+        //                p1 = condition.IndexOf(")", pos, condition.Length - pos);
+        //                if (p1 < condition.Length - 1)
+        //                {
+        //                    p2 = condition.IndexOf(")", p1 + 1, 1);
+        //                    if (p2 < 0)
+        //                    {
+        //                        condition = condition.Insert(p1 + 1, ")");
+        //                    }
+        //                }
+        //                else if (p1 == condition.Length - 1)
+        //                {
+        //                    condition += ")";
+        //                    break;
+        //                }
+
+        //            }
+        //            else break;
+        //            pos = condition.IndexOf(" in ", i + 2, condition.Length - i - 2);
+        //        }
+        //    }
+        //    //if (condition[0] != '(' && condition[condition.Length - 1] != ')')
+        //    //{
+        //    //    condition += ")";
+        //    //    if (condition.Substring(0, 4) == "not ")
+        //    //        condition = condition.Insert(4, "(");
+        //    //    else
+        //    //        condition = condition.Insert(0, "(");
+        //    //}
+        //    //else if (condition[0] != '(' && condition[condition.Length - 1] == ')')
+        //    //{
+        //    //    int pos = condition.LastIndexOf("(");
+        //    //    if(condition.Substring(pos - 4, 4) == " in " || condition.Substring(pos - 8, 8) == " not in ")
+        //    //    {
+        //    //        condition += ")";
+        //    //    }
+        //    //    condition = condition.Insert(0, "(");
+        //    //}
+        //    //else if (condition[0] == '(' && condition[condition.Length - 1] != ')')
+        //    //{
+        //    //    condition += ")";
+        //    //}
+        //    return condition;
+        //}
 
         #endregion
 
