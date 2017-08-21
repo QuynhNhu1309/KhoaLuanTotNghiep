@@ -17,6 +17,7 @@ namespace FRDB_SQLite
 
         private List<FzAttributeEntity> _selectedAttributes = new List<FzAttributeEntity>();
         private List<FzRelationEntity> _selectedRelations = new List<FzRelationEntity>();
+        List<Filter> filters = null;
         List<int> _index = new List<int>();
 
         private String _queryText;
@@ -82,7 +83,7 @@ namespace FRDB_SQLite
                 this.GetSectedRelation(); if (this._error) throw new Exception(this._errorMessage);
                 this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
 
-                _errorMessage = ExistsAttribute();
+                //_errorMessage = ExistsAttribute();
                 if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
 
 
@@ -123,7 +124,7 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
-                //result = SatisfyAttributes(result); // đừng xóa cmt này :)
+                result = SatisfyAttributes(result, _queryText); // đừng xóa cmt này :)
             }
             catch (Exception ex)
             {
@@ -335,12 +336,14 @@ namespace FRDB_SQLite
         {//the relations which user input such: select attr1, att2... from
             String[] result = null;
             //String was standardzied and cut space,....
-            int i = s.IndexOf("from") + 5;
+            int i = s.IndexOf(" from ") + 6;
             int j = s.Length;//query text doesn't contain any conditions
-            if (s.Contains("where"))//query text contains conditions
-            {
-                j = s.IndexOf("where");
-            }
+            if (s.Contains(" where "))//query text contains conditions
+                j = s.IndexOf(" where ");
+            else if (s.Contains(" group by "))
+                j = s.IndexOf(" group by ");
+            else if (s.Contains(" order by "))
+                j = s.IndexOf(" order by ");
             String tmp = s.Substring(i, j - i);
             tmp = tmp.Replace(" ", "");
             result = tmp.Split(',');
@@ -1102,65 +1105,112 @@ namespace FRDB_SQLite
         }
 
 
-        private FzRelationEntity SatisfyAttributes(FzRelationEntity result)
+        private FzRelationEntity SatisfyAttributes(FzRelationEntity result, string _queryText)
         {
-            //FzRelationEntity r = new FzRelationEntity();
-            List<FzTupleEntity> listtuple = new List<FzTupleEntity>();
-            int indexofAttr = 0;// Int32.Parse(result.Scheme.Attributes[0].ToString());
-            Boolean checknum = IsNumeric(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
-            double value = double.Parse(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
-            double temp;
-            for (int i = 0; i < result.Tuples.Count - 1; i++)
-            {
-                #region "for loop find min, max,.. value"
-                temp = double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString());
-                //if (query.Contains("max"))
-                //{
-                //    if (temp > value)
-                //    {
-                //        value = temp;
-                //    }
-                //}
-                //if (query.Contains("min"))
-                //{
-                if (temp < value)
-                {
-                    value = temp;
-                }
-                //}
-                //if (query.Contains("sum") || query.Contains("avg"))
-                //{
-                //    if (query.Contains("max") || query.Contains("min"))
-                //    {
-                //        //value = temp;
-                //    }
-                //    else
-                //    {
-                //        value = temp;
-                //    }
-                //    if (membership > double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString()))
-                //    {
-                //        membership = double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString());
-                //    }
-                //}
-                #endregion
-            }
-            //if (query.Contains("max") || query.Contains("min"))
+            List<Filter> filter  = FormatFilter(_queryText);
+            //if(_queryText.Contains(" group by ")
+            ////FzRelationEntity r = new FzRelationEntity();
+            //List<FzTupleEntity> listtuple = new List<FzTupleEntity>();
+            //int indexofAttr = 0;// Int32.Parse(result.Scheme.Attributes[0].ToString());
+            //Boolean checknum = IsNumeric(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
+            //double value = double.Parse(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
+            //double temp;
+            //for (int i = 0; i < result.Tuples.Count - 1; i++)
             //{
+            //    #region "for loop find min, max,.. value"
+            //    temp = double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString());
+            //    //if (query.Contains("max"))
+            //    //{
+            //    //    if (temp > value)
+            //    //    {
+            //    //        value = temp;
+            //    //    }
+            //    //}
+            //    //if (query.Contains("min"))
+            //    //{
+            //    if (temp < value)
+            //    {
+            //        value = temp;
+            //    }
+            //    //}
+            //    //if (query.Contains("sum") || query.Contains("avg"))
+            //    //{
+            //    //    if (query.Contains("max") || query.Contains("min"))
+            //    //    {
+            //    //        //value = temp;
+            //    //    }
+            //    //    else
+            //    //    {
+            //    //        value = temp;
+            //    //    }
+            //    //    if (membership > double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString()))
+            //    //    {
+            //    //        membership = double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString());
+            //    //    }
+            //    //}
+            //    #endregion
+            //}
+            ////if (query.Contains("max") || query.Contains("min"))
+            ////{
 
-            for (int i = 0; i < result.Tuples.Count; i++)
-            {
-                if (double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString()) == value)
-                {
-                    listtuple.Add(result.Tuples[i]);
-                }
-            }
-            result.Tuples.Clear();
-            foreach (FzTupleEntity tuple in listtuple)
-            {
-                result.Tuples.Add(tuple);
-            }
+            //for (int i = 0; i < result.Tuples.Count; i++)
+            //{
+            //    if (double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString()) == value)
+            //    {
+            //        listtuple.Add(result.Tuples[i]);
+            //    }
+            //}
+            //result.Tuples.Clear();
+            //foreach (FzTupleEntity tuple in listtuple)
+            //{
+            //    result.Tuples.Add(tuple);
+            //}
             return result;
+        }
+
+        private List<Filter> FormatFilter(String _queryText)
+        {
+            List<Filter> result = new List<Filter>();
+            try
+            {
+                int groupby = 0, having, orderby;
+                groupby = _queryText.IndexOf(" group by ");
+                having = _queryText.IndexOf(" having ");
+                orderby = _queryText.IndexOf(" having ");
+                string tmp = "";
+                this._selectedAttributeTexts = null;
+                for (int i = 0; i < 4; i++)
+                {
+                    Filter filter = new Filter();
+                    if (groupby > 0)
+                    {
+                        filter.filterName = "groupby";
+                        if (having > 0)
+                        {
+                            tmp = _queryText.Substring(groupby + 10, having - groupby - 10);
+                            tmp = tmp.Replace(" ", "");
+                            this._selectedAttributeTexts = tmp.Split(',');
+                            this._errorMessage = ExistsAttribute();
+                            
+
+
+                        }
+                    }
+                    if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
+                    result.Add(filter);
+
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                this._error = true;
+                this._errorMessage = ex.Message;
+                return result;
+            }
+            
+            return result;
+            
         }
 
 
@@ -1172,5 +1222,13 @@ namespace FRDB_SQLite
         public List<String> elements = new List<string>();
         public String nextLogic = "";
         public bool notElement = false;
+    }
+
+    public class Filter
+    {
+        public String filterName = "";
+        public List<String> elements = new List<string>();
+        //public String nextLogic = "";
+        //public bool notElement = false;
     }
 }
