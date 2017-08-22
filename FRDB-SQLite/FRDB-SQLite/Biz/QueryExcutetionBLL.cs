@@ -17,7 +17,6 @@ namespace FRDB_SQLite
 
         private List<FzAttributeEntity> _selectedAttributes = new List<FzAttributeEntity>();
         private List<FzRelationEntity> _selectedRelations = new List<FzRelationEntity>();
-        List<Filter> filters = null;
         List<int> _index = new List<int>();
 
         private String _queryText;
@@ -83,7 +82,7 @@ namespace FRDB_SQLite
                 this.GetSectedRelation(); if (this._error) throw new Exception(this._errorMessage);
                 this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
 
-                //_errorMessage = ExistsAttribute();
+                _errorMessage = ExistsAttribute();
                 if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
 
 
@@ -1104,17 +1103,60 @@ namespace FRDB_SQLite
             return message;
         }
 
+        private String CheckExistAttribute(string[] filterStr)
+        {
+            String message = "";
+            if (filterStr.Length == 0) return "";
+
+            for(int i = 0; i < filterStr.Length; i++)
+            {
+                int count = 0;
+                //String attr = item.ToLower();
+                foreach (var item in _selectedRelations[0].Scheme.Attributes)
+                {
+                    if (item.AttributeName.ToLower() == filterStr[i])
+                        count++;
+                }
+
+                if (count == 0)
+                    return message = "Invalid selected object name of attribute: '" + filterStr[i] + "'.";
+            }
+            return message;
+        }
 
         private FzRelationEntity SatisfyAttributes(FzRelationEntity result, string _queryText)
         {
             List<Filter> filter  = FormatFilter(result, _queryText);
-            if(filter[0].filterName == "groupby")
+            FzRelationEntity filterResult = new FzRelationEntity();
+            filterResult.Scheme = result.Scheme;
+            if (filter[0].filterName == "groupby")
             {
-                //foreach (var item in result.Tuples)
-                //{
-                    
-                //}
+                int i = 0;
+                foreach (List<String> item in filter[0].elementValue)
+                {
+                    int index = 0;
+                    foreach (var itemAttr in result.Scheme.Attributes)
+                    {
+                        if (item[0] == itemAttr.AttributeName.ToLower() && index != result.Scheme.Attributes.Count - 1)
+                        {
+                            int h = result.Tuples.Count - 1;
+                            for(h = result.Tuples.Count - 1; h >=0; h-- )
+                            {
+                                if (item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count > 1)
+                                {
+                                    //tmp += attrTuple.ValuesOnPerRow[index].ToString() + ',';
+                                    filterResult.Tuples.Add(result.Tuples[h]);
+                                    item.Remove(result.Tuples[h].ValuesOnPerRow[index].ToString());
+                                }
+                                else break;
+                            }
+                        }
+                        index++;
+                    }
+                }
+                
             }
+
             //if(_queryText.Contains(" group by ")
             ////FzRelationEntity r = new FzRelationEntity();
             //List<FzTupleEntity> listtuple = new List<FzTupleEntity>();
@@ -1172,21 +1214,24 @@ namespace FRDB_SQLite
             //{
             //    result.Tuples.Add(tuple);
             //}
-            return result;
+            return filterResult;
         }
 
-        private List<Filter> FormatFilter(FzRelationEntity tupleRelation, String _queryText)
+        
+
+        public List<Filter> FormatFilter(FzRelationEntity tupleRelation, String _queryText)
         {
             List<Filter> result = new List<Filter>();
             try
             {
-                int groupby = 0, having, orderby, index = 0, indexAttr = 0, abc = 0 ;
+                int groupby = 0, having, orderby, index = 0 ;
                 groupby = _queryText.IndexOf(" group by ");
                 having = _queryText.IndexOf(" having ");
                 orderby = _queryText.IndexOf(" order by ");
+                string[] filterStr = null;
                 string tmp = "";
                 this._selectedAttributeTexts = null;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     Filter filter = new Filter();
                     if (groupby > 0)
@@ -1196,41 +1241,43 @@ namespace FRDB_SQLite
                         {
                             tmp = _queryText.Substring(groupby + 10, having - groupby - 10);
                             tmp = tmp.Replace(" ", "");
-                            this._selectedAttributeTexts = tmp.Split(',');
-                            filter.elements = this._selectedAttributeTexts.ToList();
-                            this._errorMessage = ExistsAttribute();
-                            for (int k = 0; k < filter.elements.Count; k++)
+                            filterStr = tmp.Split(',');
+                            filter.elements = filterStr.ToList();
+                            this._errorMessage = CheckExistAttribute(filterStr);
+                            for (int h = 0; h < filter.elements.Count; h++)
+                            {
+                                filter.elementValue.Add(new List<string> { filter.elements[h].ToString() });
+                            }
+                            foreach (List<String> filterValue in filter.elementValue)
                             {
                                 index = 0;
                                 foreach (var itemAttr in tupleRelation.Scheme.Attributes)
                                 {
-                                    if (filter.elements[k] == itemAttr.AttributeName.ToLower())
+                                    if (filterValue[0] == itemAttr.AttributeName.ToLower() && index != tupleRelation.Scheme.Attributes.Count - 1)
                                     {
-                                        indexAttr = index;
-                                        tmp = "";
                                         foreach (var attrTuple in tupleRelation.Tuples)
                                         {
-                                            if (!tmp.Contains(attrTuple.ValuesOnPerRow[index].ToString()))
+                                            if (!filterValue.Contains(attrTuple.ValuesOnPerRow[index].ToString()))
                                             {
-                                                tmp += attrTuple.ValuesOnPerRow[index].ToString() + ',';
+                                              
+                                                filterValue.Add(attrTuple.ValuesOnPerRow[index].ToString());
                                             }
                                         }
                                     }
-                                    tmp = tmp.Substring(0, tmp.Length - 1);
-                                    filter.elementValue = tmp.Split(',').ToList();
-
-                                }
-                                index++;
+                                   
+                                    index++;
+                                } 
                             }
                         }//having
 
+
+
                     }
+
+                    
                     result.Add(filter);
                 }
                     if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
-              
-
-               
             }
             catch (Exception ex)
             {
@@ -1238,10 +1285,13 @@ namespace FRDB_SQLite
                 this._errorMessage = ex.Message;
                 return result;
             }
+            //result = Arrange(result);
             
             return result;
             
         }
+
+        
 
 
         #endregion
@@ -1257,9 +1307,8 @@ namespace FRDB_SQLite
     public class Filter
     {
         public String filterName = "";
+        public List<List<String>> elementValue = new List<List<string>>();
         public List<String> elements = new List<string>();
-        public List<String> elementValue = new List<string>();
-        //public String nextLogic = "";
-        //public bool notElement = false;
     }
+
 }
