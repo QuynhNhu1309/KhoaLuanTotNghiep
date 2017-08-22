@@ -1139,12 +1139,10 @@ namespace FRDB_SQLite
                     {
                         if (item[0] == itemAttr.AttributeName.ToLower() && index != result.Scheme.Attributes.Count - 1)
                         {
-                            int h = result.Tuples.Count - 1;
-                            for(h = result.Tuples.Count - 1; h >=0; h-- )
+                            for(int h = result.Tuples.Count - 1; h >=0; h-- )
                             {
                                 if (item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count > 1)
                                 {
-                                    //tmp += attrTuple.ValuesOnPerRow[index].ToString() + ',';
                                     filterResult.Tuples.Add(result.Tuples[h]);
                                     item.Remove(result.Tuples[h].ValuesOnPerRow[index].ToString());
                                 }
@@ -1270,11 +1268,9 @@ namespace FRDB_SQLite
                             }
                         }//having
 
-
+                        filter.elementValue = Arrange(filter.elementValue);
 
                     }
-
-                    
                     result.Add(filter);
                 }
                     if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
@@ -1285,13 +1281,33 @@ namespace FRDB_SQLite
                 this._errorMessage = ex.Message;
                 return result;
             }
-            //result = Arrange(result);
+           
             
             return result;
             
         }
 
-        
+        public List<List<String>> Arrange(List<List<String>> resultFormat)
+        {
+            List<List<String>> resulArrange = new List<List<String>>();
+            int[] arr = new int[resultFormat.Count];
+            int max = 0;
+            for (int i = 0; i < resultFormat.Count; i++)
+            {
+                arr[i] = resultFormat[i].Count;
+            }
+            while(arr.Length > 0)
+            {
+                max = arr.Max();
+                resulArrange.Add(resultFormat[Array.IndexOf(arr, max)]);
+                List<int> tmp = new List<int>(arr);
+                tmp.RemoveAt(Array.IndexOf(arr, max));
+                arr = tmp.ToArray();
+            }
+            return resulArrange;
+        }
+
+
 
 
         #endregion
