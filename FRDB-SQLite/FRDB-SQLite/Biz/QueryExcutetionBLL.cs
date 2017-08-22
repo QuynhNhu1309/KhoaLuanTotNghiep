@@ -123,7 +123,7 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
-                result = SatisfyAttributes(result, _queryText); // đừng xóa cmt này :)
+                //result = SatisfyAttributes(result, _queryText); // đừng xóa cmt này :)
             }
             catch (Exception ex)
             {
