@@ -123,7 +123,7 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
-                //result = SatisfyAttributes(result, _queryText); // đừng xóa cmt này :)
+                result = SatisfyAttributes(result, _queryText); // đừng xóa cmt này :)
             }
             catch (Exception ex)
             {
@@ -1145,14 +1145,15 @@ namespace FRDB_SQLite
                                 {
                                     filterResult.Tuples.Add(result.Tuples[h]);
                                     item.Remove(result.Tuples[h].ValuesOnPerRow[index].ToString());
+                                    result.Tuples.RemoveAt(h);
                                 }
-                                else break;
+                                else if(!item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count <= 1) break;
                             }
                         }
                         index++;
                     }
                 }
-                
+                //filterResult.Tuples = ArrangeResultFilter(filterResult.Tuples);
             }
 
             //if(_queryText.Contains(" group by ")
@@ -1215,7 +1216,19 @@ namespace FRDB_SQLite
             return filterResult;
         }
 
-        
+        //public List<FzTupleEntity> ArrangeResultFilter(List<FzTupleEntity> filterResult)
+        //{
+        //    for (int i = 0; i < filterResult.Count; i++)
+        //    {
+        //        for (int i = 0; i < filterResult.Count; i++)
+        //        {
+
+        //        }
+        //    }
+        //    return filterResult;
+        //}
+
+
 
         public List<Filter> FormatFilter(FzRelationEntity tupleRelation, String _queryText)
         {
@@ -1268,7 +1281,7 @@ namespace FRDB_SQLite
                             }
                         }//having
 
-                        filter.elementValue = Arrange(filter.elementValue);
+                        filter.elementValue = ArrangeFormatFilter(filter.elementValue);
 
                     }
                     result.Add(filter);
@@ -1287,21 +1300,22 @@ namespace FRDB_SQLite
             
         }
 
-        public List<List<String>> Arrange(List<List<String>> resultFormat)
+        public List<List<String>> ArrangeFormatFilter(List<List<String>> resultFormat)
         {
             List<List<String>> resulArrange = new List<List<String>>();
             int[] arr = new int[resultFormat.Count];
-            int max = 0;
+            int min = 0;
             for (int i = 0; i < resultFormat.Count; i++)
             {
                 arr[i] = resultFormat[i].Count;
             }
             while(arr.Length > 0)
             {
-                max = arr.Max();
-                resulArrange.Add(resultFormat[Array.IndexOf(arr, max)]);
+                min = arr.Min();
+                resulArrange.Add(resultFormat[Array.IndexOf(arr, min)]);
+                resultFormat.RemoveAt(Array.IndexOf(arr, min));
                 List<int> tmp = new List<int>(arr);
-                tmp.RemoveAt(Array.IndexOf(arr, max));
+                tmp.RemoveAt(Array.IndexOf(arr, min));
                 arr = tmp.ToArray();
             }
             return resulArrange;
