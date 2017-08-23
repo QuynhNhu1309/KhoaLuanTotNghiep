@@ -248,12 +248,12 @@ namespace FRDB_SQLite.Class
             {
                 startGroupbyAttr = groupby + 9;
                 if (having > 0)
-                    endGroupbyAttr = having - 1;
+                    endGroupbyAttr = having;
                 else if (having <= 0 && orderby > 0)
-                    endGroupbyAttr = orderby - 1;
+                    endGroupbyAttr = orderby;
                 else if (having <= 0 && orderby <= 0)
                     endGroupbyAttr = query.Length;
-                groupbyAttr = query.Substring(startGroupbyAttr + 1, endGroupbyAttr - startGroupbyAttr - 1);
+                groupbyAttr = query.Substring(startGroupbyAttr + 1, endGroupbyAttr - startGroupbyAttr - 1).ToLower();
                 MatchCollection attr = Regex.Matches(groupbyAttr, @"[\w]+");// count word in group by clause
                 MatchCollection attrComma = Regex.Matches(groupbyAttr, @"[,]+");// count comma in group by clause
                 if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1)
@@ -264,7 +264,7 @@ namespace FRDB_SQLite.Class
                     {
                         for (int i = 0; i < groupbyAttrArr.Length; i++)
                         {
-                            if (!selectAttrStr.Contains(groupbyAttrArr[i]))
+                            if (!selectAttrStr.Contains(groupbyAttrArr[i].Trim().ToLower()))
                                 return message = "Attributes in 'group by' must be included in 'select'";
                         }
                     }

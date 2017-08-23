@@ -1188,41 +1188,6 @@ namespace FRDB_SQLite
                         index++;
                     }
                 }
-
-                //Process remain Tuples
-                //for (int w = result.Tuples.Count - 1; w >= 0; w--)
-                //{
-
-                //    for (int p = 0; p < filterResult.Tuples.Count; p++)
-                //    {
-                //        Boolean flag = false;
-                //        int CountSame = 0, countTupleFlagTrue = 0;
-                //        for (int t = 0; t < indexGroupby.Count; t++)
-                //        {
-                //            if (result.Tuples[w].ValuesOnPerRow[indexGroupby[t]].ToString() == filterResult.Tuples[p].ValuesOnPerRow[indexGroupby[t]].ToString())
-                //            {
-                //                CountSame++;
-                //            }
-                //        }
-                //        if (CountSame == indexGroupby.Count)
-                //        {
-                //            result.Tuples.RemoveAt(w);
-                //            break;
-                //        }
-                //        else if (CountSame < indexGroupby.Count && CountSame >= 1)
-                //        {
-                //            flag = true;
-                //            countTupleFlagTrue++;
-                //        }
-                //        if(countTupleFlagTrue == filterResult.Tuples.Count)
-                //        {
-                //            filterResult.Tuples.Add(result.Tuples[w]);
-                //            result.Tuples.RemoveAt(w);
-                //        }
-
-                //    }
-                //}
-
             }
 
             //if(_queryText.Contains(" group by ")
@@ -1285,20 +1250,6 @@ namespace FRDB_SQLite
             return filterResult;
         }
 
-        //public List<FzTupleEntity> ArrangeResultFilter(List<FzTupleEntity> filterResult)
-        //{
-        //    for (int i = 0; i < filterResult.Count; i++)
-        //    {
-        //        for (int i = 0; i < filterResult.Count; i++)
-        //        {
-
-        //        }
-        //    }
-        //    return filterResult;
-        //}
-
-
-
         public List<Filter> FormatFilter(FzRelationEntity tupleRelation, String _queryText)
         {
             List<Filter> result = new List<Filter>();
@@ -1317,41 +1268,54 @@ namespace FRDB_SQLite
                     if (groupby > 0)
                     {
                         filter.filterName = "groupby";
-                        if (having > 0)
+                        if(having < 0 && orderby < 0)
+                        {
+                            tmp = _queryText.Substring(groupby + 10, _queryText.Length - groupby - 10);
+                        }
+                        else if (having > 0) // group by... + having ...
                         {
                             tmp = _queryText.Substring(groupby + 10, having - groupby - 10);
-                            tmp = tmp.Replace(" ", "");
-                            filterStr = tmp.Split(',');
-                            filter.elements = filterStr.ToList();
-                            this._errorMessage = CheckExistAttribute(filterStr);
-                            for (int h = 0; h < filter.elements.Count; h++)
+                            
+                        }//having
+                        else if(orderby > 0 && having < 0)
+                        {
+                            tmp = _queryText.Substring(groupby + 10, orderby - groupby - 10);
+                        }
+                        tmp = tmp.Replace(" ", "");
+                        filterStr = tmp.Split(',');
+                        filter.elements = filterStr.ToList();
+                        this._errorMessage = CheckExistAttribute(filterStr);
+                        for (int h = 0; h < filter.elements.Count; h++)
+                        {
+                            filter.elementValue.Add(new List<string> { filter.elements[h].ToString() });
+                        }
+                        foreach (List<String> filterValue in filter.elementValue)
+                        {
+                            index = 0;
+                            foreach (var itemAttr in tupleRelation.Scheme.Attributes)
                             {
-                                filter.elementValue.Add(new List<string> { filter.elements[h].ToString() });
-                            }
-                            foreach (List<String> filterValue in filter.elementValue)
-                            {
-                                index = 0;
-                                foreach (var itemAttr in tupleRelation.Scheme.Attributes)
+                                if (filterValue[0] == itemAttr.AttributeName.ToLower() && index != tupleRelation.Scheme.Attributes.Count - 1)
                                 {
-                                    if (filterValue[0] == itemAttr.AttributeName.ToLower() && index != tupleRelation.Scheme.Attributes.Count - 1)
+                                    foreach (var attrTuple in tupleRelation.Tuples)
                                     {
-                                        foreach (var attrTuple in tupleRelation.Tuples)
+                                        if (!filterValue.Contains(attrTuple.ValuesOnPerRow[index].ToString()))
                                         {
-                                            if (!filterValue.Contains(attrTuple.ValuesOnPerRow[index].ToString()))
-                                            {
-                                              
-                                                filterValue.Add(attrTuple.ValuesOnPerRow[index].ToString());
-                                            }
+
+                                            filterValue.Add(attrTuple.ValuesOnPerRow[index].ToString());
                                         }
                                     }
-                                   
-                                    index++;
-                                } 
+                                }
+
+                                index++;
                             }
-                        }//having
+                        }
 
                         filter.elementValue = ArrangeFormatFilter(filter.elementValue);
 
+                    }
+                    if(having > 0)
+                    {
+                        
                     }
                     result.Add(filter);
                 }
