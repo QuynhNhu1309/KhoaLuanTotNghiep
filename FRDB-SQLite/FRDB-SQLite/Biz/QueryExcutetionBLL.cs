@@ -1190,6 +1190,8 @@ namespace FRDB_SQLite
                 }
             }
 
+
+
             //if(_queryText.Contains(" group by ")
             ////FzRelationEntity r = new FzRelationEntity();
             //List<FzTupleEntity> listtuple = new List<FzTupleEntity>();
@@ -1262,64 +1264,77 @@ namespace FRDB_SQLite
                 string[] filterStr = null;
                 string tmp = "";
                 this._selectedAttributeTexts = null;
-                for (int i = 0; i < 1; i++)
+                if (groupby > 0)
                 {
                     Filter filter = new Filter();
-                    if (groupby > 0)
+                    filter.filterName = "groupby";
+                    if (having < 0 && orderby < 0)
                     {
-                        filter.filterName = "groupby";
-                        if(having < 0 && orderby < 0)
-                        {
-                            tmp = _queryText.Substring(groupby + 10, _queryText.Length - groupby - 10);
-                        }
-                        else if (having > 0) // group by... + having ...
-                        {
-                            tmp = _queryText.Substring(groupby + 10, having - groupby - 10);
-                            
-                        }//having
-                        else if(orderby > 0 && having < 0)
-                        {
-                            tmp = _queryText.Substring(groupby + 10, orderby - groupby - 10);
-                        }
-                        tmp = tmp.Replace(" ", "");
-                        filterStr = tmp.Split(',');
-                        filter.elements = filterStr.ToList();
-                        this._errorMessage = CheckExistAttribute(filterStr);
-                        for (int h = 0; h < filter.elements.Count; h++)
-                        {
-                            filter.elementValue.Add(new List<string> { filter.elements[h].ToString() });
-                        }
-                        foreach (List<String> filterValue in filter.elementValue)
-                        {
-                            index = 0;
-                            foreach (var itemAttr in tupleRelation.Scheme.Attributes)
-                            {
-                                if (filterValue[0] == itemAttr.AttributeName.ToLower() && index != tupleRelation.Scheme.Attributes.Count - 1)
-                                {
-                                    foreach (var attrTuple in tupleRelation.Tuples)
-                                    {
-                                        if (!filterValue.Contains(attrTuple.ValuesOnPerRow[index].ToString()))
-                                        {
+                        tmp = _queryText.Substring(groupby + 10, _queryText.Length - groupby - 10);
+                    }
+                    else if (having > 0) // group by... + having ...
+                    {
+                        tmp = _queryText.Substring(groupby + 10, having - groupby - 10);
 
-                                            filterValue.Add(attrTuple.ValuesOnPerRow[index].ToString());
-                                        }
+                    }//having
+                    else if (orderby > 0 && having < 0)// group by... + order by
+                    {
+                        tmp = _queryText.Substring(groupby + 10, orderby - groupby - 10);
+                    }
+                    tmp = tmp.Replace(" ", "");
+                    filterStr = tmp.Split(',');
+                    filter.elements = filterStr.ToList();
+                    this._errorMessage = CheckExistAttribute(filterStr);
+                    for (int h = 0; h < filter.elements.Count; h++)
+                    {
+                        filter.elementValue.Add(new List<string> { filter.elements[h].ToString() });
+                    }
+                    foreach (List<String> filterValue in filter.elementValue)
+                    {
+                        index = 0;
+                        foreach (var itemAttr in tupleRelation.Scheme.Attributes)
+                        {
+                            if (filterValue[0] == itemAttr.AttributeName.ToLower() && index != tupleRelation.Scheme.Attributes.Count - 1)
+                            {
+                                foreach (var attrTuple in tupleRelation.Tuples)
+                                {
+                                    if (!filterValue.Contains(attrTuple.ValuesOnPerRow[index].ToString()))
+                                    {
+
+                                        filterValue.Add(attrTuple.ValuesOnPerRow[index].ToString());
                                     }
                                 }
-
-                                index++;
                             }
+
+                            index++;
                         }
-
-                        filter.elementValue = ArrangeFormatFilter(filter.elementValue);
-
                     }
-                    if(having > 0)
+
+                    filter.elementValue = ArrangeFormatFilter(filter.elementValue);
+                    result.Add(filter);
+                }// group by ...
+                //having....
+                if (having > 0)
+                {
+                    Filter filter = new Filter();
+                    filter.filterName = "having";
+                    if (orderby < 0)//having + ... (end)
                     {
-                        
+                        tmp = _queryText.Substring(having + 8, _queryText.Length - having - 8);
                     }
+                    else if (orderby > 0) //having ... + orderby
+                    {
+                        tmp = _queryText.Substring(having + 8, orderby - having - 8);
+
+                    }
+                    tmp = tmp.Replace(" ", "");
+                    filterStr = tmp.Split(',');
+                    filter.elements = filterStr.ToList();
                     result.Add(filter);
                 }
-                    if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
+                
+
+                if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
             }
             catch (Exception ex)
             {
