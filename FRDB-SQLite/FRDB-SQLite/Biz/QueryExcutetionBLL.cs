@@ -1128,6 +1128,7 @@ namespace FRDB_SQLite
         {
             List<Filter> filter  = FormatFilter(result, _queryText);
             FzRelationEntity filterResult = new FzRelationEntity();
+            List<int> indexGroupby = new List<int>();
             filterResult.Scheme = result.Scheme;
             if (filter[0].filterName == "groupby")
             {
@@ -1139,21 +1140,89 @@ namespace FRDB_SQLite
                     {
                         if (item[0] == itemAttr.AttributeName.ToLower() && index != result.Scheme.Attributes.Count - 1)
                         {
+                            //indexGroupby.Add(index);
                             for(int h = result.Tuples.Count - 1; h >=0; h-- )
                             {
-                                if (item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count > 1)
+                                if (!indexGroupby.Contains(index))
+                                {
+                                    indexGroupby.Add(index);
+                                }
+                                if (item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count > 1 && indexGroupby.Count >= 2)
+                                {
+                                    int countTupleFlagTrue = 0;
+                                    for (int k = 0; k < filterResult.Tuples.Count; k++ )
+                                    {
+                                        int CountSame = 0;
+                                        for (int y = 0; y < indexGroupby.Count; y++)
+                                        {
+                                            if (result.Tuples[h].ValuesOnPerRow[indexGroupby[y]].ToString() == filterResult.Tuples[k].ValuesOnPerRow[indexGroupby[y]].ToString())
+                                            {
+                                                CountSame++;
+                                            }
+                                        }
+                                        if (CountSame == indexGroupby.Count)
+                                        {
+                                            result.Tuples.RemoveAt(h);
+                                            break;
+                                        }
+                                        else if (CountSame < indexGroupby.Count && CountSame >= 0)
+                                            countTupleFlagTrue++;
+                                        if (countTupleFlagTrue == filterResult.Tuples.Count)
+                                        {
+                                            filterResult.Tuples.Add(result.Tuples[h]);
+                                            item.Remove(result.Tuples[h].ValuesOnPerRow[index].ToString());
+                                            result.Tuples.RemoveAt(h);
+                                            break;
+                                        }
+                                    } 
+                                }
+                                else if (item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count > 1 && indexGroupby.Count < 2)
                                 {
                                     filterResult.Tuples.Add(result.Tuples[h]);
                                     item.Remove(result.Tuples[h].ValuesOnPerRow[index].ToString());
                                     result.Tuples.RemoveAt(h);
                                 }
-                                else if(!item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count <= 1) break;
+                                else if (!item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count <= 1) break;
                             }
                         }
                         index++;
                     }
                 }
-                //filterResult.Tuples = ArrangeResultFilter(filterResult.Tuples);
+
+                //Process remain Tuples
+                //for (int w = result.Tuples.Count - 1; w >= 0; w--)
+                //{
+
+                //    for (int p = 0; p < filterResult.Tuples.Count; p++)
+                //    {
+                //        Boolean flag = false;
+                //        int CountSame = 0, countTupleFlagTrue = 0;
+                //        for (int t = 0; t < indexGroupby.Count; t++)
+                //        {
+                //            if (result.Tuples[w].ValuesOnPerRow[indexGroupby[t]].ToString() == filterResult.Tuples[p].ValuesOnPerRow[indexGroupby[t]].ToString())
+                //            {
+                //                CountSame++;
+                //            }
+                //        }
+                //        if (CountSame == indexGroupby.Count)
+                //        {
+                //            result.Tuples.RemoveAt(w);
+                //            break;
+                //        }
+                //        else if (CountSame < indexGroupby.Count && CountSame >= 1)
+                //        {
+                //            flag = true;
+                //            countTupleFlagTrue++;
+                //        }
+                //        if(countTupleFlagTrue == filterResult.Tuples.Count)
+                //        {
+                //            filterResult.Tuples.Add(result.Tuples[w]);
+                //            result.Tuples.RemoveAt(w);
+                //        }
+
+                //    }
+                //}
+
             }
 
             //if(_queryText.Contains(" group by ")
@@ -1304,18 +1373,18 @@ namespace FRDB_SQLite
         {
             List<List<String>> resulArrange = new List<List<String>>();
             int[] arr = new int[resultFormat.Count];
-            int min = 0;
+            int max = 0;
             for (int i = 0; i < resultFormat.Count; i++)
             {
                 arr[i] = resultFormat[i].Count;
             }
             while(arr.Length > 0)
             {
-                min = arr.Min();
-                resulArrange.Add(resultFormat[Array.IndexOf(arr, min)]);
-                resultFormat.RemoveAt(Array.IndexOf(arr, min));
+                max = arr.Max();
+                resulArrange.Add(resultFormat[Array.IndexOf(arr, max)]);
+                resultFormat.RemoveAt(Array.IndexOf(arr, max));
                 List<int> tmp = new List<int>(arr);
-                tmp.RemoveAt(Array.IndexOf(arr, min));
+                tmp.RemoveAt(Array.IndexOf(arr, max));
                 arr = tmp.ToArray();
             }
             return resulArrange;
