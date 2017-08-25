@@ -75,22 +75,25 @@ namespace FRDB_SQLite.Class
             try
             {//The query text has been already cut spaces at the end and at the last string.
                 String result = String.Empty;
-                for (int i = 0; i < query.Length; i++)
-                {
-                    if (query[i] == ' ')//(select *    from abc where a=b     and       b=h )=> select * from abc where a=b and b=h
-                    {
-                        if (query[i - 1] != ' ')//get the single space
-                        {
-                            result += query[i];
-                        }
-                    }
-                    else
-                        result += query[i];
-                }
+                query = query.Replace("  ", " ");
+                result = query;
+                //min, max, sum, count, avg
+                result = result.Replace("( min", "(min");
+                result = result.Replace("min (", "min(");
+
+                result = result.Replace("( max", "(max");
+                result = result.Replace("max (", "max(");
+
+                result = result.Replace("( sum", "(sum");
+                result = result.Replace("sum (", "sum(");
+
+                result = result.Replace("( avg", "(avg");
+                result = result.Replace("avg (", "avg(");
+
+                result = result.Replace("count (", "count(");
+                result = result.Replace("( count", "(count");
 
                 result = result.Replace("\n", "");
-                //result = result.Replace("'", "");
-                //result = result.Replace("\"", "");
                 result = result.Replace("<>", "!=");
                 result = result.Replace("->", "→");
 
@@ -127,11 +130,21 @@ namespace FRDB_SQLite.Class
             if (!query.Contains("from"))// Need to contains from
                 return message = "Query is missing 'from' structure!";
 
+            //var for select
             int select = query.IndexOf("select");
             int selectAttr = query.IndexOf("*");
+
             int from = query.IndexOf("from");
-            int where = 0, groupby = 0, having = 0 , orderby = 0, startGroupbyAttr = 0, endGroupbyAttr = 0;
+            int where = 0,  orderby = 0;
+
+            //var for group by
+            int groupby = 0, startGroupbyAttr = 0, endGroupbyAttr = 0;
             string groupbyAttr = "", selectAttrStr = "";
+
+            //var for having
+            int having = 0, startHavingAttr = 0, endHavingAttr = 0;
+            string havingAttr = "";
+
             string[] selectAttrArr = null;
             if (select != query.LastIndexOf("select"))// Select must be unique
                 return message = "Not support multi 'select'!";
@@ -142,10 +155,17 @@ namespace FRDB_SQLite.Class
             if(selectAttr < 0)
             {
                 selectAttrStr = query.Substring(select + 7, from - select - 8);
-                MatchCollection attr = Regex.Matches(groupbyAttr, @"[\w]+");// count word in group by clause
-                MatchCollection attrComma = Regex.Matches(groupbyAttr, @"[,]+");// count comma in group by clause
+                MatchCollection attr = Regex.Matches(selectAttrStr, @"[\w]+");// count word in select clause
+                // ^ (\"|\\s\"|'|'\\s)([a-z0-9A-Z\\s/.])+(\"|\"\\s|'|'\\s)$|\\d
+                MatchCollection attrComma = Regex.Matches(selectAttrStr, @"[,]+");// count comma in select clause
+                int tmp4 = attr.Count;
                 if (attr.Count > 1 && attrComma.Count == attr.Count - 1)
                     selectAttrArr = selectAttrStr.Split(',');
+                else if (attr.Count == 1)
+                {
+                    selectAttrStr += ",";
+                    selectAttrArr = selectAttrStr.Split(',');
+                } 
                 else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
                     return message = "Missing comma near 'select' clause";
             }
@@ -196,7 +216,7 @@ namespace FRDB_SQLite.Class
 
                 //---------------
                 String m = CheckNested(query);
-                if ( m!= "")
+                if (m != "")
                     return m;
 
                 m = CheckLogic(query); // checking logical(and, or) between 2 or more than conditions
@@ -211,7 +231,6 @@ namespace FRDB_SQLite.Class
                     return m;
                 //m = CaseCheckFuzzySet(query, "->", 2);
                 //if (m != "")
-                    return m;
             }
             //group by
             if (query.Contains(" group by "))
@@ -256,51 +275,52 @@ namespace FRDB_SQLite.Class
                 groupbyAttr = query.Substring(startGroupbyAttr + 1, endGroupbyAttr - startGroupbyAttr - 1).ToLower();
                 MatchCollection attr = Regex.Matches(groupbyAttr, @"[\w]+");// count word in group by clause
                 MatchCollection attrComma = Regex.Matches(groupbyAttr, @"[,]+");// count comma in group by clause
-                if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1)
+                if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1 && selectAttr < 0)
                 {
-                    string[] groupbyAttrArr = null;
-                    groupbyAttrArr = groupbyAttr.Split(',');
-                    if (selectAttr < 0)
+                    for (int i = 0; i < selectAttrArr.Length; i++)
                     {
-                        for (int i = 0; i < groupbyAttrArr.Length; i++)
-                        {
-                            if (!selectAttrStr.Contains(groupbyAttrArr[i].Trim().ToLower()))
-                                return message = "Attributes in 'group by' must be included in 'select'";
-                        }
+                        if (!groupbyAttr.Contains(selectAttrArr[i].Trim().ToLower()) && !selectAttrArr[i].Trim().ToLower().Contains("min") && !selectAttrArr[i].Trim().ToLower().Contains("max") && !selectAttrArr[i].Trim().ToLower().Contains("count") && !selectAttrArr[i].Trim().ToLower().Contains("avg") && !selectAttrArr[i].Trim().ToLower().Contains("sum"))
+                            return message = "Attributes in 'select' must be included in 'group by'";
                     }
                 }
-                else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
+                else
+                    if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
                     return message = "Missing comma in 'group by' clause";
                 //if (selectAttr < 0) // not contain * in select
             }
 
             //Check 'having' clause
-            if (having > 0)
-            {
-                startGroupbyAttr = having + 7;//resuse 'group by' var for 'having'
-                if (orderby > 0)
-                    endGroupbyAttr = orderby;
-                else if (orderby <= 0)
-                    endGroupbyAttr = query.Length;
-                groupbyAttr = query.Substring(startGroupbyAttr + 1, endGroupbyAttr - startGroupbyAttr - 1).ToLower();
-                //MatchCollection attr = Regex.Matches(groupbyAttr, @"[\w]+");// count word in group by clause
-                //MatchCollection attrComma = Regex.Matches(groupbyAttr, @"[,]+");// count comma in group by clause
-                //if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1)
-                //{
-                //    string[] groupbyAttrArr = null;
-                //    groupbyAttrArr = groupbyAttr.Split(',');
-                //    if (selectAttr < 0)
-                //    {
-                //        for (int i = 0; i < groupbyAttrArr.Length; i++)
-                //        {
-                //            if (!selectAttrStr.Contains(groupbyAttrArr[i].Trim().ToLower()))
-                //                return message = "Attributes in 'group by' must be included in 'select'";
-                //        }
-                //    }
-                //}
-                //else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
-                //    return message = "Missing comma in 'group by' clause";
-            }
+            //if (having > 0)
+            //{
+            //    startHavingAttr = having + 7;//resuse 'group by' var for 'having'
+            //    if (orderby > 0)
+            //        endHavingAttr = orderby;
+            //    else if (orderby <= 0)
+            //        endHavingAttr = query.Length;
+            //    havingAttr = query.Substring(startHavingAttr + 1, endHavingAttr - startHavingAttr - 1).ToLower();
+            //    //^\w+[\s](like|>|not like|<)[\s][[a-z]+|[a-z]+[\s]*]$
+            //    MatchCollection attr = Regex.Matches(havingAttr, @"[\w]+");// count word in group by clause
+            //    MatchCollection attrComma = Regex.Matches(havingAttr, @"[,]+");// count comma in group by clause
+            //    int tmp1 = attr.Count;
+            //    int tmp2 = attrComma.Count;
+            //    //string minHaving
+            //    if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1)
+            //    {
+            //        string[] havingAttrArr = null;
+            //        havingAttrArr = groupbyAttr.Split(',');
+            //        if (selectAttr < 0)
+            //        {
+            //            for (int i = 0; i < havingAttrArr.Length; i++)
+            //            {
+            //                if (!selectAttrStr.Contains(havingAttrArr[i].Trim().ToLower()) && !havingAttrArr[i].Trim().ToLower().Contains("min") && !havingAttrArr[i].Trim().ToLower().Contains("max") && !havingAttrArr[i].Trim().ToLower().Contains("avg") && !havingAttrArr[i].Trim().ToLower().Contains("count") && !havingAttrArr[i].Trim().ToLower().Contains("sum"))
+            //                    return message = "Attributes in 'having' must be included in 'group by'";
+            //            }
+            //        }
+            //    }
+            //    else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
+            //        return message = "Missing comma in 'having' clause";
+            //}
+            
 
             return message;
         }
@@ -329,6 +349,11 @@ namespace FRDB_SQLite.Class
                         if (s.Length >= 4) { if (s.Substring(0, 4) == " or ") count++; }
                         if (s.Length >= 9) { if (s.Substring(0, 9) == " and not ") count++; }
                         if (s.Length >= 8) { if (s.Substring(0, 8) == " or not ") count++; }
+                        int tmp = 0;
+                        tmp = query.LastIndexOf("(", i + 1);
+                        //Regex regex = new Regex(@"^(sum|avg|min|max|count)[(]\w+[)]$");
+                        Regex regex = new Regex(@"^(sum|avg|min|max|count)$");
+                        if (regex.IsMatch(query.Substring(tmp - 3, 3)) || regex.IsMatch(query.Substring(tmp - 5, 5))) count++;
 
                         if (count == 0)
                         {
@@ -349,13 +374,13 @@ namespace FRDB_SQLite.Class
             String message = "";
             string tmp = query;
             int i = 0, countOpen = 0, countClose = 0,pos = 0, posOpen = 0, posClose = 0, k = 0;
-            pos = query.IndexOf("(", 0, query.Length - 1);
+            pos = query.IndexOf("(", 0, query.Length - 1);//pos for (
             if (pos > 0 && ((pos < query.IndexOf(")", 0, query.Length - 1) && query.IndexOf(")", 0, query.Length - 1) > 0)
                 || (query.IndexOf(")", 0, query.Length - 1) < 0)))
-                countOpen++;
+                countOpen++;// count (
             else if(pos > 0 && pos > query.IndexOf(")", 0, query.Length - 1) && query.IndexOf(")", 0, query.Length - 1) > 0)
             {
-                countClose++;
+                countClose++; //count )
                 pos = query.IndexOf(")", 0, query.Length - 1);
             }   
             for (k = pos + 1; k < query.Length; k = pos)
@@ -394,7 +419,7 @@ namespace FRDB_SQLite.Class
                     {
                         if (posOpen > 0)
                         {
-                            if (query[posOpen - 1] != ' ' && query[posOpen - 1] != '(')// must have space or '(' before (
+                            if (query[posOpen - 1] != ' ' && query[posOpen - 1] != '(' && !query.Substring(posOpen - 5).Contains("min") && !query.Substring(posOpen - 5).Contains("max") && !query.Substring(posOpen - 5).Contains("not") && !query.Substring(posOpen - 5).Contains("avg") && !query.Substring(posOpen - 5).Contains("sum") && !query.Substring(posOpen - 5).Contains("count") && !query.Substring(posOpen - 5).Contains("in"))// must have space or '(' before (
                                 return message = "Incorrect syntax near '(': missing space 1";
                         }
                         if (posClose < query.Length - 1)
@@ -403,7 +428,8 @@ namespace FRDB_SQLite.Class
                         query = query.Remove(posOpen, 1); //remove (
                         query = query.Remove(posClose - 1, 1);//remove )
                     }
-                    else if (posOpen > posClose)
+                    else
+                    if (posOpen > posClose)
                         return message = "Incorrect syntax near '"+query[posOpen]+"'";
                     else if (posOpen < 0 && posClose < 0)
                         break;

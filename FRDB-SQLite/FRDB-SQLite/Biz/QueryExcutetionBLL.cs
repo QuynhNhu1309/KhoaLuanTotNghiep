@@ -151,6 +151,22 @@ namespace FRDB_SQLite
                     item.notElement = true;
                     i += 4;
                 }
+                    
+                if (condition.Substring(i, 4) == "min(")
+                    item.aggregateFunction = "min";
+                else if (condition.Substring(i, 4) == "max(")
+                    item.aggregateFunction = "max";
+                else if (condition.Substring(i, 4) == "avg(")
+                    item.aggregateFunction = "avg";
+                else if (condition.Substring(i, 4) == "sum(")
+                    item.aggregateFunction = "sum";
+                else if (condition.Substring(i, 5) == "count(")
+                {
+                    item.aggregateFunction = "count";
+                    i += 5;
+                }
+                if (condition.Substring(i, 4) == "min(" || condition.Substring(i, 4) == "max(" || condition.Substring(i, 4) == "avg(" || condition.Substring(i, 4) == "sum(")
+                    i += 3;
                 if (condition[i] == '(')//(young=age) and (weight>=20 or height<=60)
                 {
                     j = i + 1;
@@ -174,20 +190,39 @@ namespace FRDB_SQLite
                         {
                             item.nextLogic = condition.Substring(j + 1, k - j - 5);
                             flag = true;
+                            i = k - 5;
+
+                        }
+                        else if(condition.Substring(k - 3, 3) == "min" || condition.Substring(k - 3, 3) == "max" || condition.Substring(k - 3, 3) == "avg " || condition.Substring(k - 3, 3) == "sum" || condition.Substring(k - 4, 4) == "count")
+                        {
+                            item.nextLogic = condition.Substring(j + 1, k - j - 4);
+                            flag = true;
+                            i = k - 4;
+                        }
+                        else if (condition.Substring(k - 5, 5) == "count")
+                        {
+                            item.nextLogic = condition.Substring(j + 1, k - j - 6);
+                            flag = true;
+                            i = k - 6;
                         }
                         else
+                        {
                             item.nextLogic = condition.Substring(j + 1, k - j - 1);
-                    }
-
-                    result.Add(item);
-                    if (j != condition.Length - 1)
-                    {
-                        if (flag)
-                            i = k - 5;
-                        else
                             i = k - 1;
+                        }
+                            
                     }
                     else i = j - 1;// end of the condition
+
+                    result.Add(item);
+                    //if (j != condition.Length - 1)
+                    //{
+                    //    if (flag)
+                    //        i = k - 5;
+                    //    else
+                    //        i = k - 1;
+                    //}
+                    //else i = j - 1;// end of the condition
                 }
                 i++;
             }
@@ -354,13 +389,28 @@ namespace FRDB_SQLite
         {//the relations which user input such: select attr1, att2... from
             String result = String.Empty;
             //String was standardzied and cut space,....
-            if (s.Contains("where"))
+            int i = 0;
+            if(s.Contains(" where "))//for get condition where only
             {
-                int i = s.IndexOf("where") + 6;// form where to the end of the string s (i is the first index to cut )
-                result = s.Substring(i);
+                i = s.IndexOf(" where ") + 7;
+                if (!s.Contains(" group by ") && !s.Contains(" order by"))
+                    result = s.Substring(i);
+                else if (s.Contains(" group by "))
+                    result = s.Substring(i, s.IndexOf(" group by ") - i);
+                else if (s.Contains(" order by "))
+                    result = s.Substring(i, s.IndexOf(" order by ") - i);
             }
+            else if(s.Contains(" having ") && !s.Contains(" where "))// for get condition having only
+            {
+                i = s.IndexOf(" having ") + 8;
+                if (s.Contains(" order by "))
+                    result = s.Substring(i, s.IndexOf(" order by ") - i);
+                else if (!s.Contains(" order by "))
+                    result = s.Substring(i);
+            }
+            
 
-            return result;
+                return result;
         }
 
         private int IndexOfAttr(String s)
@@ -678,6 +728,7 @@ namespace FRDB_SQLite
         // edit-----
         private String AddParenthesis(String condition)
         {
+            int closeFunction = 0; //pos for () of min, max, sum...
             for (int i = 0; i < condition.Length - 5; i++)
             {
                 String logic = condition.Substring(i, 5);// " and ", " or "
@@ -751,6 +802,36 @@ namespace FRDB_SQLite
                                 condition = condition.Insert(i, ")");
                                 i += 5;
                             }
+                            else if ((condition.Substring(i + 5, 3) == "min" || condition.Substring(i + 5, 3) == "max" || condition.Substring(i + 5, 3) == "avg" || condition.Substring(i + 5, 3) == "sum") && condition[i + 8] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 9);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                                condition = condition.Insert(i, ")");
+                                i += 5;
+                            }
+                            ////else if ((condition.Substring(i + 5, 3) == "min" || condition.Substring(i + 5, 3) == "max" || condition.Substring(i + 5, 3) == "avg" || condition.Substring(i + 5, 3) == "sum") && condition[i + 8] != '(')
+                            ////{
+                            ////    closeFunction = condition.IndexOf(")", i + 9);
+                            ////    condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                            ////    condition = condition.Insert(i + 8, "(");
+                            ////    condition = condition.Insert(i, ")");
+                            ////    i += 5;
+                            ////}
+                            //else if (condition.Substring(i + 5, 5) == "count" && condition[i + 9] != '(')
+                            //{
+                            //    closeFunction = condition.IndexOf(")", i + 10);
+                            //    condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                            //    condition = condition.Insert(i + 9, "(");
+                            //    condition = condition.Insert(i, ")");
+                            //    i += 6;
+                            //}//cần check min(fdjf) ở hàm check syntax
+                            else if (condition.Substring(i + 5, 5) == "count" && condition[i + 9] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 9);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                                condition = condition.Insert(i, ")");
+                                i += 6;
+                            }
                             else if (condition.Substring(i + 5, 4) != "not ")
                             {
                                 condition = condition.Insert(i + 5, "(");
@@ -759,15 +840,57 @@ namespace FRDB_SQLite
                             }
                         }
                         else if (condition[i - 1] != ')' && condition[i + 5] == '(')
-                            condition = condition.Insert(i++, ")");
+                        {
+
+                            if ((condition.Substring(i + 6, 3) == "min" || condition.Substring(i + 6, 3) == "max" || condition.Substring(i + 6, 3) == "avg" || condition.Substring(i + 6, 3) == "sum") && condition[i + 9] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 10);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                                condition = condition.Remove(i + 5, 1);
+                            }
+                            else if (condition.Substring(i + 6, 5) == "count" && condition[i + 11] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 12);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                            }
+                            condition = condition.Insert(i, ")");
+                        }
+
 
                         else if (condition[i - 1] == ')' && condition[i + 5] != '(')
                         {
                             if (condition.Substring(i + 5, 4) == "not " && condition[i + 9] != '(')
+                            {
                                 condition = condition.Insert(i + 9, "(");
+                                i += 5;
+                            }
+
+                            //else if ((condition.Substring(i + 5, 3) == "min" || condition.Substring(i + 5, 3) == "max" || condition.Substring(i + 5, 3) == "avg" || condition.Substring(i + 5, 3) == "sum") && condition[i + 8] != '(')
+                            //{
+                            //    closeFunction = condition.IndexOf(")", i + 9);
+                            //    condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                            //    condition = condition.Insert(i + 8, "(");
+                            //    i = i - 1;
+                            //}
+                            else if ((condition.Substring(i + 5, 3) == "min" || condition.Substring(i + 5, 3) == "max" || condition.Substring(i + 5, 3) == "avg" || condition.Substring(i + 5, 3) == "sum") && condition[i + 8] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 9);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                                i += 4;
+                            }
+                            else if (condition.Substring(i + 5, 5) == "count" && condition[i + 10] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 11);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                                i = i + 6;
+                            }
                             else if (condition.Substring(i + 5, 4) != "not ")
+                            {
                                 condition = condition.Insert(i + 5, "(");
-                            i += 5;
+                                i += 5;
+                            }
+
+
                         }
 
                         i += 4;// Jump to the '('
@@ -787,6 +910,28 @@ namespace FRDB_SQLite
                                 condition = condition.Insert(i, ")");
                                 i += 5;
                             }
+                            else if ((condition.Substring(i + 4, 3) == "min" || condition.Substring(i + 4, 3) == "max" || condition.Substring(i + 4, 3) == "avg" || condition.Substring(i + 4, 3) == "sum") && condition[i + 7] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 8);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min(Age > 10)
+                                condition = condition.Insert(i, ")");
+                                i += 5;
+                            }
+                            //else if ((condition.Substring(i + 5, 3) == "min" || condition.Substring(i + 5, 3) == "max" || condition.Substring(i + 5, 3) == "avg" || condition.Substring(i + 5, 3) == "sum") && condition[i + 8] != '(')
+                            //{
+                            //    closeFunction = condition.IndexOf(")", i + 9);
+                            //    condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                            //    condition = condition.Insert(i + 8, "(");
+                            //    condition = condition.Insert(i, ")");
+                            //    i += 5;
+                            //}
+                            else if (condition.Substring(i + 4, 5) == "count" && condition[i + 9] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 10);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                                condition = condition.Insert(i, ")");
+                                i += 7;
+                            }//cần check min(fdjf) ở hàm check syntax
                             else if (condition.Substring(i + 4, 4) != "not ")
                             {
                                 condition = condition.Insert(i + 4, "(");
@@ -794,16 +939,44 @@ namespace FRDB_SQLite
                                 i += 2;
                             }
                         }
+
                         else if (condition[i - 1] == ')' && condition[i + 4] != '(')
                         {
                             if (condition.Substring(i + 4, 4) == "not " && condition[i + 8] != '(')
                                 condition = condition.Insert(i + 8, "(");
+                            else if ((condition.Substring(i + 4, 3) == "min" || condition.Substring(i + 4, 3) == "max" || condition.Substring(i + 4, 3) == "avg" || condition.Substring(i + 4, 3) == "sum") && condition[i + 7] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 8);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min(Age > 10)
+                                i = i - 1;
+                            }
+                            else if (condition.Substring(i + 4, 5) == "count" && condition[i + 9] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 10);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                                i += 1;
+                            }//cần check min(fdjf) ở hàm check syntax
                             else if (condition.Substring(i + 4, 4) != "not ")
                                 condition = condition.Insert(i + 4, "(");
                             i += 5;
                         }
                         else if (condition[i - 1] != ')' && condition[i + 4] == '(')
-                            condition = condition.Insert(i++, ")");
+                        {
+                            if ((condition.Substring(i + 5, 3) == "min" || condition.Substring(i + 5, 3) == "max" || condition.Substring(i + 5, 3) == "avg" || condition.Substring(i + 5, 3) == "sum") && condition[i + 8] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 10);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                                condition = condition.Remove(i + 4, 1);
+                            }
+                            else if (condition.Substring(i + 5, 5) == "count" && condition[i + 10] == '(')
+                            {
+                                closeFunction = condition.IndexOf(")", i + 11);
+                                condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                            }
+                            condition = condition.Insert(i, ")");
+                            i += 2;
+                        }
+
                         i += 3;// Jump to the '('
                     }
                 }
@@ -812,6 +985,16 @@ namespace FRDB_SQLite
             {
                 if (condition.Substring(0, 4) == "not ")
                     condition = condition.Insert(4, "(");
+                else if ((condition.Substring(0, 3) == "min" || condition.Substring(0, 3) == "max" || condition.Substring(0, 3) == "avg" || condition.Substring(0, 3) == "sum") && condition[3] == '(')
+                {
+                    closeFunction = condition.IndexOf(")");
+                    condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                }
+                else if (condition.Substring(0, 5) == "count" && condition[5] == '(')
+                {
+                    closeFunction = condition.IndexOf(")");
+                    condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
+                }
                 else
                     condition = condition.Insert(0, "(");
             }
@@ -1127,13 +1310,15 @@ namespace FRDB_SQLite
         private FzRelationEntity SatisfyAttributes(FzRelationEntity result, string _queryText)
         {
             List<Filter> filter  = FormatFilter(result, _queryText);
+            Filter filterTmp = new Filter();
             FzRelationEntity filterResult = new FzRelationEntity();
             List<int> indexGroupby = new List<int>();
             filterResult.Scheme = result.Scheme;
             if (filter[0].filterName == "groupby")
             {
+                filterTmp = filter[0];
                 int i = 0;
-                foreach (List<String> item in filter[0].elementValue)
+                foreach (List<String> item in filterTmp.elementValue)
                 {
                     int index = 0;
                     foreach (var itemAttr in result.Scheme.Attributes)
@@ -1162,7 +1347,7 @@ namespace FRDB_SQLite
                                         }
                                         if (CountSame == indexGroupby.Count)
                                         {
-                                            result.Tuples.RemoveAt(h);
+                                            //result.Tuples.RemoveAt(h);
                                             break;
                                         }
                                         else if (CountSame < indexGroupby.Count && CountSame >= 0)
@@ -1171,7 +1356,7 @@ namespace FRDB_SQLite
                                         {
                                             filterResult.Tuples.Add(result.Tuples[h]);
                                             item.Remove(result.Tuples[h].ValuesOnPerRow[index].ToString());
-                                            result.Tuples.RemoveAt(h);
+                                            //result.Tuples.RemoveAt(h);
                                             break;
                                         }
                                     } 
@@ -1180,7 +1365,7 @@ namespace FRDB_SQLite
                                 {
                                     filterResult.Tuples.Add(result.Tuples[h]);
                                     item.Remove(result.Tuples[h].ValuesOnPerRow[index].ToString());
-                                    result.Tuples.RemoveAt(h);
+                                    //result.Tuples.RemoveAt(h);
                                 }
                                 else if (!item.Contains(result.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count <= 1) break;
                             }
@@ -1318,15 +1503,28 @@ namespace FRDB_SQLite
                 {
                     Filter filter = new Filter();
                     filter.filterName = "having";
-                    if (orderby < 0)//having + ... (end)
-                    {
-                        tmp = _queryText.Substring(having + 8, _queryText.Length - having - 8);
-                    }
-                    else if (orderby > 0) //having ... + orderby
-                    {
-                        tmp = _queryText.Substring(having + 8, orderby - having - 8);
+                    tmp = _queryText.Substring(having);
+                    tmp = GetConditionText(tmp);//get condition Text 'having'(not where)
+                    if (tmp != String.Empty)
+                        tmp = AddParenthesis(tmp);
+                    List<Item> items = FormatCondition(tmp);
+                    //Check fuzzy set and object here
+                    //this.ErrorMessage = ExistsFuzzySet(items);
+                    //if (ErrorMessage != "") { this.Error = true; return result; }
 
-                    }
+                    //QueryConditionBLL condition = new QueryConditionBLL(items, this._selectedRelations, _fdbEntity);
+                    //result.Scheme.Attributes = this._selectedAttributes;
+
+                    //foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
+                    //{
+                    //    if (condition.Satisfy(items, tuple) != "0")
+                    //    {
+                    //        if (this._selectedAttributeTexts != null)
+                    //            result.Tuples.Add(GetSelectedAttributes(condition.ResultTuple));
+                    //        else
+                    //            result.Tuples.Add(condition.ResultTuple);
+                    //    }
+                    //}
                     tmp = tmp.Replace(" ", "");
                     filterStr = tmp.Split(',');
                     filter.elements = filterStr.ToList();
@@ -1380,6 +1578,7 @@ namespace FRDB_SQLite
         public List<String> elements = new List<string>();
         public String nextLogic = "";
         public bool notElement = false;
+        public String aggregateFunction = "";
     }
 
     public class Filter

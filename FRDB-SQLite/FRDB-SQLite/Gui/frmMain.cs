@@ -1698,12 +1698,12 @@ namespace FRDB_SQLite.Gui
                 PrepareQuery();
                 String query = QueryPL.StandardizeQuery(txtQuery.Text.Trim());
                 String message = QueryPL.CheckSyntax(query);
-                if ( message != "")
+                if (message != "")
                 {
                     ShowMessage(message, Color.Red);
                     return;
                 }
-                //query = QueryPL.ReplaceLetter(query);
+                query = QueryPL.ReplaceLetter(query);
                 FdbEntity newFdb = new FdbEntity() { Relations = fdbEntity.Relations, Schemes = fdbEntity.Schemes, DiscreteFuzzyNumbers = fdbEntity.DiscreteFuzzyNumbers, ContinuousFuzzyNumbers = fdbEntity.ContinuousFuzzyNumbers };
 
                 QueryExcutetionBLL excutetion = new QueryExcutetionBLL(query.ToLower(), newFdb);
