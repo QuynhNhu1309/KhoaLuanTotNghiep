@@ -37,7 +37,7 @@ namespace FRDB_SQLite.Gui
             //bool h = false && false != false && true || true || false;
             //MessageBox.Show(h.ToString());//
             ContextMenu_Database.Items[0].Visible = false;
-            
+
         }
 
         #region 0. Declare
@@ -68,7 +68,7 @@ namespace FRDB_SQLite.Gui
             public int unselectedState;
             public int selectedState;
         }
-        private ImageTree parentFdbImageTree, folderImageTree, schemeImageTree, relationImageTree, queryImageTree,  discreteFNImageTree,continuousFNImageTree;    //edit
+        private ImageTree parentFdbImageTree, folderImageTree, schemeImageTree, relationImageTree, queryImageTree, discreteFNImageTree, continuousFNImageTree;    //edit
 
         ////////////////////////////////////////////////////////////////////////////
         ///other object and declare
@@ -76,7 +76,7 @@ namespace FRDB_SQLite.Gui
         private System.Timers.Timer timer;
         private int currentRow, currentCell;
         private Boolean flag, validated, rollbackCell;
-        
+
         #endregion
 
         #region 1. Home Ribbon Page
@@ -92,7 +92,7 @@ namespace FRDB_SQLite.Gui
                 sfd.AddExtension = true;
                 sfd.RestoreDirectory = true;
                 sfd.InitialDirectory = FdbBLL.GetRootPath(AppDomain.CurrentDomain.BaseDirectory.ToString());
-                
+
                 sfd.SupportMultiDottedExtensions = true;
 
                 if (sfd.ShowDialog() == DialogResult.OK)
@@ -141,7 +141,7 @@ namespace FRDB_SQLite.Gui
                 ofd.Multiselect = false;
                 ofd.RestoreDirectory = true;
                 ofd.Title = "Open Fuzzy Database...";
-                
+
                 String tmp = ReadPath();// Read the path
                 if (tmp != "" && Directory.Exists(tmp))
                     ofd.InitialDirectory = tmp;
@@ -213,9 +213,9 @@ namespace FRDB_SQLite.Gui
                 frm.LblName.Text = "Saving...";
                 frm.Show();
                 frm.Refresh();
-               
+
                 fdbBll = new FdbBLL();
-                
+
                 fdbBll.DropFuzzyDatabase(fdbEntity);
                 if (!fdbBll.SaveFuzzyDatabase(fdbEntity))//Why fdbEntity doesn't null? Because it was created in  OpenFuzzyDatabase or CreateFuzzyDatabase
                 {
@@ -282,7 +282,7 @@ namespace FRDB_SQLite.Gui
                     ShowTreeListNode();
                     //Some enable control
                 }
-                
+
                 sfd.Dispose();
             }
             catch (Exception ex)
@@ -295,15 +295,15 @@ namespace FRDB_SQLite.Gui
         {
             try
             {
-                DialogResult result = MessageBox.Show("Close current fuzzy database ?", "Close Fuzzy Database " 
-                    + fdbEntity.FdbName , MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+                DialogResult result = MessageBox.Show("Close current fuzzy database ?", "Close Fuzzy Database "
+                    + fdbEntity.FdbName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
                 if (result == DialogResult.Yes)
                 {
                     treeList1.Nodes.Clear();
                     fdbEntity = null;
                     CloseCurrentRelation();
-                    AddRowDefault();        
+                    AddRowDefault();
                     ResetObject();
                     ActiveDatabase(false);
                     iOpenExistingDatabase.Enabled = true;
@@ -388,7 +388,7 @@ namespace FRDB_SQLite.Gui
         {
             if (fdbEntity != null && FdbBLL.CheckConnection(fdbEntity))
             {
-                MessageBox.Show("OK","Connection is OK!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("OK", "Connection is OK!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -410,7 +410,7 @@ namespace FRDB_SQLite.Gui
         }
 
         private void ClosingForm()
-        { 
+        {
             try
             {
                 if (fdbEntity != null)
@@ -437,7 +437,7 @@ namespace FRDB_SQLite.Gui
             {
                 MessageBox.Show("Can not save the database because of null values!", "ERROR", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private void OnTimeEvent(Object sender, ElapsedEventArgs e)
@@ -485,7 +485,7 @@ namespace FRDB_SQLite.Gui
         }
 
         #endregion
-            #region Context Menu Fuzzy Database
+        #region Context Menu Fuzzy Database
         private void CTMenuDB_CloseDB_Click(object sender, EventArgs e)
         {
             CloseFuzzyDatabase();
@@ -572,7 +572,7 @@ namespace FRDB_SQLite.Gui
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ERROR:\n"+ ex.Message);
+                MessageBox.Show("ERROR:\n" + ex.Message);
             }
         }
 
@@ -622,7 +622,7 @@ namespace FRDB_SQLite.Gui
                         {
                             AddSchemeNode(frm.SchemeName);//Add scheme name to tree node and database
                         }
-                        
+
                         currentScheme = newScheme;
                         SaveCurrentScheme(frm.SchemeName);///Clear all attributes and update
                     }
@@ -635,7 +635,7 @@ namespace FRDB_SQLite.Gui
                     String schemeName = currentScheme.SchemeName;
                     SaveCurrentScheme(schemeName);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -685,7 +685,7 @@ namespace FRDB_SQLite.Gui
                 String typeName = GridViewDesign.Rows[i].Cells[2].Value.ToString();
                 String description = (GridViewDesign.Rows[i].Cells[4].Value == null ? "" : GridViewDesign.Rows[i].Cells[4].Value.ToString());
                 String domain = (GridViewDesign.Rows[i].Cells[3].Value.ToString());
-                
+
                 FzDataTypeEntity dataType = new FzDataTypeEntity(typeName, domain);
                 FzAttributeEntity attribute = new FzAttributeEntity(primaryKey, attributeName, dataType, description);
 
@@ -694,7 +694,7 @@ namespace FRDB_SQLite.Gui
 
             if (GridViewDesign.Rows[GridViewDesign.Rows.Count - 2].Cells[1].Value.ToString() != "µ")
                 AddMembership();
-            
+
             MessageBox.Show("Current Scheme is saved OK!");
         }
 
@@ -747,7 +747,7 @@ namespace FRDB_SQLite.Gui
                 MessageBox.Show("There are no attribute in this scheme, let create some attributes!");
                 xtraTabDatabase.TabPages[0].Text = "Create Attribute to Scheme " + currentScheme.SchemeName;
                 xtraTabDatabase.SelectedTabPage = xtraTabDatabase.TabPages[0];
-                
+
                 UnsetReadOnlyGridView();
             }
             else//is contented, show text and attributes
@@ -784,7 +784,7 @@ namespace FRDB_SQLite.Gui
                         AddRowDefault();
                     }
 
-                    DeleteTreeNode(delScheme.SchemeName, delScheme, null, null,null,null);
+                    DeleteTreeNode(delScheme.SchemeName, delScheme, null, null, null, null);
                 }
             }
         }
@@ -806,7 +806,7 @@ namespace FRDB_SQLite.Gui
 
         private Boolean AllowSavingNewScheme()
         {
-            if (currentScheme == null || xtraTabDatabase.TabPages[0].Text.Length <= 7) 
+            if (currentScheme == null || xtraTabDatabase.TabPages[0].Text.Length <= 7)
                 return true;
             return false;
         }
@@ -848,8 +848,8 @@ namespace FRDB_SQLite.Gui
                 GridViewDesign.Rows[i].Cells[3].Value = attr.DataType.DomainString;
                 GridViewDesign.Rows[i].Cells[4].Value = (attr.Description != null ? attr.Description : null);
             }
-           
-           // GridViewDesign.CurrentCell = GridViewDesign.Rows[j].Cells[0];
+
+            // GridViewDesign.CurrentCell = GridViewDesign.Rows[j].Cells[0];
 
             if (GridViewDesign.CurrentRow != null)
             {
@@ -919,7 +919,7 @@ namespace FRDB_SQLite.Gui
         }
 
         #endregion
-            #region Context Menu Scheme
+        #region Context Menu Scheme
         private void CTMenuSchema_NewSchema_Click(object sender, EventArgs e)
         {
             CreateNewBlankScheme();
@@ -998,7 +998,7 @@ namespace FRDB_SQLite.Gui
                 {
                     FzSchemeEntity tmp = new FzSchemeEntity();
                     tmp = FzSchemeBLL.GetSchemeByName(item, fdbEntity);
-                    DeleteTreeNode(item, tmp, null, null,null,null);
+                    DeleteTreeNode(item, tmp, null, null, null, null);
                 }
             }
             catch (Exception ex)
@@ -1076,8 +1076,8 @@ namespace FRDB_SQLite.Gui
                 xtraTabDatabase.SelectedTabPage = xtraTabDatabase.TabPages[1]; ;
 
                 SaveTuples(currentRelation);
-                
-                
+
+
                 MessageBox.Show("Relation is saved OK!");
             }
             catch (Exception ex)
@@ -1246,7 +1246,7 @@ namespace FRDB_SQLite.Gui
             childRelationNode.Nodes.Add(newNode);
 
             currentRelation = newRelation;//Advoid null
-           
+
             if (MessageBox.Show("Add values to this relation?", "Add values", MessageBoxButtons.YesNo)
                 == DialogResult.Yes)
             {
@@ -1256,7 +1256,7 @@ namespace FRDB_SQLite.Gui
 
         private void ShowColumnsAttribute(FzRelationEntity currentRelation)
         {
-            
+
             xtraTabDatabase.TabPages[1].Text = "Relation " + currentRelation.RelationName;
             xtraTabDatabase.SelectedTabPage = xtraTabDatabase.TabPages[1];
             GridViewData.Rows.Clear();
@@ -1323,7 +1323,7 @@ namespace FRDB_SQLite.Gui
         }
 
         #endregion
-            #region Context Menu Relation
+        #region Context Menu Relation
 
         private void CTMenuRelation_NewRelation_Click(object sender, EventArgs e)
         {
@@ -1391,7 +1391,7 @@ namespace FRDB_SQLite.Gui
                         UpdateDataRowNumber();
                     }
 
-                    DeleteTreeNode(relationName, null, deleteRelation, null,null,null);
+                    DeleteTreeNode(relationName, null, deleteRelation, null, null, null);
                 }
             }
             catch (Exception ex)
@@ -1450,7 +1450,7 @@ namespace FRDB_SQLite.Gui
             try
             {
                 if (fdbEntity == null) { MessageBox.Show("Current database is empty!"); return; }
-                
+
                 frmQueryEditor frm = new frmQueryEditor(fdbEntity.Queries);
                 frm.ShowDialog();
                 //After form close
@@ -1521,7 +1521,7 @@ namespace FRDB_SQLite.Gui
         }
 
         private void CloseCurrentQuery()
-        { 
+        {
             txtQuery.Text = "";
             xtraTabDatabase.SelectedTabPageIndex = 2;
             xtraTabDatabase.TabPages[2].Text = "Query";
@@ -1555,7 +1555,7 @@ namespace FRDB_SQLite.Gui
         }
 
         #endregion
-            #region Context Menu Query
+        #region Context Menu Query
         private void CTMenuQuery_NewQuery_Click(object sender, EventArgs e)
         {
             QueryEditor();
@@ -1592,9 +1592,9 @@ namespace FRDB_SQLite.Gui
             DialogResult result = new DialogResult();
             result = MessageBox.Show("Are you  want to delete this query ?", "Delete query " + queryName, MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
-            { 
+            {
                 if (deleteQuery != null)
-                    DeleteTreeNode(queryName, null, null, deleteQuery,null,null);
+                    DeleteTreeNode(queryName, null, null, deleteQuery, null, null);
             }
 
         }
@@ -1603,7 +1603,7 @@ namespace FRDB_SQLite.Gui
         {
             try
             {
-                 if (fdbEntity == null) { MessageBox.Show("Current Database is empty!"); return; }
+                if (fdbEntity == null) { MessageBox.Show("Current Database is empty!"); return; }
 
                 String queryName = "";
                 if (currentQuery != null)
@@ -1652,10 +1652,10 @@ namespace FRDB_SQLite.Gui
             }
         }
         #endregion
-            #region Query Processing
+        #region Query Processing
         private void frmMain_Load(object sender, EventArgs e)
         {
-            (new frmAbout(true)).Show(); 
+            (new frmAbout(true)).Show();
             QueryPL.txtQuery_TextChanged(txtQuery);
             AddRowDefault();
             StartApp();
@@ -1670,7 +1670,7 @@ namespace FRDB_SQLite.Gui
             txtMessage.Text = message;
             return;
         }
-       
+
         private void iOperator_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             int pos = txtQuery.SelectionStart;
@@ -1697,25 +1697,122 @@ namespace FRDB_SQLite.Gui
                 DeleteTemp(); // xóa các file temp ở đường dẫn \FRDB-SQLite\bin\Debug\lib\temp
                 PrepareQuery();
                 String query = QueryPL.StandardizeQuery(txtQuery.Text.Trim());
-                String message = QueryPL.CheckSyntax(query);
-                if ( message != "")
-                {
-                    ShowMessage(message, Color.Red);
-                    return;
-                }
+                //String message = QueryPL.CheckSyntax(query);
+                //if (message != "")
+                //{
+                //    ShowMessage(message, Color.Red);
+                //    return;
+                //}
                 //query = QueryPL.ReplaceLetter(query);
                 FdbEntity newFdb = new FdbEntity() { Relations = fdbEntity.Relations, Schemes = fdbEntity.Schemes, DiscreteFuzzyNumbers = fdbEntity.DiscreteFuzzyNumbers, ContinuousFuzzyNumbers = fdbEntity.ContinuousFuzzyNumbers };
 
-                QueryExcutetionBLL excutetion = new QueryExcutetionBLL(query.ToLower(), newFdb);
-                //edit---
+                FzRelationEntity result = null;
                 QueryConditionBLL condition = new QueryConditionBLL();
                 string temp_path = Directory.GetCurrentDirectory() + @"\lib\temp\";
-                //GridViewResult.Enabled = false;
-                //---
-                FzRelationEntity result = excutetion.ExecuteQuery();
-                if (excutetion.Error)
+                string lowerQuery = query.ToLower();
+                if (lowerQuery.Contains("join"))
                 {
-                    ShowMessage(excutetion.ErrorMessage, Color.Red); return;
+                    int joinIndex = lowerQuery.IndexOf("join");
+                    switch (lowerQuery.Substring(joinIndex - 6, 10))
+                    {
+                        case "inner join":
+                            joinIndex -= 6;
+                            break;
+                        case " left join":
+                            joinIndex -= 5;
+                            break;
+                        case "right join":
+                            joinIndex -= 6;
+                            break;
+                        case " full join":
+                            joinIndex -= 5;
+                            break;
+                        case "outer join":
+                            joinIndex -= 6;
+                            break;
+                    }
+                    string firstRelationStr = query.Substring(lowerQuery.IndexOf("from") + 4, joinIndex - (lowerQuery.IndexOf("from") + 4)).Trim();
+                    string secondRelationStr = query.Substring(lowerQuery.IndexOf("join") + 4, lowerQuery.IndexOf("on") - (lowerQuery.IndexOf("join") + 4)).Trim();
+                    FzRelationEntity firstRelation = fdbEntity.Relations
+                        .Find(relation => firstRelationStr.Equals(relation.RelationName, StringComparison.InvariantCultureIgnoreCase));
+                    FzRelationEntity secondRelation = fdbEntity.Relations
+                        .Find(item => secondRelationStr.Equals(item.RelationName, StringComparison.InvariantCultureIgnoreCase));
+                    FzSchemeEntity firstScheme = fdbEntity.Schemes
+                        .Find(item => firstRelationStr.Substring(1).Insert(0, "s").Equals(item.SchemeName, StringComparison.InvariantCultureIgnoreCase));
+                    FzSchemeEntity secondScheme = fdbEntity.Schemes
+                        .Find(item => secondRelationStr.Substring(1).Insert(0, "s").Equals(item.SchemeName, StringComparison.InvariantCultureIgnoreCase));
+                    List<FzAttributeEntity> joinAttrs = new List<FzAttributeEntity>();
+                    foreach (FzAttributeEntity attr in firstScheme.Attributes)
+                    {
+                        FzAttributeEntity newAttr = new FzAttributeEntity()
+                        {
+                            AttributeName = firstScheme.SchemeName + "." + attr.AttributeName,
+                            DataType = attr.DataType,
+                            PrimaryKey = attr.PrimaryKey,
+                            Description = attr.Description
+                        };
+                        joinAttrs.Add(newAttr);
+                    }
+                    foreach (FzAttributeEntity attr in secondScheme.Attributes)
+                    {
+                        FzAttributeEntity newAttr = new FzAttributeEntity()
+                        {
+                            AttributeName = secondScheme.SchemeName + "." + attr.AttributeName,
+                            DataType = attr.DataType,
+                            PrimaryKey = attr.PrimaryKey,
+                            Description = attr.Description
+                        };
+                        joinAttrs.Add(newAttr);
+                    }
+                    FzSchemeEntity joinScheme = new FzSchemeEntity(firstScheme.SchemeName + "_" + secondScheme.SchemeName, joinAttrs);
+                    FzRelationEntity joinRelation = new FzRelationEntity(firstRelation.RelationName + "_" + secondRelation.RelationName)
+                    {
+                        Scheme = joinScheme
+                    };
+                    int whereIndex = query.Contains("where") ? query.IndexOf("where") : query.Length;
+                    String[] joinKeys = query.Substring(query.IndexOf("on") + 2, whereIndex - (query.IndexOf("on") + 2)).Split('=');
+                    int firstKeyIndex = firstScheme.Attributes
+                        .FindIndex(item => item.AttributeName.Equals(joinKeys[0].Split('.')[1].Trim(), StringComparison.InvariantCultureIgnoreCase));
+                    int secondKeyIndex = secondScheme.Attributes
+                        .FindIndex(item => item.AttributeName.Equals(joinKeys[1].Split('.')[1].Trim(), StringComparison.InvariantCultureIgnoreCase));
+                    foreach (FzTupleEntity firstRelationTuple in firstRelation.Tuples)
+                    {
+                        foreach (FzTupleEntity secondRelationTuple in secondRelation.Tuples)
+                        {
+                            if (firstRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(secondRelationTuple.ValuesOnPerRow[secondKeyIndex]))
+                            {
+                                List<string> valuesOnPerRow = firstRelationTuple.ValuesOnPerRow
+                                    .Concat(secondRelationTuple.ValuesOnPerRow)
+                                    .Select(item => item.ToString())
+                                    .ToList();
+                                string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray());
+                                FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
+                                joinRelation.Tuples.Add(newTuple);
+                            }
+                        }
+                    }
+                    result = joinRelation;
+                    //string conditionStr = query.Substring(lowerQuery.IndexOf("where") + 5);
+                    //if (conditionStr != "")
+                    //{
+                    //    foreach(string relation in relations)
+                    //    {
+
+                    //    }
+                    //}
+
+                }
+                else
+                {
+                    QueryExcutetionBLL excutetion = new QueryExcutetionBLL(query.ToLower(), newFdb);
+                    //edit---
+                    //GridViewResult.Enabled = false;
+                    //---
+                    result = excutetion.ExecuteQuery();
+                    if (excutetion.Error)
+                    {
+                        ShowMessage(excutetion.ErrorMessage, Color.Red); return;
+                    }
                 }
 
                 if (result != null)
@@ -1734,12 +1831,12 @@ namespace FRDB_SQLite.Gui
                             //edit--
                             if (j == countColum - 1)
                             {
-                                if (condition.GetConFS(temp_path, value.ToString()) != null|| condition.GetDisFS(temp_path, value.ToString()) != null)
+                                if (condition.GetConFS(temp_path, value.ToString()) != null || condition.GetDisFS(temp_path, value.ToString()) != null)
                                 {
                                     GridViewResult.Rows[i].Cells[j].Style.ForeColor = Color.Blue;
                                     //enable ô
                                 }
-                                else if (value.ToString()== "FN not exists")
+                                else if (value.ToString() == "FN not exists")
                                 {
                                     GridViewResult.Rows[i].Cells[j].Style.ForeColor = Color.Red;
                                 }
@@ -1792,7 +1889,7 @@ namespace FRDB_SQLite.Gui
             string temp_path = Directory.GetCurrentDirectory() + @"\lib\temp\";
             string FN_Name = GridViewResult.CurrentCell.Value.ToString();
             DisFS dis = condition.GetDisFS(temp_path, FN_Name);
-            if (dis != null )
+            if (dis != null)
             {
                 frmDisFSRelation frm = new frmDisFSRelation();
                 frm.FSName = FN_Name;
@@ -1824,7 +1921,7 @@ namespace FRDB_SQLite.Gui
                 //OpenQuery(frm.QueryName);
 
                 //if (currentDis == null)
-                  //  CloseCurrentQuery();
+                //  CloseCurrentQuery();
             }
             catch (Exception ex)
             {
@@ -1990,31 +2087,31 @@ namespace FRDB_SQLite.Gui
 
             return colors;
         }
-            #region Context Menu DiscreteFN
-            private void CTMenuDiscreteFN_NewDiscreteFN_Click(object sender, EventArgs e)
-            {
-                 DiscreteFNEditor();
-            }
+        #region Context Menu DiscreteFN
+        private void CTMenuDiscreteFN_NewDiscreteFN_Click(object sender, EventArgs e)
+        {
+            DiscreteFNEditor();
+        }
 
-            private void CTMenuDiscreteFN_DeleteDiscreteFNs_Click(object sender, EventArgs e)
+        private void CTMenuDiscreteFN_DeleteDiscreteFNs_Click(object sender, EventArgs e)
+        {
+            try
             {
-                try
-                {
-                    fdbEntity.DiscreteFuzzyNumbers.Clear();
-                    ShowTreeList();
-                    ShowTreeListNode();
-                    treeList1.ExpandAll();
-                    currentDis = null;
-                   // CloseCurrentDiscreteFS();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                fdbEntity.DiscreteFuzzyNumbers.Clear();
+                ShowTreeList();
+                ShowTreeListNode();
+                treeList1.ExpandAll();
+                currentDis = null;
+                // CloseCurrentDiscreteFS();
             }
-
-            private void CTMenuDiscreteFNNode_OpenDiscreteFN_Click(object sender, EventArgs e)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CTMenuDiscreteFNNode_OpenDiscreteFN_Click(object sender, EventArgs e)
+        {
             try
             {
                 String name = childCurrentNode.Name;
@@ -2023,7 +2120,7 @@ namespace FRDB_SQLite.Gui
 
                 List<Double> values = SplitString(currentDis.V);
                 List<Double> memberships = SplitString(currentDis.M);
-                frmDescreteEditor frm = new frmDescreteEditor(fdbEntity.DiscreteFuzzyNumbers, name, values, memberships,true); //discrete FS is membership
+                frmDescreteEditor frm = new frmDescreteEditor(fdbEntity.DiscreteFuzzyNumbers, name, values, memberships, true); //discrete FS is membership
                 frm.ShowDialog();
 
             }
@@ -2034,20 +2131,20 @@ namespace FRDB_SQLite.Gui
         }
 
         private void CTMenuDiscreteFN_DeleteDiscreteFN_Click(object sender, EventArgs e)
+        {
+            String disFNName = childCurrentNode.Name;
+            FzDiscreteFuzzySetEntity deleteDisFN = DiscreteFuzzySetBLL.GetDisFNByName(disFNName, fdbEntity);
+
+            DialogResult result = new DialogResult();
+            result = MessageBox.Show("Are you  want to delete this Discrete Fuzzy Number ?", "Delete Discrete Fuzzy Number " + disFNName, MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                String disFNName = childCurrentNode.Name;
-                FzDiscreteFuzzySetEntity deleteDisFN = DiscreteFuzzySetBLL.GetDisFNByName(disFNName, fdbEntity);
 
-                DialogResult result = new DialogResult();
-                result = MessageBox.Show("Are you  want to delete this Discrete Fuzzy Number ?", "Delete Discrete Fuzzy Number " + disFNName, MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
-
-                    if (deleteDisFN != null)
-                        DeleteTreeNode(disFNName, null, null,null, deleteDisFN,null);
-                 }
-
+                if (deleteDisFN != null)
+                    DeleteTreeNode(disFNName, null, null, null, deleteDisFN, null);
             }
+
+        }
 
         private void CTMenuDiscreteFN_RenameDiscreteFN_Click(object sender, EventArgs e)
         {
@@ -2092,103 +2189,103 @@ namespace FRDB_SQLite.Gui
         #endregion
         #region Context Menu ContinuousFN
         private void CTMenuContinuousFN_NewContinuousFN_Click(object sender, EventArgs e)
+        {
+            ContinuousFNEditor();
+        }
+
+        private void CTMenuContinuousFN_DeleteContinuousFNs_Click(object sender, EventArgs e)
+        {
+            try
             {
-                ContinuousFNEditor();
+                fdbEntity.ContinuousFuzzyNumbers.Clear();
+                ShowTreeList();
+                ShowTreeListNode();
+                treeList1.ExpandAll();
+                currentCon = null;
+                // CloseCurrentDiscreteFS();
             }
-
-            private void CTMenuContinuousFN_DeleteContinuousFNs_Click(object sender, EventArgs e)
+            catch (Exception ex)
             {
-                try
-                {
-                    fdbEntity.ContinuousFuzzyNumbers.Clear();
-                    ShowTreeList();
-                    ShowTreeListNode();
-                    treeList1.ExpandAll();
-                    currentCon = null;
-                    // CloseCurrentDiscreteFS();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                MessageBox.Show(ex.Message);
             }
+        }
 
-            private void CTMenuContinuousFNNode_OpenContinuousFN_Click(object sender, EventArgs e)
+        private void CTMenuContinuousFNNode_OpenContinuousFN_Click(object sender, EventArgs e)
+        {
+            try
             {
-                try
-                {
-                    String name = childCurrentNode.Name;
-                    treeList1.SelectedNode = childCurrentNode;
-                    currentCon = ContinuousFuzzySetBLL.GetConFNByName(name, fdbEntity);
+                String name = childCurrentNode.Name;
+                treeList1.SelectedNode = childCurrentNode;
+                currentCon = ContinuousFuzzySetBLL.GetConFNByName(name, fdbEntity);
 
-                frmContinuousEditor frm = new frmContinuousEditor(fdbEntity.ContinuousFuzzyNumbers, name,currentCon.Bottom_Left,currentCon.Top_Left,currentCon.Top_Right,currentCon.Bottom_Right, true); //discrete FS is membership
-                    frm.ShowDialog();
+                frmContinuousEditor frm = new frmContinuousEditor(fdbEntity.ContinuousFuzzyNumbers, name, currentCon.Bottom_Left, currentCon.Top_Left, currentCon.Top_Right, currentCon.Bottom_Right, true); //discrete FS is membership
+                frm.ShowDialog();
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
             }
-
-            private void CTMenuContinuousFN_DeleteContinuousFN_Click(object sender, EventArgs e)
+            catch (Exception ex)
             {
-                String conFNName = childCurrentNode.Name;
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CTMenuContinuousFN_DeleteContinuousFN_Click(object sender, EventArgs e)
+        {
+            String conFNName = childCurrentNode.Name;
             FzContinuousFuzzySetEntity deleteConFN = ContinuousFuzzySetBLL.GetConFNByName(conFNName, fdbEntity);
 
-                DialogResult result = new DialogResult();
-                result = MessageBox.Show("Are you  want to delete this Continuous Fuzzy Number ?", "Delete Continuous Fuzzy Number " + conFNName, MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
-
-                    if (deleteConFN != null)
-                        DeleteTreeNode(conFNName, null, null, null, null,deleteConFN);
-                }
-
-            }
-
-            private void CTMenuContinuousFN_RenameContinuousFN_Click(object sender, EventArgs e)
+            DialogResult result = new DialogResult();
+            result = MessageBox.Show("Are you  want to delete this Continuous Fuzzy Number ?", "Delete Continuous Fuzzy Number " + conFNName, MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
 
-                try
-                {
-                    if (fdbEntity == null) { MessageBox.Show("Current Database is empty!"); return; }
+                if (deleteConFN != null)
+                    DeleteTreeNode(conFNName, null, null, null, null, deleteConFN);
+            }
 
-                    String conFNName = "";
-                    if (currentCon != null)
-                        conFNName = currentCon.Name;
-                    else
-                        conFNName = childCurrentNode.Name;
+        }
 
-                    currentCon = ContinuousFuzzySetBLL.GetConFNByName(conFNName, fdbEntity);
+        private void CTMenuContinuousFN_RenameContinuousFN_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (fdbEntity == null) { MessageBox.Show("Current Database is empty!"); return; }
+
+                String conFNName = "";
+                if (currentCon != null)
+                    conFNName = currentCon.Name;
+                else
+                    conFNName = childCurrentNode.Name;
+
+                currentCon = ContinuousFuzzySetBLL.GetConFNByName(conFNName, fdbEntity);
 
                 FzContinuousFuzzySetEntity renamedConFN = ContinuousFuzzySetBLL.GetConFNByName(conFNName, fdbEntity);
 
-                    DBValues.conFNName = ContinuousFuzzySetBLL.ListOfContinuousFNName(fdbEntity);
-                    frmNewName frm = new frmNewName(6);
-                    frm.ShowDialog();
+                DBValues.conFNName = ContinuousFuzzySetBLL.ListOfContinuousFNName(fdbEntity);
+                frmNewName frm = new frmNewName(6);
+                frm.ShowDialog();
 
-                    if (frm.Name == null) return;
-                    if (currentCon != null)
-                    {
+                if (frm.Name == null) return;
+                if (currentCon != null)
+                {
                     renamedConFN.Name = frm.Name;
                     if (renamedConFN.Equals(currentCon))
-                        {
-                            if (xtraTabDatabase.TabPages[3].Text.Contains("Create Query"))//editttttttttttttttttt
-                                xtraTabDatabase.TabPages[3].Text = "Create Query " + frm.Name;
-                            else xtraTabDatabase.TabPages[3].Text = "Query " + frm.Name;
-                            childCurrentNode.Name = childCurrentNode.Text = frm.Name;
-                        }
+                    {
+                        if (xtraTabDatabase.TabPages[3].Text.Contains("Create Query"))//editttttttttttttttttt
+                            xtraTabDatabase.TabPages[3].Text = "Create Query " + frm.Name;
+                        else xtraTabDatabase.TabPages[3].Text = "Query " + frm.Name;
+                        childCurrentNode.Name = childCurrentNode.Text = frm.Name;
                     }
+                }
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
-            #endregion
+        #endregion
 
         #endregion
 
@@ -2354,7 +2451,7 @@ namespace FRDB_SQLite.Gui
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -2408,7 +2505,7 @@ namespace FRDB_SQLite.Gui
         /// <summary>
         /// Delete tree node on treeList and also delete Object in db
         /// </summary>
-        private void DeleteTreeNode(String deleteNodeName, FzSchemeEntity schemeEntity, FzRelationEntity relationEntity, FzQueryEntity queryEntity, FzDiscreteFuzzySetEntity disEntity,FzContinuousFuzzySetEntity conEntity)
+        private void DeleteTreeNode(String deleteNodeName, FzSchemeEntity schemeEntity, FzRelationEntity relationEntity, FzQueryEntity queryEntity, FzDiscreteFuzzySetEntity disEntity, FzContinuousFuzzySetEntity conEntity)
         {
             if (schemeEntity != null)
             {
@@ -2597,7 +2694,7 @@ namespace FRDB_SQLite.Gui
             currentScheme = newScheme = null;
             //currentRelation = NewRelation = RenamedRelation = null;
             //CurrentQuery = NewQuery = RenamedQuery = null;
-            parentFdbNode = childSchemeNode = childRelationNode = childQueryNode = childCurrentNode = childDiscreteFNNode= childNewNode = null;
+            parentFdbNode = childSchemeNode = childRelationNode = childQueryNode = childCurrentNode = childDiscreteFNNode = childNewNode = null;
         }
 
         public void ResetSchemePage(Boolean state)
@@ -2620,7 +2717,7 @@ namespace FRDB_SQLite.Gui
         public void ResetQueryPage(bool state)
         {
             xtraTabDatabase.TabPages[2].Text = "Query";
-            
+
         }
         public void ResetFSPage(bool state)
         {
@@ -2650,7 +2747,7 @@ namespace FRDB_SQLite.Gui
 
         public void ResetInputValue(bool state)
         {
-            
+
         }
 
         private void ResetRibbonPage(Boolean state)
@@ -2662,7 +2759,7 @@ namespace FRDB_SQLite.Gui
             connectionRibbonPageGroup.Visible = state;
 
             schemeRibbonPage.Visible = state;
-            relationRibbonPage.Visible= state;
+            relationRibbonPage.Visible = state;
             queryRibbonPage.Visible = state;
         }
         private void ActiveDatabase(Boolean state)
@@ -2699,7 +2796,7 @@ namespace FRDB_SQLite.Gui
             int n = GridViewDesign.Rows.Count - 2;
             for (int i = n; i >= 0; i--)
                 //if (!GridViewDesign.Rows[i].IsNewRow)
-                    GridViewDesign.Rows.Remove(GridViewDesign.Rows[i]);
+                GridViewDesign.Rows.Remove(GridViewDesign.Rows[i]);
             Object[] _default = new Object[] { true, "Edit_PrimaryKey_Here", "Int32", "[-2147483648  ...  2147483647]", "The primary key of this relation" };
             GridViewDesign.Rows.Add(_default);
             toolStripLabel1.Text = lblDesignRowNumberIndicator.Text = "2 / 2";
@@ -2744,7 +2841,7 @@ namespace FRDB_SQLite.Gui
                         }
                         else
                         {
-                           // GridViewDesign.CurrentCell = GridViewDesign.Rows[currentRow].Cells[currentCell];
+                            // GridViewDesign.CurrentCell = GridViewDesign.Rows[currentRow].Cells[currentCell];
                             currentRow = GridViewDesign.CurrentRow.Index;
                         }
                     }
@@ -2870,9 +2967,9 @@ namespace FRDB_SQLite.Gui
             {
                 if (rowIndex >= 0 && rowIndex < GridViewDesign.Rows.Count)
                 {
-                    bool prKey = (GridViewDesign.Rows[rowIndex].Cells["PrimaryKey"].Value != null);  
-                    bool attrName = (GridViewDesign.Rows[rowIndex].Cells["ColumnName"].Value != null); 
-                    bool typeName = (GridViewDesign.Rows[rowIndex].Cells["ColumnType"].Value != null); 
+                    bool prKey = (GridViewDesign.Rows[rowIndex].Cells["PrimaryKey"].Value != null);
+                    bool attrName = (GridViewDesign.Rows[rowIndex].Cells["ColumnName"].Value != null);
+                    bool typeName = (GridViewDesign.Rows[rowIndex].Cells["ColumnType"].Value != null);
                     bool description = (GridViewDesign.Rows[rowIndex].Cells["ColumnDescription"].Value != null);
                     if (attrName && typeName)
                         return true;
@@ -2936,7 +3033,7 @@ namespace FRDB_SQLite.Gui
                 NextRow = (NextRow < nRow - 1 ? NextRow : nRow - 1);
                 GridViewDesign.CurrentCell = GridViewDesign.Rows[NextRow].Cells[0];
                 toolStripLabel1.Text = lblDesignRowNumberIndicator.Text = (NextRow + 1).ToString() + " / " + GridViewDesign.Rows.Count.ToString();
-                
+
             }
         }
 
@@ -2986,7 +3083,7 @@ namespace FRDB_SQLite.Gui
         {
             SaveScheme();
         }
-        
+
         #endregion
 
         #region 10. GridView Data Relation
@@ -3021,7 +3118,7 @@ namespace FRDB_SQLite.Gui
 
         private void btn_Data_Pre_Click(object sender, EventArgs e)
         {
-            if (GridViewData.Rows.Count > 0 )//&& !GridViewData.Rows[GridViewData.Rows.Count - 1].IsNewRow)
+            if (GridViewData.Rows.Count > 0)//&& !GridViewData.Rows[GridViewData.Rows.Count - 1].IsNewRow)
             {
                 int PreRow = GridViewData.CurrentRow.Index - 1;
                 PreRow = (PreRow > 0 ? PreRow : 0);
@@ -3035,27 +3132,27 @@ namespace FRDB_SQLite.Gui
             AutoCompleteStringCollection DataCollection = new AutoCompleteStringCollection();
             addItems(DataCollection);
             int column = GridViewData.CurrentCell.ColumnIndex;
-            if (column == GridViewData.ColumnCount-1)
+            if (column == GridViewData.ColumnCount - 1)
             {
                 TextBox autoText = e.Control as TextBox;
-                    autoText.AutoCompleteMode = AutoCompleteMode.Suggest;
-                    autoText.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                    autoText.AutoCompleteCustomSource = DataCollection;
+                autoText.AutoCompleteMode = AutoCompleteMode.Suggest;
+                autoText.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                autoText.AutoCompleteCustomSource = DataCollection;
             }
             else
             {
                 TextBox prodCode = e.Control as TextBox;
-                    prodCode.AutoCompleteMode = AutoCompleteMode.None;
+                prodCode.AutoCompleteMode = AutoCompleteMode.None;
             }
         }
         public void addItems(AutoCompleteStringCollection col)
         {
             List<String> list = DiscreteFuzzySetBLL.ListOfDiscreteFNName(fdbEntity);
-             list.AddRange ( ContinuousFuzzySetBLL.ListOfContinuousFNName(fdbEntity)); //edit this
+            list.AddRange(ContinuousFuzzySetBLL.ListOfContinuousFNName(fdbEntity)); //edit this
             foreach (string n in list)
             {
                 col.Add(n);
-            }            
+            }
         }
         //------------------
         private void btn_Data_Next_Click(object sender, EventArgs e)
@@ -3144,11 +3241,11 @@ namespace FRDB_SQLite.Gui
 
                     ///Convert value of current cell to correct datatype of attribute
                     ///If cannot convert, focus to current cell and block focus to others cell
-                    if (currentRelation != null && !FzDataTypeBLL.CheckDataType(value, currentRelation.Scheme.Attributes[currentCell].DataType)&& GridViewData.CurrentCell.ColumnIndex != GridViewData.ColumnCount - 1)
+                    if (currentRelation != null && !FzDataTypeBLL.CheckDataType(value, currentRelation.Scheme.Attributes[currentCell].DataType) && GridViewData.CurrentCell.ColumnIndex != GridViewData.ColumnCount - 1)
                     {
-                            e.Cancel = true;
-                            MessageBox.Show("Attribute value does not match with the data type!");
-                            return;
+                        e.Cancel = true;
+                        MessageBox.Show("Attribute value does not match with the data type!");
+                        return;
                     }
                     if (!CheckPrimaryKey(e.RowIndex))
                     {
@@ -3225,7 +3322,7 @@ namespace FRDB_SQLite.Gui
             return regex.IsMatch(pText);
         }
         private Boolean CheckMembership()
-            {
+        {
             int n = GridViewData.Rows.Count - 1;
             for (int i = 0; i < n; i++)
             {
@@ -3282,10 +3379,10 @@ namespace FRDB_SQLite.Gui
         private Boolean CheckPrimaryKey(int row)//Current relation only allow one primarykey
         {
             List<int> indexPrm = FzRelationBLL.GetArrPrimaryKey(currentRelation);
-            string value = GridViewData.Rows[row].Cells[indexPrm[0]].Value.ToString() ;
+            string value = GridViewData.Rows[row].Cells[indexPrm[0]].Value.ToString();
             for (int i = 0; i < GridViewData.Rows.Count - 1; i++)
             {
-                if (value ==  GridViewData.Rows[i].Cells[indexPrm[0]].Value.ToString() && i!= row)
+                if (value == GridViewData.Rows[i].Cells[indexPrm[0]].Value.ToString() && i != row)
                 {
                     MessageBox.Show("The primary value must be unique");
                     return false;
@@ -3294,13 +3391,13 @@ namespace FRDB_SQLite.Gui
 
             return true;
         }
-        
+
         #endregion
 
         #region 11. Help and About
         private void barButtonItem13_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            (new frmAbout(false)).Show(); 
+            (new frmAbout(false)).Show();
         }
 
         private void iHelp_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
