@@ -1697,13 +1697,13 @@ namespace FRDB_SQLite.Gui
                 DeleteTemp(); // xóa các file temp ở đường dẫn \FRDB-SQLite\bin\Debug\lib\temp
                 PrepareQuery();
                 String query = QueryPL.StandardizeQuery(txtQuery.Text.Trim());
-                //String message = QueryPL.CheckSyntax(query);
-                //if (message != "")
-                //{
-                //    ShowMessage(message, Color.Red);
-                //    return;
-                //}
-                //query = QueryPL.ReplaceLetter(query);
+                String message = QueryPL.CheckSyntax(query);
+                if (message != "")
+                {
+                    ShowMessage(message, Color.Red);
+                    return;
+                }
+                query = QueryPL.ReplaceLetter(query);
                 FdbEntity newFdb = new FdbEntity() { Relations = fdbEntity.Relations, Schemes = fdbEntity.Schemes, DiscreteFuzzyNumbers = fdbEntity.DiscreteFuzzyNumbers, ContinuousFuzzyNumbers = fdbEntity.ContinuousFuzzyNumbers };
 
                 FzRelationEntity result = null;
