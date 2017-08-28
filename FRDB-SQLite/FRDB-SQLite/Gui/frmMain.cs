@@ -1704,7 +1704,13 @@ namespace FRDB_SQLite.Gui
                     return;
                 }
                 query = QueryPL.ReplaceLetter(query);
-                FdbEntity newFdb = new FdbEntity() { Relations = fdbEntity.Relations, Schemes = fdbEntity.Schemes, DiscreteFuzzyNumbers = fdbEntity.DiscreteFuzzyNumbers, ContinuousFuzzyNumbers = fdbEntity.ContinuousFuzzyNumbers };
+                FdbEntity newFdb = new FdbEntity()
+                {
+                    Relations = fdbEntity.Relations,
+                    Schemes = fdbEntity.Schemes,
+                    DiscreteFuzzyNumbers = fdbEntity.DiscreteFuzzyNumbers,
+                    ContinuousFuzzyNumbers = fdbEntity.ContinuousFuzzyNumbers
+                };
 
                 FzRelationEntity result = null;
                 QueryConditionBLL condition = new QueryConditionBLL();
@@ -1746,7 +1752,7 @@ namespace FRDB_SQLite.Gui
                     {
                         FzAttributeEntity newAttr = new FzAttributeEntity()
                         {
-                            AttributeName = firstScheme.SchemeName + "." + attr.AttributeName,
+                            AttributeName = firstRelation.RelationName + "." + attr.AttributeName,
                             DataType = attr.DataType,
                             PrimaryKey = attr.PrimaryKey,
                             Description = attr.Description
@@ -1757,7 +1763,7 @@ namespace FRDB_SQLite.Gui
                     {
                         FzAttributeEntity newAttr = new FzAttributeEntity()
                         {
-                            AttributeName = secondScheme.SchemeName + "." + attr.AttributeName,
+                            AttributeName = secondRelation.RelationName + "." + attr.AttributeName,
                             DataType = attr.DataType,
                             PrimaryKey = attr.PrimaryKey,
                             Description = attr.Description
@@ -1791,15 +1797,30 @@ namespace FRDB_SQLite.Gui
                             }
                         }
                     }
-                    result = joinRelation;
-                    //string conditionStr = query.Substring(lowerQuery.IndexOf("where") + 5);
-                    //if (conditionStr != "")
-                    //{
-                    //    foreach(string relation in relations)
-                    //    {
-
-                    //    }
-                    //}
+                    List<FzRelationEntity> joinRelations = new List<FzRelationEntity>();
+                    joinRelations.Add(joinRelation);
+                    List<FzSchemeEntity> joinSchemes = new List<FzSchemeEntity>();
+                    joinSchemes.Add(joinScheme);
+                    FdbEntity newFdbJoin = new FdbEntity()
+                    {
+                        Relations = joinRelations,
+                        Schemes = joinSchemes,
+                        DiscreteFuzzyNumbers = fdbEntity.DiscreteFuzzyNumbers,
+                        ContinuousFuzzyNumbers = fdbEntity.ContinuousFuzzyNumbers
+                    };
+                    // Select * from rPatient join rDiagnose on rPatient.Patient_ID = rDiagnose.Patient_ID where rPatient.Age > 10
+                    // Select * from rPatient_rDiagnose where rPatient.Age > 10
+                    string newQuery = lowerQuery
+                        .Replace(
+                            lowerQuery.Substring(lowerQuery.IndexOf("from") + 5, whereIndex - (lowerQuery.IndexOf("from") + 5)
+                        ), firstRelation.RelationName + "_" + secondRelation.RelationName + " ");
+                    QueryExcutetionBLL execution = new QueryExcutetionBLL(newQuery, newFdbJoin);
+                    result = execution.ExecuteQuery();
+                    if (execution.Error)
+                    {
+                        ShowMessage(execution.ErrorMessage, Color.Red);
+                        return;
+                    }
 
                 }
                 else

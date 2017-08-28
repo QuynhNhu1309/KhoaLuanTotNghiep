@@ -243,7 +243,7 @@ namespace FRDB_SQLite
         {
             try
             {
-                ///Get selected attribute which user input
+                ///Get selected attributes which user input
                 this._selectedAttributeTexts = GetAttributeTexts(this._queryText);
                 
                 ///Get selected relations which user input
