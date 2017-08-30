@@ -123,7 +123,7 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
-                //result = SatisfyAttributes(result, _queryText); // đừng xóa cmt này :)
+                result = SatisfyAttributes(result, _queryText); // đừng xóa cmt này :)
             }
             catch (Exception ex)
             {
@@ -1377,6 +1377,40 @@ namespace FRDB_SQLite
 
 
 
+            int having = _queryText.IndexOf(" having ");
+            if (having > 0)
+            {
+                string tmp = _queryText.Substring(having);
+                tmp = GetConditionText(tmp);//get condition Text 'having'(not where)
+                if (tmp != String.Empty)
+                    tmp = AddParenthesis(tmp);
+                List<Item> items = FormatCondition(tmp);
+                //Check fuzzy set and object here
+                this.ErrorMessage = ExistsFuzzySet(items);
+                if (ErrorMessage != "") { this.Error = true; return result; }
+                this._selectedRelations[0] = filterResult;
+
+                QueryConditionBLL condition = new QueryConditionBLL(items, this._selectedRelations, _fdbEntity);
+                //result.Scheme.Attributes = this._selectedAttributes;
+                for (int h = 0; h < filterResult.Tuples.Count; h++)
+                // foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
+                {
+                    if (condition.Satisfy(items, filterResult.Tuples[h]) == "0")
+                    {
+                        //if (this._selectedAttributeTexts != null)
+                        //    filterResult.Tuples.Add(GetSelectedAttributes(condition.ResultTuple));
+                        //else
+                        //filterResult.Tuples.Add(condition.ResultTuple);
+                        filterResult.Tuples.Remove(filterResult.Tuples[h]);
+
+                        h = h - 1;
+                    }
+                    //}
+                }
+            }
+
+
+
             //if(_queryText.Contains(" group by ")
             ////FzRelationEntity r = new FzRelationEntity();
             //List<FzTupleEntity> listtuple = new List<FzTupleEntity>();
@@ -1508,6 +1542,7 @@ namespace FRDB_SQLite
                     if (tmp != String.Empty)
                         tmp = AddParenthesis(tmp);
                     List<Item> items = FormatCondition(tmp);
+
                     //Check fuzzy set and object here
                     //this.ErrorMessage = ExistsFuzzySet(items);
                     //if (ErrorMessage != "") { this.Error = true; return result; }
@@ -1524,13 +1559,13 @@ namespace FRDB_SQLite
                     //        else
                     //            result.Tuples.Add(condition.ResultTuple);
                     //    }
-                    //}
-                    tmp = tmp.Replace(" ", "");
-                    filterStr = tmp.Split(',');
-                    filter.elements = filterStr.ToList();
-                    result.Add(filter);
+                    ////}
+                    //tmp = tmp.Replace(" ", "");
+                    //filterStr = tmp.Split(',');
+                    //filter.elements = filterStr.ToList();
+                    //result.Add(filter);
                 }
-                
+
 
                 if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
             }
@@ -1540,8 +1575,8 @@ namespace FRDB_SQLite
                 this._errorMessage = ex.Message;
                 return result;
             }
-           
-            
+
+
             return result;
             
         }
