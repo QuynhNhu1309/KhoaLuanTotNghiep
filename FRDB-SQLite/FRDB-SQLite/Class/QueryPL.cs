@@ -135,22 +135,31 @@ namespace FRDB_SQLite.Class
             int selectAttr = query.IndexOf("*");
 
             int from = query.IndexOf("from");
-            int where = 0,  orderby = 0;
+            
+            //var for where
+            int where = 0;
+            string whereAttr = "";
 
             //var for group by
             int groupby = 0, startGroupbyAttr = 0, endGroupbyAttr = 0;
             string groupbyAttr = "", selectAttrStr = "";
+            groupby = query.IndexOf(" group by ");
 
             //var for having
             int having = 0, startHavingAttr = 0, endHavingAttr = 0;
             string havingAttr = "";
 
+            //var for order by
+            int orderby = 0;
+            string orderbyAttr = "";
+            orderby = query.IndexOf(" order by ");
+
             string[] selectAttrArr = null;
             if (select != query.LastIndexOf("select"))// Select must be unique
                 return message = "Not support multi 'select'!";
 
-            if (selectAttr != query.LastIndexOf("*"))// * must be unique
-                return message = "Not support multi '*'!";
+            //if (selectAttr != query.LastIndexOf("*"))// * must be unique
+            //    return message = "Not support multi '*'!";
             // selected attributes
             if(selectAttr < 0)
             {
@@ -181,6 +190,12 @@ namespace FRDB_SQLite.Class
             else// Check syntax of condition: where (age="young" not weight>=45 or height>150) and height>155
             {
                 where = query.IndexOf("where");
+                if (groupby > 0)
+                    whereAttr = query.Substring(where + 5, groupby - where - 5);// condition of where clause
+                else if (orderby > 0)
+                    whereAttr = query.Substring(where + 5, orderby - where - 5);// condition of where clause
+                else if (groupby < 0 && orderby < 0)
+                    whereAttr = query.Substring(where + 5);
 
                 if (where != query.LastIndexOf("where"))// Where must be unique
                     return message = "Not support multi condition with 'where'!";
@@ -203,6 +218,10 @@ namespace FRDB_SQLite.Class
                     int i = query.IndexOf("or");
                     if (query[i - 1] == '\"' || query[i + 2] == '\"')
                         return message = "Incorrect syntax near 'or': missing space with '\"'";
+                }
+                if(whereAttr.Contains("min(") || whereAttr.Contains("max(") || whereAttr.Contains("count(") || whereAttr.Contains("avg(") || whereAttr.Contains("sum("))
+                {
+                    return message = "'where'condition must not contain aggregate function";
                 }
                 //edit--------
                 //if (query.Contains(" not "))

@@ -54,7 +54,12 @@ namespace FRDB_SQLite
             set {
                 foreach (var items in value)
                 {
-                    Item item = new Item() { elements = items.elements, nextLogic = items.nextLogic };
+                    Item item = new Item()
+                    { elements = items.elements, nextLogic = items.nextLogic,
+                        valueAggregate = items.valueAggregate, indexTuple = items.indexTuple,
+                        notElement = items.notElement, resultCondition = items.resultCondition, ItemName = items.ItemName
+                      
+                    };
                     this._itemConditions.Add(item);
                 } 
             }
@@ -65,6 +70,7 @@ namespace FRDB_SQLite
             get { return _errorMessage; }
             set { _errorMessage = value; }
         }
+
 
         #endregion
 
@@ -152,6 +158,7 @@ namespace FRDB_SQLite
         //}
         public string Satisfy(List<Item> list, FzTupleEntity tuple)
         {
+            
             this._resultTuple = new FzTupleEntity() { ValuesOnPerRow = tuple.ValuesOnPerRow };//select * from rpatient where age <> "old"
             //_uRelation = Convert.ToDouble(tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1]);
             _uRelation = (tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1]).ToString();
@@ -161,17 +168,21 @@ namespace FRDB_SQLite
             for (int i = 0; i < list.Count; i++)
             {
                 String membership = string.Empty;
-                if (list[i].elements.Count == 3)// single expression: age='young'.
+                if (list[i].elements.Count == 3 && list[i].aggregateFunction == "")// single expression: age='young'.
                 {
                    membership= SatisfyItem(list[i].elements, tuple, i - 1);
                     //    logicText += "1" + list[i].nextLogic;
                     //else
                     //    logicText += "0" + list[i].nextLogic;
                 }
-                else// Multiple expression: weight='heavy' and height>165
+                else if (list[i].elements.Count != 3 && list[i].aggregateFunction == "")// Multiple expression: weight='heavy' and height>165
                 {
                    List<Item> subItems = CreateSubItems(list[i].elements);
                     membership= Satisfy(subItems, tuple);
+                }
+                else if (list[i].aggregateFunction != "")
+                {
+                    membership = SatisfyAggregatetionFunction(list[i], tuple, i - 1);
                 }
                 if (list[i].notElement)
                 {
@@ -187,13 +198,100 @@ namespace FRDB_SQLite
                     else
                         membership = (1 - Convert.ToDouble(membership)).ToString();
                 }
+                if (membership != "0" && list[i].ItemName == "having")
+                {
+                    if(list[i].aggregateFunction !="")
+                        ItemConditions[i].valueAggregate = list[i].valueAggregate;
+                    ItemConditions[i].resultCondition = true;
+                    //ItemConditions[i].keyTuple = (tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1]).ToString();
+
+                }
+                    ItemConditions[i].resultCondition = true;
+
                 if (i != 0 && _memberships.Count > 0)// Getting previous logicality
                     _memberships.Add(list[i-1].nextLogic);
                 _memberships.Add(membership.ToString());
             }
             string NewMembership = UpdateMembership(_memberships);
             _resultTuple.ValuesOnPerRow[_resultTuple.ValuesOnPerRow.Count - 1] = NewMembership;
+            //QueryConditionBLL query = new QueryConditionBLL();
+            //List<Item> ItemConditions = new List<Item>();
+            
             return NewMembership;
+        }
+
+        public Item findAndMarkAggregatetion (Item condition, List<FzTupleEntity> filterResultHaving)
+        {
+            string operation = condition.elements[1];// 3 = 40
+            string aggregatetionFunction = condition.aggregateFunction;// min, max, avg,...
+            double a = 0, b = 0;
+            b = double.Parse(condition.elements[2]);
+            double[] arr = new double[filterResultHaving.Count];
+            if (aggregatetionFunction != "count")
+            {
+                for (int q = 0; q < filterResultHaving.Count; q++)
+                {
+                    arr[q] = double.Parse(filterResultHaving[q].ValuesOnPerRow[int.Parse(condition.elements[0])].ToString());
+                }
+            }
+            else if (aggregatetionFunction == "count")
+            {
+                for (int q = 0; q < filterResultHaving.Count; q++)
+                {
+                    a++;
+                }
+            }
+
+
+            switch (aggregatetionFunction)
+            {
+                case "min": a = arr.Min();break;
+                case "max": a = arr.Max();break;
+                case "avg": a = arr.Average();break;
+                case "sum": a = arr.Sum();break;
+                //case "count": a++ below
+            }
+
+            switch (operation)
+            {
+                case "=":
+                        if (a == b)
+                        {
+                            condition.resultCondition = true;
+                            condition.valueAggregate = a;
+                        }
+                        break;
+                    
+                case ">":
+                        if (a > b)
+                        {
+                            condition.resultCondition = true;
+                            condition.valueAggregate = a;
+                        }
+                        break;
+                case "<":
+                        if (a < b)
+                        {
+                            condition.resultCondition = true;
+                            condition.valueAggregate = a;
+                        }
+                        break;
+                case ">=":
+                    if (a >= b)
+                    {
+                        condition.resultCondition = true;
+                        condition.valueAggregate = a;
+                    }
+                    break;
+                case "<=":
+                    if (a <= b)
+                    {
+                        condition.resultCondition = true;
+                        condition.valueAggregate = a;
+                    }
+                    break;
+            }
+            return condition;     
         }
 
         #endregion
@@ -545,6 +643,53 @@ namespace FRDB_SQLite
                     }
                 }
             }
+            return result;
+        }
+
+        private string SatisfyAggregatetionFunction(Item itemCondition, FzTupleEntity tuple, int i)
+        {
+            String result = "0";
+            string path = Directory.GetCurrentDirectory() + @"\lib\";
+            //----edit check _uRelation is fuzzyset or number
+            int check_uRelation = 0;
+            FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(_uRelation, _fdbEntity);
+            ConFS conFS_uRelation = null;
+            DisFS disFS_uRelation = null;
+            if (get_conFS != null)
+            {
+                conFS_uRelation = new ConFS(get_conFS.Name, get_conFS.Bottom_Left, get_conFS.Top_Left, get_conFS.Top_Right, get_conFS.Bottom_Right);
+                disFS_uRelation = transContoDis(conFS_uRelation); //trans CF to DF
+            }
+            else
+            {
+                FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(_uRelation, _fdbEntity);
+                if (get_disFS != null)
+                    disFS_uRelation = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
+                else if (!IsNumber(_uRelation))
+                    return "FN not exists";
+
+            }
+            if (conFS_uRelation != null || disFS_uRelation != null)
+                check_uRelation = 1; //_uRelation is a fuzzyset
+
+            if (itemCondition.resultCondition)//if aggregatetion function is true else membership = 0
+            {
+                if (check_uRelation == 0)
+                {
+                    result = tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1].ToString();
+                       
+                }
+                if (check_uRelation == 1)
+                {
+                    DisFS uDisFS = new DisFS();
+                    uDisFS.ValueSet.Add(1);
+                    uDisFS.MembershipSet.Add(1);
+                    string FSName = Min_DisFS(disFS_uRelation, uDisFS);
+                    result = FSName;
+                       
+                }
+            }
+            
             return result;
         }
         //private string SatisfyItem(List<String> itemCondition, FzTupleEntity tuple, int i)
