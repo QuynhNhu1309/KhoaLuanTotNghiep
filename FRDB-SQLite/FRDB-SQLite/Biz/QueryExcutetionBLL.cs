@@ -107,7 +107,7 @@ namespace FRDB_SQLite
                         }
                     }
                 }
-                else// Select all tuples
+                if (!this._queryText.Contains("where")) // Select all tuples
                 {
                     result.Scheme.Attributes = this._selectedAttributes;
                     result.RelationName = this._selectedRelations[0].RelationName;
@@ -123,7 +123,10 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
-                //result = SatisfyAttributes(result, _queryText); // đừng xóa cmt này :)
+                if (this._queryText.Contains(" group by "))
+                {
+                    result = ProcessGroupBy(result, _queryText);// process group by and having            
+                }
             }
             catch (Exception ex)
             {
@@ -1307,26 +1310,22 @@ namespace FRDB_SQLite
             return message;
         }
 
-        private FzRelationEntity SatisfyAttributes(FzRelationEntity result, string _queryText)
+        private FzRelationEntity ProcessGroupBy(FzRelationEntity result, string _queryText)
         {
-            List<Filter> filter  = FormatFilter(result, _queryText);
+            List<Filter> filter = FormatFilter(result, _queryText);
             Filter filterTmp = new Filter();
-            FzRelationEntity filterResult = new FzRelationEntity();
+            FzRelationEntity filterResult = new FzRelationEntity();//result of group by
             List<FzRelationEntity> filterResultHavings = new List<FzRelationEntity>();
             FzRelationEntity filterResultHaving = new FzRelationEntity();
-            FzRelationEntity filterResultHaving_Tmp = new FzRelationEntity();
             FzRelationEntity resultTmp = new FzRelationEntity();
-            List<List<Item>> listConditionForTuples = new List<List<Item>>();
-            List<List<Item>> listConditionForTuples_Tmp = new List<List<Item>>();
+            List<List<Item>> listConditionForTuples = new List<List<Item>>();//having: condition1-true and condition2 false, to get priority tuple after process having condition.
             resultTmp = result;
             List<int> indexGroupby = new List<int>();
             List<Item> itemConditionGroupBys = new List<Item>();
             filterResult.Scheme = result.Scheme;
-            
-            if (filter[0].filterName == "groupby")
+            if (filter.Count > 0)// if format filter group by scuccess
             {
                 filterTmp = filter[0];
-                int i = 0;
                 foreach (List<String> item in filterTmp.elementValue)//each different value in tuple
                 {
                     int index = 0;
@@ -1335,7 +1334,7 @@ namespace FRDB_SQLite
                         //item[0] is name of attribute && index is not index of membership
                         if (item[0] == itemAttr.AttributeName.ToLower() && index != resultTmp.Scheme.Attributes.Count - 1)
                         {
-                            for (int h = 0; h <= resultTmp.Tuples.Count - 1; h++ )//each tuple
+                            for (int h = 0; h <= resultTmp.Tuples.Count - 1; h++)//each tuple
                             {
                                 //index of group by Condition
                                 if (!indexGroupby.Contains(index))
@@ -1347,7 +1346,7 @@ namespace FRDB_SQLite
                                 {
                                     int countTupleFlagTrue = 0;
                                     //find below tuple have the same value with tuple in filterResult?
-                                    for (int k = 0; k < filterResult.Tuples.Count; k++ )
+                                    for (int k = 0; k < filterResult.Tuples.Count; k++)
                                     {
                                         int CountSame = 0;
                                         for (int y = 0; y < indexGroupby.Count; y++)
@@ -1364,7 +1363,7 @@ namespace FRDB_SQLite
                                             //result.Tuples.RemoveAt(h);
                                             break;
                                         }
-                                        
+
                                         else if (CountSame < indexGroupby.Count && CountSame >= 0)
                                             countTupleFlagTrue++;
                                         //if not same slightly
@@ -1375,7 +1374,7 @@ namespace FRDB_SQLite
                                             //remove condition group by
                                             break;
                                         }
-                                    } 
+                                    }
                                 }
                                 else if (item.Contains(resultTmp.Tuples[h].ValuesOnPerRow[index].ToString()) && item.Count > 1 && indexGroupby.Count < 2)
                                 {
@@ -1389,9 +1388,6 @@ namespace FRDB_SQLite
                     }
                 }
             }
-
-
-            //result.Tuples.Clear();
             int having = _queryText.IndexOf(" having ");
             if (having > 0)
             {
@@ -1400,178 +1396,77 @@ namespace FRDB_SQLite
                 tmp = GetConditionText(tmp);//get condition Text 'having'(not where)
                 if (tmp != String.Empty)
                     tmp = AddParenthesis(tmp);
-                
+
                 //Check fuzzy set and object here
                 //this.ErrorMessage = ExistsFuzzySet(itemConditionHavings);// sau add vào
                 if (ErrorMessage != "") { this.Error = true; return result; }
                 //_selectedRelations.
-                
-                for (int j = 0; j < filterResult.Tuples.Count; j++)
-                {   
+
+                for (int j = 0; j < filterResult.Tuples.Count; j++)//format each tuple after group by
+                {
                     for (int l = 0; l < indexGroupby.Count; l++)
                     {
-                        Item itemConditionGroupBy = new Item();
-                        itemConditionGroupBy.elements.Add(indexGroupby[l].ToString());
-                        itemConditionGroupBy.elements.Add("=");
+                        Item itemConditionGroupBy = new Item();//set condition from group by
+                        itemConditionGroupBy.elements.Add(indexGroupby[l].ToString());//index
+                        itemConditionGroupBy.elements.Add("=");//operator
                         itemConditionGroupBy.elements.Add(filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString());
+                        //value
                         if (l < indexGroupby.Count - 1)
-                            itemConditionGroupBy.nextLogic = " and ";
+                            itemConditionGroupBy.nextLogic = " and ";// and, it must have 'and' if group by more than 2 attributes
                         itemConditionGroupBys.Add(itemConditionGroupBy);
                     }
                     QueryConditionBLL condition_GroupBy = new QueryConditionBLL(itemConditionGroupBys, this._selectedRelations, _fdbEntity);
                     foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
-                    //for (int h = 0; h < this._selectedRelations[0].Tuples.Count(); h++)
                     {
                         if (condition_GroupBy.Satisfy(itemConditionGroupBys, tuple) != "0")
                         {
-                            filterResultHaving.Tuples.Add(tuple);
-                            
-                           
+                            filterResultHaving.Tuples.Add(tuple);// get tuples meet itemConditionGroupBys
                         }
                     }
-                    //for (int h = 0; h < this._selectedRelations[0].Tuples.Count(); h++)
-                    //{
-                    //    if (condition_GroupBy.Satisfy(itemConditionGroupBys, this._selectedRelations[0].Tuples[h]) != "0")
-                    //    {
-                    //        filterResultHaving.Tuples.Add(this._selectedRelations[0].Tuples[h]);
-                    //        this._selectedRelations[0].Tuples.RemoveAt(h);
-                    //        h--;
-                    //    }
-                    //}
                     filterResultHaving.Scheme = this._selectedRelations[0].Scheme;
                     filterResultHavings.Add(filterResultHaving);
                     itemConditionGroupBys = new List<Item>();
-                    if(filterResultHaving.Tuples.Count > 0)
+                    if (filterResultHaving.Tuples.Count > 0)
                     {
-                        List<Item> itemConditionHavings = FormatCondition(tmp);
+                        List<Item> itemConditionHavings = FormatCondition(tmp);// format condition having
                         QueryConditionBLL condition_Having = new QueryConditionBLL(itemConditionHavings, filterResultHavings, _fdbEntity);
-                        
+
                         for (int w = 0; w < itemConditionHavings.Count; w++)
                         {
-                            if (itemConditionHavings[w].aggregateFunction != "")
+                            if (itemConditionHavings[w].aggregateFunction != "") // if min, max, count,...
                             {
-                                //QueryConditionBLL queryCondition = new QueryConditionBLL();
-                                itemConditionHavings[w] = condition_Having.findAndMarkAggregatetion(itemConditionHavings[w], filterResultHaving.Tuples);
-                                //queryCondition = new QueryConditionBLL();
-                               
+                                itemConditionHavings[w] = condition_Having.findAndMarkAggregatetion(itemConditionHavings[w], filterResultHaving.Tuples);//find min, max, .. and add value min, max ,.. to valueAggregate Item
                             }
-                            itemConditionHavings[w].ItemName = "having";
+                            itemConditionHavings[w].ItemName = "having";// use to distingue with another condition, apply for function 'Satisfy' in QueryConditionBLL
+                        }
+                        for (int q = 0; q < filterResultHaving.Tuples.Count; q++)// each tuple after filter with group by
+                        {
+                            List<Item> itemConditionHavings_Tmp = itemConditionHavings;
+                            if (condition_Having.Satisfy(itemConditionHavings_Tmp, filterResultHaving.Tuples[q]) != "0")
+                            {
+
+                                for (int d = 0; d < condition_Having.ItemConditions.Count(); d++)
+                                {
+                                    if (condition_Having.ItemConditions[d].resultCondition)
+                                    {
+                                        resultTmp.Tuples.Add(filterResultHaving.Tuples[q]);
+                                        goto End;// if exist more than 1 tuple the same, break 2 loops
+                                    }
+                                }
+                            }
 
                         }
-                        //foreach (FzTupleEntity tuple in filterResultHaving.Tuples)
-                        //bool flag = false;
-                        for (int q = 0; q < filterResultHaving.Tuples.Count; q++)
-                            {
-                                List<Item> itemConditionHavings_Tmp = itemConditionHavings;
-                                
-                                if (condition_Having.Satisfy(itemConditionHavings_Tmp, filterResultHaving.Tuples[q]) != "0")
-                                {
-                                    
-                                    for(int d = 0; d < condition_Having.ItemConditions.Count(); d++)
-                                    {
-                                        if (condition_Having.ItemConditions[d].resultCondition)
-                                        {
-                                            resultTmp.Tuples.Add(filterResultHaving.Tuples[q]);
-                                        goto End;
-                                            
-                                        
-                                        }
-                                    }
-                                    
-                                    //listConditionForTuples.Add(condition_Having.ItemConditions);
-                                    
-                                }
-
-                            }
-                        End:;
-
-                            //if(listConditionForTuples.Count > 0)
-                            //{
-                            //    //for (int u = 0; u < listConditionForTuples.Count; u++)
-                            //    foreach(List<Item> item in listConditionForTuples)
-                            //    {
-                            //        for(int f = 0; f < item.Count(); f++)
-                            //        {
-                            //            if(item[f].resultCondition)
-                            //                result.Tuples.Add()
-                            //        }
-                            //    }
-                            //}
-                            
+                        End:;//break 2 loops
                     }
+                    else if (filterResultHaving.Tuples.Count > 0) return filterResult;
                     filterResultHaving = new FzRelationEntity();//renew filterResultHaving
-
-
-
-
+                    
                 }
-
-
-                
+                filterResult = resultTmp;
             }
-
-
-
-            //if(_queryText.Contains(" group by ")
-            ////FzRelationEntity r = new FzRelationEntity();
-            //List<FzTupleEntity> listtuple = new List<FzTupleEntity>();
-            //int indexofAttr = 0;// Int32.Parse(result.Scheme.Attributes[0].ToString());
-            //Boolean checknum = IsNumeric(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
-            //double value = double.Parse(result.Tuples[result.Tuples.Count - 1].ValuesOnPerRow[indexofAttr].ToString());
-            //double temp;
-            //for (int i = 0; i < result.Tuples.Count - 1; i++)
-            //{
-            //    #region "for loop find min, max,.. value"
-            //    temp = double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString());
-            //    //if (query.Contains("max"))
-            //    //{
-            //    //    if (temp > value)
-            //    //    {
-            //    //        value = temp;
-            //    //    }
-            //    //}
-            //    //if (query.Contains("min"))
-            //    //{
-            //    if (temp < value)
-            //    {
-            //        value = temp;
-            //    }
-            //    //}
-            //    //if (query.Contains("sum") || query.Contains("avg"))
-            //    //{
-            //    //    if (query.Contains("max") || query.Contains("min"))
-            //    //    {
-            //    //        //value = temp;
-            //    //    }
-            //    //    else
-            //    //    {
-            //    //        value = temp;
-            //    //    }
-            //    //    if (membership > double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString()))
-            //    //    {
-            //    //        membership = double.Parse(result.Tuples[i].ValuesOnPerRow[result.Scheme.Attributes.Count - 1].ToString());
-            //    //    }
-            //    //}
-            //    #endregion
-            //}
-            ////if (query.Contains("max") || query.Contains("min"))
-            ////{
-
-            //for (int i = 0; i < result.Tuples.Count; i++)
-            //{
-            //    if (double.Parse(result.Tuples[i].ValuesOnPerRow[indexofAttr].ToString()) == value)
-            //    {
-            //        listtuple.Add(result.Tuples[i]);
-            //    }
-            //}
-            //result.Tuples.Clear();
-            //foreach (FzTupleEntity tuple in listtuple)
-            //{
-            //    result.Tuples.Add(tuple);
-            //}
-            //return filterResult;
-            return resultTmp;
+            return filterResult;
         }
+        
 
         public List<Filter> FormatFilter(FzRelationEntity tupleRelation, String _queryText)
         {
@@ -1605,10 +1500,11 @@ namespace FRDB_SQLite
                     tmp = tmp.Replace(" ", "");
                     filterStr = tmp.Split(',');
                     filter.elements = filterStr.ToList();
-                    this._errorMessage = CheckExistAttribute(filterStr);
+                    this._errorMessage = CheckExistAttribute(filterStr);// check exist attribute
                     for (int h = 0; h < filter.elements.Count; h++)
                     {
                         filter.elementValue.Add(new List<string> { filter.elements[h].ToString() });
+                        //example: age 30 10 32 and other data group by age
                     }
                     foreach (List<String> filterValue in filter.elementValue)
                     {
@@ -1631,47 +1527,10 @@ namespace FRDB_SQLite
                         }
                     }
 
-                    filter.elementValue = ArrangeFormatFilter(filter.elementValue);
-                    result.Add(filter);
+                    filter.elementValue = ArrangeFormatFilter(filter.elementValue);// add first attribute has maximum data to group by, and the second, third ,...
+                    result.Add(filter);// arranged filter
                 }// group by ...
-                //having....
-                //if (having > 0)
-                //{
-                //    Filter filter = new Filter();
-                //    filter.filterName = "having";
-                //    tmp = _queryText.Substring(having);
-                //    tmp = GetConditionText(tmp);//get condition Text 'having'(not where)
-                //    if (tmp != String.Empty)
-                //        tmp = AddParenthesis(tmp);
-                //    List<Item> items = FormatCondition(tmp);
-                //    for(int j = 0; ; j < resutF
-
-                //    //Check fuzzy set and object here
-                //    //this.ErrorMessage = ExistsFuzzySet(items);
-                //    //if (ErrorMessage != "") { this.Error = true; return result; }
-
-                //    //QueryConditionBLL condition = new QueryConditionBLL(items, this._selectedRelations, _fdbEntity);
-                //    //result.Scheme.Attributes = this._selectedAttributes;
-
-                //    //foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
-                //    //{
-                //    //    if (condition.Satisfy(items, tuple) != "0")
-                //    //    {
-                //    //        if (this._selectedAttributeTexts != null)
-                //    //            result.Tuples.Add(GetSelectedAttributes(condition.ResultTuple));
-                //    //        else
-                //    //            result.Tuples.Add(condition.ResultTuple);
-                //    //    }
-                //    //    //}
-                //    //    tmp = tmp.Replace(" ", "");
-                //    //    filterStr = tmp.Split(',');
-                //    //    filter.elements = filterStr.ToList();
-                //    //    result.Add(filter);
-                //    //}
-                //}
-
-
-                    if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
+                 if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
             }
             catch (Exception ex)
             {
@@ -1687,7 +1546,7 @@ namespace FRDB_SQLite
 
         public List<List<String>> ArrangeFormatFilter(List<List<String>> resultFormat)
         {
-            List<List<String>> resulArrange = new List<List<String>>();
+            List<List<String>> resultArrange = new List<List<String>>();
             int[] arr = new int[resultFormat.Count];
             int max = 0;
             for (int i = 0; i < resultFormat.Count; i++)
@@ -1697,13 +1556,13 @@ namespace FRDB_SQLite
             while(arr.Length > 0)
             {
                 max = arr.Max();
-                resulArrange.Add(resultFormat[Array.IndexOf(arr, max)]);
+                resultArrange.Add(resultFormat[Array.IndexOf(arr, max)]);
                 resultFormat.RemoveAt(Array.IndexOf(arr, max));
                 List<int> tmp = new List<int>(arr);
                 tmp.RemoveAt(Array.IndexOf(arr, max));
                 arr = tmp.ToArray();
             }
-            return resulArrange;
+            return resultArrange;
         }
 
 

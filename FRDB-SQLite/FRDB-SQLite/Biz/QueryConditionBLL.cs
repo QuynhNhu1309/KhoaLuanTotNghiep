@@ -182,7 +182,7 @@ namespace FRDB_SQLite
                 }
                 else if (list[i].aggregateFunction != "")
                 {
-                    membership = SatisfyAggregatetionFunction(list[i], tuple, i - 1);
+                    membership = SatisfyAggregatetionFunction(list[i], tuple, i - 1);// use for min, max,..
                 }
                 if (list[i].notElement)
                 {
