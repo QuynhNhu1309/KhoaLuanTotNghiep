@@ -163,7 +163,7 @@ namespace FRDB_SQLite
                     item.aggregateFunction = "avg";
                 else if (condition.Substring(i, 4) == "sum(")
                     item.aggregateFunction = "sum";
-                else if (condition.Substring(i, 5) == "count(")
+                else if (condition.Substring(i, 6) == "count(")
                 {
                     item.aggregateFunction = "count";
                     i += 5;
@@ -424,8 +424,10 @@ namespace FRDB_SQLite
                 {
                     return i;
                 }
+                else if (s == "*")
+                    return -1;
             }
-            return -1;
+            return -2;
         }
 
         private String ReverseOperator(String op)
@@ -548,7 +550,7 @@ namespace FRDB_SQLite
             for (int i = start; i < splited.Length; i++)
             {
                 int index = IndexOfAttr(splited[i]);
-                if (index >= 0)
+                if (index >= -1)
                 {
                     // Add the index of attribute
                     result.Add(index.ToString());
@@ -828,9 +830,9 @@ namespace FRDB_SQLite
                             //    condition = condition.Insert(i, ")");
                             //    i += 6;
                             //}//cần check min(fdjf) ở hàm check syntax
-                            else if (condition.Substring(i + 5, 5) == "count" && condition[i + 9] == '(')
+                            else if (condition.Substring(i + 5, 5) == "count" && condition[i + 10] == '(')
                             {
-                                closeFunction = condition.IndexOf(")", i + 9);
+                                closeFunction = condition.IndexOf(")", i + 10);
                                 condition = condition.Remove(closeFunction, 1);// min(Age) > 10 => min (Age > 10)
                                 condition = condition.Insert(i, ")");
                                 i += 6;
@@ -1396,12 +1398,6 @@ namespace FRDB_SQLite
                 tmp = GetConditionText(tmp);//get condition Text 'having'(not where)
                 if (tmp != String.Empty)
                     tmp = AddParenthesis(tmp);
-
-                //Check fuzzy set and object here
-                //this.ErrorMessage = ExistsFuzzySet(itemConditionHavings);// sau add vào
-                if (ErrorMessage != "") { this.Error = true; return result; }
-                //_selectedRelations.
-
                 for (int j = 0; j < filterResult.Tuples.Count; j++)//format each tuple after group by
                 {
                     for (int l = 0; l < indexGroupby.Count; l++)
@@ -1442,6 +1438,9 @@ namespace FRDB_SQLite
                         for (int q = 0; q < filterResultHaving.Tuples.Count; q++)// each tuple after filter with group by
                         {
                             List<Item> itemConditionHavings_Tmp = itemConditionHavings;
+                            //Check fuzzy set and object here
+                            this.ErrorMessage = ExistsFuzzySet(itemConditionHavings);
+                            if (ErrorMessage != "") { this.Error = true; return filterResult; }
                             if (condition_Having.Satisfy(itemConditionHavings_Tmp, filterResultHaving.Tuples[q]) != "0")
                             {
 
