@@ -759,7 +759,7 @@ namespace FRDB_SQLite
         //    return false;
         //}
 
-        private DisFS transContoDis (ConFS con)
+        public static DisFS transContoDis (ConFS con)
         {
             DisFS result = new DisFS();
             Double value = con.Bottom_Left;
@@ -841,7 +841,7 @@ namespace FRDB_SQLite
                 return "0";
             }
         }
-        private string Min_DisFS(DisFS FuzzySet1, DisFS FuzzySet2)
+        public string Min_DisFS(DisFS FuzzySet1, DisFS FuzzySet2)
         {
             try
             {

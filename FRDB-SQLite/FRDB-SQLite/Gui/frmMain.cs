@@ -1690,6 +1690,66 @@ namespace FRDB_SQLite.Gui
                 fi.Delete();
             }
         }
+
+        private string getFZValue(string firstUvalue, string secondUValue, FdbEntity _fdbEntity)
+        {
+            bool check_ufRelation = false;
+            bool check_usRelation = false;
+            FzContinuousFuzzySetEntity get_fconFS = ContinuousFuzzySetBLL.GetConFNByName(firstUvalue, _fdbEntity);
+            FzContinuousFuzzySetEntity get_sconFS = ContinuousFuzzySetBLL.GetConFNByName(secondUValue, _fdbEntity);
+            ConFS conFS_fuRelation = null;
+            ConFS conFS_suRelation = null;
+            DisFS disFS_fuRelation = null;
+            DisFS disFS_suRelation = null;
+            if (get_fconFS != null)
+            {
+                conFS_fuRelation = new ConFS(get_fconFS.Name, get_fconFS.Bottom_Left, get_fconFS.Top_Left, get_fconFS.Top_Right, get_fconFS.Bottom_Right);
+                disFS_fuRelation = QueryConditionBLL.transContoDis(conFS_fuRelation); //trans CF to DF
+            }
+            else
+            {
+                FzDiscreteFuzzySetEntity get_fdisFS = DiscreteFuzzySetBLL.GetDisFNByName(firstUvalue, _fdbEntity);
+                if (get_fdisFS != null)
+                    disFS_fuRelation = new DisFS(get_fdisFS.Name, get_fdisFS.V, get_fdisFS.M, get_fdisFS.ValueSet, get_fdisFS.MembershipSet);
+                else if (!IsNumber(firstUvalue))
+                    return "FN not exists";
+            }
+            if (get_sconFS != null)
+            {
+                conFS_suRelation = new ConFS(get_sconFS.Name, get_sconFS.Bottom_Left, get_sconFS.Top_Left, get_sconFS.Top_Right, get_sconFS.Bottom_Right);
+                disFS_suRelation = QueryConditionBLL.transContoDis(conFS_suRelation); //trans CF to DF
+            }
+            else
+            {
+                FzDiscreteFuzzySetEntity get_sdisFS = DiscreteFuzzySetBLL.GetDisFNByName(secondUValue, _fdbEntity);
+                if (get_sdisFS != null)
+                    disFS_suRelation = new DisFS(get_sdisFS.Name, get_sdisFS.V, get_sdisFS.M, get_sdisFS.ValueSet, get_sdisFS.MembershipSet);
+                else if (!IsNumber(secondUValue))
+                    return "FN not exists";
+            }
+            if (conFS_fuRelation != null || disFS_fuRelation != null)
+                check_ufRelation = true; //_uRelation is a fuzzyset
+            if (conFS_suRelation != null || disFS_suRelation != null)
+                check_usRelation = true; //_uRelation is a fuzzyset
+            if (!check_ufRelation && !check_usRelation)
+            {
+                return Math.Min(Double.Parse(firstUvalue), Double.Parse(secondUValue)).ToString();
+            }
+            if (!check_ufRelation)
+            {
+                disFS_fuRelation = new DisFS();
+                disFS_fuRelation.ValueSet.Add(Double.Parse(firstUvalue));
+                disFS_fuRelation.MembershipSet.Add(1);
+            }
+            if (!check_usRelation)
+            {
+                disFS_suRelation = new DisFS();
+                disFS_suRelation.ValueSet.Add(Double.Parse(secondUValue));
+                disFS_suRelation.MembershipSet.Add(1);
+            }
+            return new QueryConditionBLL().Min_DisFS(disFS_fuRelation, disFS_suRelation);
+        }
+
         private void ExecutingQuery()
         {
             try
@@ -1750,25 +1810,35 @@ namespace FRDB_SQLite.Gui
                     List<FzAttributeEntity> joinAttrs = new List<FzAttributeEntity>();
                     foreach (FzAttributeEntity attr in firstScheme.Attributes)
                     {
-                        FzAttributeEntity newAttr = new FzAttributeEntity()
+                        if (attr.AttributeName != "µ")
                         {
-                            AttributeName = firstRelation.RelationName + "." + attr.AttributeName,
-                            DataType = attr.DataType,
-                            PrimaryKey = attr.PrimaryKey,
-                            Description = attr.Description
-                        };
-                        joinAttrs.Add(newAttr);
+                            FzAttributeEntity newAttr = new FzAttributeEntity()
+                            {
+                                AttributeName = firstRelation.RelationName + "." + attr.AttributeName,
+                                DataType = attr.DataType,
+                                PrimaryKey = attr.PrimaryKey,
+                                Description = attr.Description
+                            };
+                            joinAttrs.Add(newAttr);
+                        }
                     }
                     foreach (FzAttributeEntity attr in secondScheme.Attributes)
                     {
-                        FzAttributeEntity newAttr = new FzAttributeEntity()
+                        if (attr.AttributeName != "µ")
                         {
-                            AttributeName = secondRelation.RelationName + "." + attr.AttributeName,
-                            DataType = attr.DataType,
-                            PrimaryKey = attr.PrimaryKey,
-                            Description = attr.Description
-                        };
-                        joinAttrs.Add(newAttr);
+                            FzAttributeEntity newAttr = new FzAttributeEntity()
+                            {
+                                AttributeName = secondRelation.RelationName + "." + attr.AttributeName,
+                                DataType = attr.DataType,
+                                PrimaryKey = attr.PrimaryKey,
+                                Description = attr.Description
+                            };
+                            joinAttrs.Add(newAttr);
+                        }
+                        else
+                        {
+                            joinAttrs.Add(attr);
+                        }
                     }
                     FzSchemeEntity joinScheme = new FzSchemeEntity(firstScheme.SchemeName + "_" + secondScheme.SchemeName, joinAttrs);
                     FzRelationEntity joinRelation = new FzRelationEntity(firstRelation.RelationName + "_" + secondRelation.RelationName)
@@ -1777,21 +1847,47 @@ namespace FRDB_SQLite.Gui
                     };
                     int whereIndex = query.Contains("where") ? query.IndexOf("where") : query.Length;
                     String[] joinKeys = query.Substring(query.IndexOf("on") + 2, whereIndex - (query.IndexOf("on") + 2)).Split('=');
-                    int firstKeyIndex = firstScheme.Attributes
+                    String firstKeyRelation = joinKeys[0].Split('.')[0];
+                    String secondKeyRelation = joinKeys[1].Split('.')[0];
+                    //Check if the key order is inverted
+                    bool isInverted = false;
+                    if (!firstKeyRelation.Equals(firstRelation.RelationName, StringComparison.InvariantCultureIgnoreCase) ||
+                        !secondKeyRelation.Equals(secondRelation.RelationName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        isInverted = true;
+                    }
+                    // If the key order is inverted, first key index will be finded in second scheme
+                    int firstKeyIndex = isInverted ?
+                        secondScheme.Attributes
+                        .FindIndex(item => item.AttributeName.Equals(joinKeys[0].Split('.')[1].Trim(), StringComparison.InvariantCultureIgnoreCase)) :
+                        firstScheme.Attributes
                         .FindIndex(item => item.AttributeName.Equals(joinKeys[0].Split('.')[1].Trim(), StringComparison.InvariantCultureIgnoreCase));
-                    int secondKeyIndex = secondScheme.Attributes
+                    // If the key order is inverted, second key index will be finded in first scheme
+                    int secondKeyIndex = isInverted ?
+                        firstScheme.Attributes
+                        .FindIndex(item => item.AttributeName.Equals(joinKeys[1].Split('.')[1].Trim(), StringComparison.InvariantCultureIgnoreCase)) :
+                        secondScheme.Attributes
                         .FindIndex(item => item.AttributeName.Equals(joinKeys[1].Split('.')[1].Trim(), StringComparison.InvariantCultureIgnoreCase));
+                    //Run each tuple of 2 relation -> suitable for condition -> true
                     foreach (FzTupleEntity firstRelationTuple in firstRelation.Tuples)
                     {
                         foreach (FzTupleEntity secondRelationTuple in secondRelation.Tuples)
                         {
-                            if (firstRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(secondRelationTuple.ValuesOnPerRow[secondKeyIndex]))
+                            if (isInverted ?
+                                secondRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(firstRelationTuple.ValuesOnPerRow[secondKeyIndex]) :
+                                firstRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(secondRelationTuple.ValuesOnPerRow[secondKeyIndex]))
                             {
+                                String firstMembershipStr = firstRelationTuple.ValuesOnPerRow[firstRelationTuple.ValuesOnPerRow.Count - 1].ToString();
+                                String secondMembershipStr = secondRelationTuple.ValuesOnPerRow[secondRelationTuple.ValuesOnPerRow.Count - 1].ToString();
+                                string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, fdbEntity);
+
                                 List<string> valuesOnPerRow = firstRelationTuple.ValuesOnPerRow
-                                    .Concat(secondRelationTuple.ValuesOnPerRow)
+                                    .Where((item, index) => index != firstRelationTuple.ValuesOnPerRow.Count - 1)
+                                    .Concat(secondRelationTuple.ValuesOnPerRow
+                                        .Where((item, index) => index != secondRelationTuple.ValuesOnPerRow.Count - 1))
                                     .Select(item => item.ToString())
                                     .ToList();
-                                string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray());
+                                string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
                                 FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
                                 joinRelation.Tuples.Add(newTuple);
                             }
