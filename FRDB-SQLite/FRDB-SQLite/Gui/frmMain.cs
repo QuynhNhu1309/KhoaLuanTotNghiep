@@ -1776,6 +1776,7 @@ namespace FRDB_SQLite.Gui
                 QueryConditionBLL condition = new QueryConditionBLL();
                 string temp_path = Directory.GetCurrentDirectory() + @"\lib\temp\";
                 string lowerQuery = query.ToLower();
+                string joinType = "inner";
                 if (lowerQuery.Contains("join"))
                 {
                     int joinIndex = lowerQuery.IndexOf("join");
@@ -1785,15 +1786,19 @@ namespace FRDB_SQLite.Gui
                             joinIndex -= 6;
                             break;
                         case " left join":
+                            joinType = "left";
                             joinIndex -= 5;
                             break;
                         case "right join":
+                            joinType = "right";
                             joinIndex -= 6;
                             break;
                         case " full join":
+                            joinType = "full";
                             joinIndex -= 5;
                             break;
                         case "outer join":
+                            joinType = "outer";
                             joinIndex -= 6;
                             break;
                     }
@@ -1869,30 +1874,99 @@ namespace FRDB_SQLite.Gui
                         secondScheme.Attributes
                         .FindIndex(item => item.AttributeName.Equals(joinKeys[1].Split('.')[1].Trim(), StringComparison.InvariantCultureIgnoreCase));
                     //Run each tuple of 2 relation -> suitable for condition -> true
-                    foreach (FzTupleEntity firstRelationTuple in firstRelation.Tuples)
+
+                    //Run join with inner join and left join
+                    if (joinType != "right")
                     {
-                        foreach (FzTupleEntity secondRelationTuple in secondRelation.Tuples)
+                        foreach (FzTupleEntity firstRelationTuple in firstRelation.Tuples)
                         {
-                            if (isInverted ?
-                                secondRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(firstRelationTuple.ValuesOnPerRow[secondKeyIndex]) :
-                                firstRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(secondRelationTuple.ValuesOnPerRow[secondKeyIndex]))
+                            bool isMatch = false;
+                            foreach (FzTupleEntity secondRelationTuple in secondRelation.Tuples)
+                            {
+                                if (isInverted ?
+                                    secondRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(firstRelationTuple.ValuesOnPerRow[secondKeyIndex]) :
+                                    firstRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(secondRelationTuple.ValuesOnPerRow[secondKeyIndex]))
+                                {
+                                    isMatch = true;
+                                    String firstMembershipStr = firstRelationTuple.ValuesOnPerRow[firstRelationTuple.ValuesOnPerRow.Count - 1].ToString();
+                                    String secondMembershipStr = secondRelationTuple.ValuesOnPerRow[secondRelationTuple.ValuesOnPerRow.Count - 1].ToString();
+                                    string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, fdbEntity);
+
+                                    List<string> valuesOnPerRow = firstRelationTuple.ValuesOnPerRow
+                                        .Where((item, index) => index != firstRelationTuple.ValuesOnPerRow.Count - 1)
+                                        .Concat(secondRelationTuple.ValuesOnPerRow
+                                            .Where((item, index) => index != secondRelationTuple.ValuesOnPerRow.Count - 1))
+                                        .Select(item => item.ToString())
+                                        .ToList();
+                                    string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
+                                    FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
+                                    joinRelation.Tuples.Add(newTuple);
+                                }
+                            }
+                            if (!isMatch && joinType == "left")
                             {
                                 String firstMembershipStr = firstRelationTuple.ValuesOnPerRow[firstRelationTuple.ValuesOnPerRow.Count - 1].ToString();
-                                String secondMembershipStr = secondRelationTuple.ValuesOnPerRow[secondRelationTuple.ValuesOnPerRow.Count - 1].ToString();
-                                string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, fdbEntity);
-
                                 List<string> valuesOnPerRow = firstRelationTuple.ValuesOnPerRow
                                     .Where((item, index) => index != firstRelationTuple.ValuesOnPerRow.Count - 1)
-                                    .Concat(secondRelationTuple.ValuesOnPerRow
-                                        .Where((item, index) => index != secondRelationTuple.ValuesOnPerRow.Count - 1))
+                                    .Concat(secondScheme.Attributes
+                                        .Where((item, index) => index != secondScheme.Attributes.Count - 1)
+                                        .Select(item => "null"))
                                     .Select(item => item.ToString())
                                     .ToList();
-                                string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
+                                string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + firstMembershipStr;
                                 FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
                                 joinRelation.Tuples.Add(newTuple);
                             }
                         }
                     }
+                    
+                    //Run join with right join
+                    else
+                    {
+                        foreach (FzTupleEntity secondRelationTuple in secondRelation.Tuples)
+                        {
+                            bool isMatch = false;
+                            foreach (FzTupleEntity firstRelationTuple in firstRelation.Tuples)
+                            {
+                                if (isInverted ?
+                                    secondRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(firstRelationTuple.ValuesOnPerRow[secondKeyIndex]) :
+                                    firstRelationTuple.ValuesOnPerRow[firstKeyIndex].Equals(secondRelationTuple.ValuesOnPerRow[secondKeyIndex]))
+                                {
+                                    isMatch = true;
+                                    String firstMembershipStr = firstRelationTuple.ValuesOnPerRow[firstRelationTuple.ValuesOnPerRow.Count - 1].ToString();
+                                    String secondMembershipStr = secondRelationTuple.ValuesOnPerRow[secondRelationTuple.ValuesOnPerRow.Count - 1].ToString();
+                                    string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, fdbEntity);
+
+                                    List<string> valuesOnPerRow = firstRelationTuple.ValuesOnPerRow
+                                        .Where((item, index) => index != firstRelationTuple.ValuesOnPerRow.Count - 1)
+                                        .Concat(secondRelationTuple.ValuesOnPerRow
+                                            .Where((item, index) => index != secondRelationTuple.ValuesOnPerRow.Count - 1))
+                                        .Select(item => item.ToString())
+                                        .ToList();
+                                    string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
+                                    FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
+                                    joinRelation.Tuples.Add(newTuple);
+                                }
+                            }
+                            if (!isMatch && joinType == "right")
+                            {
+                                String secondMembershipStr = secondRelationTuple.ValuesOnPerRow[secondRelationTuple.ValuesOnPerRow.Count - 1].ToString();
+
+                                List<string> valuesOnPerRow = firstScheme.Attributes
+                                    .Where((item, index) => index != firstScheme.Attributes.Count - 1)
+                                    .Select(item => "null")
+                                    .Concat(secondRelationTuple.ValuesOnPerRow
+                                        .Where((item, index) => index != secondRelationTuple.ValuesOnPerRow.Count - 1))
+                                    .Select(item => item.ToString())
+                                    .ToList();
+                                string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + secondMembershipStr;
+                                FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
+                                joinRelation.Tuples.Add(newTuple);
+                            }
+                        }
+
+                    }
+                    
                     List<FzRelationEntity> joinRelations = new List<FzRelationEntity>();
                     joinRelations.Add(joinRelation);
                     List<FzSchemeEntity> joinSchemes = new List<FzSchemeEntity>();

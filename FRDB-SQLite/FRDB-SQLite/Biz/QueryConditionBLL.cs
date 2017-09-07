@@ -555,7 +555,12 @@ namespace FRDB_SQLite
                 FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(_uRelation, _fdbEntity);
                 if (get_disFS != null)
                     disFS_uRelation = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
-                else if (!IsNumber(_uRelation))
+                else
+                {
+                    string tempPath = Directory.GetCurrentDirectory() + @"\lib\temp\" + _uRelation + ".disFS";
+                    disFS_uRelation = new FuzzyProcess().ReadEachDisFS(tempPath);
+                }
+                if (disFS_uRelation == null && !IsNumber(_uRelation))
                     return "FN not exists";
 
             }
