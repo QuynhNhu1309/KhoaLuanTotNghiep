@@ -56,7 +56,7 @@ namespace FRDB_SQLite
                 {
                     Item item = new Item()
                     { elements = items.elements, nextLogic = items.nextLogic,
-                        valueAggregate = items.valueAggregate, indexTuple = items.indexTuple,
+                        valueAggregate = items.valueAggregate, 
                         notElement = items.notElement, resultCondition = items.resultCondition, ItemName = items.ItemName
                       
                     };
@@ -528,6 +528,43 @@ namespace FRDB_SQLite
 
         //    return false;
         //}
+        public string FindAndMarkFuzzy(string dis1, string dis2)
+        {
+            DisFS disFS1 = new DisFS();
+            DisFS disFS2 = new DisFS();
+            string path = Directory.GetCurrentDirectory() + @"\lib\temp\";
+            string FSName = "";
+            if (dis2 == "")
+            {
+               FSName = dis1;
+            }
+            else if (dis2 != "")
+            {
+                disFS1 = GetDisFS(path, dis1);
+                disFS2 = GetDisFS(path, dis2);
+                if (disFS1 != null && disFS2 != null)
+                    FSName = Min_DisFS(disFS1, disFS2);
+                else if (disFS1 == null && disFS2 != null)
+                {
+                    DisFS dis = new DisFS();
+                    dis.ValueSet.Add(double.Parse(dis1));
+                    dis.MembershipSet.Add(1);
+                    FSName = Min_DisFS(dis, disFS2);
+                }
+                else if (disFS1 != null && disFS2 == null)
+                {
+                    DisFS dis = new DisFS();
+                    dis.ValueSet.Add(double.Parse(dis2));
+                    dis.MembershipSet.Add(1);
+                    FSName = Min_DisFS(disFS1, dis);
+                }
+                else if (disFS1 == null && disFS2 == null)
+                {
+                    FSName = Math.Min(double.Parse(dis1), double.Parse(dis2)).ToString();
+                }
+            }
+            return FSName;
+        }
 
         private string SatisfyItem(List<String> itemCondition, FzTupleEntity tuple, int i)
         {

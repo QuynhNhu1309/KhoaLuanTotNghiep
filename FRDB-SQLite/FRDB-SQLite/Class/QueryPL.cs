@@ -161,23 +161,23 @@ namespace FRDB_SQLite.Class
             //if (selectAttr != query.LastIndexOf("*"))// * must be unique
             //    return message = "Not support multi '*'!";
             // selected attributes
-            if(selectAttr < 0)
-            {
-                selectAttrStr = query.Substring(select + 7, from - select - 8);
-                MatchCollection attr = Regex.Matches(selectAttrStr, @"[\w]+");// count word in select clause
-                // ^ (\"|\\s\"|'|'\\s)([a-z0-9A-Z\\s/.])+(\"|\"\\s|'|'\\s)$|\\d
-                MatchCollection attrComma = Regex.Matches(selectAttrStr, @"[,]+");// count comma in select clause
-                int tmp4 = attr.Count;
-                if (attr.Count > 1 && attrComma.Count == attr.Count - 1)
-                    selectAttrArr = selectAttrStr.Split(',');
-                else if (attr.Count == 1)
-                {
-                    selectAttrStr += ",";
-                    selectAttrArr = selectAttrStr.Split(',');
-                } 
-                else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
-                    return message = "Missing comma near 'select' clause";
-            }
+            //if(selectAttr < 0)
+            //{
+            //    selectAttrStr = query.Substring(select + 7, from - select - 8);
+            //    MatchCollection attr = Regex.Matches(selectAttrStr, @"[\w]+");// count word in select clause
+            //    // ^ (\"|\\s\"|'|'\\s)([a-z0-9A-Z\\s/.])+(\"|\"\\s|'|'\\s)$|\\d
+            //    MatchCollection attrComma = Regex.Matches(selectAttrStr, @"[,]+");// count comma in select clause
+            //    int tmp4 = attr.Count;
+            //    if (attr.Count > 1 && attrComma.Count == attr.Count - 1)
+            //        selectAttrArr = selectAttrStr.Split(',');
+            //    else if (attr.Count == 1)
+            //    {
+            //        selectAttrStr += ",";
+            //        selectAttrArr = selectAttrStr.Split(',');
+            //    } 
+            //    else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
+            //        return message = "Missing comma near 'select' clause";
+            //}
 
             if (from != query.LastIndexOf("from"))// From must be unique
                 return message = "Not support multi 'from'!";
@@ -350,8 +350,8 @@ namespace FRDB_SQLite.Class
             String message = "";
             String select = query.Substring(0, query.IndexOf("where"));
 
-            if (select.Contains(" and ") || select.Contains(" or ") || select.Contains(" not ") || select.Contains("(") || select.Contains(")") || select.Contains("\""))
-                return message = "Select clause do not allow 'and', 'or', 'not', '(', ')' and '\"'.";
+            if (select.Contains(" and ") || select.Contains(" or ") || select.Contains(" not ") || select.Contains("\""))
+                return message = "Select clause do not allow 'and', 'or', 'not', and '\"'.";
             int i = 0, j = 0;
             while (i < query.Length)
             {
