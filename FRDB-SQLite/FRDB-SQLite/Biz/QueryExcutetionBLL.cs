@@ -317,7 +317,7 @@ namespace FRDB_SQLite
                             {
                                 indexParenThesis = text.IndexOf("(");
                                 string textTmp = text.Substring(indexParenThesis + 1, text.Length - indexParenThesis - 2);
-                                if (textTmp.Equals(attr.AttributeName.ToLower()))
+                                if (textTmp.Equals(attr.AttributeName.ToLower()) || (textTmp == "*" && text.Contains("count(")))
                                 {
                                     Item itemSelect = new Item();
                                     itemSelect.aggregateFunction = text.Substring(0, indexParenThesis);
@@ -328,6 +328,8 @@ namespace FRDB_SQLite
                                     itemSelect.attributeNameAs = text;
                                     itemSelects.Add(itemSelect);
                                     count++;
+                                    if ((textTmp == "*" && text.Contains("count(")))
+                                        break;
                                 }
 
                             }
@@ -462,11 +464,12 @@ namespace FRDB_SQLite
         {//the attributes which user input such: select attr1, att2... from
             String[] result = null;
             //String was standardzied and cut space,....
-            if (!s.Contains("*"))
+            int i = 7;//Attribute after "select"
+            int j = s.IndexOf("from");
+            String tmp = s.Substring(i, j - i);
+            if (!tmp.Contains("*") || tmp.Contains("count(*"))
             {
-                int i = 7;//Attribute after "select"
-                int j = s.IndexOf("from");
-                String tmp = s.Substring(i, j - i);
+                
                 tmp = tmp.Replace(" ", "");
                 //if (s.Contains("min")) //đừng xóa cmt này :)
                 //{
