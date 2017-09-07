@@ -14,6 +14,7 @@ namespace FRDB_SQLite
         private String[] _selectedAttributeTexts = null;
         private String[] _selectedRelationTexts = null;
         public String _conditionText = String.Empty;
+        List<Item> itemSelects = new List<Item>();
 
         private List<FzAttributeEntity> _selectedAttributes = new List<FzAttributeEntity>();
         private List<FzRelationEntity> _selectedRelations = new List<FzRelationEntity>();
@@ -77,12 +78,13 @@ namespace FRDB_SQLite
         public FzRelationEntity ExecuteQuery()
         {
             FzRelationEntity result = new FzRelationEntity();
+            List<FzTupleEntity> resultTmp = new List<FzTupleEntity>();
             try
             {
                 this.GetSectedRelation(); if (this._error) throw new Exception(this._errorMessage);
                 this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
 
-                _errorMessage = ExistsAttribute();
+               // _errorMessage = ExistsAttribute();
                 if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
 
 
@@ -101,21 +103,24 @@ namespace FRDB_SQLite
                         if (condition.Satisfy(items, tuple)!="0")
                         {
                             if (this._selectedAttributeTexts != null)
-                                result.Tuples.Add(GetSelectedAttributes(condition.ResultTuple));
+                                resultTmp.Add(condition.ResultTuple);
                             else
-                                result.Tuples.Add(condition.ResultTuple);
+                                result.Add(condition.ResultTuple);
                         }
                     }
+                    if(this._selectedAttributeTexts != null)
+                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, true));
                 }
                 if (!this._queryText.Contains("where")) // Select all tuples
                 {
                     result.Scheme.Attributes = this._selectedAttributes;
                     result.RelationName = this._selectedRelations[0].RelationName;
-
+                    //result.Tuples.AddRange(GetSelectedAttributes(this._selectedRelations[0].Tuples));
                     if (this._selectedAttributeTexts != null)
                     {
-                        foreach (var item in this._selectedRelations[0].Tuples)
-                            result.Tuples.Add(GetSelectedAttributes(item));
+                        //foreach (var item in this._selectedRelations[0].Tuples)
+                        //    result.Tuples.Add(GetSelectedAttributes(item));
+                        result.Tuples.AddRange(GetSelectedAttributes(this._selectedRelations[0].Tuples, _fdbEntity, false));
                     }
                     else
                     {
@@ -297,20 +302,47 @@ namespace FRDB_SQLite
         {
             try
             {
+                
+                int indexParenThesis = 0;
                 if (this._selectedAttributeTexts != null)
                 {
                     foreach (String text in this._selectedAttributeTexts)
                     {
                         int i = 0;
+                        int count = 0;
                         foreach (FzAttributeEntity attr in this._selectedRelations[0].Scheme.Attributes)
                         {
+                            //process aggregation: select min, max, count
+                            if(text.Contains("min(") || text.Contains("max(") || text.Contains("avg(") || text.Contains("sum(") || text.Contains("count("))
+                            {
+                                indexParenThesis = text.IndexOf("(");
+                                string textTmp = text.Substring(indexParenThesis + 1, text.Length - indexParenThesis - 2);
+                                if (textTmp.Equals(attr.AttributeName.ToLower()) || (textTmp == "*" && text.Contains("count(")))
+                                {
+                                    Item itemSelect = new Item();
+                                    itemSelect.aggregateFunction = text.Substring(0, indexParenThesis);
+                                    FzAttributeEntity attrText = new FzAttributeEntity();
+                                    attrText.AttributeName = text;
+                                    this._selectedAttributes.Add(attrText);
+                                    itemSelect.elements.Add(i.ToString());
+                                    itemSelect.attributeNameAs = text;
+                                    itemSelects.Add(itemSelect);
+                                    count++;
+                                    if ((textTmp == "*" && text.Contains("count(")))
+                                        break;
+                                }
+
+                            }
                             if (text.Equals(attr.AttributeName.ToLower()))
                             {
                                 this._selectedAttributes.Add(attr);
                                 _index.Add(i);
+                                count++;
                             }
                             i++;
                         }
+                        if(count == 0)
+                            this._errorMessage = "Invalid selected object name of attribute: '" + text + "'.";
                     }
                     // Add the membership attribute
                     this._selectedAttributes.Add(this._selectedRelations[0].Scheme.Attributes[this._selectedRelations[0].Scheme.Attributes.Count - 1]);
@@ -329,33 +361,115 @@ namespace FRDB_SQLite
             }
         }
 
-        private FzTupleEntity GetSelectedAttributes(FzTupleEntity resultTuple)
+        private List<FzTupleEntity> GetSelectedAttributes(List<FzTupleEntity> resultTuple, FdbEntity _fdbEntity, Boolean filter)
         {
-            FzTupleEntity r = new FzTupleEntity();
-            for (int i = 0; i < _index.Count; i++)
+            List<FzTupleEntity> rs = new List<FzTupleEntity>();
+            
+            if (_index.Count > 0)
             {
-                for (int j = 0; j < resultTuple.ValuesOnPerRow.Count; j++)
+                foreach (var item in resultTuple) 
                 {
-                    if (_index[i] == j)
+                    FzTupleEntity r = new FzTupleEntity();
+                    for (int i = 0; i < _index.Count; i++)
                     {
-                        r.ValuesOnPerRow.Add(resultTuple.ValuesOnPerRow[j]);
-                        break;
+                        for (int j = 0; j < item.ValuesOnPerRow.Count; j++)
+                        {
+                            if (_index[i] == j)
+                            {
+                                r.ValuesOnPerRow.Add(item.ValuesOnPerRow[j]);
+                                break;
+                            }
+                        }
                     }
+                    r.ValuesOnPerRow.Add(item.ValuesOnPerRow[item.ValuesOnPerRow.Count - 1]);
+                    rs.Add(r);
                 }
+                
             }
-            r.ValuesOnPerRow.Add(resultTuple.ValuesOnPerRow[resultTuple.ValuesOnPerRow.Count - 1]);
-            return r;
+            else if (itemSelects.Count > 0)
+            {
+                QueryConditionBLL condtition = new QueryConditionBLL(_fdbEntity);
+                FzTupleEntity r = new FzTupleEntity();
+                int i = 0;
+                foreach (Item item in itemSelects)     
+                {
+                    i++;
+                    double k = 0;
+                    double tmp = 0;
+                    string FSName = "";
+                    foreach (var itemTuple in resultTuple)
+                    {
+                        k++;
+                        for (int j = 0; j < itemTuple.ValuesOnPerRow.Count; j++)
+                        {
+                            if (int.Parse(item.elements[0]) == j && item.aggregateFunction != "min" && item.aggregateFunction != "max")
+                            {
+                                if(item.aggregateFunction == "sum")
+                                    tmp = tmp + Convert.ToDouble(itemTuple.ValuesOnPerRow[j]);
+                                else if(item.aggregateFunction == "count")
+                                    tmp += 1;
+                                else if (item.aggregateFunction == "avg")
+                                {
+                                    tmp = tmp + Convert.ToDouble(itemTuple.ValuesOnPerRow[j]);
+                                    if (k == resultTuple.Count)
+                                        tmp = double.Parse((tmp / k).ToString());
+                                }
+                                FSName = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName, filter);
+                                break;
+                            }
+                            else if (int.Parse(item.elements[0]) == j && (item.aggregateFunction == "min" || item.aggregateFunction == "max"))
+                            {
+                                if(k == 1) tmp = double.Parse(itemTuple.ValuesOnPerRow[j].ToString());
+                                if (item.aggregateFunction == "min")
+                                {
+                                    if (tmp >= double.Parse(itemTuple.ValuesOnPerRow[j].ToString()))
+                                    {
+                                        tmp = double.Parse(itemTuple.ValuesOnPerRow[j].ToString());
+                                        FSName = itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString();
+                                    }
+                                       
+                                }
+                                if (item.aggregateFunction == "max")
+                                {
+                                    if (tmp <= double.Parse(itemTuple.ValuesOnPerRow[j].ToString()))
+                                    {
+                                        tmp = double.Parse(itemTuple.ValuesOnPerRow[j].ToString());
+                                        FSName = itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString();
+                                    }    
+                                }
+
+                            }
+                        }
+                        
+                    }
+                    r.ValuesOnPerRow.Add(tmp);
+                    if (i == itemSelects.Count)
+                    {
+                        r.ValuesOnPerRow.Add(FSName);
+                        rs.Add(r);
+                    }
+                        
+                   
+                }
+                
+
+                //r.ValuesOnPerRow.Add(resultTuple.ValuesOnPerRow[resultTuple.ValuesOnPerRow.Count - 1]);
+            }
+
+
+            return rs;
         }
 
         private String[] GetAttributeTexts(String s)
         {//the attributes which user input such: select attr1, att2... from
             String[] result = null;
             //String was standardzied and cut space,....
-            if (!s.Contains("*"))
+            int i = 7;//Attribute after "select"
+            int j = s.IndexOf("from");
+            String tmp = s.Substring(i, j - i);
+            if (!tmp.Contains("*") || tmp.Contains("count(*"))
             {
-                int i = 7;//Attribute after "select"
-                int j = s.IndexOf("from");
-                String tmp = s.Substring(i, j - i);
+                
                 tmp = tmp.Replace(" ", "");
                 //if (s.Contains("min")) //đừng xóa cmt này :)
                 //{
@@ -1579,8 +1693,7 @@ namespace FRDB_SQLite
         public bool resultCondition = false;
         public double valueAggregate = 0;
         public string ItemName = ""; //where or having
-        public string indexTuple = ""; //key when have having condition, use to filter top having condition
-        //indexTuple in result of where or not where condition
+        public string attributeNameAs = "";
     }
 
     
