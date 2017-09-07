@@ -77,7 +77,13 @@ namespace FRDB_SQLite
         #region 3. Contructors
         public QueryConditionBLL() {
         }
-       
+
+        public QueryConditionBLL(FdbEntity fdbEntity)
+        {
+            this._fdbEntity = fdbEntity;
+
+        }
+
         public QueryConditionBLL(List<Item> items, List<FzRelationEntity> sets, FdbEntity fdbEntity)
         {
             //this._resultTuple = new FzTupleEntity();
@@ -528,11 +534,31 @@ namespace FRDB_SQLite
 
         //    return false;
         //}
-        public string FindAndMarkFuzzy(string dis1, string dis2)
+        public string FindAndMarkFuzzy(string dis1, string dis2, Boolean filter)
         {
-            DisFS disFS1 = new DisFS();
-            DisFS disFS2 = new DisFS();
-            string path = Directory.GetCurrentDirectory() + @"\lib\temp\";
+            DisFS disFS1 = null;
+            DisFS disFS2 = null;
+            string path = "";
+            if (!filter)
+            {
+                FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(dis1, _fdbEntity);
+                ConFS conFS1 = null;
+                if (get_conFS != null)
+                {
+                    conFS1 = new ConFS(get_conFS.Name, get_conFS.Bottom_Left, get_conFS.Top_Left, get_conFS.Top_Right, get_conFS.Bottom_Right);
+                    disFS1 = transContoDis(conFS1); //trans CF to DF
+                }
+                else
+                {
+                    FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(dis1, _fdbEntity);
+                    if (get_disFS != null)
+                        disFS1 = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
+                    else if (!IsNumber(dis1))
+                        return "FN not exists";
+                }
+
+            }
+            path = Directory.GetCurrentDirectory() + @"\lib\temp\";
             string FSName = "";
             if (dis2 == "")
             {
@@ -540,7 +566,8 @@ namespace FRDB_SQLite
             }
             else if (dis2 != "")
             {
-                disFS1 = GetDisFS(path, dis1);
+                if(filter)
+                    disFS1 = GetDisFS(path, dis1);
                 disFS2 = GetDisFS(path, dis2);
                 if (disFS1 != null && disFS2 != null)
                     FSName = Min_DisFS(disFS1, disFS2);

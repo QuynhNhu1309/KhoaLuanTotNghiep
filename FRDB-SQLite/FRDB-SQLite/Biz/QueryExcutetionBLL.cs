@@ -109,7 +109,7 @@ namespace FRDB_SQLite
                         }
                     }
                     if(this._selectedAttributeTexts != null)
-                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp));
+                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, true));
                 }
                 if (!this._queryText.Contains("where")) // Select all tuples
                 {
@@ -120,7 +120,7 @@ namespace FRDB_SQLite
                     {
                         //foreach (var item in this._selectedRelations[0].Tuples)
                         //    result.Tuples.Add(GetSelectedAttributes(item));
-                        result.Tuples.AddRange(GetSelectedAttributes(this._selectedRelations[0].Tuples));
+                        result.Tuples.AddRange(GetSelectedAttributes(this._selectedRelations[0].Tuples, _fdbEntity, false));
                     }
                     else
                     {
@@ -359,7 +359,7 @@ namespace FRDB_SQLite
             }
         }
 
-        private List<FzTupleEntity> GetSelectedAttributes(List<FzTupleEntity> resultTuple)
+        private List<FzTupleEntity> GetSelectedAttributes(List<FzTupleEntity> resultTuple, FdbEntity _fdbEntity, Boolean filter)
         {
             List<FzTupleEntity> rs = new List<FzTupleEntity>();
             
@@ -386,7 +386,7 @@ namespace FRDB_SQLite
             }
             else if (itemSelects.Count > 0)
             {
-                QueryConditionBLL condtition = new QueryConditionBLL();
+                QueryConditionBLL condtition = new QueryConditionBLL(_fdbEntity);
                 FzTupleEntity r = new FzTupleEntity();
                 int i = 0;
                 foreach (Item item in itemSelects)     
@@ -412,7 +412,7 @@ namespace FRDB_SQLite
                                     if (k == resultTuple.Count)
                                         tmp = double.Parse((tmp / k).ToString());
                                 }
-                                FSName = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName);
+                                FSName = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName, filter);
                                 break;
                             }
                             else if (int.Parse(item.elements[0]) == j && (item.aggregateFunction == "min" || item.aggregateFunction == "max"))
