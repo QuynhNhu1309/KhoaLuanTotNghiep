@@ -108,30 +108,38 @@ namespace FRDB_SQLite
                                 result.Add(condition.ResultTuple);
                         }
                     }
-                    if(this._selectedAttributeTexts != null)
+                    if (this._queryText.Contains(" group by "))
+                    {
+                        result.Tuples = resultTmp;
+                        result = ProcessGroupBy(result, _queryText);// process group by and having            
+                    }
+                    else if (this._selectedAttributeTexts != null)
                         result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, true));
                 }
-                if (!this._queryText.Contains("where")) // Select all tuples
+                if (!this._queryText.Contains("where"))
                 {
                     result.Scheme.Attributes = this._selectedAttributes;
                     result.RelationName = this._selectedRelations[0].RelationName;
-                    //result.Tuples.AddRange(GetSelectedAttributes(this._selectedRelations[0].Tuples));
-                    if (this._selectedAttributeTexts != null)
+                    if (this._queryText.Contains(" group by "))
+                    {
+                        foreach (var item in this._selectedRelations[0].Tuples)
+                            result.Tuples.Add(item);
+                        result = this._selectedRelations[0];
+                        result = ProcessGroupBy(result, _queryText);// process group by and having            
+                    }
+                    else if (this._selectedAttributeTexts != null)
                     {
                         //foreach (var item in this._selectedRelations[0].Tuples)
                         //    result.Tuples.Add(GetSelectedAttributes(item));
                         result.Tuples.AddRange(GetSelectedAttributes(this._selectedRelations[0].Tuples, _fdbEntity, false));
                     }
-                    else
+                    else if (this._selectedAttributeTexts == null)
                     {
                         foreach (var item in this._selectedRelations[0].Tuples)
                             result.Tuples.Add(item);
                     }
                 }
-                if (this._queryText.Contains(" group by "))
-                {
-                    result = ProcessGroupBy(result, _queryText);// process group by and having            
-                }
+                
             }
             catch (Exception ex)
             {
@@ -304,6 +312,7 @@ namespace FRDB_SQLite
             {
                 
                 int indexParenThesis = 0;
+                Boolean flag = false;
                 if (this._selectedAttributeTexts != null)
                 {
                     foreach (String text in this._selectedAttributeTexts)
@@ -338,6 +347,17 @@ namespace FRDB_SQLite
                                 this._selectedAttributes.Add(attr);
                                 _index.Add(i);
                                 count++;
+                            }
+                            if(text == "*")
+                            {
+                                for(int l = 0; l < this._selectedRelations[0].Scheme.Attributes.Count - 1 ; l++ )
+                                {
+                                    this._selectedAttributes.Add(this._selectedRelations[0].Scheme.Attributes[l]);
+                                    _index.Add(l);
+                                }
+                                //flag = true;
+                                count++;
+                                break;
                             }
                             i++;
                         }
@@ -381,12 +401,16 @@ namespace FRDB_SQLite
                             }
                         }
                     }
-                    r.ValuesOnPerRow.Add(item.ValuesOnPerRow[item.ValuesOnPerRow.Count - 1]);
-                    rs.Add(r);
+                    if (itemSelects.Count == 0)
+                    {
+                        r.ValuesOnPerRow.Add(item.ValuesOnPerRow[item.ValuesOnPerRow.Count - 1]);
+                        rs.Add(r);
+                    }
+                        
                 }
                 
             }
-            else if (itemSelects.Count > 0)
+            if (itemSelects.Count > 0)
             {
                 QueryConditionBLL condtition = new QueryConditionBLL(_fdbEntity);
                 FzTupleEntity r = new FzTupleEntity();
@@ -467,9 +491,9 @@ namespace FRDB_SQLite
             int i = 7;//Attribute after "select"
             int j = s.IndexOf("from");
             String tmp = s.Substring(i, j - i);
-            if (!tmp.Contains("*") || tmp.Contains("count(*"))
+            if (tmp != "* ")
             {
-                
+
                 tmp = tmp.Replace(" ", "");
                 //if (s.Contains("min")) //đừng xóa cmt này :)
                 //{
@@ -1557,19 +1581,25 @@ namespace FRDB_SQLite
                             if (ErrorMessage != "") { this.Error = true; return filterResult; }
                             if (condition_Having.Satisfy(itemConditionHavings_Tmp, filterResultHaving.Tuples[q]) != "0")
                             {
-
-                                for (int d = 0; d < condition_Having.ItemConditions.Count(); d++)
+                                List<FzTupleEntity> tupleTmp = new List<FzTupleEntity>();
+                                tupleTmp.Add(filterResultHaving.Tuples[q]);
+                                resultTmp.Tuples.Add(filterResultHaving.Tuples[q]);
+                                if (q == filterResultHaving.Tuples.Count - 1)
                                 {
-                                    if (condition_Having.ItemConditions[d].resultCondition)
-                                    {
-                                        resultTmp.Tuples.Add(filterResultHaving.Tuples[q]);
-                                        goto End;// if exist more than 1 tuple the same, break 2 loops
-                                    }
+                                    resultTmp.Tuples.AddRange(GetSelectedAttributes(tupleTmp, _fdbEntity, true));
                                 }
+                                //for (int d = 0; d < condition_Having.ItemConditions.Count(); d++)
+                                //{
+                                //    if (condition_Having.ItemConditions[d].resultCondition)
+                                //    {
+                                //        resultTmp.Tuples.Add(filterResultHaving.Tuples[q]);
+                                //        goto End;// if exist more than 1 tuple the same, break 2 loops
+                                //    }
+                                //}
                             }
 
                         }
-                        End:;//break 2 loops
+                        //End:;//break 2 loops
                     }
                     else if (filterResultHaving.Tuples.Count > 0) return filterResult;
                     filterResultHaving = new FzRelationEntity();//renew filterResultHaving
