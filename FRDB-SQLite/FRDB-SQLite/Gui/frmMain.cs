@@ -1691,7 +1691,7 @@ namespace FRDB_SQLite.Gui
             }
         }
 
-        private string getFZValue(string firstUvalue, string secondUValue, FdbEntity _fdbEntity)
+        private string getFZValue(string firstUvalue, string secondUValue, FdbEntity _fdbEntity, QueryConditionBLL queryBLL)
         {
             bool check_ufRelation = false;
             bool check_usRelation = false;
@@ -1747,7 +1747,7 @@ namespace FRDB_SQLite.Gui
                 disFS_suRelation.ValueSet.Add(Double.Parse(secondUValue));
                 disFS_suRelation.MembershipSet.Add(1);
             }
-            return new QueryConditionBLL().Min_DisFS(disFS_fuRelation, disFS_suRelation);
+            return queryBLL.Min_DisFS(disFS_fuRelation, disFS_suRelation);
         }
 
         private void ExecutingQuery()
@@ -1890,7 +1890,7 @@ namespace FRDB_SQLite.Gui
                                     isMatch = true;
                                     String firstMembershipStr = firstRelationTuple.ValuesOnPerRow[firstRelationTuple.ValuesOnPerRow.Count - 1].ToString();
                                     String secondMembershipStr = secondRelationTuple.ValuesOnPerRow[secondRelationTuple.ValuesOnPerRow.Count - 1].ToString();
-                                    string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, fdbEntity);
+                                    string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, fdbEntity, condition);
 
                                     List<string> valuesOnPerRow = firstRelationTuple.ValuesOnPerRow
                                         .Where((item, index) => index != firstRelationTuple.ValuesOnPerRow.Count - 1)
@@ -1935,7 +1935,7 @@ namespace FRDB_SQLite.Gui
                                     isMatch = true;
                                     String firstMembershipStr = firstRelationTuple.ValuesOnPerRow[firstRelationTuple.ValuesOnPerRow.Count - 1].ToString();
                                     String secondMembershipStr = secondRelationTuple.ValuesOnPerRow[secondRelationTuple.ValuesOnPerRow.Count - 1].ToString();
-                                    string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, fdbEntity);
+                                    string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, fdbEntity, condition);
 
                                     List<string> valuesOnPerRow = firstRelationTuple.ValuesOnPerRow
                                         .Where((item, index) => index != firstRelationTuple.ValuesOnPerRow.Count - 1)

@@ -1142,8 +1142,11 @@ namespace FRDB_SQLite
                     result.Add(values);
                     result.Add(memberships);
                 }
+                System.Diagnostics.Debug.WriteLine("Fz: " + FuzzySet1.Name + ", " + FuzzySet2.Name);
+                System.Diagnostics.Debug.WriteLine("Value: " + values + ", Member: " + memberships);
                 if (new FuzzyProcess().UpdateFS(path, result, Name + ".disFS") == 1)
                 {
+                    System.Diagnostics.Debug.WriteLine(Name);
                     return Name;
                 }
                 return "0";
@@ -1369,6 +1372,8 @@ namespace FRDB_SQLite
             while (!flag)
             {
                 result=Math.Round(rd.NextDouble(), 2).ToString();
+                System.Diagnostics.Debug.WriteLine("Random number: " + result);
+                System.Diagnostics.Debug.WriteLine("Random array: " + String.Join(",", random_array.Select(item => item.ToString()).ToArray()));
                 if (random_array.Count  != 0)
                 {
                     foreach (var r in random_array)
@@ -1385,6 +1390,7 @@ namespace FRDB_SQLite
             }
             Double re = Double.Parse(result);
             random_array.Add(re);
+            System.Diagnostics.Debug.WriteLine("Random array add: " + String.Join(",", random_array.Select(item => item.ToString()).ToArray()));
             return result;
         }
         private Boolean StringCompare(String a, String b, String opr)
