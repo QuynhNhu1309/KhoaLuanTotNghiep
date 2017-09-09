@@ -114,7 +114,7 @@ namespace FRDB_SQLite
                         result = ProcessGroupBy(result, _queryText);// process group by and having            
                     }
                     else if (this._selectedAttributeTexts != null)
-                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, false));
+                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, true));
                 }
                 if (!this._queryText.Contains("where"))
                 {
@@ -579,7 +579,7 @@ namespace FRDB_SQLite
                                         if (y == 0) FSName2 = "";
                                         if (double.Parse(resultTuple[y].ValuesOnPerRow[j].ToString()) == tmp)
                                         {
-                                            FSName2 = condtition.FindAndMarkFuzzy(resultTuple[y].ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName2, false);
+                                            FSName2 = condtition.FindAndMarkFuzzy(resultTuple[y].ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName2, filter);
                                         }
                                     }
                                 }
