@@ -114,7 +114,7 @@ namespace FRDB_SQLite
                         result = ProcessGroupBy(result, _queryText);// process group by and having            
                     }
                     else if (this._selectedAttributeTexts != null)
-                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, true));
+                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, false));
                 }
                 if (!this._queryText.Contains("where"))
                 {
@@ -452,7 +452,7 @@ namespace FRDB_SQLite
                                                 if (k == resultTuple.Count)
                                                     tmp = double.Parse((tmp / k).ToString());
                                             }
-                                            FSName1 = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName, filter);
+                                            FSName1 = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName1, filter);
                                             break;
                                         }
                                         else if (int.Parse(item.elements[0]) == j && (item.aggregateFunction == "min" || item.aggregateFunction == "max"))
@@ -522,12 +522,14 @@ namespace FRDB_SQLite
                 QueryConditionBLL condtition = new QueryConditionBLL(_fdbEntity);
                 FzTupleEntity r = new FzTupleEntity();
                 int i = 0;
+                string FSName = "";
                 foreach (Item item in itemSelects)     
                 {
                     i++;
                     double k = 0;
                     double tmp = 0;
-                    string FSName = "";
+                    string FSName1 = "", FSName2 = "";
+                    int countMinMax = 0;
                     foreach (var itemTuple in resultTuple)
                     {
                         k++;
@@ -545,7 +547,7 @@ namespace FRDB_SQLite
                                     if (k == resultTuple.Count)
                                         tmp = double.Parse((tmp / k).ToString());
                                 }
-                                FSName = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName, filter);
+                                FSName1 = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName1, filter);
                                 break;
                             }
                             else if (int.Parse(item.elements[0]) == j && (item.aggregateFunction == "min" || item.aggregateFunction == "max"))
@@ -556,7 +558,8 @@ namespace FRDB_SQLite
                                     if (tmp >= double.Parse(itemTuple.ValuesOnPerRow[j].ToString()))
                                     {
                                         tmp = double.Parse(itemTuple.ValuesOnPerRow[j].ToString());
-                                        FSName = itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString();
+                                        FSName2 = itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString();
+                                        countMinMax++;
                                     }
                                        
                                 }
@@ -565,14 +568,29 @@ namespace FRDB_SQLite
                                     if (tmp <= double.Parse(itemTuple.ValuesOnPerRow[j].ToString()))
                                     {
                                         tmp = double.Parse(itemTuple.ValuesOnPerRow[j].ToString());
-                                        FSName = itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString();
+                                        FSName2 = itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString();
+                                        countMinMax++;
                                     }    
+                                }
+                                if (k == resultTuple.Count - 1 && countMinMax > 1)
+                                {
+                                    for (int y = 0; y < resultTuple.Count; y++)
+                                    {
+                                        if (y == 0) FSName2 = "";
+                                        if (double.Parse(resultTuple[y].ValuesOnPerRow[j].ToString()) == tmp)
+                                        {
+                                            FSName2 = condtition.FindAndMarkFuzzy(resultTuple[y].ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName2, false);
+                                        }
+                                    }
                                 }
 
                             }
-                        }
-                        
+                        } 
                     }
+                    if (FSName1 != "")
+                        FSName = condtition.FindAndMarkFuzzy(FSName1, FSName, true);
+                    if (FSName2 != "")
+                        FSName = condtition.FindAndMarkFuzzy(FSName2, FSName, true);
                     r.ValuesOnPerRow.Add(tmp);
                     if (i == itemSelects.Count)
                     {
