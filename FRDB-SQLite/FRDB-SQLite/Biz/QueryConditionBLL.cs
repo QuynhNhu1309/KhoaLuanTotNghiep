@@ -212,7 +212,7 @@ namespace FRDB_SQLite
                     //ItemConditions[i].keyTuple = (tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1]).ToString();
 
                 }
-                    ItemConditions[i].resultCondition = true;
+                    //ItemConditions[i].resultCondition = true;
 
                 if (i != 0 && _memberships.Count > 0)// Getting previous logicality
                     _memberships.Add(list[i-1].nextLogic);
