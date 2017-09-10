@@ -96,31 +96,37 @@ namespace FRDB_SQLite
                     if (ErrorMessage != "") { this.Error = true; return result; }
                     
                     QueryConditionBLL condition = new QueryConditionBLL(items, this._selectedRelations,_fdbEntity);
-                    result.Scheme.Attributes = this._selectedAttributes;
+                    
                     
                     foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
                     {
                         if (condition.Satisfy(items, tuple)!="0")
                         {
                             if (this._selectedAttributeTexts != null)
-                                resultTmp.Add(condition.ResultTuple);
+                                resultTmp.Add(condition.ResultTuple);//done
                             else
-                                result.Add(condition.ResultTuple);
+                                result.Add(condition.ResultTuple);//done
                         }
                     }
-                    if (this._queryText.Contains(" group by "))
+                    if (this._queryText.Contains(" group by "))//done with having
                     {
-                        result.Tuples = resultTmp;
+                        //result.Scheme.Attributes = this._selectedRelations[0].Scheme.Attributes;
+                        //result.Tuples = resultTmp;
+                        foreach (FzTupleEntity tuple in resultTmp)
+                            result.Tuples.Add(tuple);
+                        foreach (FzAttributeEntity attr in this._selectedRelations[0].Scheme.Attributes)
+                            result.Scheme.Attributes.Add(attr);
                         result = ProcessGroupBy(result, _queryText);// process group by and having            
                     }
                     else if (this._selectedAttributeTexts != null)
                         result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, true));
+                    result.Scheme.Attributes = this._selectedAttributes;
                 }
                 if (!this._queryText.Contains("where"))
                 {
-                    //result.Scheme.Attributes = this._selectedAttributes;
-                    //result.RelationName = this._selectedRelations[0].RelationName;
-                    if (this._queryText.Contains(" group by "))
+                    result.Scheme.Attributes = this._selectedAttributes;
+                    result.RelationName = this._selectedRelations[0].RelationName;
+                    if (this._queryText.Contains(" group by "))//done
                     {
                         //result.Scheme.Attributes = this._selectedAttributes;
                         //foreach (var item in this._selectedRelations[0].Tuples)
@@ -1658,9 +1664,40 @@ namespace FRDB_SQLite
                 }
             }
             int having = _queryText.IndexOf(" having ");
+            resultTmp.Tuples.Clear();
+            if (having < 0)//get select attribute with group by (without having condition)
+            {
+                for (int j = 0; j < filterResult.Tuples.Count; j++)//format each tuple after group by
+                {
+                    for (int l = 0; l < indexGroupby.Count; l++)
+                    {
+                        Item itemConditionGroupBy = new Item();//set condition from group by
+                        itemConditionGroupBy.elements.Add(indexGroupby[l].ToString());//index
+                        itemConditionGroupBy.elements.Add("=");//operator
+                        itemConditionGroupBy.elements.Add(filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString());
+                        //value
+                        if (l < indexGroupby.Count - 1)
+                            itemConditionGroupBy.nextLogic = " and ";// and, it must have 'and' if group by more than 2 attributes
+                        itemConditionGroupBys.Add(itemConditionGroupBy);
+                    }
+                    QueryConditionBLL condition_GroupBy = new QueryConditionBLL(itemConditionGroupBys, this._selectedRelations, _fdbEntity);
+                    foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
+                    {
+                        if (condition_GroupBy.Satisfy(itemConditionGroupBys, tuple) != "0")
+                        {
+                            filterResultHaving.Tuples.Add(condition_GroupBy.ResultTuple);// get tuples meet itemConditionGroupBys
+                        }
+                    }
+                    itemConditionGroupBys = new List<Item>();
+                    if (filterResultHaving.Tuples.Count > 0)
+                    {
+                        resultTmp.Tuples.AddRange(GetSelectedAttributes(filterResultHaving.Tuples, _fdbEntity, true));
+                    }
+                    filterResultHaving = new FzRelationEntity();//renew filterResultHaving
+                }
+            }
             if (having > 0)
             {
-                resultTmp.Tuples.Clear();
                 string tmp = _queryText.Substring(having);
                 tmp = GetConditionText(tmp);//get condition Text 'having'(not where)
                 if (tmp != String.Empty)
@@ -1741,10 +1778,11 @@ namespace FRDB_SQLite
                     filterResultHaving = new FzRelationEntity();//renew filterResultHaving
                     
                 }
-                resultTmp.Scheme.Attributes = this._selectedAttributes;
-                //filterResult.Tuples.Clear();
-                filterResult = resultTmp;
+                
             }
+            resultTmp.Scheme.Attributes = this._selectedAttributes;
+            //filterResult.Tuples.Clear();
+            filterResult = resultTmp;
             //filterResult.Scheme.Attributes = this._selectedAttributes;
             return filterResult;
         }

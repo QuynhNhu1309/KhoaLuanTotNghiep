@@ -224,6 +224,8 @@ namespace FRDB_SQLite.Class
                 {
                     return message = "'where'condition must not contain aggregate function";
                 }
+
+                if(where < from) return message = "'Where' clause is reuquired after 'select, from'";
                 //edit--------
                 //if (query.Contains(" not "))
                 //{
