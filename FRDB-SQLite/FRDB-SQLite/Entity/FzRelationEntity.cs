@@ -88,17 +88,17 @@ namespace FRDB_SQLite
             {
                 FzAttributeEntity attribute = this._scheme.Attributes[i];
                 string typeName = attribute.DataType.TypeName;
-                if (typeName == "String")
+                if ((typeName != "String" && typeName != "DateTime") || tuple.ValuesOnPerRow[i].ToString() == "null")
+                {
+                    objs.Add(tuple.ValuesOnPerRow[i]);
+                }
+                else if (typeName == "String")
                 {
                     objs.Add(tuple.ValuesOnPerRow[i].ToString());
                 }
                 else if (typeName == "DateTime")
                 {
                     objs.Add(DateTime.Parse(tuple.ValuesOnPerRow[i].ToString()));
-                }
-                else
-                {
-                    objs.Add(tuple.ValuesOnPerRow[i]);
                 }
             }
             FzTupleEntity insertTuple = new FzTupleEntity() { ValuesOnPerRow = objs };
