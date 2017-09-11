@@ -318,8 +318,9 @@ namespace FRDB_SQLite
             try
             {
                 
-                int indexParenThesis = 0;
+                int indexParenThesis1 = 0, indexParenThesis2 = 0;
                 Boolean flag = false;
+                string textTmp = "", textAs;
                 if (this._selectedAttributeTexts != null)
                 {
                     foreach (String text in this._selectedAttributeTexts)
@@ -331,29 +332,56 @@ namespace FRDB_SQLite
                             //process aggregation: select min, max, count
                             if(text.Contains("min(") || text.Contains("max(") || text.Contains("avg(") || text.Contains("sum(") || text.Contains("count("))
                             {
-                                indexParenThesis = text.IndexOf("(");
-                                string textTmp = text.Substring(indexParenThesis + 1, text.Length - indexParenThesis - 2);
+                                indexParenThesis1 = text.IndexOf("(");
+                                indexParenThesis2 = text.IndexOf(")");
+                                textTmp = text.Substring(indexParenThesis1 + 1, indexParenThesis2 - indexParenThesis1 - 1);
                                 if (textTmp.Equals(attr.AttributeName.ToLower()) || (textTmp == "*" && text.Contains("count(")))
                                 {
                                     Item itemSelect = new Item();
-                                    itemSelect.aggregateFunction = text.Substring(0, indexParenThesis);
+                                    itemSelect.aggregateFunction = text.Substring(0, indexParenThesis1);
                                     FzAttributeEntity attrText = new FzAttributeEntity();
-                                    attrText.AttributeName = text;
-                                    this._selectedAttributes.Add(attrText);
+                                    if (text.IndexOf("-as-") > 0)
+                                    {
+                                        textAs = text.Substring(text.IndexOf("-as-") + 4, text.Length - text.IndexOf("-as-") - 4);
+                                        attrText.AttributeName = textAs;
+                                        this._selectedAttributes.Add(attrText);
+                                        itemSelect.attributeNameAs = textAs;
+                                    }
+                                    else
+                                    {
+                                        attrText.AttributeName = text;
+                                        this._selectedAttributes.Add(attrText);
+                                        itemSelect.attributeNameAs = textTmp;
+                                    } 
                                     itemSelect.elements.Add(i.ToString());
-                                    itemSelect.attributeNameAs = text;
                                     itemSelects.Add(itemSelect);
                                     count++;
                                     if ((textTmp == "*" && text.Contains("count(")))
                                         break;
                                 }
-
                             }
-                            if (text.Equals(attr.AttributeName.ToLower()))
+                            else if (text.Contains(attr.AttributeName.ToLower()))
                             {
-                                this._selectedAttributes.Add(attr);
+                                //this._selectedAttributes.Add(attr);
+                                
+                                
+                                FzAttributeEntity attrText = new FzAttributeEntity();
+                                if (text.IndexOf("-as-") > 0)
+                                {
+                                    textAs = text.Substring(text.IndexOf("-as-") + 4, text.Length - text.IndexOf("-as-") - 4);
+                                    attrText.AttributeName = textAs;
+                                    this._selectedAttributes.Add(attrText);
+                                    textTmp = text.Substring(0, text.IndexOf("-as-"));
+                                    if(textTmp.Equals(attr.AttributeName.ToLower()))
+                                        count++;
+                                }
+                                else if(text.Equals(attr.AttributeName.ToLower()))
+                                {
+                                    attrText.AttributeName = text;
+                                    this._selectedAttributes.Add(attrText);
+                                    count++;
+                                }
                                 _index.Add(i);
-                                count++;
                             }
                             if(text == "*")
                             {
@@ -391,6 +419,7 @@ namespace FRDB_SQLite
         private List<FzTupleEntity> GetSelectedAttributes(List<FzTupleEntity> resultTuple, FdbEntity _fdbEntity, Boolean filter)
         {
             List<FzTupleEntity> rs = new List<FzTupleEntity>();
+            List<string> attributes = new List<string>();
             Boolean flagGetOneTuple = false;//use when have aggregate function & attributes
             if (_index.Count > 0)
             {
@@ -624,7 +653,7 @@ namespace FRDB_SQLite
             String tmp = s.Substring(i, j - i);
             if (tmp != "* ")
             {
-
+                tmp = tmp.Replace(" as ", "-as-");
                 tmp = tmp.Replace(" ", "");
                 //if (s.Contains("min")) //đừng xóa cmt này :)
                 //{
@@ -634,6 +663,7 @@ namespace FRDB_SQLite
                 //}
                 result = tmp.Split(',');
             }
+            
 
             return result;
         }
