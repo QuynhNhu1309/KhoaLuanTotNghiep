@@ -351,7 +351,7 @@ namespace FRDB_SQLite
                                     {
                                         attrText.AttributeName = text;
                                         this._selectedAttributes.Add(attrText);
-                                        itemSelect.attributeNameAs = textTmp;
+                                        itemSelect.attributeNameAs = text;
                                     } 
                                     itemSelect.elements.Add(i.ToString());
                                     itemSelects.Add(itemSelect);
@@ -423,8 +423,10 @@ namespace FRDB_SQLite
             Boolean flagGetOneTuple = false;//use when have aggregate function & attributes
             if (_index.Count > 0)
             {
+                int h = 0;
                 foreach (var item0 in resultTuple) 
                 {
+                    h++;
                     FzTupleEntity r = new FzTupleEntity();
                     for (int i = 0; i < _index.Count; i++)
                     {
@@ -434,11 +436,13 @@ namespace FRDB_SQLite
                             if (_index[i] == j && itemSelects.Count == 0)
                             {
                                 r.ValuesOnPerRow.Add(item0.ValuesOnPerRow[j]);
+                                if (h == 1) attributes.Add(this._selectedRelations[0].Scheme.Attributes[j].AttributeName.ToString());
                                 break;
                             }
                             else if (_index[i] == j)
                             {
                                 r.ValuesOnPerRow.Add(item0.ValuesOnPerRow[j]);
+                                if (h == 1) attributes.Add(this._selectedRelations[0].Scheme.Attributes[j].AttributeName.ToString());
                                 if (i == _index.Count - 1 && itemSelects.Count > 0)
                                 {
                                     flagGetOneTuple = true;
@@ -527,7 +531,7 @@ namespace FRDB_SQLite
 
                                         }
                                     }
-
+                                    if (k == 1) attributes.Add(item.attributeNameAs);
                                 }
                                 
                                 if(FSName1 !="")
@@ -535,6 +539,7 @@ namespace FRDB_SQLite
                                 if(FSName2 !="")
                                     FSName = condtition.FindAndMarkFuzzy(FSName2, FSName, true);  
                                 r.ValuesOnPerRow.Add(tmp);
+                                
                                 if (i == itemSelects.Count)
                                 {
                                     r.ValuesOnPerRow.Add(FSName);
