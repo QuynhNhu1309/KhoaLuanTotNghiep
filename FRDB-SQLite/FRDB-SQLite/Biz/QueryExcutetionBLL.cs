@@ -549,13 +549,33 @@ namespace FRDB_SQLite
 
                             }
                         }
-                    }
-                    
-                        
+                        //rearrange select mix: min , max, filed1, count, field,...to return tuple and attributes respectedly
+                        string tmpValue1 = "", tmpValue2 = "";
+                        for (int i = 0; i < this._selectedAttributes.Count; i++)
+                        {
+                            for (int k = 0; k < attributes.Count; k++)
+                            {
+                                if (this._selectedAttributes[i].AttributeName.ToString() == attributes[k].ToLower())
+                                {
+                                    foreach (var tuple in rs)
+                                    {
+                                        tmpValue1 = tuple.ValuesOnPerRow[k].ToString();
+                                        tmpValue2 = tuple.ValuesOnPerRow[i].ToString();
+                                        tuple.ValuesOnPerRow[i] = tmpValue1;
+                                        tuple.ValuesOnPerRow[k] = tmpValue2;
+
+                                    }
+                                    tmpValue1 = attributes[i];
+                                    tmpValue2 = attributes[k]; ;
+                                    attributes[k] = tmpValue1;
+                                    attributes[i] = tmpValue2;
+                                    break;
+                                }
+
+                            }
+                        }//end rearrange
+                    }     
                 }
-                
-
-
             }
             else if (itemSelects.Count > 0)
             {
@@ -644,6 +664,7 @@ namespace FRDB_SQLite
 
                 //r.ValuesOnPerRow.Add(resultTuple.ValuesOnPerRow[resultTuple.ValuesOnPerRow.Count - 1]);
             }
+            
 
 
             return rs;
