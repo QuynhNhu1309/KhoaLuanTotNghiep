@@ -146,6 +146,9 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
+
+                if (this._queryText.Contains(" order by"))
+                    result = ProcessOrderBy(result);
                 
             }
             catch (Exception ex)
@@ -1939,6 +1942,42 @@ namespace FRDB_SQLite
                 arr = tmp.ToArray();
             }
             return resultArrange;
+        }
+
+        public FzRelationEntity ProcessOrderBy(FzRelationEntity relation)
+        {
+            String[] listOrder = null;
+            int orderBy = 0;
+            string orderByString = "";
+            orderBy = this._queryText.IndexOf(" order by ");
+            listOrder = this._queryText.Substring(orderBy + 9, this._queryText.Length - orderBy - 11).Split(',');
+            IEnumerable<FzTupleEntity> sortedTuple =
+            from tuple in relation.Tuples
+            orderby tuple.ValuesOnPerRow[5] ascending
+            select tuple;
+            var sortedTuple1 =
+            from tuple in relation.Tuples
+            orderby tuple.ValuesOnPerRow[5] ascending
+            select tuple;
+            
+            FzRelationEntity relation1 = new FzRelationEntity();
+            relation1.Scheme = relation.Scheme;
+            foreach (var item in sortedTuple1)
+            {
+                relation1.Tuples.Add(item);
+            }
+            //List<FzTupleEntity> asList = new List<FzTupleEntity>();
+            //FzTupleEntity as1 = new FzTupleEntity();
+            ////List<FzTupleEntity> asList = sortedTuple.ToList();
+
+            //relation.Tuples.Clear();
+            //relation.Tuples.Add(as1);
+            //relation.Tuples.Add(sortedTuple);
+            //for(int i = 0; i < listOrder.Length; i++)
+            //{
+
+            //}
+            return relation1;
         }
 
 
