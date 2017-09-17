@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using System.IO;
 using FRDB_SQLite;
-using FRDB_SQLite;
 
 namespace FRDB_SQLite.Gui
 {

@@ -14,8 +14,7 @@ using System.Timers;
 using DevExpress.Utils.Menu;
 using System.Threading;
 using FRDB_SQLite;
-using FRDB_SQLite;
-using FRDB_SQLite;
+using FRDB_SQLite.Biz;
 using System.Data.SQLite;
 using System.Text.RegularExpressions;
 using FRDB_SQLite.Class;
@@ -1757,7 +1756,8 @@ namespace FRDB_SQLite.Gui
                 DeleteTemp(); // xóa các file temp ở đường dẫn \FRDB-SQLite\bin\Debug\lib\temp
                 PrepareQuery();
                 String query = QueryPL.StandardizeQuery(txtQuery.Text.Trim());
-                String message = QueryPL.CheckSyntax(query);
+                //String message = QueryPL.CheckSyntax(query);
+                String message = String.Empty;
                 if (message != "")
                 {
                     ShowMessage(message, Color.Red);
@@ -1777,7 +1777,12 @@ namespace FRDB_SQLite.Gui
                 string temp_path = Directory.GetCurrentDirectory() + @"\lib\temp\";
                 string lowerQuery = query.ToLower();
                 string joinType = "inner";
-                if (lowerQuery.Contains("join"))
+                if (lowerQuery.Contains("union"))
+                {
+                    QueryExecutionBLLv2 execution = new QueryExecutionBLLv2(query, newFdb);
+                    result = execution.ExecuteQuery();
+                }
+                else if (lowerQuery.Contains("join"))
                 {
                     int joinIndex = lowerQuery.IndexOf("join");
                     switch (lowerQuery.Substring(joinIndex - 6, 10))

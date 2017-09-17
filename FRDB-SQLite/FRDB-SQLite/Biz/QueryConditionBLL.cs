@@ -1396,7 +1396,7 @@ namespace FRDB_SQLite
         private Boolean StringCompare(String a, String b, String opr)
         {
             //a = "\"" + a + "\"";
-            int indexOpen = 0, indexClose = 0;
+            //int indexOpen = 0, indexClose = 0;
 
             int maxLength = a.Length;
             if (maxLength > b.Length)

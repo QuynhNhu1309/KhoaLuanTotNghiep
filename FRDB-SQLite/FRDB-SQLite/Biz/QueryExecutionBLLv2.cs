@@ -10,7 +10,10 @@ namespace FRDB_SQLite.Biz
     {
         private String _queryText;
         private String _queryType;
+        private FzRelationEntity _queryResult;
         private FdbEntity _fdbEntity;
+        private String _errorMessage = String.Empty;
+
         public QueryExecutionBLLv2(String queryText, FdbEntity fdbEntity)
         {
             this._queryText = queryText.ToLower();
@@ -27,15 +30,103 @@ namespace FRDB_SQLite.Biz
             }
             if (this._queryType == Constants.QUERY_TYPE.MUTIPLE)
             {
-                List<String> singleQueries = SplitQuery(this._queryType);
+                List<String> singleQueries = SplitQuery(this._queryText);
+                if (this._queryText.Contains("union"))
+                {
+                    String[] fstQueryAttributes = GetAttributeTexts(singleQueries[0]);
+                    String[] sndQueryAttributes = GetAttributeTexts(singleQueries[1]);
+                    bool isEqual = fstQueryAttributes.SequenceEqual(sndQueryAttributes);
+                    if (!isEqual)
+                    {
+                        this._errorMessage = "The select statements do not have the same result columns";
+                        throw new Exception(this._errorMessage);
+                    }
+                    String[] fstRelationTexts = GetRelationTexts(singleQueries[0]);
+                    String[] sndRelationTexts = GetRelationTexts(singleQueries[0]);
+                    FzRelationEntity fstRelation = this._fdbEntity.Relations
+                        .Find(item => item.RelationName.Equals(fstRelationTexts[0], StringComparison.InvariantCultureIgnoreCase));
+                    FzRelationEntity sndRelation = this._fdbEntity.Relations
+                        .Find(item => item.RelationName.Equals(sndRelationTexts[0], StringComparison.InvariantCultureIgnoreCase));
+                    for (int i = 0; i < fstQueryAttributes.Length; i++)
+                    {
+                        FzAttributeEntity fstAttr = fstRelation.Scheme.Attributes
+                            .Find(attr => attr.AttributeName.Equals(fstQueryAttributes[i], StringComparison.InvariantCultureIgnoreCase));
+                        FzAttributeEntity sndAttr = sndRelation.Scheme.Attributes
+                            .Find(attr => attr.AttributeName.Equals(sndQueryAttributes[i], StringComparison.InvariantCultureIgnoreCase));
+                        if (fstAttr.DataType != sndAttr.DataType)
+                        {
+                            this._errorMessage = "The select statements do not have the same result columns";
+                            throw new Exception(_errorMessage);
+                        }
+                    }
+                    // The SQL statement with Union is now ready to process
+                    QueryExcutetionBLL fstExecution = new QueryExcutetionBLL(singleQueries[0], this._fdbEntity);
+                    QueryExcutetionBLL sndExecution = new QueryExcutetionBLL(singleQueries[1], this._fdbEntity);
+                    FzRelationEntity fstQueryResult = fstExecution.ExecuteQuery();
+                    FzRelationEntity sndQueryResult = sndExecution.ExecuteQuery();
+                    FzRelationEntity unionResult = new FzRelationEntity()
+                    {
+                        RelationName = $"{fstQueryResult.RelationName}_{sndQueryResult.RelationName}",
+                        Scheme = fstQueryResult.Scheme,
+                        Tuples = fstQueryResult.Tuples.Union(sndQueryResult.Tuples).ToList()
+                    };
+                    this._queryResult = unionResult;
+                }
             }
+        }
+
+        public FzRelationEntity ExecuteQuery()
+        {
+            return this._queryResult;
         }
 
         private List<String> SplitQuery(String mutipleQueryText)
         {
             List<String> singleQueries = new List<String>();
-            singleQueries = mutipleQueryText.Split(new String[] { "contains" }, StringSplitOptions.None).ToList();
+            singleQueries = mutipleQueryText.Split(new String[] { " union " }, StringSplitOptions.None).ToList();
             return singleQueries;
+        }
+
+        private String[] GetAttributeTexts(String s)
+        {//the attributes which user input such: select attr1, att2... from
+            String[] result = null;
+            //String was standardzied and cut space,....
+            int i = 7;//Attribute after "select"
+            int j = s.IndexOf("from");
+            String tmp = s.Substring(i, j - i);
+            if (tmp != "* ")
+            {
+
+                tmp = tmp.Replace(" ", "");
+                //if (s.Contains("min")) //đừng xóa cmt này :)
+                //{
+                //    tmp = tmp.Replace("min", "");
+                //    tmp = tmp.Replace("(", "");
+                //    tmp = tmp.Replace(")", "");
+                //}
+                result = tmp.Split(',');
+            }
+
+            return result;
+        }
+
+        private String[] GetRelationTexts(String s)
+        {//the relations which user input such: select attr1, att2... from
+            String[] result = null;
+            //String was standardzied and cut space,....
+            int i = s.IndexOf(" from ") + 6;
+            int j = s.Length;//query text doesn't contain any conditions
+            if (s.Contains(" where "))//query text contains conditions
+                j = s.IndexOf(" where ");
+            else if (s.Contains(" group by "))
+                j = s.IndexOf(" group by ");
+            else if (s.Contains(" order by "))
+                j = s.IndexOf(" order by ");
+            String tmp = s.Substring(i, j - i);
+            tmp = tmp.Replace(" ", "");
+            result = tmp.Split(',');
+
+            return result;
         }
     }
 }

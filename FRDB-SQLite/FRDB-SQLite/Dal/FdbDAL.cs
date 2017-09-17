@@ -162,7 +162,6 @@ namespace FRDB_SQLite
             {
                 System.Windows.Forms.MessageBox.Show("ERROR:\n" + ex.Message);
                 throw new Exception("ERROR:\n" + ex.Message);
-                return false;
             }
 
             return true;

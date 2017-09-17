@@ -62,7 +62,6 @@ namespace FRDB_SQLite.Class
         {
             String s = query;
             String result = "";
-            int i = 0;
             while (s.Length > 0)
             {
                 
@@ -146,12 +145,13 @@ namespace FRDB_SQLite.Class
             groupby = query.IndexOf(" group by ");
 
             //var for having
-            int having = 0, startHavingAttr = 0, endHavingAttr = 0;
-            string havingAttr = "";
+            int having = 0;
+            //int startHavingAttr = 0, endHavingAttr = 0;
+            //string havingAttr = "";
 
             //var for order by
             int orderby = 0;
-            string orderbyAttr = "";
+            //string orderbyAttr = "";
             orderby = query.IndexOf(" order by ");
 
             string[] selectAttrArr = null;
