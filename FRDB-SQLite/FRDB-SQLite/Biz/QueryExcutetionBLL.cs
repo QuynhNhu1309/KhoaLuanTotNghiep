@@ -1946,26 +1946,88 @@ namespace FRDB_SQLite
 
         public FzRelationEntity ProcessOrderBy(FzRelationEntity relation)
         {
+            FzRelationEntity relationTmp = relation;
             String[] listOrder = null;
-            int orderBy = 0;
-            string orderByString = "";
+            int orderBy = 0, indexAttr = 0;
+            string orderByAttr = "";
             orderBy = this._queryText.IndexOf(" order by ");
-            listOrder = this._queryText.Substring(orderBy + 9, this._queryText.Length - orderBy - 11).Split(',');
-            IEnumerable<FzTupleEntity> sortedTuple =
-            from tuple in relation.Tuples
-            orderby tuple.ValuesOnPerRow[5] ascending
-            select tuple;
-            var sortedTuple1 =
-            from tuple in relation.Tuples
-            orderby tuple.ValuesOnPerRow[5] ascending
-            select tuple;
-            
-            FzRelationEntity relation1 = new FzRelationEntity();
-            relation1.Scheme = relation.Scheme;
-            foreach (var item in sortedTuple1)
+            listOrder = this._queryText.Substring(orderBy + 10, this._queryText.Length - orderBy - 10).ToLower().Split(',');
+            IEnumerable<FzTupleEntity> sortedTuple = null;
+            for (int i = 0; i < listOrder.Length; i++)
             {
-                relation1.Tuples.Add(item);
+                if (listOrder[i][0] == ' ')
+                    listOrder[i] = listOrder[i].Remove(0, 1);
+                orderBy = listOrder[i].IndexOf(" desc ");
+                orderByAttr = listOrder[i].Split(' ').First();
+                indexAttr = IndexOfAttr(orderByAttr);
+                string asc = "ascending";
+                if (indexAttr < 0)
+                {
+                    this._errorMessage = "Invalid attribute to order by";
+                    throw new Exception(this._errorMessage);
+                }
+                if(sortedTuple == null)
+                {
+                    if (orderBy > 0)
+                    {
+                        sortedTuple = from tuple in relationTmp.Tuples
+                                      orderby tuple.ValuesOnPerRow[indexAttr] descending
+                                      select tuple;
+                    }
+                    else
+                    {
+                        sortedTuple = from tuple in relationTmp.Tuples
+                                      orderby tuple.ValuesOnPerRow[indexAttr] ascending
+                                      select tuple;
+                    }
+                }
+                else
+                {
+                    if (orderBy > 0)
+                    {
+                        sortedTuple = from tuple in sortedTuple
+                                      orderby tuple.ValuesOnPerRow[indexAttr] descending
+                                      select tuple;
+                    }
+                    else
+                    {
+                        sortedTuple = from tuple in sortedTuple
+                                      orderby tuple.ValuesOnPerRow[indexAttr] ascending
+                                      select tuple;
+                    }
+                }
+                
+
+
             }
+            List<FzTupleEntity> relation2 = new List<FzTupleEntity>();
+            //relationTmp.Tuples.Add(sortedTuple);
+
+            foreach (var item in sortedTuple)
+            {
+                relation2.Add(item);
+            }
+            relationTmp.Tuples.Clear();
+            foreach (var item in relation2)
+            {
+                relationTmp.Add(item);
+            }
+
+            //IEnumerable<FzTupleEntity> sortedTuple =
+            //from tuple in relation.Tuples
+            //orderby tuple.ValuesOnPerRow[5] ascending
+            //select tuple;
+            //var sortedTuple1 =
+            //from tuple in relation.Tuples
+            //orderby tuple.ValuesOnPerRow[5] ascending
+            //select tuple;
+
+            //FzRelationEntity relation1 = new FzRelationEntity();
+            //relation1.Scheme = relation.Scheme;
+            //foreach (var item in sortedTuple1)
+            //{
+            //    relation1.Tuples.Add(item);
+            //}
             //List<FzTupleEntity> asList = new List<FzTupleEntity>();
             //FzTupleEntity as1 = new FzTupleEntity();
             ////List<FzTupleEntity> asList = sortedTuple.ToList();
@@ -1973,11 +2035,8 @@ namespace FRDB_SQLite
             //relation.Tuples.Clear();
             //relation.Tuples.Add(as1);
             //relation.Tuples.Add(sortedTuple);
-            //for(int i = 0; i < listOrder.Length; i++)
-            //{
 
-            //}
-            return relation1;
+            return relationTmp;
         }
 
 
