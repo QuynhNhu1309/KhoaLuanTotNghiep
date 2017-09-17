@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using FRDB_SQLite;
 using System.IO;
+using System.Data;
 
 namespace FRDB_SQLite
 {
@@ -1966,39 +1967,18 @@ namespace FRDB_SQLite
                     this._errorMessage = "Invalid attribute to order by";
                     throw new Exception(this._errorMessage);
                 }
-                if(sortedTuple == null)
+                if (orderBy > 0)
                 {
-                    if (orderBy > 0)
-                    {
-                        sortedTuple = from tuple in relationTmp.Tuples
-                                      orderby tuple.ValuesOnPerRow[indexAttr] descending
-                                      select tuple;
-                    }
-                    else
-                    {
-                        sortedTuple = from tuple in relationTmp.Tuples
-                                      orderby tuple.ValuesOnPerRow[indexAttr] ascending
-                                      select tuple;
-                    }
+                    sortedTuple = from tuple in relationTmp.Tuples
+                                  orderby tuple.ValuesOnPerRow[indexAttr] descending
+                                  select tuple;
                 }
                 else
                 {
-                    if (orderBy > 0)
-                    {
-                        sortedTuple = from tuple in sortedTuple
-                                      orderby tuple.ValuesOnPerRow[indexAttr] descending
-                                      select tuple;
-                    }
-                    else
-                    {
-                        sortedTuple = from tuple in sortedTuple
-                                      orderby tuple.ValuesOnPerRow[indexAttr] ascending
-                                      select tuple;
-                    }
+                    sortedTuple = from tuple in relationTmp.Tuples
+                                  orderby tuple.ValuesOnPerRow[indexAttr] ascending
+                                  select tuple;
                 }
-                
-
-
             }
             List<FzTupleEntity> relation2 = new List<FzTupleEntity>();
             //relationTmp.Tuples.Add(sortedTuple);
@@ -2012,35 +1992,8 @@ namespace FRDB_SQLite
             {
                 relationTmp.Add(item);
             }
-
-            //IEnumerable<FzTupleEntity> sortedTuple =
-            //from tuple in relation.Tuples
-            //orderby tuple.ValuesOnPerRow[5] ascending
-            //select tuple;
-            //var sortedTuple1 =
-            //from tuple in relation.Tuples
-            //orderby tuple.ValuesOnPerRow[5] ascending
-            //select tuple;
-
-            //FzRelationEntity relation1 = new FzRelationEntity();
-            //relation1.Scheme = relation.Scheme;
-            //foreach (var item in sortedTuple1)
-            //{
-            //    relation1.Tuples.Add(item);
-            //}
-            //List<FzTupleEntity> asList = new List<FzTupleEntity>();
-            //FzTupleEntity as1 = new FzTupleEntity();
-            ////List<FzTupleEntity> asList = sortedTuple.ToList();
-
-            //relation.Tuples.Clear();
-            //relation.Tuples.Add(as1);
-            //relation.Tuples.Add(sortedTuple);
-
             return relationTmp;
         }
-
-
-
 
         #endregion
     }
