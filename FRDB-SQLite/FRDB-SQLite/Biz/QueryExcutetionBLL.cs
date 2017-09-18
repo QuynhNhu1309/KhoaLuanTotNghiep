@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using FRDB_SQLite;
 using System.IO;
 using System.Data;
 
@@ -1989,7 +1987,8 @@ namespace FRDB_SQLite
                                      group tuple by tuple.ValuesOnPerRow[indexAttr] into g
                                      where g.Count() > 1
                                      select g;
-                for(int k = 0; k < attrDuplicate1.Count(); k++)
+                
+                for (int k = 0; k < attrDuplicate1.Count(); k++)
                 {
                     for (int i = 1; i < listOrder.Length; i++)
                     {
@@ -2030,12 +2029,16 @@ namespace FRDB_SQLite
                             }
                             if(sortedTuple1.Count() > 0)
                             {
-                                for(int h = 0; h < sortedTuple.Count(); h++)
+                                sortedTuple = sortedTuple.ToList();
+                                //List<FzTupleEntity> listTuple = new List<FzTupleEntity>();
+                                //listTuple = sortedTuple.ToList();
+                                for (int h = 0; h < sortedTuple.Count(); h++)
                                 {
                                     if(sortedTuple.ElementAt(h).ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
                                     {
+                                        //sortedTuple = Replace(sortedTuple, 1, sortedTuple);
                                         //sortedTuple.ElementAt(h) = sortedTuple1.ElementAt(3);
-                                        //sortedTuple.Except(h);
+                                        //listTuple.Remove(sortedTuple.ElementAt(h));
                                     }
                                 }
                             }
@@ -2059,6 +2062,11 @@ namespace FRDB_SQLite
             }
             return relationTmp;
         }
+
+        //public static IEnumerable<FzTupleEntity> Replace<FzTupleEntity>(this IEnumerable<FzTupleEntity> enumerable, int index, FzTupleEntity value)
+        //{
+        //    return enumerable.Select((x, i) => index == i ? value : x);
+        //}
 
         #endregion
     }
