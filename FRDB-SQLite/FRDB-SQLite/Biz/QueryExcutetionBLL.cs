@@ -1954,32 +1954,97 @@ namespace FRDB_SQLite
             orderBy = this._queryText.IndexOf(" order by ");
             listOrder = this._queryText.Substring(orderBy + 10, this._queryText.Length - orderBy - 10).ToLower().Split(',');
             IEnumerable<FzTupleEntity> sortedTuple = null;
-            for (int i = 0; i < listOrder.Length; i++)
+            if (listOrder[0][0] == ' ')
+                listOrder[0] = listOrder[0].Remove(0, 1);
+            orderBy = listOrder[0].IndexOf(" desc");
+            orderByAttr = listOrder[0].Split(' ').First();
+            indexAttr = IndexOfAttr(orderByAttr);
+            if (indexAttr < 0)
             {
-                if (listOrder[i][0] == ' ')
-                    listOrder[i] = listOrder[i].Remove(0, 1);
-                orderBy = listOrder[i].IndexOf(" desc ");
-                orderByAttr = listOrder[i].Split(' ').First();
-                indexAttr = IndexOfAttr(orderByAttr);
-                string asc = "ascending";
-                if (indexAttr < 0)
-                {
-                    this._errorMessage = "Invalid attribute to order by";
-                    throw new Exception(this._errorMessage);
-                }
-                if (orderBy > 0)
-                {
-                    sortedTuple = from tuple in relationTmp.Tuples
-                                  orderby tuple.ValuesOnPerRow[indexAttr] descending
-                                  select tuple;
-                }
-                else
-                {
-                    sortedTuple = from tuple in relationTmp.Tuples
-                                  orderby tuple.ValuesOnPerRow[indexAttr] ascending
-                                  select tuple;
-                }
+                this._errorMessage = "Invalid attribute to order by";
+                throw new Exception(this._errorMessage);
             }
+            if (orderBy > 0)
+            {
+                sortedTuple = from tuple in relationTmp.Tuples
+                              orderby tuple.ValuesOnPerRow[indexAttr] descending
+                              select tuple;
+            }
+            else
+            {
+                sortedTuple = from tuple in relationTmp.Tuples
+                              orderby tuple.ValuesOnPerRow[indexAttr] ascending
+                              select tuple;
+            }
+            int countTuple0 = 0;
+            countTuple0 = (from tuple in sortedTuple
+                               group tuple by tuple.ValuesOnPerRow[indexAttr] into g
+                               where g.Count() > 1
+                               select g).Count();
+
+            if(countTuple0 > 0)
+            {
+                //string[] attrDuplicate = null;
+                var attrDuplicate1 = from tuple in sortedTuple
+                                     group tuple by tuple.ValuesOnPerRow[indexAttr] into g
+                                     where g.Count() > 1
+                                     select g;
+                for(int k = 0; k < attrDuplicate1.Count(); k++)
+                {
+                    for (int i = 1; i < listOrder.Length; i++)
+                    {
+                        IEnumerable<FzTupleEntity> sortedTuple1 = null;
+                        if (listOrder[i][0] == ' ')
+                            listOrder[i] = listOrder[i].Remove(0, 1);
+                        int orderBy1 = listOrder[i].IndexOf(" desc");
+                        string orderByAttr1 = listOrder[i].Split(' ').First();
+                        int indexAttr1 = IndexOfAttr(orderByAttr1);
+                        if (indexAttr1 < 0)
+                        {
+                            this._errorMessage = "Invalid attribute to order by";
+                            throw new Exception(this._errorMessage);
+                        }
+                        for (int j = i - 1; j < i; j++)
+                        {
+                            int orderBy2 = listOrder[j].IndexOf(" desc");
+                            int indexAttr2 = IndexOfAttr(listOrder[j].Split(' ').First());
+                            if (orderBy1 > 0)
+                            {
+                                //sortedTuple1 = sortedTuple.Where(item => item.ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).ToString())
+                                //                .GroupBy(item => item.ValuesOnPerRow[indexAttr2])
+                                //                .SelectMany(grouping => grouping)
+                                //                .OrderByDescending(item => item.ValuesOnPerRow[indexAttr1]);
+                                //string s = attrDuplicate1.ElementAt(k).Key.ToString();
+                                //string s1 = sortedTuple.ElementAt(0).ValuesOnPerRow[indexAttr2].ToString();
+                                sortedTuple1 = from tuple in sortedTuple
+                                               where tuple.ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()
+                                               orderby tuple.ValuesOnPerRow[indexAttr1] descending
+                                               select tuple;
+                            }
+                            else
+                            {
+                                sortedTuple1 = from tuple in sortedTuple
+                                               where tuple.ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()
+                                               orderby tuple.ValuesOnPerRow[indexAttr1] ascending
+                                               select tuple;
+                            }
+                            if(sortedTuple1.Count() > 0)
+                            {
+                                for(int h = 0; h < sortedTuple.Count(); h++)
+                                {
+                                    if(sortedTuple.ElementAt(h).ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
+                                    {
+                                        //sortedTuple.ElementAt(h) = sortedTuple1.ElementAt(3);
+                                        //sortedTuple.Except(h);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
             List<FzTupleEntity> relation2 = new List<FzTupleEntity>();
             //relationTmp.Tuples.Add(sortedTuple);
 

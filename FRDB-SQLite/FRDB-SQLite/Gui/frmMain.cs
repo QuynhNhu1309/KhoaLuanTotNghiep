@@ -14,7 +14,7 @@ using System.Timers;
 using DevExpress.Utils.Menu;
 using System.Threading;
 using FRDB_SQLite;
-using FRDB_SQLite.Biz;
+//Như add using FRDB_SQLite.Biz;
 using System.Data.SQLite;
 using System.Text.RegularExpressions;
 using FRDB_SQLite.Class;
@@ -1779,8 +1779,8 @@ namespace FRDB_SQLite.Gui
                 string joinType = "inner";
                 if (lowerQuery.Contains("union"))
                 {
-                    QueryExecutionBLLv2 execution = new QueryExecutionBLLv2(query, newFdb);
-                    result = execution.ExecuteQuery();
+                    //Như add QueryExecutionBLLv2 execution = new QueryExecutionBLLv2(query, newFdb);
+                    //Như addresult = execution.ExecuteQuery();
                 }
                 else if (lowerQuery.Contains("join"))
                 {
