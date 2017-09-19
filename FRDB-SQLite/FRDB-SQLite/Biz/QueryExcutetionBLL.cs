@@ -105,7 +105,7 @@ namespace FRDB_SQLite
                             if (this._selectedAttributeTexts != null)
                                 resultTmp.Add(condition.ResultTuple);//done
                             else
-                                result.Add(condition.ResultTuple);//done
+                                result.Tuples.Add(condition.ResultTuple);//done
                         }
                     }
                     if (this._queryText.Contains(" group by "))//done with having
@@ -119,7 +119,11 @@ namespace FRDB_SQLite
                         result = ProcessGroupBy(result, _queryText);// process group by and having            
                     }
                     else if (this._selectedAttributeTexts != null)
+                    {
+                        if (this._queryText.Contains(" order by"))
+                            resultTmp = ProcessOrderBy(resultTmp);
                         result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity, true));
+                    }    
                     result.Scheme.Attributes = this._selectedAttributes;
                 }
                 if (!this._queryText.Contains("where"))
@@ -138,6 +142,12 @@ namespace FRDB_SQLite
                     {
                         //foreach (var item in this._selectedRelations[0].Tuples)
                         //    result.Tuples.Add(GetSelectedAttributes(item));
+                        if (this._queryText.Contains(" order by"))
+                        {
+                            this._selectedRelations[0].Tuples = ProcessOrderBy(this._selectedRelations[0].Tuples);
+                            this._selectedRelations[0].Tuples.RemoveRange(0, this._selectedRelations[0].Tuples.Count() / 2);
+                        }
+                            
                         result.Tuples.AddRange(GetSelectedAttributes(this._selectedRelations[0].Tuples, _fdbEntity, false));
                     }
                     else if (this._selectedAttributeTexts == null)
@@ -147,9 +157,13 @@ namespace FRDB_SQLite
                     }
                 }
 
-                if (this._queryText.Contains(" order by"))
-                    result = ProcessOrderBy(result);
-                
+                if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
+                {
+                    result.Tuples = ProcessOrderBy(result.Tuples);
+                    result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
+                }
+                   
+
             }
             catch (Exception ex)
             {
@@ -749,6 +763,20 @@ namespace FRDB_SQLite
             for (int i = 0; i < this._selectedRelations[0].Scheme.Attributes.Count; i++)
             {
                 if (s.Equals(this._selectedRelations[0].Scheme.Attributes[i].AttributeName.ToLower()))
+                {
+                    return i;
+                }
+                else if (s == "*")
+                    return -1;
+            }
+            return -2;
+        }
+
+        private int IndexOfAttrGroupBy(String s)
+        {
+            for (int i = 0; i < this._selectedAttributes.Count; i++)
+            {
+                if (s.Equals(this._selectedAttributes[i].AttributeName.ToLower()))
                 {
                     return i;
                 }
@@ -1943,10 +1971,9 @@ namespace FRDB_SQLite
             }
             return resultArrange;
         }
-
-        public FzRelationEntity ProcessOrderBy(FzRelationEntity relation)
+        public List<FzTupleEntity> ProcessOrderBy(List<FzTupleEntity> relation)
         {
-            FzRelationEntity relationTmp = relation;
+            List<FzTupleEntity> relationTmp = relation;
             String[] listOrder = null;
             int orderBy = 0, indexAttr = 0;
             string orderByAttr = "";
@@ -1957,7 +1984,9 @@ namespace FRDB_SQLite
                 listOrder[0] = listOrder[0].Remove(0, 1);
             orderBy = listOrder[0].IndexOf(" desc");
             orderByAttr = listOrder[0].Split(' ').First();
-            indexAttr = IndexOfAttr(orderByAttr);
+            if(_queryText.Contains(" group by "))
+                indexAttr = IndexOfAttrGroupBy(orderByAttr);
+            else indexAttr = IndexOfAttr(orderByAttr);
             if (indexAttr < 0)
             {
                 this._errorMessage = "Invalid attribute to order by";
@@ -1965,30 +1994,29 @@ namespace FRDB_SQLite
             }
             if (orderBy > 0)
             {
-                sortedTuple = from tuple in relationTmp.Tuples
+                sortedTuple = from tuple in relationTmp
                               orderby tuple.ValuesOnPerRow[indexAttr] descending
                               select tuple;
             }
             else
             {
-                sortedTuple = from tuple in relationTmp.Tuples
+                sortedTuple = from tuple in relationTmp
                               orderby tuple.ValuesOnPerRow[indexAttr] ascending
                               select tuple;
             }
             int countTuple0 = 0;
             countTuple0 = (from tuple in sortedTuple
-                               group tuple by tuple.ValuesOnPerRow[indexAttr] into g
-                               where g.Count() > 1
-                               select g).Count();
+                           group tuple by tuple.ValuesOnPerRow[indexAttr] into g
+                           where g.Count() > 1
+                           select g).Count();
 
-            if(countTuple0 > 0)
+            if (countTuple0 > 0)
             {
-                //string[] attrDuplicate = null;
                 var attrDuplicate1 = from tuple in sortedTuple
                                      group tuple by tuple.ValuesOnPerRow[indexAttr] into g
                                      where g.Count() > 1
                                      select g;
-                
+
                 for (int k = 0; k < attrDuplicate1.Count(); k++)
                 {
                     for (int i = 1; i < listOrder.Length; i++)
@@ -1998,7 +2026,10 @@ namespace FRDB_SQLite
                             listOrder[i] = listOrder[i].Remove(0, 1);
                         int orderBy1 = listOrder[i].IndexOf(" desc");
                         string orderByAttr1 = listOrder[i].Split(' ').First();
-                        int indexAttr1 = IndexOfAttr(orderByAttr1);
+                        int indexAttr1 = 0;
+                        if (_queryText.Contains(" group by "))
+                            indexAttr1 = IndexOfAttrGroupBy(orderByAttr1);
+                        else indexAttr1 = IndexOfAttr(orderByAttr1);
                         if (indexAttr1 < 0)
                         {
                             this._errorMessage = "Invalid attribute to order by";
@@ -2008,18 +2039,11 @@ namespace FRDB_SQLite
                         {
                             int orderBy2 = listOrder[j].IndexOf(" desc");
                             int indexAttr2 = IndexOfAttr(listOrder[j].Split(' ').First());
+                            //sortedTuple1 = sortedTuple.Where(item => item.ValuesOnPerRow[indexAttr].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
+                            //                    .GroupBy(item => item.ValuesOnPerRow[indexAttr2]).
+                            //                    .SelectMany(grouping => grouping)
                             if (orderBy1 > 0)
                             {
-                                //sortedTuple1 = sortedTuple.Where(item => item.ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).ToString())
-                                //                .GroupBy(item => item.ValuesOnPerRow[indexAttr2])
-                                //                .SelectMany(grouping => grouping)
-                                //                .OrderByDescending(item => item.ValuesOnPerRow[indexAttr1]);
-                                //string s = attrDuplicate1.ElementAt(k).Key.ToString();
-                                //string s1 = sortedTuple.ElementAt(0).ValuesOnPerRow[indexAttr2].ToString();
-                                //sortedTuple1 = from tuple in sortedTuple
-                                //               where tuple.ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()
-                                //               orderby tuple.ValuesOnPerRow[indexAttr1] descending
-                                //               select tuple;
                                 sortedTuple1 = sortedTuple.Where(item => item.ValuesOnPerRow[indexAttr].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
                                                 .GroupBy(item => item.ValuesOnPerRow[indexAttr2])
                                                 .SelectMany(grouping => grouping)
@@ -2027,15 +2051,6 @@ namespace FRDB_SQLite
                             }
                             else
                             {
-                                //sortedTuple1 = from tuple in sortedTuple
-                                //               where tuple.ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()
-                                //               group tuple by tuple.ValuesOnPerRow[indexAttr] into g
-                                //               orderby tuple.ValuesOnPerRow[indexAttr1] ascending
-                                //               select tuple;
-                                string ss = sortedTuple.ElementAt(0).ValuesOnPerRow[indexAttr].ToString();
-                                string gg = attrDuplicate1.ElementAt(k).ToString();
-                                int ii2 = indexAttr2;
-                                int ii1 = indexAttr1;
                                 sortedTuple1 = sortedTuple.Where(item => item.ValuesOnPerRow[indexAttr].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
                                                 .GroupBy(item => item.ValuesOnPerRow[indexAttr2])
                                                 .SelectMany(grouping => grouping)
@@ -2047,40 +2062,156 @@ namespace FRDB_SQLite
                                 int length = sortedTuple.Count();
                                 for (int h = 0; h < sortedTuple.Count(); h++)
                                 {
-                                    if(sortedTuple.ElementAt(h).ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
+                                    if (sortedTuple.ElementAt(h).ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
                                     {
                                         FzTupleEntity F1 = new FzTupleEntity();
-                                        for(int p = f; p < sortedTuple1.Count(); p++)
+                                        for (int p = f; p < sortedTuple1.Count(); p++)
                                         {
                                             F1 = sortedTuple1.ElementAt(p);
                                             break;
                                         }
                                         sortedTuple = sortedTuple.Select((x, o) => h == o ? F1 : x).ToList();
                                         f++;
-                                       
+
                                     }
                                 }
                             }
                         }
                     }
                 }
-                
-            }
-            
-            List<FzTupleEntity> relation2 = new List<FzTupleEntity>();
-            //relationTmp.Tuples.Add(sortedTuple);
 
+            }
+            List<FzTupleEntity> relation2 = new List<FzTupleEntity>();
             foreach (var item in sortedTuple)
             {
                 relation2.Add(item);
             }
-            relationTmp.Tuples.Clear();
-            foreach (var item in relation2)
-            {
-                relationTmp.Add(item);
-            }
-            return relationTmp;
+            //relationTmp.Clear();
+            //foreach (var item in relation2)
+            //{
+            //    relationTmp.Add(item);
+            //}
+            return relation2;
         }
+
+        ////public FzRelationEntity ProcessOrderBy(FzRelationEntity relation)
+        //{
+        //    FzRelationEntity relationTmp = relation;
+        //    String[] listOrder = null;
+        //    int orderBy = 0, indexAttr = 0;
+        //    string orderByAttr = "";
+        //    orderBy = this._queryText.IndexOf(" order by ");
+        //    listOrder = this._queryText.Substring(orderBy + 10, this._queryText.Length - orderBy - 10).ToLower().Split(',');
+        //    IEnumerable<FzTupleEntity> sortedTuple = null;
+        //    if (listOrder[0][0] == ' ')
+        //        listOrder[0] = listOrder[0].Remove(0, 1);
+        //    orderBy = listOrder[0].IndexOf(" desc");
+        //    orderByAttr = listOrder[0].Split(' ').First();
+        //    indexAttr = IndexOfAttr(orderByAttr);
+        //    if (indexAttr < 0)
+        //    {
+        //        this._errorMessage = "Invalid attribute to order by";
+        //        throw new Exception(this._errorMessage);
+        //    }
+        //    if (orderBy > 0)
+        //    {
+        //        sortedTuple = from tuple in relationTmp.Tuples
+        //                      orderby tuple.ValuesOnPerRow[indexAttr] descending
+        //                      select tuple;
+        //    }
+        //    else
+        //    {
+        //        sortedTuple = from tuple in relationTmp.Tuples
+        //                      orderby tuple.ValuesOnPerRow[indexAttr] ascending
+        //                      select tuple;
+        //    }
+        //    int countTuple0 = 0;
+        //    countTuple0 = (from tuple in sortedTuple
+        //                       group tuple by tuple.ValuesOnPerRow[indexAttr] into g
+        //                       where g.Count() > 1
+        //                       select g).Count();
+
+        //    if(countTuple0 > 0)
+        //    {
+        //        var attrDuplicate1 = from tuple in sortedTuple
+        //                             group tuple by tuple.ValuesOnPerRow[indexAttr] into g
+        //                             where g.Count() > 1
+        //                             select g;
+                
+        //        for (int k = 0; k < attrDuplicate1.Count(); k++)
+        //        {
+        //            for (int i = 1; i < listOrder.Length; i++)
+        //            {
+        //                IEnumerable<FzTupleEntity> sortedTuple1 = null;
+        //                if (listOrder[i][0] == ' ')
+        //                    listOrder[i] = listOrder[i].Remove(0, 1);
+        //                int orderBy1 = listOrder[i].IndexOf(" desc");
+        //                string orderByAttr1 = listOrder[i].Split(' ').First();
+        //                int indexAttr1 = IndexOfAttr(orderByAttr1);
+        //                if (indexAttr1 < 0)
+        //                {
+        //                    this._errorMessage = "Invalid attribute to order by";
+        //                    throw new Exception(this._errorMessage);
+        //                }
+        //                for (int j = i - 1; j < i; j++)
+        //                {
+        //                    int orderBy2 = listOrder[j].IndexOf(" desc");
+        //                    int indexAttr2 = IndexOfAttr(listOrder[j].Split(' ').First());
+        //                    if (orderBy1 > 0)
+        //                    {
+        //                        sortedTuple1 = sortedTuple.Where(item => item.ValuesOnPerRow[indexAttr].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
+        //                                        .GroupBy(item => item.ValuesOnPerRow[indexAttr2])
+        //                                        .SelectMany(grouping => grouping)
+        //                                        .OrderByDescending(item => item.ValuesOnPerRow[indexAttr1]);
+        //                    }
+        //                    else
+        //                    {
+        //                        string ss = sortedTuple.ElementAt(0).ValuesOnPerRow[indexAttr].ToString();
+        //                        string gg = attrDuplicate1.ElementAt(k).ToString();
+        //                        int ii2 = indexAttr2;
+        //                        int ii1 = indexAttr1;
+        //                        sortedTuple1 = sortedTuple.Where(item => item.ValuesOnPerRow[indexAttr].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
+        //                                        .GroupBy(item => item.ValuesOnPerRow[indexAttr2])
+        //                                        .SelectMany(grouping => grouping)
+        //                                        .OrderBy(item => item.ValuesOnPerRow[indexAttr1]);
+        //                    }
+        //                    if (sortedTuple1.Count() > 0)
+        //                    {
+        //                        int f = 0;
+        //                        int length = sortedTuple.Count();
+        //                        for (int h = 0; h < sortedTuple.Count(); h++)
+        //                        {
+        //                            if(sortedTuple.ElementAt(h).ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
+        //                            {
+        //                                FzTupleEntity F1 = new FzTupleEntity();
+        //                                for(int p = f; p < sortedTuple1.Count(); p++)
+        //                                {
+        //                                    F1 = sortedTuple1.ElementAt(p);
+        //                                    break;
+        //                                }
+        //                                sortedTuple = sortedTuple.Select((x, o) => h == o ? F1 : x).ToList();
+        //                                f++;
+                                       
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+                
+        //    }
+        //    List<FzTupleEntity> relation2 = new List<FzTupleEntity>();
+        //    foreach (var item in sortedTuple)
+        //    {
+        //        relation2.Add(item);
+        //    }
+        //    relationTmp.Tuples.Clear();
+        //    foreach (var item in relation2)
+        //    {
+        //        relationTmp.Add(item);
+        //    }
+        //    return relationTmp;
+        //}
         #endregion
     }
     
