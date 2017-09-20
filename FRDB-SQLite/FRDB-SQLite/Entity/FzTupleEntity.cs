@@ -9,6 +9,7 @@ namespace FRDB_SQLite
     {   
         #region 1. Fields
         private List<Object> _valuesOnPerRow;//List of values on a row of a tuple
+        private int _memberShipIndex = 0;
         #endregion
 
         #region 2. Properties
@@ -20,7 +21,20 @@ namespace FRDB_SQLite
                 foreach (Object item in value)
                 {
                     _valuesOnPerRow.Add(item);
-                } 
+                }
+                this._memberShipIndex = this._valuesOnPerRow.Count - 1;
+            }
+        }
+
+        public String MemberShip
+        {
+            get
+            {
+                return this._valuesOnPerRow[this._memberShipIndex].ToString();
+            }
+            set
+            {
+                this._valuesOnPerRow[this._memberShipIndex] = value;
             }
         }
 
@@ -44,6 +58,7 @@ namespace FRDB_SQLite
             {
                 this._valuesOnPerRow.Add(values[i]);
             }
+            this._memberShipIndex = this._valuesOnPerRow.Count - 1;
         }
 
         public FzTupleEntity(FzTupleEntity old)
@@ -53,15 +68,34 @@ namespace FRDB_SQLite
             {
                 this.ValuesOnPerRow.Add(item);
             }
+            this._memberShipIndex = this._valuesOnPerRow.Count - 1;
         }
 
-        
+
 
         #endregion
 
         #region 4. Methods (none)
 
-
+        public void Add(object item)
+        {
+            this._valuesOnPerRow.Add(item);
+            this._memberShipIndex = this._valuesOnPerRow.Count - 1;
+        }
+        
+        public bool Equals(FzTupleEntity compareTuple)
+        {
+            bool isEqual = true;
+            for (int i = 0; i <= this._valuesOnPerRow.Count - 2; i++)
+            {
+                if (!this._valuesOnPerRow[i].ToString().Equals(compareTuple.ValuesOnPerRow[i].ToString()))
+                {
+                    isEqual = false;
+                    break;
+                }
+            }
+            return isEqual;
+        }
 
         #endregion
 

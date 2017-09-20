@@ -452,13 +452,13 @@ namespace FRDB_SQLite
                             if(flagGetOneTuple) goto End;
                             if (_index[i] == j && itemSelects.Count == 0)
                             {
-                                r.ValuesOnPerRow.Add(item0.ValuesOnPerRow[j]);
+                                r.Add(item0.ValuesOnPerRow[j]);
                                 if (h == 1) attributes.Add(this._selectedRelations[0].Scheme.Attributes[j].AttributeName.ToString());
                                 break;
                             }
                             else if (_index[i] == j)
                             {
-                                r.ValuesOnPerRow.Add(item0.ValuesOnPerRow[j]);
+                                r.Add(item0.ValuesOnPerRow[j]);
                                 if (h == 1) attributes.Add(this._selectedRelations[0].Scheme.Attributes[j].AttributeName.ToString());
                                 if (i == _index.Count - 1 && itemSelects.Count > 0)
                                 {
@@ -476,7 +476,7 @@ namespace FRDB_SQLite
                 {
                         if (itemSelects.Count == 0)
                         {
-                            r.ValuesOnPerRow.Add(item0.ValuesOnPerRow[item0.ValuesOnPerRow.Count - 1]);
+                            r.Add(item0.ValuesOnPerRow[item0.ValuesOnPerRow.Count - 1]);
                             rs.Add(r);
                         }
                         else if (itemSelects.Count > 0)
@@ -555,11 +555,11 @@ namespace FRDB_SQLite
                                     FSName = condtition.FindAndMarkFuzzy(FSName1, FSName, true);
                                 if(FSName2 !="")
                                     FSName = condtition.FindAndMarkFuzzy(FSName2, FSName, true);  
-                                r.ValuesOnPerRow.Add(tmp);
+                                r.Add(tmp);
                                 
                                 if (i == itemSelects.Count)
                                 {
-                                    r.ValuesOnPerRow.Add(FSName);
+                                    r.Add(FSName);
                                     rs.Add(r);
                                 }
 
@@ -668,10 +668,10 @@ namespace FRDB_SQLite
                         FSName = condtition.FindAndMarkFuzzy(FSName1, FSName, true);
                     if (FSName2 != "")
                         FSName = condtition.FindAndMarkFuzzy(FSName2, FSName, true);
-                    r.ValuesOnPerRow.Add(tmp);
+                    r.Add(tmp);
                     if (i == itemSelects.Count)
                     {
-                        r.ValuesOnPerRow.Add(FSName);
+                        r.Add(FSName);
                         rs.Add(r);
                     }
                         
@@ -679,7 +679,7 @@ namespace FRDB_SQLite
                 }
                 
 
-                //r.ValuesOnPerRow.Add(resultTuple.ValuesOnPerRow[resultTuple.ValuesOnPerRow.Count - 1]);
+                //r.Add(resultTuple.ValuesOnPerRow[resultTuple.ValuesOnPerRow.Count - 1]);
             }
             
 

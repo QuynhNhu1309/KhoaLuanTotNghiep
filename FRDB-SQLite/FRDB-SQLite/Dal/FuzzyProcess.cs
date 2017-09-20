@@ -584,6 +584,16 @@ namespace FRDB_SQLite
             this.ValueSet = new List<double>();
             this.MembershipSet = new List<double>();
         }
+        public DisFS (Double uValue)
+        {
+            this.Name = String.Empty;
+            this.V = String.Empty;
+            this.M = String.Empty;
+            this.ValueSet = new List<double>();
+            this.ValueSet.Add(uValue);
+            this.MembershipSet = new List<double>();
+            this.MembershipSet.Add(1);
+        }
         public DisFS (String name, String v, String m, List<Double> valueset, List<Double> membershipset)
         {
             this.Name = name;

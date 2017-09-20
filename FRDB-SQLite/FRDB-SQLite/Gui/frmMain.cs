@@ -2056,6 +2056,7 @@ namespace FRDB_SQLite.Gui
             }
             catch (Exception ex)
             {
+                ShowMessage(ex.Message, Color.Red);
                 return;
                 //MessageBox.Show("ERROR:\n" + ex.Message);
             }

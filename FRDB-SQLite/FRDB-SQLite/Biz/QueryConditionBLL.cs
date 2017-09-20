@@ -593,6 +593,33 @@ namespace FRDB_SQLite
             return FSName;
         }
 
+        public DisFS getDisFS(String memberShip, FdbEntity fdbEntity)
+        {
+            FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(memberShip, fdbEntity);
+            ConFS conFS_uRelation = null;
+            DisFS disFS_uRelation = null;
+            if (get_conFS != null)
+            {
+                conFS_uRelation = new ConFS(get_conFS.Name, get_conFS.Bottom_Left, get_conFS.Top_Left, get_conFS.Top_Right, get_conFS.Bottom_Right);
+                disFS_uRelation = transContoDis(conFS_uRelation); //trans CF to DF
+            }
+            else
+            {
+                FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(memberShip, fdbEntity);
+                if (get_disFS != null)
+                    disFS_uRelation = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
+                else
+                {
+                    string tempPath = Directory.GetCurrentDirectory() + @"\lib\temp\" + memberShip + ".disFS";
+                    disFS_uRelation = new FuzzyProcess().ReadEachDisFS(tempPath);
+                }
+                if (disFS_uRelation == null && !IsNumber(memberShip))
+                    return null;
+
+            }
+            return disFS_uRelation;
+        }
+
         private string SatisfyItem(List<String> itemCondition, FzTupleEntity tuple, int i)
         {
             int indexAttr = Convert.ToInt32(itemCondition[0]);
