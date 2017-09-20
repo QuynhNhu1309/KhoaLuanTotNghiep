@@ -2042,13 +2042,25 @@ namespace FRDB_SQLite
                             //sortedTuple1 = sortedTuple.Where(item => item.ValuesOnPerRow[indexAttr].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
                             //                    .GroupBy(item => item.ValuesOnPerRow[indexAttr2])
                             //                    .SelectMany(grouping => grouping);
-                            var countTuple2 = from tuple in sortedTuple
-                             where tuple.ValuesOnPerRow[indexAttr].Equals(attrDuplicate1.ElementAt(k).Key.ToString())
-                             group tuple by tuple.ValuesOnPerRow[indexAttr2] into g
-                             select g;
+                            //int ll = IndexOfAttr(listOrder[j - 1].Split(' ').First());
+                            //var countTuple2 = null;
+                            //if (j > 0)
+                            //{
+                                //var countTuple2 = from tuple in sortedTuple
+                                //                  where tuple.ValuesOnPerRow[indexAttr].Equals(attrDuplicate1.ElementAt(k).Key.ToString())
+                                //                  group tuple by new { tuple.ValuesOnPerRow[indexAttr2], tuple.ValuesOnPerRow[ll] }into g
+                                //                  where g.Count() > 1
+                                //                  select new { g.Key.ValuesOnPerRow[indexAttr2], g.Key.ValuesOnPerRow[ll]};
+                                var countTuple2 = from tuple in sortedTuple
+                                                  where tuple.ValuesOnPerRow[indexAttr].Equals(attrDuplicate1.ElementAt(k).Key.ToString())
+                                                  group tuple by tuple.ValuesOnPerRow[indexAttr2] into g
+                                                  //where g.Count() > 1
+                                                  select g.Key;
+                           // }
+                            
 
                            
-                            if (countTuple2.Count() > 1 || j == 0)
+                            if (countTuple2.Count() >  0 || j == 0)
                             {
                                 if (orderBy1 > 0)
                                 {
@@ -2074,7 +2086,7 @@ namespace FRDB_SQLite
                                     int length = sortedTuple.Count();
                                     for (int h = 0; h < sortedTuple.Count(); h++)
                                     {
-                                        if (sortedTuple.ElementAt(h).ValuesOnPerRow[indexAttr2].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
+                                        if (sortedTuple.ElementAt(h).ValuesOnPerRow[indexAttr].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())
                                         {
                                             FzTupleEntity F1 = new FzTupleEntity();
                                             for (int p = f; p < sortedTuple1.Count(); p++)
