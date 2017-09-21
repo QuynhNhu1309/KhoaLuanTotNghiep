@@ -276,10 +276,28 @@ namespace FRDB_SQLite
              bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
              return isNum;
         }
-    #endregion
+        public Boolean IsNumericType(string o)
+        {
+            switch (o)
+            {
+                case "Byte":
+                case "Binary":
+                case "Currency":
+                case "Int16":
+                case "Int32":
+                case "Int64":
+                case "Decimal":
+                case "Double":
+                case "Single":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        #endregion
 
-    #region 5. Privates
-    private void QueryAnalyze()
+        #region 5. Privates
+        private void QueryAnalyze()
         {
             try
             {
@@ -375,7 +393,17 @@ namespace FRDB_SQLite
                                     count++;
                                     if ((textTmp == "*" && text.Contains("count(")))
                                         break;
+                                    else if(!text.Contains("count("))
+                                    {
+                                        //int index = this._selectedRelations[0].Scheme.Attributes.FindIndex
+                                        Boolean error = IsNumericType((this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType).ToString());
+                                        if (!error) throw new Exception("Data type of aggregate function is not valid");
+
+
+                                    }
+                                    
                                 }
+                                
                             }
                             else if (text.Contains(attr.AttributeName.ToLower()))
                             {
@@ -418,7 +446,6 @@ namespace FRDB_SQLite
                     }
                     // Add the membership attribute
                     this._selectedAttributes.Add(this._selectedRelations[0].Scheme.Attributes[this._selectedRelations[0].Scheme.Attributes.Count - 1]);
-                    //_index.Add(this._selectedRelations[0].Scheme.Attributes.Count - 1);// Add
                 }
                 else
                 {
@@ -1670,6 +1697,14 @@ namespace FRDB_SQLite
             return message;
         }
 
+
+
+        
+
+        //private String CheckDataType_AggregateFunction(int indexAttribute)
+        //{
+        //    String dataType = this._selectedRelations[0].Scheme.Attributes[indexAttribute].DataType.DataType;
+        //}
         private String CheckGroupByExistInSelect(string[] filterStr)
         {
             Boolean flag = false;

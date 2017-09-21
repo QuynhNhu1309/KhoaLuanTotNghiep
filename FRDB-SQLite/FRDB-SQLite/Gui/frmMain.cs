@@ -1763,7 +1763,7 @@ namespace FRDB_SQLite.Gui
                     ShowMessage(message, Color.Red);
                     return;
                 }
-                query = QueryPL.ReplaceLetter(query);
+                //query = QueryPL.ReplaceLetter(query);
                 FdbEntity newFdb = new FdbEntity()
                 {
                     Relations = fdbEntity.Relations,
