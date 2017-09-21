@@ -157,11 +157,11 @@ namespace FRDB_SQLite
                     }
                 }
 
-                if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
-                {
-                    result.Tuples = ProcessOrderBy(result.Tuples);
-                    result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
-                }
+                //if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
+                //{
+                //    result.Tuples = ProcessOrderBy(result.Tuples);
+                //    result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
+                //}
                    
 
             }
@@ -424,6 +424,8 @@ namespace FRDB_SQLite
                 {
                     // Mean select * from ...
                     this._selectedAttributes = this._selectedRelations[0].Scheme.Attributes;
+                    for (int i = 0; i < this._selectedRelations[0].Scheme.Attributes.Count() - 1; i++)
+                        _index.Add(i);
                 }
             }
             catch (Exception ex)
@@ -1668,6 +1670,63 @@ namespace FRDB_SQLite
             return message;
         }
 
+        private String CheckGroupByExistInSelect(string[] filterStr)
+        {
+            Boolean flag = false;
+            String message = "", tmp = "";
+            string[] attributeTmp;
+            List<string> Attributes = new List<string>();
+            message = CheckExistAttribute(filterStr);// check exist attribute
+            if (this._selectedAttributeTexts != null)
+            {
+                for (int k = 0; k < this._selectedAttributeTexts.Count(); k++)
+                {
+                    Attributes.Add(this._selectedAttributeTexts[k].ToString());
+                }
+            }
+            if (this._selectedAttributeTexts == null || this._selectedAttributeTexts.Contains<String>("*")) //case select *,.. or select *
+            {
+                for (int k = 0; k < this._selectedRelations[0].Scheme.Attributes.Count() - 1; k++)
+                {
+                    //tmp += this._selectedRelations[0].Scheme.Attributes.ElementAt(k).AttributeName.ToString() + ",";
+                    //Array.Resize(ref Attributes, Attributes.Count() + 1);
+                    Attributes.Add(this._selectedRelations[0].Scheme.Attributes.ElementAt(k).AttributeName.ToString());
+                }
+                Attributes = Attributes.Where(s => s != "*").ToList();
+                //Attributes = Attributes.ToArray();
+                //tmp = tmp.Substring(0, tmp.Length - 1);
+                //tmpAttributes = tmp.Split(',');
+
+                //Attributes = tmp.Split(',');
+                //Attributes.Add
+
+                //sortedTuple.Select((x, o) => h == o ? F1 : x).ToList();
+                //tmp = "";
+            }
+            for (int i = 0; i < Attributes.Count; i++)
+            {
+                tmp = Attributes[i].ToLower();
+                if (tmp.Contains("-as-"))
+                    tmp = tmp.Substring(0, tmp.IndexOf("-as-"));
+                if (!tmp.Contains("(") && !tmp.Contains(")"))
+                {
+                    flag = false;
+                    for (int j = 0; j < filterStr.Length; j++)
+                    {
+                        if (filterStr[j].ToLower() == tmp)
+                        {
+                            flag = true;
+                            break;
+                        }
+                            
+                    }
+                    if (!flag)
+                        return message = "Invalid attribute in the select list because it is not contained in either an aggregate function or the GROUP BY clause.";
+                }
+            }
+            return message;
+        }
+
         private FzRelationEntity ProcessGroupBy(FzRelationEntity result, string _queryText)
         {
             List<Filter> filter = FormatFilter(result, _queryText);
@@ -1886,7 +1945,7 @@ namespace FRDB_SQLite
                 orderby = _queryText.IndexOf(" order by ");
                 string[] filterStr = null;
                 string tmp = "";
-                this._selectedAttributeTexts = null;
+                //this._selectedAttributeTexts = null;
                 if (groupby > 0)
                 {
                     Filter filter = new Filter();
@@ -1906,8 +1965,10 @@ namespace FRDB_SQLite
                     }
                     tmp = tmp.Replace(" ", "");
                     filterStr = tmp.Split(',');
+                    this._errorMessage = CheckGroupByExistInSelect(filterStr);// check whether valid select when having group by( select Age, min(Height) ..group by Age)
+                    if (this._errorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
+
                     filter.elements = filterStr.ToList();
-                    this._errorMessage = CheckExistAttribute(filterStr);// check exist attribute
                     for (int h = 0; h < filter.elements.Count; h++)
                     {
                         filter.elementValue.Add(new List<string> { filter.elements[h].ToString() });
@@ -1937,7 +1998,7 @@ namespace FRDB_SQLite
                     filter.elementValue = ArrangeFormatFilter(filter.elementValue);// add first attribute has maximum data to group by, and the second, third ,...
                     result.Add(filter);// arranged filter
                 }// group by ...
-                 if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
+                 
             }
             catch (Exception ex)
             {
