@@ -534,64 +534,142 @@ namespace FRDB_SQLite
 
         //    return false;
         //}
-        public string FindAndMarkFuzzy(string dis1, string dis2, Boolean filter)
+
+        public string FindAndMarkFuzzy(string dis1, string dis2)
         {
+            string FSName = "";
+
+            if (dis1 == "")
+            FSName = dis2;
+            else if (dis2 == "") FSName = dis1;
+            if (dis1 == "" || dis2 == "")
+                return FSName;
+
             DisFS disFS1 = null;
             DisFS disFS2 = null;
             string path = "";
-            if (!filter)
+            List<String> arr = new List<string>();
+            arr.Add(dis1);
+            arr.Add(dis2);
+            for(int o = 0; o < arr.Count(); o++)
             {
-                FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(dis1, _fdbEntity);
+                FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(arr[o], _fdbEntity);
                 ConFS conFS1 = null;
                 if (get_conFS != null)
                 {
                     conFS1 = new ConFS(get_conFS.Name, get_conFS.Bottom_Left, get_conFS.Top_Left, get_conFS.Top_Right, get_conFS.Bottom_Right);
-                    disFS1 = transContoDis(conFS1); //trans CF to DF
+                    disFS2 = transContoDis(conFS1); //trans CF to DF
                 }
                 else
                 {
-                    FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(dis1, _fdbEntity);
+                    FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(arr[o], _fdbEntity);
                     if (get_disFS != null)
-                        disFS1 = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
-                    else if (!IsNumber(dis1))
+                        disFS2 = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
+                    else if (!IsNumber(arr[o]) && !arr[o].Contains("appox_"))
                         return "FN not exists";
                 }
+                if (o == 0) disFS1 = disFS2;
 
             }
             path = Directory.GetCurrentDirectory() + @"\lib\temp\";
-            string FSName = "";
-            if (dis2 == "")
+            if(disFS1 == null)
+                disFS1 = GetDisFS(path, dis1);
+            if (disFS2 == null) disFS2 = GetDisFS(path, dis2);
+            if (disFS1 != null && disFS2 != null)
+                FSName = Min_DisFS(disFS1, disFS2);
+            else if (disFS1 == null && disFS2 != null)
             {
-               FSName = dis1;
+                DisFS dis = new DisFS();
+                dis.ValueSet.Add(double.Parse(dis1));
+                dis.MembershipSet.Add(1);
+                FSName = Min_DisFS(dis, disFS2);
             }
-            else if (dis2 != "")
+            else if (disFS1 != null && disFS2 == null)
             {
-                if(filter)
-                    disFS1 = GetDisFS(path, dis1);
-                disFS2 = GetDisFS(path, dis2);
-                if (disFS1 != null && disFS2 != null)
-                    FSName = Min_DisFS(disFS1, disFS2);
-                else if (disFS1 == null && disFS2 != null)
-                {
-                    DisFS dis = new DisFS();
-                    dis.ValueSet.Add(double.Parse(dis1));
-                    dis.MembershipSet.Add(1);
-                    FSName = Min_DisFS(dis, disFS2);
-                }
-                else if (disFS1 != null && disFS2 == null)
-                {
-                    DisFS dis = new DisFS();
-                    dis.ValueSet.Add(double.Parse(dis2));
-                    dis.MembershipSet.Add(1);
-                    FSName = Min_DisFS(disFS1, dis);
-                }
-                else if (disFS1 == null && disFS2 == null)
-                {
-                    FSName = Math.Min(double.Parse(dis1), double.Parse(dis2)).ToString();
-                }
+                DisFS dis = new DisFS();
+                dis.ValueSet.Add(double.Parse(dis2));
+                dis.MembershipSet.Add(1);
+                FSName = Min_DisFS(disFS1, dis);
+            }
+            else if (disFS1 == null && disFS2 == null)
+            {
+                FSName = Math.Min(double.Parse(dis1), double.Parse(dis2)).ToString();
             }
             return FSName;
         }
+        //public string FindAndMarkFuzzy(string dis1, string dis2, Boolean filter)
+        //{
+        //    DisFS disFS1 = null;
+        //    DisFS disFS2 = null;
+        //    string path = "";
+        //    if (!filter)
+        //    {
+        //        FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(dis1, _fdbEntity);
+        //        ConFS conFS1 = null;
+        //        if (get_conFS != null)
+        //        {
+        //            conFS1 = new ConFS(get_conFS.Name, get_conFS.Bottom_Left, get_conFS.Top_Left, get_conFS.Top_Right, get_conFS.Bottom_Right);
+        //            disFS1 = transContoDis(conFS1); //trans CF to DF
+        //        }
+        //        else
+        //        {
+        //            FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(dis1, _fdbEntity);
+        //            if (get_disFS != null)
+        //                disFS1 = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
+        //            else if (!IsNumber(dis1))
+        //                return "FN not exists";
+        //        }
+
+        //    }
+        //    path = Directory.GetCurrentDirectory() + @"\lib\temp\";
+        //    string FSName = "";
+        //    if (dis2 == "")
+        //    {
+        //       FSName = dis1;
+        //       //if(disFS1 != null)
+        //       // {
+        //       //     String Name = "appox_" + Random();
+        //       //     List<String> resultFz = new List<String>();
+        //       //     resultFz.Add(disFS1.V);
+        //       //     resultFz.Add(disFS1.M);
+        //       //     System.Diagnostics.Debug.WriteLine("Fz: " + disFS1.Name + ", " + disFS1.Name);
+        //       //     System.Diagnostics.Debug.WriteLine("Value: " + "" + ", Member: " + "");
+        //       //     if (new FuzzyProcess().UpdateFS(path, resultFz, Name + ".disFS") == 1)
+        //       //     {
+        //       //         System.Diagnostics.Debug.WriteLine(Name);
+        //       //         FSName = Name;
+        //       //     }
+        //       // }
+
+        //    }
+        //    else if (dis2 != "")
+        //    {
+        //        if(filter)
+        //            disFS1 = GetDisFS(path, dis1);
+        //        disFS2 = GetDisFS(path, dis2);
+        //        if (disFS1 != null && disFS2 != null)
+        //            FSName = Min_DisFS(disFS1, disFS2);
+        //        else if (disFS1 == null && disFS2 != null)
+        //        {
+        //            DisFS dis = new DisFS();
+        //            dis.ValueSet.Add(double.Parse(dis1));
+        //            dis.MembershipSet.Add(1);
+        //            FSName = Min_DisFS(dis, disFS2);
+        //        }
+        //        else if (disFS1 != null && disFS2 == null)
+        //        {
+        //            DisFS dis = new DisFS();
+        //            dis.ValueSet.Add(double.Parse(dis2));
+        //            dis.MembershipSet.Add(1);
+        //            FSName = Min_DisFS(disFS1, dis);
+        //        }
+        //        else if (disFS1 == null && disFS2 == null)
+        //        {
+        //            FSName = Math.Min(double.Parse(dis1), double.Parse(dis2)).ToString();
+        //        }
+        //    }
+        //    return FSName;
+        //}
 
         public DisFS getDisFS(String memberShip, FdbEntity fdbEntity)
         {
