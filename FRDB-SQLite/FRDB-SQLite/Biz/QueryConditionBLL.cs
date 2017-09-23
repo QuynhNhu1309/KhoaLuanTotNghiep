@@ -553,7 +553,7 @@ namespace FRDB_SQLite
             arr.Add(dis2);
             for(int o = 0; o < arr.Count(); o++)
             {
-                FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(arr[o], _fdbEntity);
+                FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(arr[o].ToString(), _fdbEntity);
                 ConFS conFS1 = null;
                 if (get_conFS != null)
                 {
@@ -562,7 +562,7 @@ namespace FRDB_SQLite
                 }
                 else
                 {
-                    FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(arr[o], _fdbEntity);
+                    FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(arr[o].ToString(), _fdbEntity);
                     if (get_disFS != null)
                         disFS2 = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
                     else if (!IsNumber(arr[o]) && !arr[o].Contains("appox_"))
