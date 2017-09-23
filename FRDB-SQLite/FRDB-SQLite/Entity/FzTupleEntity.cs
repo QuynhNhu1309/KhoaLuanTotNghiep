@@ -71,6 +71,16 @@ namespace FRDB_SQLite
             this._memberShipIndex = this._valuesOnPerRow.Count - 1;
         }
 
+        public FzTupleEntity(FzTupleEntity old, String newMemeberShip)
+        {
+            this._valuesOnPerRow = new List<object>();
+            foreach (Object item in old._valuesOnPerRow)
+            {
+                this.ValuesOnPerRow.Add(item);
+            }
+            this._memberShipIndex = this._valuesOnPerRow.Count - 1;
+            this.MemberShip = newMemeberShip;
+        }
 
 
         #endregion

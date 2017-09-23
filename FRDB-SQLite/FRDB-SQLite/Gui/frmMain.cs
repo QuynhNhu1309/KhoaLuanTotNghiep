@@ -1777,7 +1777,7 @@ namespace FRDB_SQLite.Gui
                 string temp_path = Directory.GetCurrentDirectory() + @"\lib\temp\";
                 string lowerQuery = query.ToLower();
                 string joinType = "inner";
-                if (lowerQuery.Contains("union"))
+                if (lowerQuery.Contains("union") || lowerQuery.Contains("intersect"))
                 {
                     QueryExecutionBLLv2 execution = new QueryExecutionBLLv2(query, newFdb);
                     result = execution.ExecuteQuery();

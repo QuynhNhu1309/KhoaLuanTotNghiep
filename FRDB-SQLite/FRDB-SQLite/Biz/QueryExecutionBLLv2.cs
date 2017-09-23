@@ -25,15 +25,26 @@ namespace FRDB_SQLite.Biz
         private void QueryAnalyze()
         {
             QueryConditionBLL condition = new QueryConditionBLL();
-            if (this._queryText.Contains("union"))
+            if (this._queryText.Contains("union") || this._queryText.Contains("intersect"))
             {
                 this._queryType = Constants.QUERY_TYPE.MUTIPLE;
             }
             if (this._queryType == Constants.QUERY_TYPE.MUTIPLE)
             {
-                List<String> singleQueries = SplitQuery(this._queryText);
-                if (this._queryText.Contains("union"))
+                if (this._queryText.Contains("union") || this._queryText.Contains("intersect"))
                 {
+                    String combinationType = String.Empty;
+                    List<String> singleQueries = new List<String>();
+                    if (this._queryText.Contains("union"))
+                    {
+                        combinationType = Constants.COMBINATION_TYPE.UNION;
+                        singleQueries = SplitQuery(this._queryText, " union ");
+                    }
+                    else if (this._queryText.Contains("intersect"))
+                    {
+                        combinationType = Constants.COMBINATION_TYPE.INTERSECT;
+                        singleQueries = SplitQuery(this._queryText, " intersect ");
+                    }
                     String[] fstQueryAttributes = GetAttributeTexts(singleQueries[0]);
                     String[] sndQueryAttributes = GetAttributeTexts(singleQueries[1]);
                     bool isEqual = fstQueryAttributes.SequenceEqual(sndQueryAttributes);
@@ -43,7 +54,7 @@ namespace FRDB_SQLite.Biz
                         throw new Exception(this._errorMessage);
                     }
                     String[] fstRelationTexts = GetRelationTexts(singleQueries[0]);
-                    String[] sndRelationTexts = GetRelationTexts(singleQueries[0]);
+                    String[] sndRelationTexts = GetRelationTexts(singleQueries[1]);
                     FzRelationEntity fstRelation = this._fdbEntity.Relations
                         .Find(item => item.RelationName.Equals(fstRelationTexts[0], StringComparison.InvariantCultureIgnoreCase));
                     FzRelationEntity sndRelation = this._fdbEntity.Relations
@@ -54,7 +65,7 @@ namespace FRDB_SQLite.Biz
                             .Find(attr => attr.AttributeName.Equals(fstQueryAttributes[i], StringComparison.InvariantCultureIgnoreCase));
                         FzAttributeEntity sndAttr = sndRelation.Scheme.Attributes
                             .Find(attr => attr.AttributeName.Equals(sndQueryAttributes[i], StringComparison.InvariantCultureIgnoreCase));
-                        if (fstAttr.DataType != sndAttr.DataType)
+                        if (fstAttr.DataType.DataType != sndAttr.DataType.DataType)
                         {
                             this._errorMessage = "The select statements do not have the same result columns";
                             throw new Exception(_errorMessage);
@@ -78,47 +89,108 @@ namespace FRDB_SQLite.Biz
                         RelationName = $"{fstQueryResult.RelationName}_{sndQueryResult.RelationName}",
                         Scheme = fstQueryResult.Scheme,
                     };
-                    List<FzTupleEntity> newTuples = new List<FzTupleEntity>(fstQueryResult.Tuples);
-                    List<FzTupleEntity> tmpTuples = new List<FzTupleEntity>();
-                    foreach (FzTupleEntity sndRelationTuple in sndQueryResult.Tuples)
+                    List<FzTupleEntity> resultTuples;
+                    if (combinationType == Constants.COMBINATION_TYPE.UNION)
                     {
-                        bool isTupleEqual = false;
-                        foreach (FzTupleEntity fstRelationTuple in newTuples)
-                        {
-                            if (fstRelationTuple.Equals(sndRelationTuple))
-                            {
-                                isTupleEqual = true;
-                                String minFS = String.Empty;
-                                String fstMemberShip = fstRelationTuple.MemberShip;
-                                String sndMemberShip = sndRelationTuple.MemberShip;
-                                DisFS fstDisFS = condition.getDisFS(fstMemberShip, _fdbEntity);
-                                DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
-                                if (fstDisFS == null && sndDisFS == null)
-                                {
-                                    minFS = Math.Min(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
-                                }
-                                else if (fstDisFS == null)
-                                {
-                                    fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
-                                    minFS = condition.Min_DisFS(fstDisFS, sndDisFS);
-                                }
-                                else
-                                {
-                                    sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
-                                    minFS = condition.Min_DisFS(fstDisFS, sndDisFS);
-                                }
-                                fstRelationTuple.MemberShip = minFS;
-                            }
-                        }
-                        if (!isTupleEqual)
-                        {
-                            tmpTuples.Add(sndRelationTuple);
-                        }
+                        resultTuples = GetUnion(fstQueryResult.Tuples, sndQueryResult.Tuples);
                     }
-                    unionResult.Tuples = newTuples.Concat(tmpTuples).ToList();
-                    this._queryResult = unionResult;
+                    else if (combinationType == Constants.COMBINATION_TYPE.INTERSECT)
+                    {
+                        resultTuples = GetIntersect(fstQueryResult.Tuples, sndQueryResult.Tuples);
+                    }
+                    else
+                    {
+                        resultTuples = new List<FzTupleEntity>();
+                    }
+                    FzRelationEntity result = new FzRelationEntity()
+                    {
+                        RelationName = $"{fstQueryResult.RelationName}_{sndQueryResult.RelationName}",
+                        Scheme = fstQueryResult.Scheme,
+                        Tuples = resultTuples
+                    };
+                    this._queryResult = result;
                 }
             }
+        }
+
+        private List<FzTupleEntity> GetUnion(List<FzTupleEntity> fstRelationTuples, List<FzTupleEntity> sndRelationTuples)
+        {
+            QueryConditionBLL condition = new QueryConditionBLL();
+            List<FzTupleEntity> result = new List<FzTupleEntity>(fstRelationTuples);
+            List<FzTupleEntity> tmpTuples = new List<FzTupleEntity>();
+            foreach (FzTupleEntity sndRelationTuple in sndRelationTuples)
+            {
+                bool isTupleEqual = false;
+                foreach (FzTupleEntity fstRelationTuple in result)
+                {
+                    if (fstRelationTuple.Equals(sndRelationTuple))
+                    {
+                        isTupleEqual = true;
+                        String newFS = String.Empty;
+                        String fstMemberShip = fstRelationTuple.MemberShip;
+                        String sndMemberShip = sndRelationTuple.MemberShip;
+                        DisFS fstDisFS = condition.getDisFS(fstMemberShip, _fdbEntity);
+                        DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
+                        if (fstDisFS == null && sndDisFS == null)
+                        {
+                            newFS = Math.Max(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
+                        }
+                        else if (fstDisFS == null)
+                        {
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
+                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                        }
+                        else
+                        {
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
+                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                        }
+                        fstRelationTuple.MemberShip = newFS;
+                    }
+                }
+                if (!isTupleEqual)
+                {
+                    tmpTuples.Add(sndRelationTuple);
+                }
+            }
+            result = result.Concat(tmpTuples).ToList();
+            return result;
+        }
+
+        private List<FzTupleEntity> GetIntersect(List<FzTupleEntity> fstRelationTuples, List<FzTupleEntity> sndRelationTuples)
+        {
+            QueryConditionBLL condition = new QueryConditionBLL();
+            List<FzTupleEntity> result = new List<FzTupleEntity>();
+            foreach (FzTupleEntity sndRelationTuple in sndRelationTuples)
+            {
+                foreach (FzTupleEntity fstRelationTuple in fstRelationTuples)
+                {
+                    if (fstRelationTuple.Equals(sndRelationTuple))
+                    {
+                        String newFS = String.Empty;
+                        String fstMemberShip = fstRelationTuple.MemberShip;
+                        String sndMemberShip = sndRelationTuple.MemberShip;
+                        DisFS fstDisFS = condition.getDisFS(fstMemberShip, _fdbEntity);
+                        DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
+                        if (fstDisFS == null && sndDisFS == null)
+                        {
+                            newFS = Math.Min(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
+                        }
+                        else if (fstDisFS == null)
+                        {
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
+                            newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
+                        }
+                        else
+                        {
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
+                            newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
+                        }
+                        result.Add(new FzTupleEntity(fstRelationTuple, newFS));
+                    }
+                }
+            }
+            return result;
         }
 
         public FzRelationEntity ExecuteQuery()
@@ -126,10 +198,10 @@ namespace FRDB_SQLite.Biz
             return this._queryResult;
         }
 
-        private List<String> SplitQuery(String mutipleQueryText)
+        private List<String> SplitQuery(String mutipleQueryText, String seperator)
         {
             List<String> singleQueries = new List<String>();
-            singleQueries = mutipleQueryText.Split(new String[] { " union " }, StringSplitOptions.None).ToList();
+            singleQueries = mutipleQueryText.Split(new String[] { seperator }, StringSplitOptions.None).ToList();
             return singleQueries;
         }
 

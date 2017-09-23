@@ -1261,7 +1261,7 @@ namespace FRDB_SQLite
                 return "0";
             }
         }
-        private string Max_DisFS(DisFS FuzzySet1, DisFS FuzzySet2)
+        public string Max_DisFS(DisFS FuzzySet1, DisFS FuzzySet2)
         {
                 try
                 {
