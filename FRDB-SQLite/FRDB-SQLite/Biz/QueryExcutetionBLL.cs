@@ -374,21 +374,27 @@ namespace FRDB_SQLite
                                     if (text.IndexOf("-as-") > 0)
                                     {
                                         textAs = text.Substring(text.IndexOf("-as-") + 4, text.Length - text.IndexOf("-as-") - 4);
-                                        attrText = attr;
                                         attrText.AttributeName = textAs;
-                                        this._selectedAttributes.Add(attrText);
                                         itemSelect.attributeNameAs = textAs;
                                     }
                                     else
                                     {
                                         attrText.AttributeName = text;
-                                        this._selectedAttributes.Add(attrText);
                                         itemSelect.attributeNameAs = text;
-                                    } 
+                                    }
+                                    attrText.DataType.DomainString = "[5.0 x 10^-324  ...  1.7 x 10^308]";
+                                    attrText.DataType.DataType = "Double";
+                                    attrText.DataType.TypeName = "Double";
+                                    //if (text.Contains("count("))
+                                    //{
+                                    //    attrText.DataType.DomainString = "[-2147483648  ...  2147483647]";
+                                    //    attrText.DataType.DataType = "Int16";
+                                    //}
+                                    this._selectedAttributes.Add(attrText);
                                     itemSelect.elements.Add(i.ToString());
                                     itemSelects.Add(itemSelect);
                                     count++;
-                                    if ((textTmp == "*" && text.Contains("count(")))
+                                    if ((textTmp != "" && text.Contains("count(")))
                                         break;
                                     else if(!text.Contains("count("))
                                     {
@@ -436,9 +442,11 @@ namespace FRDB_SQLite
                                 count++;
                                 break;
                             }
+                            if (count > 0) break;
                             i++;
+
                         }
-                        if(count == 0)
+                        if (count == 0)
                             this._errorMessage = "Invalid selected object name of attribute: '" + text + "'.";
                     }
                     // Add the membership attribute
@@ -2083,8 +2091,20 @@ namespace FRDB_SQLite
             orderBy = this._queryText.IndexOf(" order by ");
             listOrder = this._queryText.Substring(orderBy + 10, this._queryText.Length - orderBy - 10).ToLower().Split(',');
             IEnumerable<FzTupleEntity> sortedTuple = null;
-            if (listOrder[0][0] == ' ')
-                listOrder[0] = listOrder[0].Remove(0, 1);
+            for(int p = 0; p < listOrder.Count(); p++)
+            {
+                if (listOrder[p][0] == ' ')
+                    listOrder[p] = listOrder[p].Remove(0, 1);
+                orderByAttr = listOrder[p].Split(' ').First();
+                indexAttr = IndexOfAttrGroupBy(orderByAttr);
+                if (indexAttr < 0)
+                {
+                    this._errorMessage = "Invalid attribute to order by";
+                    throw new Exception(this._errorMessage);
+                }
+            }
+            //if (listOrder[0][0] == ' ')
+            //    listOrder[0] = listOrder[0].Remove(0, 1);
             orderBy = listOrder[0].IndexOf(" desc");
             orderByAttr = listOrder[0].Split(' ').First();
             if(_queryText.Contains(" group by "))
@@ -2148,8 +2168,6 @@ namespace FRDB_SQLite
                 sortedTuple1 = null;
                 for (int i = 1; i < listOrder.Length; i++)
                 {
-                    if (listOrder[i][0] == ' ')
-                        listOrder[i] = listOrder[i].Remove(0, 1);
                     int orderBy1 = listOrder[i].IndexOf(" desc");
                     string orderByAttr1 = listOrder[i].Split(' ').First();
                     int indexAttr1 = 0;
