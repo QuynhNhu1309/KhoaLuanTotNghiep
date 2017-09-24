@@ -110,18 +110,14 @@ namespace FRDB_SQLite
                     }
                     if (this._queryText.Contains(" group by "))//done with having
                     {
-                        //result.Scheme.Attributes = this._selectedRelations[0].Scheme.Attributes;
-                        //result.Tuples = resultTmp;
-                        foreach (FzTupleEntity tuple in resultTmp)
-                            result.Tuples.Add(tuple);
-                        foreach (FzAttributeEntity attr in this._selectedRelations[0].Scheme.Attributes)
-                            result.Scheme.Attributes.Add(attr);
+                        result.Scheme.Attributes = this._selectedRelations[0].Scheme.Attributes;
+                        result.Tuples = resultTmp;
                         result = ProcessGroupBy(result, _queryText);// process group by and having            
                     }
                     else if (this._selectedAttributeTexts != null)
                     {
-                        //if (this._queryText.Contains(" order by"))
-                        //    resultTmp = ProcessOrderBy(resultTmp);
+                        if (this._queryText.Contains(" order by"))
+                            resultTmp = ProcessOrderBy(resultTmp);
                         result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity));//Như add
                     }    
                     result.Scheme.Attributes = this._selectedAttributes;
@@ -157,12 +153,12 @@ namespace FRDB_SQLite
                     }
                 }
 
-                //if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
-                //{
-                //    result.Tuples = ProcessOrderBy(result.Tuples);
-                //    result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
-                //}
-                   
+                if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
+                {
+                    result.Tuples = ProcessOrderBy(result.Tuples);
+                    result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
+                }
+
 
             }
             catch (Exception ex)
@@ -378,6 +374,7 @@ namespace FRDB_SQLite
                                     if (text.IndexOf("-as-") > 0)
                                     {
                                         textAs = text.Substring(text.IndexOf("-as-") + 4, text.Length - text.IndexOf("-as-") - 4);
+                                        attrText = attr;
                                         attrText.AttributeName = textAs;
                                         this._selectedAttributes.Add(attrText);
                                         itemSelect.attributeNameAs = textAs;
@@ -1886,23 +1883,32 @@ namespace FRDB_SQLite
                     tmp = AddParenthesis(tmp);
                 for (int j = 0; j < filterResult.Tuples.Count; j++)//format each tuple after group by
                 {
+                    //for (int l = 0; l < indexGroupby.Count; l++)
+                    //{
+                    //    Item itemConditionGroupBy = new Item();//set condition from group by
+                    //    itemConditionGroupBy.elements.Add(indexGroupby[l].ToString());//index
+                    //    itemConditionGroupBy.elements.Add("=");//operator
+                    //    itemConditionGroupBy.elements.Add(filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString());
+                    //    //value
+                    //    if (l < indexGroupby.Count - 1)
+                    //        itemConditionGroupBy.nextLogic = " and ";// and, it must have 'and' if group by more than 2 attributes
+                    //    itemConditionGroupBys.Add(itemConditionGroupBy);
+                    //}
+                    //QueryConditionBLL condition_GroupBy = new QueryConditionBLL(itemConditionGroupBys, this._selectedRelations, _fdbEntity);
+                    //foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
+                    //{
+                    //    if (condition_GroupBy.Satisfy(itemConditionGroupBys, tuple) != "0")
+                    //    {
+                    //        filterResultHaving.Tuples.Add(tuple);// get tuples meet itemConditionGroupBys
+                    //    }
+                    //}
                     for (int l = 0; l < indexGroupby.Count; l++)
                     {
-                        Item itemConditionGroupBy = new Item();//set condition from group by
-                        itemConditionGroupBy.elements.Add(indexGroupby[l].ToString());//index
-                        itemConditionGroupBy.elements.Add("=");//operator
-                        itemConditionGroupBy.elements.Add(filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString());
-                        //value
-                        if (l < indexGroupby.Count - 1)
-                            itemConditionGroupBy.nextLogic = " and ";// and, it must have 'and' if group by more than 2 attributes
-                        itemConditionGroupBys.Add(itemConditionGroupBy);
-                    }
-                    QueryConditionBLL condition_GroupBy = new QueryConditionBLL(itemConditionGroupBys, this._selectedRelations, _fdbEntity);
-                    foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
-                    {
-                        if (condition_GroupBy.Satisfy(itemConditionGroupBys, tuple) != "0")
+                        if (l == 0)
+                            filterResultHaving.Tuples = this._selectedRelations[0].Tuples.Where(s => s.ValuesOnPerRow[indexGroupby[l]].ToString() == filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString()).ToList();
+                        else
                         {
-                            filterResultHaving.Tuples.Add(tuple);// get tuples meet itemConditionGroupBys
+                            filterResultHaving.Tuples.Remove(filterResultHaving.Tuples.FirstOrDefault(x => x.ValuesOnPerRow[indexGroupby[l]].ToString() != filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString()));
                         }
                     }
                     filterResultHaving.Scheme = this._selectedRelations[0].Scheme;
@@ -2107,7 +2113,7 @@ namespace FRDB_SQLite
                            where g.Count() > 1
                            select g).Count();
 
-            if (countTuple0 > 0)
+            if (countTuple0 > 0 && listOrder.Length > 1)
             {
                 var attrDuplicate1 = from tuple in sortedTuple
                                      group tuple by tuple.ValuesOnPerRow[indexAttr] into g
