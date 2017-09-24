@@ -165,7 +165,7 @@ namespace FRDB_SQLite
             {
                 this._error = true;
                 this._errorMessage = ex.Message;
-                return result;
+                //Như add return result;
             }
 
             return result;
@@ -787,6 +787,37 @@ namespace FRDB_SQLite
                 return result;
         }
 
+        private string[] getFilterGroupBy()
+        {
+            int groupby = _queryText.IndexOf(" group by ");
+            int having = _queryText.IndexOf(" having ");
+            int orderby = _queryText.IndexOf(" order by ");
+            string[] filterStr = null;
+            string tmp = "";
+            //this._selectedAttributeTexts = null;
+            if (groupby > 0)
+            {
+                if (having < 0 && orderby < 0)
+                {
+                    tmp = _queryText.Substring(groupby + 10, _queryText.Length - groupby - 10);
+                }
+                else if (having > 0) // group by... + having ...
+                {
+                    tmp = _queryText.Substring(groupby + 10, having - groupby - 10);
+
+                }//having
+                else if (orderby > 0 && having < 0)// group by... + order by
+                {
+                    tmp = _queryText.Substring(groupby + 10, orderby - groupby - 10);
+                }
+                tmp = tmp.Replace(" ", "");
+                filterStr = tmp.Split(',');
+
+            }
+            return filterStr;
+        }
+
+
         private int IndexOfAttr(String s)
         {
             for (int i = 0; i < this._selectedRelations[0].Scheme.Attributes.Count; i++)
@@ -801,11 +832,11 @@ namespace FRDB_SQLite
             return -2;
         }
 
-        private int IndexOfAttrGroupBy(String s)
+        private int IndexOfAttrGroupBy(string s, String[] filter)
         {
-            for (int i = 0; i < this._selectedAttributes.Count; i++)
+            for (int i = 0; i < filter.Count(); i++)
             {
-                if (s.Equals(this._selectedAttributes[i].AttributeName.ToLower()))
+                if (s.Equals(filter[i].ToLower()))
                 {
                     return i;
                 }
@@ -1889,6 +1920,26 @@ namespace FRDB_SQLite
                 tmp = GetConditionText(tmp);//get condition Text 'having'(not where)
                 if (tmp != String.Empty)
                     tmp = AddParenthesis(tmp);
+                List<Item> itemTmp= FormatCondition(tmp);
+                bool checkAttr = false;
+                //Check fuzzy set and object here
+                this._errorMessage = ExistsFuzzySet(itemTmp);
+                for (int k = 0; k < itemTmp.Count(); k++)
+                {
+                    for(int l = 0; l < indexGroupby.Count(); l++)
+                    {
+                        if ((itemTmp[k].aggregateFunction == "" && itemTmp[k].elements[0].ToString() == indexGroupby[l].ToString()) || itemTmp[k].aggregateFunction != "")
+                        {
+                            checkAttr = true;
+                            break;
+                        }
+                    }
+                    if(!checkAttr)
+                        this._errorMessage = "Invalid attribute in HAVING clause because it is not contained in either an aggregate function or the GROUP BY clause";
+                    checkAttr = false;
+                }
+                if(ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
+
                 for (int j = 0; j < filterResult.Tuples.Count; j++)//format each tuple after group by
                 {
                     //for (int l = 0; l < indexGroupby.Count; l++)
@@ -1921,7 +1972,7 @@ namespace FRDB_SQLite
                     }
                     filterResultHaving.Scheme = this._selectedRelations[0].Scheme;
                     filterResultHavings.Add(filterResultHaving);
-                    itemConditionGroupBys = new List<Item>();
+                    //itemConditionGroupBys = new List<Item>();
                     if (filterResultHaving.Tuples.Count > 0)
                     {
                         List<Item> itemConditionHavings = FormatCondition(tmp);// format condition having
@@ -1940,9 +1991,7 @@ namespace FRDB_SQLite
                         for (int q = 0; q < filterResultHaving.Tuples.Count; q++)// each tuple after filter with group by
                         {
                             List<Item> itemConditionHavings_Tmp = itemConditionHavings;
-                            //Check fuzzy set and object here
-                            this.ErrorMessage = ExistsFuzzySet(itemConditionHavings);
-                            if (ErrorMessage != "") { this.Error = true; return filterResult; }
+                            
                             if (condition_Having.Satisfy(itemConditionHavings_Tmp, filterResultHaving.Tuples[q]) != "0")
                             {
 
@@ -1987,12 +2036,12 @@ namespace FRDB_SQLite
         public List<Filter> FormatFilter(FzRelationEntity tupleRelation, String _queryText)
         {
             List<Filter> result = new List<Filter>();
-            try
-            {
+            //try
+            //{
                 int groupby = 0, having, orderby, index = 0 ;
                 groupby = _queryText.IndexOf(" group by ");
-                having = _queryText.IndexOf(" having ");
-                orderby = _queryText.IndexOf(" order by ");
+                //having = _queryText.IndexOf(" having ");
+                //orderby = _queryText.IndexOf(" order by ");
                 string[] filterStr = null;
                 string tmp = "";
                 //this._selectedAttributeTexts = null;
@@ -2000,23 +2049,24 @@ namespace FRDB_SQLite
                 {
                     Filter filter = new Filter();
                     filter.filterName = "groupby";
-                    if (having < 0 && orderby < 0)
-                    {
-                        tmp = _queryText.Substring(groupby + 10, _queryText.Length - groupby - 10);
-                    }
-                    else if (having > 0) // group by... + having ...
-                    {
-                        tmp = _queryText.Substring(groupby + 10, having - groupby - 10);
+                    //if (having < 0 && orderby < 0)
+                    //{
+                    //    tmp = _queryText.Substring(groupby + 10, _queryText.Length - groupby - 10);
+                    //}
+                    //else if (having > 0) // group by... + having ...
+                    //{
+                    //    tmp = _queryText.Substring(groupby + 10, having - groupby - 10);
 
-                    }//having
-                    else if (orderby > 0 && having < 0)// group by... + order by
-                    {
-                        tmp = _queryText.Substring(groupby + 10, orderby - groupby - 10);
-                    }
-                    tmp = tmp.Replace(" ", "");
-                    filterStr = tmp.Split(',');
+                    //}//having
+                    //else if (orderby > 0 && having < 0)// group by... + order by
+                    //{
+                    //    tmp = _queryText.Substring(groupby + 10, orderby - groupby - 10);
+                    //}
+                    //tmp = tmp.Replace(" ", "");
+                    //filterStr = tmp.Split(',');
+                    filterStr = getFilterGroupBy();
                     this._errorMessage = CheckGroupByExistInSelect(filterStr);// check whether valid select when having group by( select Age, min(Height) ..group by Age)
-                    if (this._errorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
+                    if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
 
                     filter.elements = filterStr.ToList();
                     for (int h = 0; h < filter.elements.Count; h++)
@@ -2049,13 +2099,13 @@ namespace FRDB_SQLite
                     result.Add(filter);// arranged filter
                 }// group by ...
                  
-            }
-            catch (Exception ex)
-            {
-                this._error = true;
-                this._errorMessage = ex.Message;
-                return result;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    this._error = true;
+            //    this._errorMessage = ex.Message;
+            //    //return result;
+            //}
 
 
             return result;
@@ -2091,24 +2141,28 @@ namespace FRDB_SQLite
             orderBy = this._queryText.IndexOf(" order by ");
             listOrder = this._queryText.Substring(orderBy + 10, this._queryText.Length - orderBy - 10).ToLower().Split(',');
             IEnumerable<FzTupleEntity> sortedTuple = null;
-            for(int p = 0; p < listOrder.Count(); p++)
+            string[] filter = null;
+            if (_queryText.Contains(" group by "))
             {
-                if (listOrder[p][0] == ' ')
-                    listOrder[p] = listOrder[p].Remove(0, 1);
-                orderByAttr = listOrder[p].Split(' ').First();
-                indexAttr = IndexOfAttrGroupBy(orderByAttr);
-                if (indexAttr < 0)
+                filter = getFilterGroupBy();
+                for (int p = 0; p < listOrder.Count(); p++)
                 {
-                    this._errorMessage = "Invalid attribute to order by";
-                    throw new Exception(this._errorMessage);
+                    if (listOrder[p][0] == ' ')
+                        listOrder[p] = listOrder[p].Remove(0, 1);
+                    orderByAttr = listOrder[p].Split(' ').First();
+                    indexAttr = IndexOfAttrGroupBy(orderByAttr, filter);
+                    if (indexAttr > 0) break;
+                    if (indexAttr < 0)
+                    {
+                        this._errorMessage = "Invalid attribute to order by";
+                        throw new Exception(this._errorMessage);
+                    }
                 }
             }
-            //if (listOrder[0][0] == ' ')
-            //    listOrder[0] = listOrder[0].Remove(0, 1);
             orderBy = listOrder[0].IndexOf(" desc");
             orderByAttr = listOrder[0].Split(' ').First();
-            if(_queryText.Contains(" group by "))
-                indexAttr = IndexOfAttrGroupBy(orderByAttr);
+            if (_queryText.Contains(" group by "))
+                indexAttr = IndexOfAttrGroupBy(orderByAttr, filter);
             else indexAttr = IndexOfAttr(orderByAttr);
             if (indexAttr < 0)
             {
@@ -2163,6 +2217,7 @@ namespace FRDB_SQLite
             List<FzTupleEntity> tupleResult = new List<FzTupleEntity>();
             int countTuple = sortedTuple.Count();
             int j = 0;
+            string[] filter = getFilterGroupBy();
             while (j < countTuple)
             {
                 sortedTuple1 = null;
@@ -2172,9 +2227,9 @@ namespace FRDB_SQLite
                     string orderByAttr1 = listOrder[i].Split(' ').First();
                     int indexAttr1 = 0;
                     if (_queryText.Contains(" group by "))
-                        indexAttr1 = IndexOfAttrGroupBy(orderByAttr1);
+                        indexAttr1 = IndexOfAttrGroupBy(orderByAttr1, filter);  
                     else indexAttr1 = IndexOfAttr(orderByAttr1);
-                    if (indexAttr1 < 0)
+                    if (indexAttr < 0)
                     {
                         this._errorMessage = "Invalid attribute to order by";
                         throw new Exception(this._errorMessage);
