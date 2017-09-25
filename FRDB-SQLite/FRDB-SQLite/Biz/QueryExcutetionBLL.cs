@@ -152,7 +152,8 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
-
+                
+                //order by
                 if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
                 {
                     result.Tuples = ProcessOrderBy(result.Tuples);
@@ -366,11 +367,20 @@ namespace FRDB_SQLite
                                 indexParenThesis1 = text.IndexOf("(");
                                 indexParenThesis2 = text.IndexOf(")");
                                 textTmp = text.Substring(indexParenThesis1 + 1, indexParenThesis2 - indexParenThesis1 - 1);
-                                if (textTmp.Equals(attr.AttributeName.ToLower()) || (textTmp == "*" && text.Contains("count(")))
+                                //string jj = textTmp.Substring(10);
+                                if (textTmp.Equals(attr.AttributeName.ToLower()) || ((textTmp == "*" || (textTmp.IndexOf("-distinct-") > -1 && textTmp.Substring(10).Equals(attr.AttributeName.ToLower()))) && text.Contains("count(")))
+                                //    int o = textTmp.IndexOf("-distinct-");
+                                //bool g = textTmp.Substring(10).Equals(attr.AttributeName.ToLower());
+                                //    if (textTmp.IndexOf("-distinct-") > -1 && textTmp.Substring(10).Equals(attr.AttributeName.ToLower()) && text.Contains("count("))
                                 {
                                     Item itemSelect = new Item();
                                     itemSelect.aggregateFunction = text.Substring(0, indexParenThesis1);
                                     FzAttributeEntity attrText = new FzAttributeEntity();
+                                    if (textTmp.IndexOf("-distinct-") > -1)
+                                    {
+                                        //textTmp = textTmp.Substring(9);
+                                        itemSelect.isDistinct = true;
+                                    }  
                                     if (text.IndexOf("-as-") > 0)
                                     {
                                         textAs = text.Substring(text.IndexOf("-as-") + 4, text.Length - text.IndexOf("-as-") - 4);
@@ -381,7 +391,7 @@ namespace FRDB_SQLite
                                     {
                                         attrText.AttributeName = text;
                                         itemSelect.attributeNameAs = text;
-                                    }
+                                    }    
                                     attrText.DataType.DomainString = "[5.0 x 10^-324  ...  1.7 x 10^308]";
                                     attrText.DataType.DataType = "Double";
                                     attrText.DataType.TypeName = "Double";
@@ -410,25 +420,44 @@ namespace FRDB_SQLite
                             }
                             else if (text.Contains(attr.AttributeName.ToLower()))
                             {
-                                //this._selectedAttributes.Add(attr);
-                                
-                                
                                 FzAttributeEntity attrText = new FzAttributeEntity();
-                                if (text.IndexOf("-as-") > 0)
+                                textTmp = text;
+                                if (text.IndexOf("-distinct-") > -1)
+                                    textTmp = textTmp.Substring(10);
+                                if (textTmp.IndexOf("-as-") > 0)
                                 {
-                                    textAs = text.Substring(text.IndexOf("-as-") + 4, text.Length - text.IndexOf("-as-") - 4);
+                                    textAs = textTmp.Substring(textTmp.IndexOf("-as-") + 4, textTmp.Length - textTmp.IndexOf("-as-") - 4);
                                     attrText.AttributeName = textAs;
                                     this._selectedAttributes.Add(attrText);
-                                    textTmp = text.Substring(0, text.IndexOf("-as-"));
-                                    if(textTmp.Equals(attr.AttributeName.ToLower()))
+                                    textTmp = textTmp.Substring(0, textTmp.IndexOf("-as-"));
+                                    if (textTmp.Equals(attr.AttributeName.ToLower()))
                                         count++;
                                 }
-                                else if(text.Equals(attr.AttributeName.ToLower()))
+                                else if (textTmp.Equals(attr.AttributeName.ToLower()))
                                 {
-                                    attrText.AttributeName = text;
+                                    attrText.AttributeName = textTmp;
                                     this._selectedAttributes.Add(attrText);
                                     count++;
                                 }
+                                //if (text.IndexOf("-distinct-") > -1)
+                                //{
+                                //    textTmp = textTmp.Substring(9);
+                                //}
+                                //if (text.IndexOf("-as-") > 0)
+                                //{
+                                //    textAs = text.Substring(text.IndexOf("-as-") + 4, text.Length - text.IndexOf("-as-") - 4);
+                                //    attrText.AttributeName = textAs;
+                                //    this._selectedAttributes.Add(attrText);
+                                //    textTmp = text.Substring(0, text.IndexOf("-as-"));
+                                //    if(textTmp.Equals(attr.AttributeName.ToLower()))
+                                //        count++;
+                                //}
+                                //else if(text.Equals(attr.AttributeName.ToLower()))
+                                //{
+                                //    attrText.AttributeName = text;
+                                //    this._selectedAttributes.Add(attrText);
+                                //    count++;
+                                //}
                                 _index.Add(i);
                             }
                             if(text == "*")
@@ -705,13 +734,14 @@ namespace FRDB_SQLite
                     }
                         
                    
-                }
-                
-
+                }                
                 //r.Add(resultTuple.ValuesOnPerRow[resultTuple.ValuesOnPerRow.Count - 1]);
             }
-            
-
+            //distinct
+            //if (this._queryText.Contains("distinct ") && !this._queryText.Contains(" group by "))
+            //{
+            //    rs = ProcessDistinct(rs);
+            //}
 
             return rs;
         }
@@ -726,6 +756,7 @@ namespace FRDB_SQLite
             if (tmp != "* ")
             {
                 tmp = tmp.Replace(" as ", "-as-");
+                tmp = tmp.Replace("distinct ", "-distinct-");
                 tmp = tmp.Replace(" ", "");
                 //if (s.Contains("min")) //đừng xóa cmt này :)
                 //{
@@ -1728,9 +1759,21 @@ namespace FRDB_SQLite
             return message;
         }
 
+        private string checkDistinctSelect()
+        {
+            string message = "";
+            for(int i = 0; i < this._selectedAttributeTexts.Count(); i++)
+            {
+                if (i != 0 && this._selectedAttributeTexts[i].Contains("distinct") && !this._selectedAttributeTexts[i].Contains("count("))
+                    message = "Incorrect syntax near 'distinct'";
+                
+            }
+            return message;
+        }
 
 
-        
+
+
 
         //private String CheckDataType_AggregateFunction(int indexAttribute)
         //{
@@ -2132,6 +2175,92 @@ namespace FRDB_SQLite
             }
             return resultArrange;
         }
+        public List<FzTupleEntity> ProcessDistinct(List<FzTupleEntity> tuples)
+        {
+            this._errorMessage = checkDistinctSelect();
+            if(ErrorMessage != "") throw new Exception(this._errorMessage);
+            List<FzTupleEntity> tupleTmp = new List<FzTupleEntity>();
+            List<FzTupleEntity> tupleResult = new List<FzTupleEntity>();
+            // //int indexAttr = this._selectedAttributes.FindIndex(x => x.AttributeName == this._selectedAttributes[0].ToString());
+            tupleResult = tuples.AsEnumerable().GroupBy(x => x.ValuesOnPerRow[0]).SelectMany(grouping => grouping.Take(1)).ToList();
+
+            //var tupleResul1t = (from tuple in tuples
+            //               group tuple by tuple.ValuesOnPerRow[0] into g
+            //               where g.Count() > 1
+            //               select g).ToList();
+            int countTuple0 = 0;
+            countTuple0 = (from tuple in tuples
+                           group tuple by tuple.ValuesOnPerRow[0] into g
+                           where g.Count() > 1
+                           select g).Count();
+            if(countTuple0 > 0 && this._selectedAttributes.Count() > 1)
+            {
+                var attrDuplicate1 = from tuple in tuples
+                                     group tuple by tuple.ValuesOnPerRow[0] into g
+                                     where g.Count() > 1
+                                     select g;
+
+                for(int i = 0; i < attrDuplicate1.Count(); i++)
+                {
+                    string s = attrDuplicate1.ElementAt(i).Key.ToString();
+                    IEnumerable<FzTupleEntity> tupleDistinct = tuples.Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(i).Key.ToString()).Select(x => x).ToList();
+                    tupleTmp.AddRange(ProcessDistinct_Sub(tupleDistinct, attrDuplicate1, i));
+
+                    //int pos = tupleResult.ToList().FindIndex(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(i).Key.ToString());
+                    if (tupleTmp.Count() > 1)
+                    {
+                        tupleResult = tupleResult.Where(x => x.ValuesOnPerRow[0].ToString() != s).ToList();
+                        tupleResult.AddRange(tupleTmp);
+                        //for (int j = 0; j < tupleTmp.Count(); j++)
+                        //{
+                        //    //tupleResult = tupleResult.Select((x, o) => pos == o ? tupleTmp[j] : x).ToList();
+                            
+                        //    pos++;
+                        //}
+                    } 
+                    tupleTmp = new List<FzTupleEntity>();
+                }
+                
+            }
+           
+            
+            return tupleResult;
+            
+        }
+
+
+        public List<FzTupleEntity> ProcessDistinct_Sub(IEnumerable<FzTupleEntity> listTuple, IEnumerable<IGrouping<object, FzTupleEntity>> attrDuplicate1, int k)
+        {
+            List<FzTupleEntity> tupleTmp = new List<FzTupleEntity>();
+            List<FzTupleEntity> tupleResult = new List<FzTupleEntity>();
+            int j = 0, countTuple = listTuple.Count();
+            while (j < countTuple)
+            {
+                for (int i = 1; i < this._selectedAttributes.Count() - 1; i++)
+                {
+                    if (i == 1)
+                        tupleTmp = listTuple.AsEnumerable().Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()).GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping.Take(1)).ToList();
+                    else
+                        tupleTmp = tupleTmp.AsEnumerable().Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()).GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping.Take(1)).ToList();
+
+                    if (tupleTmp.Count() == 1 || i == this._selectedAttributes.Count() - 2)//except membership
+                    {
+                        tupleResult.AddRange(tupleTmp);
+                        listTuple = listTuple.Except(tupleTmp.ToList());
+                        countTuple = listTuple.Count();
+                        break;
+                    }
+                    else
+                    {
+                        string tmp = tupleTmp.AsEnumerable().Select(x => x.ValuesOnPerRow[i].ToString()).FirstOrDefault();
+                        tupleTmp = tupleTmp.AsEnumerable().Where(item => item.ValuesOnPerRow[i].ToString() == tmp).Select(item => item).ToList();
+                    }
+                }
+            }
+            return tupleResult;
+
+
+        }
         public List<FzTupleEntity> ProcessOrderBy(List<FzTupleEntity> relation)
         {
             List<FzTupleEntity> relationTmp = relation;
@@ -2406,6 +2535,7 @@ namespace FRDB_SQLite
         public double valueAggregate = 0;
         public string ItemName = ""; //where or having
         public string attributeNameAs = "";
+        public bool isDistinct = false;
     }
 
     
