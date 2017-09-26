@@ -152,7 +152,15 @@ namespace FRDB_SQLite
                             result.Tuples.Add(item);
                     }
                 }
-                
+
+                //distinct
+                //if (this._queryText.Contains("distinct "))
+                //{
+                //    int countTupleOriginal = result.Tuples.Count();
+                //    result.Tuples = ProcessDistinct(result.Tuples);
+                //    result.Tuples.RemoveRange(0, countTupleOriginal);
+                //}
+
                 //order by
                 if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
                 {
@@ -488,6 +496,7 @@ namespace FRDB_SQLite
                     for (int i = 0; i < this._selectedRelations[0].Scheme.Attributes.Count() - 1; i++)
                         _index.Add(i);
                 }
+                this._errorMessage = CheckAggreateFunctionAndAttribute();
             }
             catch (Exception ex)
             {
@@ -737,12 +746,6 @@ namespace FRDB_SQLite
                 }                
                 //r.Add(resultTuple.ValuesOnPerRow[resultTuple.ValuesOnPerRow.Count - 1]);
             }
-            //distinct
-            //if (this._queryText.Contains("distinct ") && !this._queryText.Contains(" group by "))
-            //{
-            //    rs = ProcessDistinct(rs);
-            //}
-
             return rs;
         }
 
@@ -1738,6 +1741,14 @@ namespace FRDB_SQLite
             return message;
         }
 
+        private String CheckAggreateFunctionAndAttribute()
+        {
+            string message = "";
+            if (!_queryText.Contains(" group by") && _index.Count() > 0 && itemSelects.Count() > 0)
+                message = "Invalid select list because it is not contained in either an aggregate function or the GROUP BY clause.";
+            return message;
+        }
+
         private String CheckExistAttribute(string[] filterStr)
         {
             String message = "";
@@ -1815,6 +1826,8 @@ namespace FRDB_SQLite
             for (int i = 0; i < Attributes.Count; i++)
             {
                 tmp = Attributes[i].ToLower();
+                if (tmp.Contains("-distinct-"))
+                    tmp = tmp.Substring(10);
                 if (tmp.Contains("-as-"))
                     tmp = tmp.Substring(0, tmp.IndexOf("-as-"));
                 if (!tmp.Contains("(") && !tmp.Contains(")"))
@@ -1923,7 +1936,8 @@ namespace FRDB_SQLite
             if (having < 0)//get select attribute with group by (without having condition)
             {
                 QueryConditionBLL condition = new QueryConditionBLL(_fdbEntity);
-                for (int j = 0; j < filterResult.Tuples.Count; j++)//format each tuple after group by
+                int countTuple = filterResult.Tuples.Count();
+                for (int j = 0; j < countTuple; j++)//format each tuple after group by
                 {
                     for (int l = 0; l < indexGroupby.Count; l++)
                     {
@@ -1937,7 +1951,7 @@ namespace FRDB_SQLite
                    
                     if (filterResultHaving.Tuples.Count > 0)
                     {
-                        if(itemSelects.Count() == 0)// unless select aggregate function
+                        if(itemSelects.Count() == 0 && filterResultHaving.Tuples.Count > 1)// unless select aggregate function
                         {
                             var arrMembership = filterResultHaving.Tuples.Select(x => x.ValuesOnPerRow[this._selectedRelations[0].Scheme.Attributes.Count() - 1].ToString());
                             List<String> membershipList = arrMembership.ToList();
@@ -1953,6 +1967,7 @@ namespace FRDB_SQLite
                            
                         }
                         resultTmp.Tuples.AddRange(GetSelectedAttributes(filterResultHaving.Tuples, _fdbEntity));
+                        //filterResult.Tuples = filterResult.Tuples.Where(s => s.ValuesOnPerRow[indexGroupby[l]].ToString() != filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString()).ToList();
                     }
                     filterResultHaving.Tuples.Clear();//renew filterResultHaving
                 }
@@ -2188,42 +2203,44 @@ namespace FRDB_SQLite
             //               group tuple by tuple.ValuesOnPerRow[0] into g
             //               where g.Count() > 1
             //               select g).ToList();
-            int countTuple0 = 0;
-            countTuple0 = (from tuple in tuples
-                           group tuple by tuple.ValuesOnPerRow[0] into g
-                           where g.Count() > 1
-                           select g).Count();
-            if(countTuple0 > 0 && this._selectedAttributes.Count() > 1)
+            //int countTuple0 = 0;
+            //countTuple0 = (from tuple in tuples
+            //               group tuple by tuple.ValuesOnPerRow[0] into g
+            //               where g.Count() > 1
+            //               select g).Count();
+            var attrDuplicate1 = from tuple in tuples
+                                 group tuple by tuple.ValuesOnPerRow[0] into g
+                                 where g.Count() > 1
+                                 select g;
+            if (attrDuplicate1.Count() > 0 && this._selectedAttributes.Count() > 2)//except memership => count() > 2
             {
-                var attrDuplicate1 = from tuple in tuples
-                                     group tuple by tuple.ValuesOnPerRow[0] into g
-                                     where g.Count() > 1
-                                     select g;
-
                 for(int i = 0; i < attrDuplicate1.Count(); i++)
                 {
                     string s = attrDuplicate1.ElementAt(i).Key.ToString();
                     IEnumerable<FzTupleEntity> tupleDistinct = tuples.Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(i).Key.ToString()).Select(x => x).ToList();
                     tupleTmp.AddRange(ProcessDistinct_Sub(tupleDistinct, attrDuplicate1, i));
-
-                    //int pos = tupleResult.ToList().FindIndex(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(i).Key.ToString());
-                    if (tupleTmp.Count() > 1)
-                    {
                         tupleResult = tupleResult.Where(x => x.ValuesOnPerRow[0].ToString() != s).ToList();
                         tupleResult.AddRange(tupleTmp);
-                        //for (int j = 0; j < tupleTmp.Count(); j++)
-                        //{
-                        //    //tupleResult = tupleResult.Select((x, o) => pos == o ? tupleTmp[j] : x).ToList();
-                            
-                        //    pos++;
-                        //}
-                    } 
                     tupleTmp = new List<FzTupleEntity>();
                 }
                 
             }
-           
-            
+            //else if (attrDuplicate1.Count() > 0 && this._selectedAttributes.Count() <= 2)
+            //{
+            //    for (int i = 0; i < attrDuplicate1.Count(); i++)
+            //    {
+            //        //IEnumerable<FzTupleEntity> tupleDistinct = tuples.Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(i).Key.ToString()).Select(x => x).ToList();
+            //        //tupleTmp.AddRange(ProcessDistinct_Sub(tupleDistinct, attrDuplicate1, i));
+            //        string s = attrDuplicate1.ElementAt(i).Key.ToString();
+            //        tupleTmp = tuples.AsEnumerable().Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(i).Key.ToString()).Select(x => x).Take(1).ToList();
+            //        tupleResult = tupleResult.Where(x => x.ValuesOnPerRow[0].ToString() != s).ToList();
+            //        tupleResult.AddRange(tupleTmp);
+            //        tupleTmp = new List<FzTupleEntity>();
+            //    }
+            //}
+
+
+
             return tupleResult;
             
         }
@@ -2239,14 +2256,15 @@ namespace FRDB_SQLite
                 for (int i = 1; i < this._selectedAttributes.Count() - 1; i++)
                 {
                     if (i == 1)
-                        tupleTmp = listTuple.AsEnumerable().Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()).GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping.Take(1)).ToList();
+                        tupleTmp = listTuple.AsEnumerable().GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping).ToList();
+                    //tupleTmp = listTuple.AsEnumerable().Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()).GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping).ToList();
                     else
-                        tupleTmp = tupleTmp.AsEnumerable().Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()).GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping.Take(1)).ToList();
-
+                        tupleTmp = tupleTmp.AsEnumerable().GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping).ToList();
+                   
                     if (tupleTmp.Count() == 1 || i == this._selectedAttributes.Count() - 2)//except membership
                     {
-                        tupleResult.AddRange(tupleTmp);
                         listTuple = listTuple.Except(tupleTmp.ToList());
+                        tupleResult.AddRange(tupleTmp.AsEnumerable().GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping.Take(1)));
                         countTuple = listTuple.Count();
                         break;
                     }
