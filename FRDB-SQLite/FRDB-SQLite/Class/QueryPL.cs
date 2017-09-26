@@ -92,6 +92,8 @@ namespace FRDB_SQLite.Class
                 result = result.Replace("count (", "count(");
                 result = result.Replace("( count", "(count");
 
+                result = result.Replace("( distinct", "(distinct");
+
                 result = result.Replace("\n", "");
                 result = result.Replace("<>", "!=");
                 result = result.Replace("->", "→");
