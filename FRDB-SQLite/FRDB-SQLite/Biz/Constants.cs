@@ -16,6 +16,7 @@ namespace FRDB_SQLite.Biz
         {
             public const String UNION = "Constants/COMBINATION_TYPE/UNION";
             public const String INTERSECT = "Constants/COMBINATION_TYPE/INTERSECT";
+            public const String EXCEPT = "Constants/COMBINATION_TYPE/EXCEPT";
         }
     }
 }

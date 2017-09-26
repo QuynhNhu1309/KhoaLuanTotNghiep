@@ -25,13 +25,13 @@ namespace FRDB_SQLite.Biz
         private void QueryAnalyze()
         {
             QueryConditionBLL condition = new QueryConditionBLL();
-            if (this._queryText.Contains("union") || this._queryText.Contains("intersect"))
+            if (this._queryText.Contains("union") || this._queryText.Contains("intersect") || this._queryText.Contains("except"))
             {
                 this._queryType = Constants.QUERY_TYPE.MUTIPLE;
             }
             if (this._queryType == Constants.QUERY_TYPE.MUTIPLE)
             {
-                if (this._queryText.Contains("union") || this._queryText.Contains("intersect"))
+                if (this._queryText.Contains("union") || this._queryText.Contains("intersect") || this._queryText.Contains("except"))
                 {
                     String combinationType = String.Empty;
                     List<String> singleQueries = new List<String>();
@@ -44,6 +44,16 @@ namespace FRDB_SQLite.Biz
                     {
                         combinationType = Constants.COMBINATION_TYPE.INTERSECT;
                         singleQueries = SplitQuery(this._queryText, " intersect ");
+                    }
+                    else if (this._queryText.Contains("except"))
+                    {
+                        combinationType = Constants.COMBINATION_TYPE.EXCEPT;
+                        singleQueries = SplitQuery(this._queryText, " except ");
+                    }
+                    if (singleQueries[0].Contains("order by"))
+                    {
+                        this._errorMessage = "Query syntax is wrong";
+                        throw new Exception(this._errorMessage);
                     }
                     String[] fstQueryAttributes = GetAttributeTexts(singleQueries[0]);
                     String[] sndQueryAttributes = GetAttributeTexts(singleQueries[1]);
@@ -97,6 +107,10 @@ namespace FRDB_SQLite.Biz
                     else if (combinationType == Constants.COMBINATION_TYPE.INTERSECT)
                     {
                         resultTuples = GetIntersect(fstQueryResult.Tuples, sndQueryResult.Tuples);
+                    }
+                    else if (combinationType == Constants.COMBINATION_TYPE.EXCEPT)
+                    {
+                        resultTuples = GetExcept(fstQueryResult.Tuples, sndQueryResult.Tuples);
                     }
                     else
                     {
@@ -192,6 +206,30 @@ namespace FRDB_SQLite.Biz
             }
             return result;
         }
+
+        private List<FzTupleEntity> GetExcept(List<FzTupleEntity> fstRelationTuples, List<FzTupleEntity> sndRelationTuples)
+        {
+            QueryConditionBLL condition = new QueryConditionBLL();
+            List<FzTupleEntity> result = new List<FzTupleEntity>();
+            foreach (FzTupleEntity fstRelationTuple in fstRelationTuples)
+            {
+                bool isTupleEqual = false;
+                foreach (FzTupleEntity sndRelationTuple in sndRelationTuples)
+                {
+                    if (fstRelationTuple.Equals(sndRelationTuple))
+                    {
+                        isTupleEqual = true;
+                        break;
+                    }
+                }
+                if (!isTupleEqual)
+                {
+                    result.Add(fstRelationTuple);
+                }
+            }
+            return result;
+        }
+
 
         public FzRelationEntity ExecuteQuery()
         {
