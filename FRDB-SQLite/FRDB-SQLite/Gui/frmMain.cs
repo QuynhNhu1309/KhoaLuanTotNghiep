@@ -1756,8 +1756,8 @@ namespace FRDB_SQLite.Gui
                 DeleteTemp(); // xóa các file temp ở đường dẫn \FRDB-SQLite\bin\Debug\lib\temp
                 PrepareQuery();
                 String query = QueryPL.StandardizeQuery(txtQuery.Text.Trim());
-                //String message = QueryPL.CheckSyntax(query);
-                String message = String.Empty;
+                String message = QueryPL.CheckSyntax(query);
+                //String message = String.Empty;
                 if (message != "")
                 {
                     ShowMessage(message, Color.Red);

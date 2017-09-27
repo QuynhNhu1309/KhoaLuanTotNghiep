@@ -1681,16 +1681,31 @@ namespace FRDB_SQLite
                     listInput[i] = listInput[i].Trim();// Prevent user query with spaces
                     if (opr == "in")
                     {
-                        if (StringCompare(stringValue, listInput[i], "="))
+                        if(type == "DateTime")
                         {
-                            return true;
+                            if (DateTimeCompare(stringValue, listInput[i], "="))
+                                return true;
+                        }
+                        else
+                        {
+                            if (StringCompare(stringValue, listInput[i], "="))
+                                return true;
                         }
                     }
                     else if (opr == "not in")
                     {
-                        if (StringCompare(stringValue, listInput[i], "="))
-                            return false;
-                        else count++;
+                        if (type == "DateTime")
+                        {
+                            if (DateTimeCompare(stringValue, listInput[i], "="))
+                                return false;
+                            else count++;
+                        }
+                        else
+                        {
+                            if (StringCompare(stringValue, listInput[i], "="))
+                                return false;
+                            else count++;
+                        }
                     }
 
                 }
@@ -1778,7 +1793,7 @@ namespace FRDB_SQLite
                 return false;
             }
             throw new Exception("Missing quote");
-        }
+            }
         //-----
         #region Fuzzy Set
         /// <summary>
@@ -1801,15 +1816,30 @@ namespace FRDB_SQLite
                     }
                     else return IntCompare(Convert.ToInt32(value), Convert.ToInt32(input), opr);
                 case "DateTime":
-                    return DateTimeCompare(value.ToString(), input, opr);
+                    if (input.Contains(",") || (input.Contains("(") && input.Contains(")")))//do not check quote because it is checked before in checkSyntax()
+                        return ListCompare(value.ToString().ToLower(), input, opr, type);
+                    else
+                    {
+                        return DateTimeCompare(value.ToString(), input, opr);
+                    }
+                        
                 case "String":
                 case "UserDefined":
                 case "Binary":
-                    if (input.Contains(",") || (input.Contains("(") && input.Contains(")")))
+                    if (input.Contains(",") || (input.Contains("(") && input.Contains(")")))//do not check quote because it is checked before in checkSyntax()
                     {
                         return ListCompare(value.ToString().ToLower(), input, opr, type);
                     }
-                    else return StringCompare(value.ToString().ToLower(), input.ToLower(), opr);
+                    else
+                    {
+                        if (!Regex.IsMatch(input, "^(\"|\\s\"|'|'\\s)([a-z0-9A-Z\\s/.])+(\"|\"\\s|'|'\\s)$|\\d"))
+                        {
+                            this._errorMessage = "Missing quote near string";
+                            if(this._errorMessage != "") throw new Exception(_errorMessage);
+                        }
+                               
+                        return StringCompare(value.ToString().ToLower(), input.ToLower(), opr);
+                    }
                 case "Decimal":
                 case "Single":
                 case "Double":

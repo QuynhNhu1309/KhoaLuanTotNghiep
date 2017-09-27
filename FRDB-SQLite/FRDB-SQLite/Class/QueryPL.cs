@@ -443,11 +443,11 @@ namespace FRDB_SQLite.Class
                     {
                         if (posOpen > 0)
                         {
-                            if (query[posOpen - 1] != ' ' && query[posOpen - 1] != '(' && !query.Substring(posOpen - 5).Contains("min") && !query.Substring(posOpen - 5).Contains("max") && !query.Substring(posOpen - 5).Contains("not") && !query.Substring(posOpen - 5).Contains("avg") && !query.Substring(posOpen - 5).Contains("sum") && !query.Substring(posOpen - 5).Contains("count") && !query.Substring(posOpen - 5).Contains("in"))// must have space or '(' before (
+                            if (query[posOpen - 1] != ' ' && query[posOpen - 1] != '(' && query[posOpen - 1] != '\'' && query[posOpen - 1] != '"' && !query.Substring(posOpen - 5).Contains("min") && !query.Substring(posOpen - 5).Contains("max") && !query.Substring(posOpen - 5).Contains("not") && !query.Substring(posOpen - 5).Contains("avg") && !query.Substring(posOpen - 5).Contains("sum") && !query.Substring(posOpen - 5).Contains("count") && !query.Substring(posOpen - 5).Contains("in"))// must have space or '(' before (
                                 return message = "Incorrect syntax near '(': missing space 1";
                         }
                         if (posClose < query.Length - 1)
-                            if (query[posClose + 1] != ' ' && query[posClose + 1] != ')')// must have space or ')' after )
+                            if (query[posClose + 1] != ' ' && query[posClose + 1] != ')' && query[posClose + 1] != '"' && query[posClose + 1] != '\'')// must have space or ')' or '\'' or '"' after )
                                 return message = "Incorrect syntax near ')': missing space 2";
                         query = query.Remove(posOpen, 1); //remove (
                         query = query.Remove(posClose - 1, 1);//remove )
@@ -510,7 +510,7 @@ namespace FRDB_SQLite.Class
                                 return message = "Incorrect syntax betwwen two quote";
                             if (indexSecond < str.Length - 1)
                             {
-                                if (str[indexSecond + 1] != ' ' && str[indexSecond + 1] != ')')
+                                if (str[indexSecond + 1] != ' ' && str[indexSecond + 1] != ')' && str[indexSecond + 1] != ',')
                                 {
                                     return message = "Missing space next to quote";
                                 }
@@ -533,7 +533,7 @@ namespace FRDB_SQLite.Class
                                 return message = "Incorrect syntax betwwen two quote";
                             if (indexSecond < str.Length - 1)
                             {
-                                if (str[indexSecond + 1] != ' ' && str[indexSecond + 1] != ')' )
+                                if (str[indexSecond + 1] != ' ' && str[indexSecond + 1] != ')' && str[indexSecond + 1] != ',') // ", or "  or ") => else error
                                 {
                                     return message = "Missing space next to quote";
                                 }
