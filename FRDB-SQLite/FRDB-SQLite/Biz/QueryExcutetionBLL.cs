@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Data;
-
+using System.Text.RegularExpressions;
 
 namespace FRDB_SQLite
 {
@@ -1798,6 +1798,12 @@ namespace FRDB_SQLite
             return message;
         }
 
+        private bool IsNumber(string pText)
+        {
+            Regex regex = new Regex(@"^[-+]?[0-9]*\.?[0-9]+$");
+            return regex.IsMatch(pText);
+        }
+
 
 
 
@@ -2308,8 +2314,16 @@ namespace FRDB_SQLite
             else indexAttr = IndexOfAttr(orderByAttr);
             if (indexAttr < 0)
             {
-                this._errorMessage = "Invalid attribute to order by";
-                throw new Exception(this._errorMessage);
+                if(IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)
+                {
+                    indexAttr = Int32.Parse(orderByAttr);
+                    this._errorMessage = "";
+                }
+                else
+                {
+                    this._errorMessage = "Invalid attribute to order by";
+                    throw new Exception(this._errorMessage);
+                }
             }
             if (orderBy > 0)
             {

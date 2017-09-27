@@ -2027,7 +2027,11 @@ namespace FRDB_SQLite.Gui
                             //edit--
                             if (j == countColum - 1)
                             {
-                                if (condition.GetConFS(temp_path, value.ToString()) != null || condition.GetDisFS(temp_path, value.ToString()) != null)
+                                FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(value.ToString(), fdbEntity);
+                                FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(value.ToString(), fdbEntity);
+                                //|| get_disFS != null
+                                //disFS2 = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
+                                if (condition.GetConFS(temp_path, value.ToString()) != null || condition.GetDisFS(temp_path, value.ToString()) != null || get_disFS != null || get_conFS != null)
                                 {
                                     GridViewResult.Rows[i].Cells[j].Style.ForeColor = Color.Blue;
                                     //enable ô
