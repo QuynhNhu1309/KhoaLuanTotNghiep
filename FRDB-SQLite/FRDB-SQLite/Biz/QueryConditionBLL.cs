@@ -568,8 +568,11 @@ namespace FRDB_SQLite
                     else if (!IsNumber(arr[o]) && !arr[o].Contains("appox_"))
                         return "FN not exists";
                 }
-                if (o == 0) disFS1 = disFS2;
-
+                if (o == 0)
+                {
+                    disFS1 = disFS2;
+                    disFS2 = null;
+                }
             }
             path = Directory.GetCurrentDirectory() + @"\lib\temp\";
             if(disFS1 == null)
