@@ -358,14 +358,20 @@ namespace FRDB_SQLite.Class
             if (select.Contains(" and ") || select.Contains(" or ") || select.Contains(" not ") || select.Contains("\""))
                 return message = "Select clause do not allow 'and', 'or', 'not', and '\"'.";
             int i = 0, j = 0;
-            while (i < query.Length)
+            int lengthLimit = 0;
+            if (query.IndexOf(" group by ") > 0)
+                lengthLimit = query.IndexOf(" group by ");
+            if (query.IndexOf(" order by ") > 0)
+                lengthLimit = query.IndexOf(" order by ");
+
+            while (i < lengthLimit)
             {
-                if (query[i] == ')' && i < query.Length - 1)
+                if (query[i] == ')' && i < lengthLimit - 1)
                 {
                     j = i + 1;
                     if (query[j] != ')')
                     {
-                        while (query[j] != '(' && j < query.Length - 1) j++;
+                        while (query[j] != '(' && j < lengthLimit - 1) j++;
                         String s = query.Substring(i + 1, j - i - 1);
                         int count = 0;
                         if (s.Length == 0) count++;

@@ -1505,26 +1505,33 @@ namespace FRDB_SQLite
         {
             //a = "\"" + a + "\"";
             //int indexOpen = 0, indexClose = 0;
+            if ((b[0] != '\'' && b[b.Length - 1] != '\'') && (b[0] != '\"' && b[b.Length - 1] != '\"'))
+            {
+                this._errorMessage = "Missing quote near string";
+                if (this._errorMessage != "") throw new Exception(_errorMessage);
+            }
+            b = b.Remove(b.Length - 1);
+            b = b.Remove(0, 1);
 
             int maxLength = a.Length;
             if (maxLength > b.Length)
             {
                 maxLength = b.Length;
             }
-            if (b.Contains("\""))
-            {
-                //indexOpen = b.IndexOf("\"");
-                //indexClose = b.IndexOf("\"");
-                a = "\"" + a + "\"";
-                maxLength--;
-            }
-            else if (b.Contains("\'"))
-            {
-                //indexOpen = b.IndexOf("\'");
-                //indexClose = b.IndexOf("\'");
-                a = "\'" + a + "\'";
-                maxLength--;
-            }
+            //if (b.Contains("\""))
+            //{
+            //    //indexOpen = b.IndexOf("\"");
+            //    //indexClose = b.IndexOf("\"");
+            //    a = "\"" + a + "\"";
+            //    maxLength--;
+            //}
+            //else if (b.Contains("\'"))
+            //{
+            //    //indexOpen = b.IndexOf("\'");
+            //    //indexClose = b.IndexOf("\'");
+            //    a = "\'" + a + "\'";
+            //    maxLength--;
+            //}
             //if(indexOpen < 0 || indexClose < 0)
             //{
             //    return false;
@@ -1668,10 +1675,12 @@ namespace FRDB_SQLite
             }
 
             String[] listInput;
-            if (stringInput.Contains(","))
+            //if (stringInput.Contains(","))
                 listInput = stringInput.Split(',');
-            else
-                listInput = stringInput.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+            //else
+            //listInput = stringInput.
+            //else
+            //    listInput = stringInput.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
             int count = 0;
             if (type == "String" || type == "DateTime" || type == "UserDefined" || type == "Binary")
             {
@@ -1831,13 +1840,7 @@ namespace FRDB_SQLite
                         return ListCompare(value.ToString().ToLower(), input, opr, type);
                     }
                     else
-                    {
-                        if (!Regex.IsMatch(input, "^(\"|\\s\"|'|'\\s)([a-z0-9A-Z\\s/.])+(\"|\"\\s|'|'\\s)$|\\d"))
-                        {
-                            this._errorMessage = "Missing quote near string";
-                            if(this._errorMessage != "") throw new Exception(_errorMessage);
-                        }
-                               
+                    {     
                         return StringCompare(value.ToString().ToLower(), input.ToLower(), opr);
                     }
                 case "Decimal":
