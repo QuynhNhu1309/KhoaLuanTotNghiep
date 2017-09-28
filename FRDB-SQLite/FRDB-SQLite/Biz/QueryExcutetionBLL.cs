@@ -140,11 +140,16 @@ namespace FRDB_SQLite
                         //    result.Tuples.Add(GetSelectedAttributes(item));
                         if (this._queryText.Contains(" order by"))
                         {
-                            this._selectedRelations[0].Tuples = ProcessOrderBy(this._selectedRelations[0].Tuples);
-                            this._selectedRelations[0].Tuples.RemoveRange(0, this._selectedRelations[0].Tuples.Count() / 2);
+                            resultTmp = ProcessOrderBy(this._selectedRelations[0].Tuples);
+                            //result.Tuples.RemoveRange(0, this._selectedRelations[0].Tuples.Count() / 2);
                         }
-                            
-                        result.Tuples.AddRange(GetSelectedAttributes(this._selectedRelations[0].Tuples, _fdbEntity));//Như add false
+                        else
+                        {
+                            foreach (var item in this._selectedRelations[0].Tuples)
+                                resultTmp.Add(item);
+                        }
+
+                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity));//Như add false
                     }
                     else if (this._selectedAttributeTexts == null)
                     {
@@ -892,6 +897,10 @@ namespace FRDB_SQLite
                 }
                 else if (s == "*")
                     return -1;
+            }
+            if (IsNumber(s) && Int32.Parse(s) < this._selectedAttributes.Count - 1)//order by index of group by, must be in group by
+            {
+                return Int32.Parse(s);
             }
             return -2;
         }
@@ -1786,6 +1795,87 @@ namespace FRDB_SQLite
             return message;
         }
 
+        private string[] CheckOrderByReturnList(string[] listOrder, String[] filterGroupBy)
+        {
+            string orderByAttr = "";
+            int indexAttr = 0;
+            for (int p = 0; p < listOrder.Count(); p++)
+            {
+                if (listOrder[p].IndexOf(" ") == 0)
+                    listOrder[p] = listOrder[p].Remove(0, 1);
+                if (listOrder[p].IndexOf(" ") == listOrder[p].Count() - 1)
+                    listOrder[p] = listOrder[p].Remove(listOrder[p].Count() - 1, 1);
+                if (listOrder[p].IndexOf(" ") > 0 && listOrder[p].IndexOf(" desc") < 0 && listOrder[p].IndexOf(" asc") < 0)
+                {
+                    this._errorMessage = "Invalid attribute to order by";
+                    throw new Exception(this._errorMessage);
+                }
+                orderByAttr = listOrder[p].Split(' ').First();
+                Start:
+                if (_queryText.Contains(" group by "))
+                    indexAttr = IndexOfAttrGroupBy(orderByAttr, filterGroupBy);
+                else
+                {
+                    indexAttr = IndexOfAttr(orderByAttr);
+                    if (IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)//order by index
+                        indexAttr = Int32.Parse(orderByAttr);
+                }
+
+                if (indexAttr < 0)
+                {
+                    if(_queryText.Contains(" as "))
+                    {
+                        for(int y = 0; y < this._selectedAttributeTexts.Count(); y++)
+                        {
+                            if(this._selectedAttributeTexts[y].IndexOf("-as-") > 0)
+                            {
+                                string asAttribute = this._selectedAttributeTexts[y].Substring(this._selectedAttributeTexts[y].IndexOf("-as-") + 4, this._selectedAttributeTexts[y].Length - this._selectedAttributeTexts[y].IndexOf("-as-") - 4);
+                                if(asAttribute == orderByAttr)
+                                {
+                                    orderByAttr = this._selectedAttributeTexts[y].Substring(0, this._selectedAttributeTexts[y].IndexOf("-as-"));
+                                    goto Start;
+                                }
+                                    
+                            }
+                        }
+                        
+                    }
+                        
+                    if (IsNumber(orderByAttr))
+                    {
+                        this._errorMessage = "The ORDER BY position number is out of range of the number of items in the select list.";
+                        throw new Exception(this._errorMessage);
+                    }  
+                    else
+                    {
+                        this._errorMessage = "Invalid attribute to order by";
+                        throw new Exception(this._errorMessage);
+                    } 
+                    
+
+                }
+                if (listOrder[p].IndexOf(" ") < 0)
+                    listOrder[p] = indexAttr.ToString();
+                else
+                {
+                    string tmp = listOrder[p].Substring(listOrder[p].IndexOf(' ') + 1, listOrder[p].Count() - listOrder[p].IndexOf(' ') - 1);
+                    listOrder[p] = indexAttr.ToString() + ' ' + tmp;
+                }
+                for (int u = 0; u < p; u++)
+                {
+                    int indexAttrTmp = Int32.Parse(new string(listOrder[u].TakeWhile(Char.IsDigit).ToArray()));
+                    if (indexAttr == indexAttrTmp)
+                    {
+                        this._errorMessage = "A column has been specified more than once in the order by list. Columns in the order by list must be unique.";
+                        throw new Exception(this._errorMessage);
+                    }
+                        
+
+                }
+            }
+            return listOrder;
+        }
+
         private string checkDistinctSelect()
         {
             string message = "";
@@ -2285,46 +2375,35 @@ namespace FRDB_SQLite
             List<FzTupleEntity> relationTmp = relation;
             String[] listOrder = null;
             int orderBy = 0, indexAttr = 0;
-            string orderByAttr = "";
             orderBy = this._queryText.IndexOf(" order by ");
             listOrder = this._queryText.Substring(orderBy + 10, this._queryText.Length - orderBy - 10).ToLower().Split(',');
             IEnumerable<FzTupleEntity> sortedTuple = null;
             string[] filter = null;
             if (_queryText.Contains(" group by "))
             {
-                filter = getFilterGroupBy();
-                for (int p = 0; p < listOrder.Count(); p++)
-                {
-                    if (listOrder[p][0] == ' ')
-                        listOrder[p] = listOrder[p].Remove(0, 1);
-                    orderByAttr = listOrder[p].Split(' ').First();
-                    indexAttr = IndexOfAttrGroupBy(orderByAttr, filter);
-                    if (indexAttr > 0) break;
-                    if (indexAttr < 0)
-                    {
-                        this._errorMessage = "Invalid attribute to order by";
-                        throw new Exception(this._errorMessage);
-                    }
-                }
+                filter = getFilterGroupBy();  
             }
+            listOrder = CheckOrderByReturnList(listOrder, filter);
+            //Regex regex = new Regex(@"\s{2,}"); // matches at least 2 whitespaces
+            
+            indexAttr = Int32.Parse(new string(listOrder[0].TakeWhile(Char.IsDigit).ToArray()));
             orderBy = listOrder[0].IndexOf(" desc");
-            orderByAttr = listOrder[0].Split(' ').First();
-            if (_queryText.Contains(" group by "))
-                indexAttr = IndexOfAttrGroupBy(orderByAttr, filter);
-            else indexAttr = IndexOfAttr(orderByAttr);
-            if (indexAttr < 0)
-            {
-                if(IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)
-                {
-                    indexAttr = Int32.Parse(orderByAttr);
-                    this._errorMessage = "";
-                }
-                else
-                {
-                    this._errorMessage = "Invalid attribute to order by";
-                    throw new Exception(this._errorMessage);
-                }
-            }
+            //orderByAttr = listOrder[0].Split(' ').First();
+            //if (_queryText.Contains(" group by "))
+            //    indexAttr = IndexOfAttrGroupBy(orderByAttr, filter);
+            //else indexAttr = IndexOfAttr(orderByAttr);
+            //if(IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)//order by index
+            //    indexAttr = Int32.Parse(orderByAttr);
+            //if (indexAttr < 0)
+            //{
+            //    if(IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)//order by index
+            //        indexAttr = Int32.Parse(orderByAttr);
+            //    else
+            //    {
+            //        this._errorMessage = "Invalid attribute to order by";
+            //        throw new Exception(this._errorMessage);
+            //    }
+            //}
             if (orderBy > 0)
             {
                 sortedTuple = from tuple in relationTmp
@@ -2379,17 +2458,27 @@ namespace FRDB_SQLite
                 sortedTuple1 = null;
                 for (int i = 1; i < listOrder.Length; i++)
                 {
+                    int indexAttr1 = Int32.Parse(new string(listOrder[i].TakeWhile(Char.IsDigit).ToArray()));
                     int orderBy1 = listOrder[i].IndexOf(" desc");
-                    string orderByAttr1 = listOrder[i].Split(' ').First();
-                    int indexAttr1 = 0;
-                    if (_queryText.Contains(" group by "))
-                        indexAttr1 = IndexOfAttrGroupBy(orderByAttr1, filter);  
-                    else indexAttr1 = IndexOfAttr(orderByAttr1);
-                    if (indexAttr < 0)
-                    {
-                        this._errorMessage = "Invalid attribute to order by";
-                        throw new Exception(this._errorMessage);
-                    }
+                    //string orderByAttr1 = listOrder[i].Split(' ').First();
+                    //int indexAttr1 = 0;
+                    //if (_queryText.Contains(" group by "))
+                    //    indexAttr1 = IndexOfAttrGroupBy(orderByAttr1, filter);  
+                    //else indexAttr1 = IndexOfAttr(orderByAttr1);
+                    //if (IsNumber(orderByAttr1) && Int32.Parse(orderByAttr1) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)//order by index
+                    //    indexAttr1 = Int32.Parse(orderByAttr1);
+                    //if (indexAttr1 < 0)
+                    //{
+                    //    if (IsNumber(orderByAttr1) && Int32.Parse(orderByAttr1) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)//order by index
+                    //        indexAttr1 = Int32.Parse(orderByAttr1);
+                    //    else
+                    //    {
+                    //        if (IsNumber(orderByAttr1))
+                    //            this._errorMessage = "The ORDER BY position number is out of range of the number of items in the select list.";
+                    //        else this._errorMessage = "Invalid attribute to order by";
+                    //        throw new Exception(this._errorMessage);
+                    //    }
+                    //}
                     if (i == 1)
                     {
                         sortedTuple1 = sortedTuple.AsEnumerable().Where(item => item.ValuesOnPerRow[indexAttr].ToString() == attrDuplicate1.ElementAt(k).Key.ToString())

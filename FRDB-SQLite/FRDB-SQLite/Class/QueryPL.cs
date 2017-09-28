@@ -303,7 +303,7 @@ namespace FRDB_SQLite.Class
                 {
                     for (int i = 0; i < selectAttrArr.Length; i++)
                     {
-                        if (!groupbyAttr.Contains(selectAttrArr[i].Trim().ToLower()) && !selectAttrArr[i].Trim().ToLower().Contains("min") && !selectAttrArr[i].Trim().ToLower().Contains("max") && !selectAttrArr[i].Trim().ToLower().Contains("count") && !selectAttrArr[i].Trim().ToLower().Contains("avg") && !selectAttrArr[i].Trim().ToLower().Contains("sum"))
+                        if (!groupbyAttr.Contains(selectAttrArr[i].Trim().ToLower()) && !selectAttrArr[i].Trim().ToLower().Contains("min") && !selectAttrArr[i].Trim().ToLower().Contains("max") && !selectAttrArr[i].Trim().ToLower().Contains("count") && !selectAttrArr[i].Trim().ToLower().Contains("avg") && !selectAttrArr[i].Trim().ToLower().Contains("sum") && !selectAttrArr[i].Trim().ToLower().Contains("as") && !selectAttrArr[i].Trim().ToLower().Contains("distinct"))
                             return message = "Attributes in 'select' must be included in 'group by'";
                     }
                 }
