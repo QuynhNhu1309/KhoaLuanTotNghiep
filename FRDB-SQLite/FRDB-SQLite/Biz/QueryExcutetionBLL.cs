@@ -887,19 +887,20 @@ namespace FRDB_SQLite
             return -2;
         }
 
-        private int IndexOfAttrGroupBy(string s, String[] filter)
+        private int IndexOfAttrGroupBy(string s)
         {
-            for (int i = 0; i < filter.Count(); i++)
+            int i = 0;
+            if (IsNumber(s) && Int32.Parse(s) < this._selectedAttributes.Count - 1)//order by index of group by, must be in group by
+                return Int32.Parse(s);
+            for (i = 0; i < this._selectedAttributes.Count(); i++)
             {
-                if (s.Equals(filter[i].ToLower()))
+                if (s.Equals(this._selectedAttributes[i].AttributeName.ToLower()))
                 {
                     return i;
                 }
                 else if (s == "*")
                     return -1;
             }
-            //if (IsNumber(s) && Int32.Parse(s) < this._selectedAttributes.Count - 1)//order by index of group by, must be in group by
-            //    return Int32.Parse(s);
             return -2;
         }
 
@@ -1793,7 +1794,7 @@ namespace FRDB_SQLite
             return message;
         }
 
-        private string[] CheckOrderByReturnList(string[] listOrder, String[] filterGroupBy)
+        private string[] CheckOrderByReturnList(string[] listOrder)
         {
             string orderByAttr = "";
             int indexAttr = 0;
@@ -1809,37 +1810,29 @@ namespace FRDB_SQLite
                     throw new Exception(this._errorMessage);
                 }
                 orderByAttr = listOrder[p].Split(' ').First();
-                int countStart = 0;
+                Boolean flag = true;
                 Start:
-                countStart++;
                 if (_queryText.Contains(" group by "))
-                    indexAttr = IndexOfAttrGroupBy(orderByAttr, filterGroupBy);
+                    indexAttr = IndexOfAttrGroupBy(orderByAttr);
                 else
-                    indexAttr = IndexOfAttr(orderByAttr);
-                if (IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedAttributes.Count - 1 && indexAttr < 0 && countStart > 0)//order by index of group by, must be in group by
                 {
-                    indexAttr = Int32.Parse(orderByAttr);
-                    if(this._selectedAttributeTexts != null)
+                    indexAttr = IndexOfAttr(orderByAttr);
+                    if (IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedAttributes.Count - 1 && indexAttr < 0)//order by index 
+                        indexAttr = Int32.Parse(orderByAttr);
+                    if (indexAttr < 0)//order by when attributeText != null, !group by & select count(*), sum....
                     {
-                        orderByAttr = this._selectedAttributes[indexAttr].AttributeName.ToString();
-                        countStart = -1;
-                        goto Start;
+                        for(int i = 0; i < this._selectedAttributes.Count - 1; i++)
+                        {
+                            if (orderByAttr.Equals(this._selectedAttributes[i].AttributeName.ToLower()))
+                                indexAttr = i;
+                        }
                     }
                 }
-
-                if (IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedAttributes.Count - 1 && indexAttr < 0 && countStart == 0 && this._selectedAttributeTexts != null && _queryText.Contains(" as "))//order by index of group by, must be in group by
-                {
-                    indexAttr = Int32.Parse(orderByAttr);
-                    orderByAttr = this._selectedAttributes[indexAttr].AttributeName.ToString();
-                }
-
-
-
-
-
+                    
+               
                 if (indexAttr < 0)
                 {
-                    if(_queryText.Contains(" as "))
+                    if(_queryText.Contains(" as ") && flag)
                     {
                         for(int y = 0; y < this._selectedAttributeTexts.Count(); y++)
                         {
@@ -1848,13 +1841,14 @@ namespace FRDB_SQLite
                                 string asAttribute = this._selectedAttributeTexts[y].Substring(this._selectedAttributeTexts[y].IndexOf("-as-") + 4, this._selectedAttributeTexts[y].Length - this._selectedAttributeTexts[y].IndexOf("-as-") - 4);
                                 if(asAttribute == orderByAttr)
                                 {
+                                    flag = false;
                                     orderByAttr = this._selectedAttributeTexts[y].Substring(0, this._selectedAttributeTexts[y].IndexOf("-as-"));
                                     if(orderByAttr.Contains("-distinct-"))
                                         orderByAttr = orderByAttr.Substring(orderByAttr.IndexOf("-distinct-") + 10);
-                                    if(orderByAttr.Contains("sum(") || orderByAttr.Contains("min(") || orderByAttr.Contains("max(") || orderByAttr.Contains("avg(") || orderByAttr.Contains("count("))
+                                    if (orderByAttr.Contains("sum(") || orderByAttr.Contains("min(") || orderByAttr.Contains("max(") || orderByAttr.Contains("avg(") || orderByAttr.Contains("count(") && !_queryText.Contains(" group by "))
                                     {
-                                        this._errorMessage = "Invalid attribute to order by, we do not support order by allias with aggregate function";
-                                        throw new Exception(this._errorMessage);
+                                        indexAttr = 0;
+                                        break;
                                     }
                                     goto Start;
                                 }
@@ -1864,12 +1858,12 @@ namespace FRDB_SQLite
                         
                     }
                         
-                    if (IsNumber(orderByAttr))
+                    if (IsNumber(orderByAttr) && indexAttr < 0)
                     {
                         this._errorMessage = "The ORDER BY position number is out of range of the number of items in the select list.";
                         throw new Exception(this._errorMessage);
                     }  
-                    else
+                    else if (indexAttr < 0)
                     {
                         this._errorMessage = "Invalid attribute to order by";
                         throw new Exception(this._errorMessage);
@@ -2401,12 +2395,12 @@ namespace FRDB_SQLite
             orderBy = this._queryText.IndexOf(" order by ");
             listOrder = this._queryText.Substring(orderBy + 10, this._queryText.Length - orderBy - 10).ToLower().Split(',');
             IEnumerable<FzTupleEntity> sortedTuple = null;
-            string[] filter = null;
-            if (_queryText.Contains(" group by "))
-            {
-                filter = getFilterGroupBy();  
-            }
-            listOrder = CheckOrderByReturnList(listOrder, filter);
+            //string[] filter = null;
+            //if (_queryText.Contains(" group by "))
+            //{
+            //    filter = getFilterGroupBy();  
+            //}
+            listOrder = CheckOrderByReturnList(listOrder);
             //Regex regex = new Regex(@"\s{2,}"); // matches at least 2 whitespaces
             
             indexAttr = Int32.Parse(new string(listOrder[0].TakeWhile(Char.IsDigit).ToArray()));
