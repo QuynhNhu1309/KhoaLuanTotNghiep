@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Data;
 using System.Text.RegularExpressions;
+using FRDB_SQLite.Biz;
 
 namespace FRDB_SQLite
 {
@@ -21,6 +22,9 @@ namespace FRDB_SQLite
         List<int> _index = new List<int>();
 
         private String _queryText;
+        private String _queryType;
+        private String _combinationType;
+        private List<String> _singleQueries;
         private List<FzRelationEntity> _relationSet;
         private String _errorMessage;
         private Boolean _error;
@@ -77,103 +81,157 @@ namespace FRDB_SQLite
         #region 4. Publics
         public FzRelationEntity ExecuteQuery()
         {
-            FzRelationEntity result = new FzRelationEntity();
-            List<FzTupleEntity> resultTmp = new List<FzTupleEntity>();
+            FzRelationEntity result = null;
             try
             {
-                this.GetSectedRelation(); if (this._error) throw new Exception(this._errorMessage);
-                this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
-
-               // _errorMessage = ExistsAttribute();
-                if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
-
-
-                if (this._queryText.Contains("where"))
+                if (this._queryType == Constants.QUERY_TYPE.COMBINATION)
                 {
-                    List<Item> items = FormatCondition(this._conditionText);
-                    //Check fuzzy set and object here
-                    this.ErrorMessage = ExistsFuzzySet(items);
-                    if (ErrorMessage != "") { this.Error = true; return result; }
-                    
-                    QueryConditionBLL condition = new QueryConditionBLL(items, this._selectedRelations,_fdbEntity);
-                    
-                    
-                    foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
+                    // The SQL statement with Union is now ready to process
+                    QueryExcutetionBLL fstExecution = new QueryExcutetionBLL(this._singleQueries[0], this._fdbEntity);
+                    QueryExcutetionBLL sndExecution = new QueryExcutetionBLL(this._singleQueries[1], this._fdbEntity);
+                    FzRelationEntity fstQueryResult = fstExecution.ExecuteQuery();
+                    FzRelationEntity sndQueryResult = sndExecution.ExecuteQuery();
+                    if (fstExecution.Error)
                     {
-                        if (condition.Satisfy(items, tuple)!="0")
-                        {
-                            if (this._selectedAttributeTexts != null)
-                                resultTmp.Add(condition.ResultTuple);//done
-                            else
-                                result.Tuples.Add(condition.ResultTuple);//done
-                        }
+                        throw new Exception(fstExecution.ErrorMessage);
                     }
-                    if (this._queryText.Contains(" group by "))//done with having
+                    if (sndExecution.Error)
                     {
-                        result.Scheme.Attributes = this._selectedRelations[0].Scheme.Attributes;
-                        result.Tuples = resultTmp;
-                        result = ProcessGroupBy(result, _queryText);// process group by and having            
+                        throw new Exception(sndExecution.ErrorMessage);
                     }
-                    else if (this._selectedAttributeTexts != null)
+                    FzRelationEntity unionResult = new FzRelationEntity()
                     {
-                        if (this._queryText.Contains(" order by"))
-                            resultTmp = ProcessOrderBy(resultTmp);
-                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity));//Như add
-                    }    
-                    result.Scheme.Attributes = this._selectedAttributes;
+                        RelationName = $"{fstQueryResult.RelationName}_{sndQueryResult.RelationName}",
+                        Scheme = fstQueryResult.Scheme,
+                    };
+                    List<FzTupleEntity> resultTuples;
+                    if (this._combinationType == Constants.COMBINATION_TYPE.UNION)
+                    {
+                        resultTuples = GetUnion(fstQueryResult.Tuples, sndQueryResult.Tuples);
+                    }
+                    else if (this._combinationType == Constants.COMBINATION_TYPE.INTERSECT)
+                    {
+                        resultTuples = GetIntersect(fstQueryResult.Tuples, sndQueryResult.Tuples);
+                    }
+                    else if (this._combinationType == Constants.COMBINATION_TYPE.EXCEPT)
+                    {
+                        resultTuples = GetExcept(fstQueryResult.Tuples, sndQueryResult.Tuples);
+                    }
+                    else
+                    {
+                        resultTuples = new List<FzTupleEntity>();
+                    }
+                    result = new FzRelationEntity()
+                    {
+                        RelationName = $"{fstQueryResult.RelationName}_{sndQueryResult.RelationName}",
+                        Scheme = fstQueryResult.Scheme,
+                        Tuples = resultTuples
+                    };
+
+                    //order by
+                    if (this._queryText.Contains(" order by"))
+                    {
+                        this._selectedRelations.Add(result);
+                        result.Tuples = ProcessOrderBy(result.Tuples);
+                        result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
+                    }
                 }
-                if (!this._queryText.Contains("where"))
+                else
                 {
-                    result.Scheme.Attributes = this._selectedAttributes;
-                    result.RelationName = this._selectedRelations[0].RelationName;
-                    if (this._queryText.Contains(" group by "))//done
+                    result = new FzRelationEntity();
+                    List<FzTupleEntity> resultTmp = new List<FzTupleEntity>();
+                    this.GetSectedRelation(); if (this._error) throw new Exception(this._errorMessage);
+                    this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
+
+                    // _errorMessage = ExistsAttribute();
+                    if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
+
+
+                    if (this._queryText.Contains("where"))
                     {
-                        //result.Scheme.Attributes = this._selectedAttributes;
-                        //foreach (var item in this._selectedRelations[0].Tuples)
-                        //    result.Tuples.Add(item);
-                        //result = this._selectedRelations[0];
-                        result = ProcessGroupBy(this._selectedRelations[0], _queryText);// process group by and having            
-                    }
-                    else if (this._selectedAttributeTexts != null)
-                    {
-                        //foreach (var item in this._selectedRelations[0].Tuples)
-                        //    result.Tuples.Add(GetSelectedAttributes(item));
-                        if (this._queryText.Contains(" order by"))
+                        List<Item> items = FormatCondition(this._conditionText);
+                        //Check fuzzy set and object here
+                        this.ErrorMessage = ExistsFuzzySet(items);
+                        if (ErrorMessage != "") { this.Error = true; return result; }
+
+                        QueryConditionBLL condition = new QueryConditionBLL(items, this._selectedRelations, _fdbEntity);
+
+
+                        foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
                         {
-                            resultTmp = ProcessOrderBy(this._selectedRelations[0].Tuples);
-                            //result.Tuples.RemoveRange(0, this._selectedRelations[0].Tuples.Count() / 2);
+                            if (condition.Satisfy(items, tuple) != "0")
+                            {
+                                if (this._selectedAttributeTexts != null)
+                                    resultTmp.Add(condition.ResultTuple);//done
+                                else
+                                    result.Tuples.Add(condition.ResultTuple);//done
+                            }
                         }
-                        else
+                        if (this._queryText.Contains(" group by "))//done with having
+                        {
+                            result.Scheme.Attributes = this._selectedRelations[0].Scheme.Attributes;
+                            result.Tuples = resultTmp;
+                            result = ProcessGroupBy(result, _queryText);// process group by and having            
+                        }
+                        else if (this._selectedAttributeTexts != null)
+                        {
+                            if (this._queryText.Contains(" order by"))
+                                resultTmp = ProcessOrderBy(resultTmp);
+                            result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity));//Như add
+                        }
+                        result.Scheme.Attributes = this._selectedAttributes;
+                    }
+                    if (!this._queryText.Contains("where"))
+                    {
+                        result.Scheme.Attributes = this._selectedAttributes;
+                        result.RelationName = this._selectedRelations[0].RelationName;
+                        if (this._queryText.Contains(" group by "))//done
+                        {
+                            //result.Scheme.Attributes = this._selectedAttributes;
+                            //foreach (var item in this._selectedRelations[0].Tuples)
+                            //    result.Tuples.Add(item);
+                            //result = this._selectedRelations[0];
+                            result = ProcessGroupBy(this._selectedRelations[0], _queryText);// process group by and having            
+                        }
+                        else if (this._selectedAttributeTexts != null)
+                        {
+                            //foreach (var item in this._selectedRelations[0].Tuples)
+                            //    result.Tuples.Add(GetSelectedAttributes(item));
+                            if (this._queryText.Contains(" order by"))
+                            {
+                                resultTmp = ProcessOrderBy(this._selectedRelations[0].Tuples);
+                                //result.Tuples.RemoveRange(0, this._selectedRelations[0].Tuples.Count() / 2);
+                            }
+                            else
+                            {
+                                foreach (var item in this._selectedRelations[0].Tuples)
+                                    resultTmp.Add(item);
+                            }
+
+                            result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity));//Như add false
+                        }
+                        else if (this._selectedAttributeTexts == null)
                         {
                             foreach (var item in this._selectedRelations[0].Tuples)
-                                resultTmp.Add(item);
+                                result.Tuples.Add(item);
                         }
-
-                        result.Tuples.AddRange(GetSelectedAttributes(resultTmp, _fdbEntity));//Như add false
                     }
-                    else if (this._selectedAttributeTexts == null)
+
+                    //distinct
+                    if (this._queryText.Contains("distinct "))
                     {
-                        foreach (var item in this._selectedRelations[0].Tuples)
-                            result.Tuples.Add(item);
+                        int countTupleOriginal = result.Tuples.Count();
+                        result.Tuples = ProcessDistinct(result.Tuples);
+                        result.Tuples.RemoveRange(0, countTupleOriginal);
+                    }
+
+                    //order by
+                    if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
+                    {
+                        result.Tuples = ProcessOrderBy(result.Tuples);
+                        result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
                     }
                 }
-
-                //distinct
-                if (this._queryText.Contains("distinct "))
-                {
-                    int countTupleOriginal = result.Tuples.Count();
-                    result.Tuples = ProcessDistinct(result.Tuples);
-                    result.Tuples.RemoveRange(0, countTupleOriginal);
-                }
-
-                //order by
-                if (this._queryText.Contains(" order by") && (this._selectedAttributeTexts == null || (this._selectedAttributeTexts != null && this._queryText.Contains(" group by "))))
-                {
-                    result.Tuples = ProcessOrderBy(result.Tuples);
-                    result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
-                }
-
-
             }
             catch (Exception ex)
             {
@@ -184,6 +242,110 @@ namespace FRDB_SQLite
 
             return result;
         }
+
+        private List<FzTupleEntity> GetUnion(List<FzTupleEntity> fstRelationTuples, List<FzTupleEntity> sndRelationTuples)
+        {
+            QueryConditionBLL condition = new QueryConditionBLL();
+            List<FzTupleEntity> result = new List<FzTupleEntity>(fstRelationTuples);
+            List<FzTupleEntity> tmpTuples = new List<FzTupleEntity>();
+            foreach (FzTupleEntity sndRelationTuple in sndRelationTuples)
+            {
+                bool isTupleEqual = false;
+                foreach (FzTupleEntity fstRelationTuple in result)
+                {
+                    if (fstRelationTuple.Equals(sndRelationTuple))
+                    {
+                        isTupleEqual = true;
+                        String newFS = String.Empty;
+                        String fstMemberShip = fstRelationTuple.MemberShip;
+                        String sndMemberShip = sndRelationTuple.MemberShip;
+                        DisFS fstDisFS = condition.getDisFS(fstMemberShip, _fdbEntity);
+                        DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
+                        if (fstDisFS == null && sndDisFS == null)
+                        {
+                            newFS = Math.Max(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
+                        }
+                        else if (fstDisFS == null)
+                        {
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
+                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                        }
+                        else
+                        {
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
+                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                        }
+                        fstRelationTuple.MemberShip = newFS;
+                    }
+                }
+                if (!isTupleEqual)
+                {
+                    tmpTuples.Add(sndRelationTuple);
+                }
+            }
+            result = result.Concat(tmpTuples).ToList();
+            return result;
+        }
+
+        private List<FzTupleEntity> GetIntersect(List<FzTupleEntity> fstRelationTuples, List<FzTupleEntity> sndRelationTuples)
+        {
+            QueryConditionBLL condition = new QueryConditionBLL();
+            List<FzTupleEntity> result = new List<FzTupleEntity>();
+            foreach (FzTupleEntity sndRelationTuple in sndRelationTuples)
+            {
+                foreach (FzTupleEntity fstRelationTuple in fstRelationTuples)
+                {
+                    if (fstRelationTuple.Equals(sndRelationTuple))
+                    {
+                        String newFS = String.Empty;
+                        String fstMemberShip = fstRelationTuple.MemberShip;
+                        String sndMemberShip = sndRelationTuple.MemberShip;
+                        DisFS fstDisFS = condition.getDisFS(fstMemberShip, _fdbEntity);
+                        DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
+                        if (fstDisFS == null && sndDisFS == null)
+                        {
+                            newFS = Math.Min(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
+                        }
+                        else if (fstDisFS == null)
+                        {
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
+                            newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
+                        }
+                        else
+                        {
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
+                            newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
+                        }
+                        result.Add(new FzTupleEntity(fstRelationTuple, newFS));
+                    }
+                }
+            }
+            return result;
+        }
+
+        private List<FzTupleEntity> GetExcept(List<FzTupleEntity> fstRelationTuples, List<FzTupleEntity> sndRelationTuples)
+        {
+            QueryConditionBLL condition = new QueryConditionBLL();
+            List<FzTupleEntity> result = new List<FzTupleEntity>();
+            foreach (FzTupleEntity fstRelationTuple in fstRelationTuples)
+            {
+                bool isTupleEqual = false;
+                foreach (FzTupleEntity sndRelationTuple in sndRelationTuples)
+                {
+                    if (fstRelationTuple.Equals(sndRelationTuple))
+                    {
+                        isTupleEqual = true;
+                        break;
+                    }
+                }
+                if (!isTupleEqual)
+                {
+                    result.Add(fstRelationTuple);
+                }
+            }
+            return result;
+        }
+
 
         /// <summary>
         /// Return the List of string[]: 0.index of attribute; 1. operator; 2.value(maybe fuzzy); 3the logicality (and or not)
@@ -313,20 +475,77 @@ namespace FRDB_SQLite
             {
                 ///Get selected attributes which user input
                 this._selectedAttributeTexts = GetAttributeTexts(this._queryText);
-                
-                ///Get selected relations which user input
-                this._selectedRelationTexts = GetRelationTexts(this._queryText);
-                _errorMessage = ExistsRelation();
-                if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
-                
-                ///Get condition text user input
-                this._conditionText = GetConditionText(this._queryText);
 
-                // Add quotes mark for condition
-                if (_conditionText != String.Empty)
-                    this._conditionText = AddParenthesis(this._conditionText);
-                //Format condition
+                if (this._queryText.Contains("union") || this._queryText.Contains("intersect") || this._queryText.Contains("except"))
+                {
+                    this._queryType = Constants.QUERY_TYPE.COMBINATION;
+                }
+                else
+                {
+                    this._queryType = Constants.QUERY_TYPE.SINGLE;
+                }
+                if (this._queryType == Constants.QUERY_TYPE.COMBINATION)
+                {
+                    if (this._queryText.Contains("union"))
+                    {
+                        this._combinationType = Constants.COMBINATION_TYPE.UNION;
+                    }
+                    else if (this._queryText.Contains("intersect"))
+                    {
+                        this._combinationType = Constants.COMBINATION_TYPE.INTERSECT;
+                    }
+                    else if (this._queryText.Contains("except"))
+                    {
+                        this._combinationType = Constants.COMBINATION_TYPE.EXCEPT;
+                    }
+                    this._singleQueries = SplitQuery(this._queryText, this._combinationType);
+                    if (this._singleQueries[0].Contains("order by"))
+                    {
+                        this._errorMessage = "Query syntax is wrong";
+                        throw new Exception(this._errorMessage);
+                    }
+                    String[] fstQueryAttributes = GetAttributeTexts(this._singleQueries[0]);
+                    String[] sndQueryAttributes = GetAttributeTexts(this._singleQueries[1]);
+                    bool isEqual = fstQueryAttributes.SequenceEqual(sndQueryAttributes);
+                    if (!isEqual)
+                    {
+                        this._errorMessage = "The select statements do not have the same result columns";
+                        throw new Exception(this._errorMessage);
+                    }
+                    String[] fstRelationTexts = GetRelationTexts(this._singleQueries[0]);
+                    String[] sndRelationTexts = GetRelationTexts(this._singleQueries[1]);
+                    FzRelationEntity fstRelation = this._fdbEntity.Relations
+                        .Find(item => item.RelationName.Equals(fstRelationTexts[0], StringComparison.InvariantCultureIgnoreCase));
+                    FzRelationEntity sndRelation = this._fdbEntity.Relations
+                        .Find(item => item.RelationName.Equals(sndRelationTexts[0], StringComparison.InvariantCultureIgnoreCase));
+                    for (int i = 0; i < fstQueryAttributes.Length; i++)
+                    {
+                        FzAttributeEntity fstAttr = fstRelation.Scheme.Attributes
+                            .Find(attr => attr.AttributeName.Equals(fstQueryAttributes[i], StringComparison.InvariantCultureIgnoreCase));
+                        FzAttributeEntity sndAttr = sndRelation.Scheme.Attributes
+                            .Find(attr => attr.AttributeName.Equals(sndQueryAttributes[i], StringComparison.InvariantCultureIgnoreCase));
+                        if (fstAttr.DataType.DataType != sndAttr.DataType.DataType)
+                        {
+                            this._errorMessage = "The select statements do not have the same result columns";
+                            throw new Exception(_errorMessage);
+                        }
+                    }
+                }
+                else
+                {
+                    ///Get selected relations which user input
+                    this._selectedRelationTexts = GetRelationTexts(this._queryText);
+                    _errorMessage = ExistsRelation();
+                    if (ErrorMessage != "") { this.Error = true; throw new Exception(_errorMessage); }
 
+                    ///Get condition text user input
+                    this._conditionText = GetConditionText(this._queryText);
+
+                    // Add quotes mark for condition
+                    if (_conditionText != String.Empty)
+                        this._conditionText = AddParenthesis(this._conditionText);
+                    //Format condition
+                }
             }
             catch (Exception ex)
             {
@@ -886,6 +1105,32 @@ namespace FRDB_SQLite
                     return -1;
             }
             return -2;
+        }
+
+        private List<String> SplitQuery(String mutipleQueryText, String combinationType)
+        {
+            int orderIndex = mutipleQueryText.IndexOf(" order by ");
+            String tmpQueryText = mutipleQueryText;
+            if (orderIndex >= 0)
+            {
+                tmpQueryText = mutipleQueryText.Substring(0, orderIndex);
+            }
+            List<String> singleQueries = new List<String>();
+            String seperator = String.Empty;
+            if (combinationType == Constants.COMBINATION_TYPE.UNION)
+            {
+                seperator = " union ";
+            }
+            else if (combinationType == Constants.COMBINATION_TYPE.INTERSECT)
+            {
+                seperator = " intersect ";
+            }
+            else if (combinationType == Constants.COMBINATION_TYPE.EXCEPT)
+            {
+                seperator = " except ";
+            }
+            singleQueries = tmpQueryText.Split(new String[] { seperator }, StringSplitOptions.None).ToList();
+            return singleQueries;
         }
 
         private int IndexOfAttrGroupBy(string s)

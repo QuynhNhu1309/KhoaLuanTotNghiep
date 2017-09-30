@@ -157,8 +157,8 @@ namespace FRDB_SQLite.Class
             orderby = query.IndexOf(" order by ");
 
             string[] selectAttrArr = null;
-            if (select != query.LastIndexOf("select"))// Select must be unique
-                return message = "Not support multi 'select'!";
+            //if (select != query.LastIndexOf("select"))// Select must be unique
+            //    return message = "Not support multi 'select'!";
 
             //if (selectAttr != query.LastIndexOf("*"))// * must be unique
             //    return message = "Not support multi '*'!";
@@ -182,8 +182,8 @@ namespace FRDB_SQLite.Class
                 //    return message = "Missing comma near 'select' clause";
             }
 
-            if (from != query.LastIndexOf("from"))// From must be unique
-                return message = "Not support multi 'from'!";
+            //if (from != query.LastIndexOf("from"))// From must be unique
+            //    return message = "Not support multi 'from'!";
 
             if (!query.Contains("where"))
             {
@@ -200,8 +200,8 @@ namespace FRDB_SQLite.Class
                 else if (groupby < 0 && orderby < 0)
                     whereAttr = query.Substring(where + 5);
 
-                if (where != query.LastIndexOf("where"))// Where must be unique
-                    return message = "Not support multi condition with 'where'!";
+                //if (where != query.LastIndexOf("where"))// Where must be unique
+                //    return message = "Not support multi condition with 'where'!";
 
                 if (query.Substring(where + 5).Trim() == "")// Missing condition after 'where'
                     return message = "Incorrect syntax near 'where': missing condition.";

@@ -11,6 +11,7 @@ namespace FRDB_SQLite.Biz
         {
             public const String SINGLE = "Constants/QUERY_TYPE/SINGLE";
             public const String MUTIPLE = "Constants/QUERY_TYPE/MUTIPLE";
+            public const String COMBINATION = "Constants/QUERY_TYPE/COMBINATION";
         }
         static public class COMBINATION_TYPE
         {
