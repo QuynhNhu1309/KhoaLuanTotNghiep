@@ -666,15 +666,15 @@ namespace FRDB_SQLite
                                     count++;
                                     if ((textTmp != "" && text.Contains("count(")))
                                         break;
-                                    //else if(!text.Contains("count("))
-                                    //{
-                                    //    //int index = this._selectedRelations[0].Scheme.Attributes.FindIndex
-                                    //    Boolean error = IsNumericType((this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType).ToString());
-                                    //    if (!error) throw new Exception("Data type of aggregate function is not valid");
+                                    else if (!text.Contains("count("))
+                                    {
+                                        //int index = this._selectedRelations[0].Scheme.Attributes.FindIndex
+                                        Boolean error = IsNumericType((this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType).ToString());
+                                        if (!error) throw new Exception("Data type of aggregate function is not valid, we only support aggregate function numerical data");
 
 
-                                    //}
-                                    
+                                    }
+
                                 }
                                 
                             }
