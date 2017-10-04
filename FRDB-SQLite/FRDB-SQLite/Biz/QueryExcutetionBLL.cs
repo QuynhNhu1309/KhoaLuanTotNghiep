@@ -569,6 +569,33 @@ namespace FRDB_SQLite
                         }
                     }
                 }
+                //convert value from string to exact data type
+                for (int i = 0; i < this._selectedRelations[0].Scheme.Attributes.Count() - 1; i++)
+                {
+                    if (this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType != "String")
+                    {
+                        string dataType = this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType;
+                        for (int j = 0; j < this._selectedRelations[0].Tuples.Count(); j++)
+                        {
+                            switch (dataType)
+                            {
+                                case "Int16":
+                                case "Int64":
+                                case "Int32":
+                                case "Byte":
+                                case "Currency": { this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i] = Convert.ToInt32(this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i]); break; }
+                                case "Decimal":
+                                case "Single":
+                                case "Double":
+                                    { this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i] = Convert.ToDouble(this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i]); break; }
+                                case "DateTime":
+                                    { this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i] = DateTime.Parse(this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i].ToString()); break; }
+
+                            }
+
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -639,14 +666,14 @@ namespace FRDB_SQLite
                                     count++;
                                     if ((textTmp != "" && text.Contains("count(")))
                                         break;
-                                    else if(!text.Contains("count("))
-                                    {
-                                        //int index = this._selectedRelations[0].Scheme.Attributes.FindIndex
-                                        Boolean error = IsNumericType((this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType).ToString());
-                                        if (!error) throw new Exception("Data type of aggregate function is not valid");
+                                    //else if(!text.Contains("count("))
+                                    //{
+                                    //    //int index = this._selectedRelations[0].Scheme.Attributes.FindIndex
+                                    //    Boolean error = IsNumericType((this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType).ToString());
+                                    //    if (!error) throw new Exception("Data type of aggregate function is not valid");
 
 
-                                    }
+                                    //}
                                     
                                 }
                                 
