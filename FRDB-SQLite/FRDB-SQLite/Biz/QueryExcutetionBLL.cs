@@ -15,6 +15,7 @@ namespace FRDB_SQLite
         private String[] _selectedAttributeTexts = null;
         private String[] _selectedRelationTexts = null;
         public String _conditionText = String.Empty;
+        private List<String> dataTypeForOrderBy = new List<string>();
         List<Item> itemSelects = new List<Item>();
 
         private List<FzAttributeEntity> _selectedAttributes = new List<FzAttributeEntity>();
@@ -569,33 +570,6 @@ namespace FRDB_SQLite
                         }
                     }
                 }
-                //convert value from string to exact data type
-                for (int i = 0; i < this._selectedRelations[0].Scheme.Attributes.Count() - 1; i++)
-                {
-                    if (this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType != "String")
-                    {
-                        string dataType = this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType;
-                        for (int j = 0; j < this._selectedRelations[0].Tuples.Count(); j++)
-                        {
-                            switch (dataType)
-                            {
-                                case "Int16":
-                                case "Int64":
-                                case "Int32":
-                                case "Byte":
-                                case "Currency": { this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i] = Convert.ToInt32(this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i]); break; }
-                                case "Decimal":
-                                case "Single":
-                                case "Double":
-                                    { this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i] = Convert.ToDouble(this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i]); break; }
-                                case "DateTime":
-                                    { this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i] = DateTime.Parse(this._selectedRelations[0].Tuples[j].ValuesOnPerRow[i].ToString()); break; }
-
-                            }
-
-                        }
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -688,6 +662,7 @@ namespace FRDB_SQLite
                                 {
                                     textAs = textTmp.Substring(textTmp.IndexOf("-as-") + 4, textTmp.Length - textTmp.IndexOf("-as-") - 4);
                                     attrText.AttributeName = textAs;
+                                    attrText.DataType.DataType = attr.DataType.DataType;
                                     this._selectedAttributes.Add(attrText);
                                     textTmp = textTmp.Substring(0, textTmp.IndexOf("-as-"));
                                     if (textTmp.Equals(attr.AttributeName.ToLower()))
@@ -696,6 +671,7 @@ namespace FRDB_SQLite
                                 else if (textTmp.Equals(attr.AttributeName.ToLower()))
                                 {
                                     attrText.AttributeName = textTmp;
+                                    attrText.DataType.DataType = attr.DataType.DataType;
                                     this._selectedAttributes.Add(attrText);
                                     count++;
                                 }
@@ -1166,12 +1142,17 @@ namespace FRDB_SQLite
             string tmp = "";
             int flagCount = 0;
             if (IsNumber(s) && Int32.Parse(s) < this._selectedAttributes.Count - 1)//order by index of group by, must be in group by
+            {
+                this.dataTypeForOrderBy.Add(this._selectedAttributes[Convert.ToInt32(s)].DataType.DataType.ToString());
                 return Int32.Parse(s);
+            }
+                
             As:
             for (i = 0; i < this._selectedAttributes.Count(); i++)
             {
                 if (s.Equals(this._selectedAttributes[i].AttributeName.ToLower()))
                 {
+                    this.dataTypeForOrderBy.Add(this._selectedAttributes[i].DataType.DataType.ToString());
                     return i;
                 }
                 else if (s == "*")
@@ -2091,7 +2072,7 @@ namespace FRDB_SQLite
             }
             return message;
         }
-
+        
         private string[] CheckOrderByReturnList(string[] listOrder)
         {
             string orderByAttr = "";
@@ -2114,7 +2095,17 @@ namespace FRDB_SQLite
                     indexAttr = IndexOfAttrGroupBy(orderByAttr);
                 else
                 {
-                    indexAttr = IndexOfAttr(orderByAttr);
+                    //indexAttr = IndexOfAttr(orderByAttr);
+                    for (int i = 0; i < this._selectedRelations[0].Scheme.Attributes.Count; i++)
+                    {
+                        if (orderByAttr.Equals(this._selectedRelations[0].Scheme.Attributes[i].AttributeName.ToLower()))
+                        {
+                            indexAttr =  i;
+                            this.dataTypeForOrderBy.Add(this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType);
+                            break;
+                        }
+                        else indexAttr = - 1;
+                    }
                     if (IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedAttributes.Count - 1 && indexAttr < 0 && flag)//order by index 
                     {
                         indexAttr = Int32.Parse(orderByAttr);
@@ -2124,6 +2115,7 @@ namespace FRDB_SQLite
                             flag = false;
                             goto Start;
                         }
+                        this.dataTypeForOrderBy.Add(this._selectedAttributes[indexAttr].DataType.DataType);
                     }
                         
                     if (indexAttr < 0 && (orderByAttr.Contains("count(") || orderByAttr.Contains("sum(") || orderByAttr.Contains("max(") || orderByAttr.Contains("min(") || orderByAttr.Contains("avg")))//order by when _selectedAttributeTexts != null, !group by & select count(*), sum....
@@ -2131,7 +2123,11 @@ namespace FRDB_SQLite
                         for(int i = 0; i < this._selectedAttributes.Count - 1; i++)
                         {
                             if (orderByAttr.Equals(this._selectedAttributes[i].AttributeName.ToLower()))
+                            {
                                 indexAttr = i;
+                                this.dataTypeForOrderBy.Add(this._selectedAttributes[indexAttr].DataType.DataType);
+                            }
+                                
                         }
                     }
                 }
@@ -2155,6 +2151,7 @@ namespace FRDB_SQLite
                                     if ((orderByAttr.Contains("sum(") || orderByAttr.Contains("min(") || orderByAttr.Contains("max(") || orderByAttr.Contains("avg(") || orderByAttr.Contains("count(")) && !_queryText.Contains(" group by "))
                                     {
                                         indexAttr = 0;
+                                        this.dataTypeForOrderBy.Add(this._selectedAttributes[indexAttr].DataType.DataType);
                                         break;
                                     }
                                     goto Start;
@@ -2657,6 +2654,12 @@ namespace FRDB_SQLite
                     int countTupleTmps = tupleTmp.Count();
                     for (int k = 0; k < countTuples; k++)
                     {
+                        if (tupleTmp2[k].ValuesOnPerRow[0].ToString() == s && tupleTmp.Count() == 0)
+                        {
+                            tupleTmp2.RemoveAt(k);
+                            countTuples = tupleTmp2.Count();
+                        }
+                            
                         for (int j = 0; j < countTupleTmps; j++)
                         {
                             if (tupleTmp[j] == tupleTmp2[k])
@@ -2672,6 +2675,7 @@ namespace FRDB_SQLite
                                 countTuples = tupleTmp2.Count();
                             }
                         }
+                        
                     }
                     //var index = tupleResult.AsEnumerable().Where(x => x.ValuesOnPerRow[0].ToString() == s).Select(result => result.Index);
                     //tupleResult = tupleResult.Where(x => x.ValuesOnPerRow[0].ToString() != s).ToList();
@@ -2721,49 +2725,61 @@ namespace FRDB_SQLite
 
 
         }
-        public List<FzTupleEntity> ProcessOrderBy(List<FzTupleEntity> relation)
+        public List<FzTupleEntity> ProcessOrderBy(List<FzTupleEntity> listOriginalTuple)
         {
-            List<FzTupleEntity> relationTmp = relation;
             String[] listOrder = null;
             int orderBy = 0, indexAttr = 0;
             orderBy = this._queryText.IndexOf(" order by ");
             listOrder = this._queryText.Substring(orderBy + 10, this._queryText.Length - orderBy - 10).ToLower().Split(',');
-            IEnumerable<FzTupleEntity> sortedTuple = null;
-            //string[] filter = null;
-            //if (_queryText.Contains(" group by "))
-            //{
-            //    filter = getFilterGroupBy();  
-            //}
-            listOrder = CheckOrderByReturnList(listOrder);
-            //Regex regex = new Regex(@"\s{2,}"); // matches at least 2 whitespaces
             
+            listOrder = CheckOrderByReturnList(listOrder);
+            //convert value from string to exact data type
+            if(_queryText.Contains(" group by ") || (!_queryText.Contains(" group by ") && itemSelects.Count() == 0))// !group by & no aggregate function
+            {
+                for (int i = 0; i < listOrder.Count(); i++)
+                {
+                    if (dataTypeForOrderBy[i] != "String")
+                    {
+                        int index = Int32.Parse(new string(listOrder[i].TakeWhile(Char.IsDigit).ToArray()));
+                        for (int j = 0; j < listOriginalTuple.Count(); j++)
+                        {
+                            switch (dataTypeForOrderBy[i])
+                            {
+                                case "Int16":
+                                case "Int64":
+                                case "Int32":
+                                case "Byte":
+                                case "Currency": { listOriginalTuple[j].ValuesOnPerRow[index] = Convert.ToInt32(listOriginalTuple[j].ValuesOnPerRow[index]); break; }
+                                case "Decimal":
+                                case "Single":
+                                case "Double":
+                                    { listOriginalTuple[j].ValuesOnPerRow[index] = Convert.ToDouble(listOriginalTuple[j].ValuesOnPerRow[index].ToString()); break; }
+                                case "DateTime":
+                                    { listOriginalTuple[j].ValuesOnPerRow[index] = DateTime.Parse(listOriginalTuple[j].ValuesOnPerRow[index].ToString()); break; }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+            
+
+            List<FzTupleEntity> listTupleTmp = listOriginalTuple;
+            IEnumerable<FzTupleEntity> sortedTuple = null;
+
             indexAttr = Int32.Parse(new string(listOrder[0].TakeWhile(Char.IsDigit).ToArray()));
             orderBy = listOrder[0].IndexOf(" desc");
-            //orderByAttr = listOrder[0].Split(' ').First();
-            //if (_queryText.Contains(" group by "))
-            //    indexAttr = IndexOfAttrGroupBy(orderByAttr, filter);
-            //else indexAttr = IndexOfAttr(orderByAttr);
-            //if(IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)//order by index
-            //    indexAttr = Int32.Parse(orderByAttr);
-            //if (indexAttr < 0)
-            //{
-            //    if(IsNumber(orderByAttr) && Int32.Parse(orderByAttr) < this._selectedRelations[0].Scheme.Attributes.Count() - 1)//order by index
-            //        indexAttr = Int32.Parse(orderByAttr);
-            //    else
-            //    {
-            //        this._errorMessage = "Invalid attribute to order by";
-            //        throw new Exception(this._errorMessage);
-            //    }
-            //}
+         
             if (orderBy > 0)
             {
-                sortedTuple = from tuple in relationTmp
+                sortedTuple = from tuple in listTupleTmp
                               orderby tuple.ValuesOnPerRow[indexAttr] descending
                               select tuple;
             }
             else
             {
-                sortedTuple = from tuple in relationTmp
+                sortedTuple = from tuple in listTupleTmp
                               orderby tuple.ValuesOnPerRow[indexAttr] ascending
                               select tuple;
             }
