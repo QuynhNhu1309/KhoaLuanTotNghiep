@@ -842,7 +842,7 @@ namespace FRDB_SQLite
                 FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(_uRelation, _fdbEntity);
                 if (get_disFS != null)
                     disFS_uRelation = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
-                else if (!IsNumber(_uRelation))
+                else if (!IsNumber(_uRelation) && !_uRelation.Contains("appox_"))
                     return "FN not exists";
 
             }

@@ -2378,7 +2378,7 @@ namespace FRDB_SQLite
                     for (int l = 0; l < indexGroupby.Count; l++)
                     {
                         if(l == 0)
-                            filterResultHaving.Tuples = this._selectedRelations[0].Tuples.Where(s => s.ValuesOnPerRow[indexGroupby[l]].ToString() == filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString()).ToList();
+                            filterResultHaving.Tuples = result.Tuples.Where(s => s.ValuesOnPerRow[indexGroupby[l]].ToString() == filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString()).ToList();
                         else
                         {
                             filterResultHaving.Tuples.RemoveAll(x => x.ValuesOnPerRow[indexGroupby[l]].ToString() != filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString());
@@ -2460,7 +2460,7 @@ namespace FRDB_SQLite
                     for (int l = 0; l < indexGroupby.Count; l++)
                     {
                         if (l == 0)
-                            filterResultHaving.Tuples = this._selectedRelations[0].Tuples.Where(s => s.ValuesOnPerRow[indexGroupby[l]].ToString() == filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString()).ToList();
+                            filterResultHaving.Tuples = result.Tuples.Where(s => s.ValuesOnPerRow[indexGroupby[l]].ToString() == filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString()).ToList();
                         else
                         {
                             filterResultHaving.Tuples.RemoveAll(x => x.ValuesOnPerRow[indexGroupby[l]].ToString() != filterResult.Tuples[j].ValuesOnPerRow[indexGroupby[l]].ToString());
