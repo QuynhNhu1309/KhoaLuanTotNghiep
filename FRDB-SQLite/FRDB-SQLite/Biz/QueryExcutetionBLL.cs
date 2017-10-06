@@ -696,7 +696,7 @@ namespace FRDB_SQLite
                                 //}
                                 _index.Add(i);
                             }
-                            if(text == "*")
+                            if(text == "*" || text == "-distinct-*")
                             {
                                 for(int l = 0; l < this._selectedRelations[0].Scheme.Attributes.Count - 1 ; l++ )
                                 {
@@ -2683,26 +2683,46 @@ namespace FRDB_SQLite
                     int countTupleTmps = tupleTmp.Count();
                     for (int k = 0; k < countTuples; k++)
                     {
-                        if (tupleTmp2[k].ValuesOnPerRow[0].ToString() == s && tupleTmp.Count() == 0)
-                        {
-                            tupleTmp2.RemoveAt(k);
-                            countTuples = tupleTmp2.Count();
-                        }
+                        //if (tupleTmp2[k].ValuesOnPerRow[0].ToString() == s && tupleTmp.Count() == 0)
+                        //{
+                        //    tupleTmp2.RemoveAt(k);
+                        //    countTuples = tupleTmp2.Count();
+                        //}
                             
                         for (int j = 0; j < countTupleTmps; j++)
                         {
                             if (tupleTmp[j] == tupleTmp2[k])
                             {
+                                //find and set min membership
+                                String FsName = tupleTmp2[k].ValuesOnPerRow[this._selectedAttributes.Count() - 1].ToString();
+                                QueryConditionBLL condition = new QueryConditionBLL(_fdbEntity);
+                                for (int z = k + 1; z < countTuples; z++)
+                                {
+                                    int count = 0;
+                                    for (int u = 0; u < this._selectedAttributes.Count() - 1; u++)
+                                    {
+                                        if (tupleTmp2[z].ValuesOnPerRow[u].ToString() == tupleTmp[j].ValuesOnPerRow[u].ToString())
+                                            count++;
+                                        if (count == this._selectedAttributes.Count() - 1)
+                                        {
+                                            FsName = condition.FindAndMarkFuzzy(FsName, tupleTmp2[z].ValuesOnPerRow[this._selectedAttributes.Count() - 1].ToString());
+                                            tupleTmp2.RemoveAt(k);
+                                            countTuples = tupleTmp2.Count();
+                                        }
+                                            
+                                    }
+                                }
                                 tupleTmp.RemoveAt(j);
+                                tupleTmp2[k].ValuesOnPerRow[this._selectedAttributes.Count() - 1] = FsName;
                                 countTupleTmps = tupleTmp.Count();
                                 break;
                             }
                                 
-                            if (tupleTmp[j] != tupleTmp2[k] && tupleTmp2[k].ValuesOnPerRow[0].ToString() == s && j == tupleTmp.Count() - 1)
-                            {
-                                tupleTmp2.RemoveAt(k);
-                                countTuples = tupleTmp2.Count();
-                            }
+                            //if (tupleTmp[j] != tupleTmp2[k] && tupleTmp2[k].ValuesOnPerRow[0].ToString() == s && j == tupleTmp.Count() - 1)
+                            //{
+                            //    tupleTmp2.RemoveAt(k);
+                            //    countTuples = tupleTmp2.Count();
+                            //}
                         }
                         
                     }
@@ -2732,20 +2752,6 @@ namespace FRDB_SQLite
                 {
                     if (i == 1)
                     {
-                        //find and set min membership
-                        var arrMembership = listTuple.Select(x => x.ValuesOnPerRow[this._selectedRelations[0].Scheme.Attributes.Count() - 1].ToString()).ToList();
-                        List<String> membershipList = arrMembership.ToList();
-                        string FSName = "";
-                        QueryConditionBLL condition = new QueryConditionBLL(_fdbEntity);
-                        for (int u = 0; u < membershipList.Count(); u++)
-                        {
-                            FSName = condition.FindAndMarkFuzzy(membershipList[i].ToString(), FSName);
-                        }
-                        foreach (var item in listTuple.Where(x => x.ValuesOnPerRow[this._selectedRelations[0].Scheme.Attributes.Count() - 1].ToString() != FSName))
-                        {
-                            item.ValuesOnPerRow[this._selectedRelations[0].Scheme.Attributes.Count() - 1] = FSName;
-                        }
-
                         tupleTmp = listTuple.AsEnumerable().GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping).ToList();
                         //tupleTmp = listTuple.AsEnumerable().Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(k).Key.ToString()).GroupBy(x => x.ValuesOnPerRow[i]).SelectMany(grouping => grouping).ToList();
                     }

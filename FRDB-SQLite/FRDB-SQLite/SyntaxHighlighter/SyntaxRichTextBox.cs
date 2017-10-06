@@ -200,6 +200,7 @@ namespace FRDB_SQLite
     {
         SyntaxList m_rgKeywords = new SyntaxList();
         SyntaxList m_rgKeywords2 = new SyntaxList();
+        SyntaxList m_rgKeywords3 = new SyntaxList();
         string m_strComment = "";
         string m_between = "";
         Color m_colorBetween= Color.Red;
@@ -222,6 +223,10 @@ namespace FRDB_SQLite
         {
             get { return m_rgKeywords2.m_rgList; }
         }
+        public List<string> Keywords3
+        {
+            get { return m_rgKeywords3.m_rgList; }
+        }
         /// <summary>
         /// The color of keywords.
         /// </summary>
@@ -235,6 +240,12 @@ namespace FRDB_SQLite
             get { return m_rgKeywords2.m_color; }
             set { m_rgKeywords2.m_color = value; }
         }
+        public Color KeywordColor3
+        {
+            get { return m_rgKeywords3.m_color; }
+            set { m_rgKeywords3.m_color = value; }
+        }
+
         /// <summary>
         /// A string containing the comment identifier.
         /// </summary>

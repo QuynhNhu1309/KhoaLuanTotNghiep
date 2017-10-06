@@ -28,11 +28,23 @@ namespace FRDB_SQLite.Class
             txtQuery.Settings.Keywords.Add("select");
             txtQuery.Settings.Keywords.Add("from");
             txtQuery.Settings.Keywords.Add("where");
+            txtQuery.Settings.Keywords.Add("group by");
+            txtQuery.Settings.Keywords.Add("order by");
+            txtQuery.Settings.Keywords.Add("distinct");
+            txtQuery.Settings.Keywords.Add("having");
+
             // The operators and logicality
             //txtQuery.Settings.Keywords2.Add("*");
             txtQuery.Settings.Keywords2.Add("and");
             txtQuery.Settings.Keywords2.Add("or");
             txtQuery.Settings.Keywords2.Add("not");
+
+            //Aggregate function
+            txtQuery.Settings.Keywords3.Add("min");
+            txtQuery.Settings.Keywords3.Add("max");
+            txtQuery.Settings.Keywords3.Add("sum");
+            txtQuery.Settings.Keywords3.Add("avg");
+            txtQuery.Settings.Keywords3.Add("count");
 
             // Set the comment identifier. For Lua this is two minus-signs after each other (--). 
             // For C++ we would set this property to "//".
@@ -42,6 +54,7 @@ namespace FRDB_SQLite.Class
             // Set the colors that will be used.
             txtQuery.Settings.KeywordColor = Color.Blue;
             txtQuery.Settings.KeywordColor2 = Color.Gray;
+            txtQuery.Settings.KeywordColor3 = Color.Pink;
             txtQuery.Settings.CommentColor = Color.Green;
             txtQuery.Settings.StringColor = Color.Black;
             txtQuery.Settings.IntegerColor = Color.DarkOrchid;//DarkLayGray
