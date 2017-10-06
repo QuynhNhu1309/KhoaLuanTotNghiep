@@ -1991,7 +1991,6 @@ namespace FRDB_SQLite.Gui
                         ShowMessage(execution.ErrorMessage, Color.Red);
                         return;
                     }
-
                 }
                 else
                 {
