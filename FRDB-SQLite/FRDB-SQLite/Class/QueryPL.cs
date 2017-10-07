@@ -153,6 +153,7 @@ namespace FRDB_SQLite.Class
             //var for where
             int where = 0;
             string whereAttr = "";
+            where = query.IndexOf("where");
 
             //var for group by
             int groupby = 0, startGroupbyAttr = 0, endGroupbyAttr = 0;
@@ -198,6 +199,36 @@ namespace FRDB_SQLite.Class
             //if (from != query.LastIndexOf("from"))// From must be unique
             //    return message = "Not support multi 'from'!";
 
+            //group by
+            if (query.Contains(" group by "))
+            {
+                groupby = query.IndexOf(" group by ");
+                if (groupby < selectAttr || groupby < select || groupby < from || groupby < where)
+                {
+                    return message = "'Group by' clause is reuquired after 'select, from, where'";
+                }
+            }
+
+            //having
+            if (query.Contains(" having "))
+            {
+                having = query.IndexOf(" having ");
+                if (having < groupby || groupby < 0)
+                {
+                    return message = "'Group by' clause is reuquired before 'having'";
+                }
+            }
+
+            //order by
+            if (query.Contains(" order by "))
+            {
+                orderby = query.IndexOf(" order by ");
+                if (orderby < having || orderby < selectAttr || orderby < select || orderby < from || orderby < where)
+                {
+                    return message = "'Order by' clause is reuquired after 'select, from, where, group by, having'";
+                }
+            }
+
             if (!query.Contains("where"))
             {
                 if (query.Substring(from + 4).Trim() == "")// Missing relation after 'from'
@@ -205,7 +236,7 @@ namespace FRDB_SQLite.Class
             }
             else// Check syntax of condition: where (age="young" not weight>=45 or height>150) and height>155
             {
-                where = query.IndexOf("where");
+                //where = query.IndexOf("where");
                 if (groupby > 0)
                     whereAttr = query.Substring(where + 5, groupby - where - 5);// condition of where clause
                 else if (orderby > 0)
@@ -241,63 +272,25 @@ namespace FRDB_SQLite.Class
                 }
 
                 if(where < from) return message = "'Where' clause is reuquired after 'select, from'";
-                //edit--------
-                //if (query.Contains(" not "))
-                //{
-                //    if (where + 6 != query.IndexOf("not"))
-                //        return message = "Incorrect syntax near 'where': 'not' does not at the begin of condition.";
-                //    int i = query.IndexOf("not");
-                //    if (query[i - 1] == '\"' || query[i + 3] == '\"')
-                //        return message = "Incorrect syntax near 'not': missing space with '\"'";
-                //}
-
                 //---------------
-                String m = CheckNested(query);
-                if (m != "")
-                    return m;
 
-                m = CheckLogic(query); // checking logical(and, or) between 2 or more than conditions
-                if (m != "")
-                    return m;
-                m = CheckQuote(query);
-                if (m != "")
-                    return m;
-
-                m = CheckFuzzySet(query);
-                if (m != "")
-                    return m;
                 //m = CaseCheckFuzzySet(query, "->", 2);
                 //if (m != "")
+                message = CheckLogic(query); // checking logical(and, or) between 2 or more than conditions
+                if (message != "")
+                    return message;
+                message = CheckQuote(query);
+                if (message != "")
+                    return message;
             }
-            //group by
-            if (query.Contains(" group by "))
-            {
-                groupby = query.IndexOf(" group by ");
-                if (groupby < selectAttr || groupby < select || groupby < from || groupby < where)
-                {
-                    return message = "'Group by' clause is reuquired after 'select, from, where'";
-                }
-            }
+            message = CheckNested(query);
+            if (message != "")
+                return message;
+            message = CheckFuzzySet(query);
+            if (message != "")
+                return message;
 
-            //having
-            if (query.Contains(" having "))
-            {
-                having = query.IndexOf(" having ");
-                if (having < groupby || groupby < 0)
-                {
-                    return message = "'Group by' clause is reuquired before 'having'";
-                }
-            }
-
-            //order by
-            if (query.Contains(" order by "))
-            {
-                orderby = query.IndexOf(" order by ");
-                if (orderby < having || orderby < selectAttr || orderby < select || orderby < from || orderby < where)
-                {
-                    return message = "'Order by' clause is reuquired after 'select, from, where, group by, having'";
-                }
-            }
+            
 
             //Check select in 'group by clause'
             if (groupby > 0)
@@ -325,40 +318,6 @@ namespace FRDB_SQLite.Class
                     return message = "Missing comma in 'group by' clause";
                 //if (selectAttr < 0) // not contain * in select
             }
-
-            //Check 'having' clause
-            //if (having > 0)
-            //{
-            //    startHavingAttr = having + 7;//resuse 'group by' var for 'having'
-            //    if (orderby > 0)
-            //        endHavingAttr = orderby;
-            //    else if (orderby <= 0)
-            //        endHavingAttr = query.Length;
-            //    havingAttr = query.Substring(startHavingAttr + 1, endHavingAttr - startHavingAttr - 1).ToLower();
-            //    //^\w+[\s](like|>|not like|<)[\s][[a-z]+|[a-z]+[\s]*]$
-            //    MatchCollection attr = Regex.Matches(havingAttr, @"[\w]+");// count word in group by clause
-            //    MatchCollection attrComma = Regex.Matches(havingAttr, @"[,]+");// count comma in group by clause
-            //    int tmp1 = attr.Count;
-            //    int tmp2 = attrComma.Count;
-            //    //string minHaving
-            //    if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1)
-            //    {
-            //        string[] havingAttrArr = null;
-            //        havingAttrArr = groupbyAttr.Split(',');
-            //        if (selectAttr < 0)
-            //        {
-            //            for (int i = 0; i < havingAttrArr.Length; i++)
-            //            {
-            //                if (!selectAttrStr.Contains(havingAttrArr[i].Trim().ToLower()) && !havingAttrArr[i].Trim().ToLower().Contains("min") && !havingAttrArr[i].Trim().ToLower().Contains("max") && !havingAttrArr[i].Trim().ToLower().Contains("avg") && !havingAttrArr[i].Trim().ToLower().Contains("count") && !havingAttrArr[i].Trim().ToLower().Contains("sum"))
-            //                    return message = "Attributes in 'having' must be included in 'group by'";
-            //            }
-            //        }
-            //    }
-            //    else if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
-            //        return message = "Missing comma in 'having' clause";
-            //}
-            
-
             return message;
         }
         #endregion
@@ -466,7 +425,7 @@ namespace FRDB_SQLite.Class
                                 return message = "Incorrect syntax near '(': missing space 1";
                         }
                         if (posClose < query.Length - 1)
-                            if (query[posClose + 1] != ' ' && query[posClose + 1] != ')' && query[posClose + 1] != '"' && query[posClose + 1] != '\'')// must have space or ')' or '\'' or '"' after )
+                            if (query[posClose + 1] != ' ' && query[posClose + 1] != ')' && query[posClose + 1] != '"' && query[posClose + 1] != '\'' && query[posClose + 1] != ',')// must have space or ')' or '\'' or '"' after )
                                 return message = "Incorrect syntax near ')': missing space 2";
                         query = query.Remove(posOpen, 1); //remove (
                         query = query.Remove(posClose - 1, 1);//remove )
