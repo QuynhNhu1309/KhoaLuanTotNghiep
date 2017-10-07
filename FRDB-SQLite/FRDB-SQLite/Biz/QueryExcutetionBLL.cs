@@ -846,7 +846,7 @@ namespace FRDB_SQLite
                                                 }
                                             }
 
-                                            if(k == resultTuple.Count - 1 && countMinMax > 1)
+                                            if(k == resultTuple.Count  && countMinMax > 1)
                                             {
                                                 for (int y = 0; y < resultTuple.Count; y++)
                                                 { 
@@ -969,7 +969,7 @@ namespace FRDB_SQLite
                                         countMinMax++;
                                     }    
                                 }
-                                if (k == resultTuple.Count - 1 && countMinMax > 1)
+                                if (k == resultTuple.Count && countMinMax > 1)
                                 {
                                     for (int y = 0; y < resultTuple.Count; y++)
                                     {
@@ -2530,8 +2530,8 @@ namespace FRDB_SQLite
                                 //tupleTmps.Add(filterResultHaving.Tuples[q]);
                                 tupleTmps.Add(condition_Having.ResultTuple);
                                 //resultTmp.Add(condition.ResultTuple);
-                                if (itemSelects.Count == 0)
-                                    goto End;// if exist more than 1 tuple the same, break 2 loops
+                                //if (itemSelects.Count == 0)
+                                //    goto End;// if exist more than 1 tuple the same, break 2 loops
                                 //for (int d = 0; d < condition_Having.ItemConditions.Count(); d++)
                                 //{
                                 //    if (condition_Having.ItemConditions[d].resultCondition)
@@ -2543,7 +2543,7 @@ namespace FRDB_SQLite
                             }
 
                         }
-                        End:;//break 2 loops
+                        //End:;//break 2 loops
                         if (tupleTmps.Count > 0)
                         {
                             resultTmp.Tuples.AddRange(GetSelectedAttributes(tupleTmps, _fdbEntity));

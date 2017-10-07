@@ -276,13 +276,15 @@ namespace FRDB_SQLite.Class
 
                 //m = CaseCheckFuzzySet(query, "->", 2);
                 //if (m != "")
-                message = CheckLogic(query); // checking logical(and, or) between 2 or more than conditions
-                if (message != "")
-                    return message;
-                message = CheckQuote(query);
-                if (message != "")
-                    return message;
+               
             }
+
+            message = CheckLogic(query); // checking logical(and, or) between 2 or more than conditions
+            if (message != "")
+                return message;
+            message = CheckQuote(query);
+            if (message != "")
+                return message;
             message = CheckNested(query);
             if (message != "")
                 return message;
@@ -325,14 +327,14 @@ namespace FRDB_SQLite.Class
         private static  String CheckLogic(String query)
         {
             String message = "";
-            String select = query.Substring(0, query.IndexOf("where"));
+            String select = query.Substring(0, query.IndexOf("from"));
 
             if (select.Contains(" and ") || select.Contains(" or ") || select.Contains(" not ") || select.Contains("\""))
                 return message = "Select clause do not allow 'and', 'or', 'not', and '\"'.";
             int i = 0, j = 0;
             int lengthLimit = 0;
-            if (query.IndexOf(" group by ") > 0)
-                lengthLimit = query.IndexOf(" group by ");
+            if (query.IndexOf(" having ") > 0)
+                lengthLimit = query.Length - 1;
             if (query.IndexOf(" order by ") > 0)
                 lengthLimit = query.IndexOf(" order by ");
 
@@ -470,6 +472,9 @@ namespace FRDB_SQLite.Class
         {
             string message = "";
             int index = query.IndexOf("where");
+            if (index < 0) 
+                index = query.IndexOf(" having ");
+            if (index < 0) return message;
             int countQuoteSingle = 0,countQuoteDouble = 0, indexSecond = 0;
             //Remove space next to operator
             String str = query.Substring(index);
