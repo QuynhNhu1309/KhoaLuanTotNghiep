@@ -232,6 +232,10 @@ namespace FRDB_SQLite
                         result.Tuples = ProcessOrderBy(result.Tuples);
                         result.Tuples.RemoveRange(0, result.Tuples.Count() / 2);
                     }
+                    else if(!this._queryText.Contains(" order by"))
+                    {
+                        result = ProcessNoOrderBy(result);
+                    }
                 }
             }
             catch (Exception ex)
@@ -650,14 +654,14 @@ namespace FRDB_SQLite
                                     count++;
                                     if ((textTmp != "" && text.Contains("count(")))
                                         break;
-                                    //else if (!text.Contains("count("))
-                                    //{
-                                    //    //int index = this._selectedRelations[0].Scheme.Attributes.FindIndex
-                                    //    Boolean error = IsNumericType((this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType).ToString());
-                                    //    if (!error) throw new Exception("Data type of aggregate function is not valid, we only support aggregate function numerical data");
+                                    else if (!text.Contains("count("))
+                                    {
+                                        //int index = this._selectedRelations[0].Scheme.Attributes.FindIndex
+                                        Boolean error = IsNumericType((this._selectedRelations[0].Scheme.Attributes[i].DataType.DataType).ToString());
+                                        if (!error) throw new Exception("Data type of aggregate function is not valid, we only support aggregate function with numerical data");
 
 
-                                    //}
+                                    }
 
                                 }
                                 
@@ -2401,8 +2405,8 @@ namespace FRDB_SQLite
             }
             int having = _queryText.IndexOf(" having ");
             resultTmp.Tuples.Clear();
-            filterResult.Tuples = filterResult.Tuples.AsEnumerable().OrderBy(x => x.ValuesOnPerRow[indexGroupby[0]]).Select(x => x).ToList();
-            filterResult.Tuples.RemoveRange(0, filterResult.Tuples.Count() / 2);
+            //filterResult.Tuples = filterResult.Tuples.AsEnumerable().OrderBy(x => x.ValuesOnPerRow[indexGroupby[0]]).Select(x => x).ToList();
+            //filterResult.Tuples.RemoveRange(0, filterResult.Tuples.Count() / 2);
             if (having < 0)//get select attribute with group by (without having condition)
             {
                 QueryConditionBLL condition = new QueryConditionBLL(_fdbEntity);
@@ -2769,6 +2773,38 @@ namespace FRDB_SQLite
             }
             return tupleResult;
         }
+
+        public FzRelationEntity ProcessNoOrderBy(FzRelationEntity OriginalRelation)
+        {
+            FzRelationEntity relation = OriginalRelation;
+            string dataType = relation.Scheme.Attributes[0].DataType.DataType;
+            if (dataType != "String")
+            {
+                for(int j = 0; j < relation.Tuples.Count(); j++)
+                {
+                    switch (dataType)
+                    {
+                        case "Int16":
+                        case "Int64":
+                        case "Int32":
+                        case "Byte":
+                        case "Currency": { relation.Tuples[j].ValuesOnPerRow[0] = Convert.ToInt32(relation.Tuples[j].ValuesOnPerRow[0]); break; }
+                        case "Decimal":
+                        case "Single":
+                        case "Double":
+                            { relation.Tuples[j].ValuesOnPerRow[0] = Convert.ToDouble(relation.Tuples[j].ValuesOnPerRow[0].ToString()); break; }
+                        case "DateTime":
+                            { relation.Tuples[j].ValuesOnPerRow[0] = DateTime.Parse(relation.Tuples[j].ValuesOnPerRow[0].ToString()); break; }
+
+                    }
+                }    
+            }
+            //FzRelationEntity result = new List<FzTupleEntity>();
+            OriginalRelation.Tuples = relation.Tuples.OrderBy(x => x.ValuesOnPerRow[0]).Select(x=>x).ToList();
+            OriginalRelation.Tuples.RemoveRange(0, OriginalRelation.Tuples.Count() / 2);
+            return OriginalRelation;
+       }
+
         public List<FzTupleEntity> ProcessOrderBy(List<FzTupleEntity> listOriginalTuple)
         {
             String[] listOrder = null;
