@@ -397,18 +397,10 @@ namespace FRDB_SQLite.Gui
 
         private void iExit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            ClosingForm();
+            ClosingForm_iExit();
         }
 
-        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-                ClosingForm();
-            else
-            { }
-        }
-
-        private void ClosingForm()
+        private void ClosingForm_iExit()
         {
             try
             {
@@ -422,10 +414,48 @@ namespace FRDB_SQLite.Gui
                     }
                     else if (result == DialogResult.No)
                         Application.Exit();
-                    else
+                    else if (result == DialogResult.Cancel)
                     {
-                        return;
+                        FormClosingEventArgs e1 = new FormClosingEventArgs(CloseReason.UserClosing, true);
+                        e1.Cancel = true;
                     }
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can not save the database because of null values!", "ERROR", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+                ClosingForm(sender, e);
+            else
+            { }
+        }
+
+        private void ClosingForm(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (fdbEntity != null)
+                {
+                    DialogResult result = MessageBox.Show("Do you want to save any change to database?", "Save changed", MessageBoxButtons.YesNoCancel);
+                    if (result == DialogResult.Yes)
+                    {
+                        SaveFuzzyDatabase();
+                        Application.Exit();
+                    }
+                    else if (result == DialogResult.No)
+                        Application.Exit();
+                    else if (result == DialogResult.Cancel)
+                        e.Cancel = true;
                 }
                 else
                 {
