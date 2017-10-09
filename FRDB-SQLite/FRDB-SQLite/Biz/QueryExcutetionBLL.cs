@@ -172,7 +172,7 @@ namespace FRDB_SQLite
                         {
                             result.Scheme.Attributes = this._selectedRelations[0].Scheme.Attributes;
                             result.Tuples = resultTmp;
-                            result = ProcessGroupBy(result, _queryText);// process group by and having            
+                            result = ProcessGroupBy(result);// process group by and having            
                         }
                         else if (this._selectedAttributeTexts != null)
                         {
@@ -192,7 +192,7 @@ namespace FRDB_SQLite
                             //foreach (var item in this._selectedRelations[0].Tuples)
                             //    result.Tuples.Add(item);
                             //result = this._selectedRelations[0];
-                            result = ProcessGroupBy(this._selectedRelations[0], _queryText);// process group by and having            
+                            result = ProcessGroupBy(this._selectedRelations[0]);// process group by and having            
                         }
                         else if (this._selectedAttributeTexts != null)
                         {
@@ -2321,9 +2321,9 @@ namespace FRDB_SQLite
             return message;
         }
 
-        private FzRelationEntity ProcessGroupBy(FzRelationEntity result, string _queryText)
+        private FzRelationEntity ProcessGroupBy(FzRelationEntity result)
         {
-            List<Filter> filter = FormatFilter(result, _queryText);
+            List<Filter> filter = FormatFilter(result);
             Filter filterTmp = new Filter();
             FzRelationEntity filterResult = new FzRelationEntity();//result of group by
             List<FzRelationEntity> filterResultHavings = new List<FzRelationEntity>();
@@ -2569,7 +2569,7 @@ namespace FRDB_SQLite
         }
         
 
-        public List<Filter> FormatFilter(FzRelationEntity tupleRelation, String _queryText)
+        public List<Filter> FormatFilter(FzRelationEntity tupleRelation)
         {
             List<Filter> result = new List<Filter>();
             //try
