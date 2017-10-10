@@ -20,6 +20,7 @@ namespace FRDB_SQLite
         private int m_nLineEnd = 0;
         private string m_strKeywords = "";
         private string m_strKeywords2 = "";
+        private string m_strKeywords3 = "";
         private int m_nCurSelection = 0;
 
         /// <summary>
@@ -92,6 +93,7 @@ namespace FRDB_SQLite
             // Process the keywords
             ProcessRegex(m_strKeywords, Settings.KeywordColor);
             ProcessRegex(m_strKeywords2, Settings.KeywordColor2);
+            ProcessRegex(m_strKeywords3, Settings.KeywordColor3);
             ProcessRegex("[<>!]?=|[<>]", Settings.KeywordColor2);
             // Process numbers
             if (Settings.EnableIntegers)
@@ -158,6 +160,16 @@ namespace FRDB_SQLite
                     m_strKeywords2 += "\\b" + strKeyword + "\\b";
                 else
                     m_strKeywords2 += "\\b" + strKeyword + "\\b|";
+            }
+
+            for (int i = 0; i < Settings.Keywords3.Count; i++)
+            {
+                string strKeyword = Settings.Keywords3[i];
+
+                if (i == Settings.Keywords3.Count - 1)
+                    m_strKeywords3 += "\\b" + strKeyword + "\\b";
+                else
+                    m_strKeywords3 += "\\b" + strKeyword + "\\b|";
             }
         }
 

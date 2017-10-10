@@ -26,7 +26,7 @@ namespace FRDB_SQLite.Gui
             this.labelProductName.Text = "FRDB-SQLite";//AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0} {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright + " SGU";
-            this.labelCompanyName.Text = "sgu.edu.vn. Trịnh Ngọc lưu, Phạm Tô Ni";//AssemblyCompany;
+            this.labelCompanyName.Text = "Phạm Lê Quỳnh Như. Huỳnh Kim Xuân";//AssemblyCompany;
         }
 
         #region Assembly Attribute Accessors

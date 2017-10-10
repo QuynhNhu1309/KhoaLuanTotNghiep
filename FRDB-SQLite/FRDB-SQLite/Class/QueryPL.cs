@@ -54,7 +54,7 @@ namespace FRDB_SQLite.Class
             // Set the colors that will be used.
             txtQuery.Settings.KeywordColor = Color.Blue;
             txtQuery.Settings.KeywordColor2 = Color.Gray;
-            txtQuery.Settings.KeywordColor3 = Color.Pink;
+            txtQuery.Settings.KeywordColor3 = Color.DeepPink;
             txtQuery.Settings.CommentColor = Color.Green;
             txtQuery.Settings.StringColor = Color.Black;
             txtQuery.Settings.IntegerColor = Color.DarkOrchid;//DarkLayGray
