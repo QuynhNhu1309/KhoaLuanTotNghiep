@@ -733,7 +733,6 @@ namespace FRDB_SQLite
 
         private List<FzTupleEntity> GetSelectedAttributes(List<FzTupleEntity> resultTuple, FdbEntity _fdbEntity)
         {
-            Boolean filter = false;
             List<FzTupleEntity> rs = new List<FzTupleEntity>();
             List<string> attributes = new List<string>();
             Boolean flagGetOneTuple = false;//use when have aggregate function & attributes
@@ -2235,7 +2234,7 @@ namespace FRDB_SQLite
             string message = "";
             for(int i = 0; i < this._selectedAttributeTexts.Count(); i++)
             {
-                if (i != 0 && this._selectedAttributeTexts[i].Contains("distinct") && !this._selectedAttributeTexts[i].Contains("count("))
+                if (i != 0 && this._selectedAttributeTexts[i].Contains("distinct"))
                     message = "Incorrect syntax near 'distinct'";
                 
             }
@@ -2438,15 +2437,15 @@ namespace FRDB_SQLite
                 tmp = GetConditionText(tmp);//get condition Text 'having'(not where)
                 if (tmp != String.Empty)
                     tmp = AddParenthesis(tmp);
-                List<Item> itemTmp= FormatCondition(tmp);
+                List<Item> itemConditionHavings = FormatCondition(tmp);
                 bool checkAttr = false;
                 //Check fuzzy set and object here
-                this._errorMessage = ExistsFuzzySet(itemTmp);
-                for (int k = 0; k < itemTmp.Count(); k++)
+                this._errorMessage = ExistsFuzzySet(itemConditionHavings);
+                for (int k = 0; k < itemConditionHavings.Count(); k++)
                 {
                     for(int l = 0; l < indexGroupby.Count(); l++)
                     {
-                        if ((itemTmp[k].aggregateFunction == "" && itemTmp[k].elements[0].ToString() == indexGroupby[l].ToString()) || itemTmp[k].aggregateFunction != "")
+                        if ((itemConditionHavings[k].aggregateFunction == "" && itemConditionHavings[k].elements[0].ToString() == indexGroupby[l].ToString()) || itemConditionHavings[k].aggregateFunction != "")
                         {
                             checkAttr = true;
                             break;
@@ -2474,7 +2473,7 @@ namespace FRDB_SQLite
                     //itemConditionGroupBys = new List<Item>();
                     if (filterResultHaving.Tuples.Count > 0)
                     {
-                        List<Item> itemConditionHavings = FormatCondition(tmp);// format condition having
+                        //List<Item> itemConditionHavings = FormatCondition(tmp);// format condition having
                         QueryConditionBLL condition_Having = new QueryConditionBLL(itemConditionHavings, filterResultHavings, _fdbEntity);
 
                         for (int w = 0; w < itemConditionHavings.Count; w++)
@@ -2492,10 +2491,12 @@ namespace FRDB_SQLite
                             List<Item> itemConditionHavings_Tmp = itemConditionHavings;
                             
                             if (condition_Having.Satisfy(itemConditionHavings_Tmp, filterResultHaving.Tuples[q]) != "0")
-                            {
                                 tupleTmps.Add(condition_Having.ResultTuple);
+                            else
+                            {
+                                tupleTmps.Clear();
+                                break;
                             }
-
                         }
                         //End:;//break 2 loops
                         if (tupleTmps.Count > 0)
@@ -2504,7 +2505,7 @@ namespace FRDB_SQLite
                         }
                         
                     }
-                    else if (filterResultHaving.Tuples.Count > 0) return filterResult;
+                    else if (filterResultHaving.Tuples.Count == 0) return filterResult;// when error occur, return safe result :)
                     filterResultHaving = new FzRelationEntity();//renew filterResultHaving
                     
                 }
