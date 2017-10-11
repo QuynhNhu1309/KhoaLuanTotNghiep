@@ -1059,15 +1059,7 @@ namespace FRDB_SQLite
                                             if (item.aggregateFunction == "sum")
                                                 tmp = tmp + Convert.ToDouble(itemTuple.ValuesOnPerRow[j]);
                                             else if (item.aggregateFunction == "count")
-                                            {
-                                                //if(item.isDistinct && k== resultTuple.Count())
-                                                //{
-                                                //    var tuples = resultTuple.AsEnumerable().GroupBy(x => x.ValuesOnPerRow[Int32.Parse(item.elements[0].ToString())]).Select(grouping => grouping.Take(1)).ToList();
-                                                //    tmp = tuples.Count();
-                                                //}
-                                                //else tmp += 1;
-                                                tmp += 1;
-                                            }   
+                                                tmp += 1;  
                                             else if (item.aggregateFunction == "avg")
                                             {
                                                 tmp = tmp + Convert.ToDouble(itemTuple.ValuesOnPerRow[j]);
@@ -1183,15 +1175,7 @@ namespace FRDB_SQLite
                                 if(item.aggregateFunction == "sum")
                                     tmp = tmp + Convert.ToDouble(itemTuple.ValuesOnPerRow[j]);
                                 else if(item.aggregateFunction == "count")
-                                {
-                                    //if (item.isDistinct && k == resultTuple.Count())
-                                    //{
-                                    //    var tuples = resultTuple.AsEnumerable().GroupBy(x => x.ValuesOnPerRow[Int32.Parse(item.elements[0].ToString())]).Select(grouping => grouping.Take(1)).ToList();
-                                    //    tmp = tuples.Count();
-                                    //}
-                                    //else tmp += 1;
                                     tmp += 1;
-                                }
                                 else if (item.aggregateFunction == "avg")
                                 {
                                     tmp = tmp + Convert.ToDouble(itemTuple.ValuesOnPerRow[j]);
@@ -1247,11 +1231,8 @@ namespace FRDB_SQLite
                     {
                         r.Add(FSName);
                         rs.Add(r);
-                    }
-                        
-                   
+                    }  
                 }                
-                //r.Add(resultTuple.ValuesOnPerRow[resultTuple.ValuesOnPerRow.Count - 1]);
             }
             return rs;
         }
