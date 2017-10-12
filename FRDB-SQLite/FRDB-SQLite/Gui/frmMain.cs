@@ -1807,10 +1807,11 @@ namespace FRDB_SQLite.Gui
                 string temp_path = Directory.GetCurrentDirectory() + @"\lib\temp\";
                 string lowerQuery = query.ToLower();
 				QueryExcutetionBLL excutetion = new QueryExcutetionBLL(query.ToLower(), newFdb);
-				//edit---
-				//GridViewResult.Enabled = false;
-				//---
-				result = excutetion.ExecuteQuery();
+                excutetion.CheckSyntax();
+                //edit---
+                //GridViewResult.Enabled = false;
+                //---
+                result = excutetion.ExecuteQuery();
 				if (excutetion.Error)
 				{
 					ShowMessage(excutetion.ErrorMessage, Color.Red); return;

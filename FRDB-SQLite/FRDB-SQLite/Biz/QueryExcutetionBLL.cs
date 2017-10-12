@@ -17,6 +17,9 @@ namespace FRDB_SQLite
         public String _conditionText = String.Empty;
         private List<String> dataTypeForOrderBy = new List<string>();
         List<Item> itemSelects = new List<Item>();
+        private int _currentIndex = 0;
+        private String[] _lexs;
+        private List<TokenType> _tokens = new List<TokenType>();
 
         private List<FzAttributeEntity> _selectedAttributes = new List<FzAttributeEntity>();
         private List<FzRelationEntity> _selectedRelations = new List<FzRelationEntity>();
@@ -30,6 +33,14 @@ namespace FRDB_SQLite
         private String _errorMessage;
         private Boolean _error;
         private FdbEntity _fdbEntity;
+
+        private String CurrentString
+        {
+            get
+            {
+                return this._lexs[this._currentIndex];
+            }
+        }
 
         #endregion
 
@@ -80,6 +91,86 @@ namespace FRDB_SQLite
         #endregion
 
         #region 4. Publics
+
+        private class TokenType {
+            private String _name;
+            private String _pattern;
+
+            public String Name
+            {
+                get { return _name; }
+                set { _pattern = value; }
+            }
+
+            public String Pattern
+            {
+                get { return _pattern; }
+                set { _pattern = value; }
+            }
+
+            public TokenType(String name, String pattern)
+            {
+                this._name = name;
+                this._pattern = pattern;
+            }
+        }
+
+        private static class TokenTypes
+        {
+            public static TokenType Select = new TokenType("select", "select");
+            public static TokenType AllColumns = new TokenType("all columns", "*");
+        }
+
+        private void NextString(TokenType tokenType)
+        {
+            this._tokens.Add(tokenType);
+            this._currentIndex += 1;
+        }
+
+        private bool Accept(TokenType tokenType)
+        {
+            Regex regex = new Regex(tokenType.Pattern, RegexOptions.IgnoreCase);
+            if (regex.Match(this.CurrentString).Success)
+            {
+                this.NextString(tokenType);
+                return true;
+            }
+            return false;
+        }
+
+        private bool Expect(TokenType tokenType)
+        {
+            if (!this.Accept(tokenType))
+            {
+                throw new Exception("Unexpected token at " + this.CurrentString);
+            }
+            return true;
+        }
+
+        public bool CheckSyntax()
+        {
+            this._lexs = this._queryText.Split(' ');
+            List<Action> actions = new List<Action>();
+            actions.Add(() => {
+                this.Accept(TokenTypes.Select);
+            });
+            actions.Add(() => {
+                if (!this.Accept(TokenTypes.AllColumns))
+                {
+                    this.Expect(TokenTypes.AllColumns);
+                }
+            });
+            int lexLength = this._lexs.Length;
+            int actionLength = actions.Count();
+            int actionIndex = 0;
+            while(this._currentIndex < lexLength && actionIndex < actionLength)
+            {
+                actions[actionIndex].Invoke();
+                actionIndex++;
+            }
+            return true;
+        }
+
         public FzRelationEntity ExecuteQuery()
         {
             FzRelationEntity result = null;
@@ -436,6 +527,7 @@ namespace FRDB_SQLite
 
             return result;
         }
+
         private string getFZValue(string firstUvalue, string secondUValue, FdbEntity _fdbEntity, QueryConditionBLL queryBLL)
         {
             bool check_ufRelation = false;
@@ -701,6 +793,7 @@ namespace FRDB_SQLite
              bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
              return isNum;
         }
+
         public Boolean IsNumericType(string o)
         {
             switch (o)
