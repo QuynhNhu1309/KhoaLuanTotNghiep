@@ -92,6 +92,30 @@ namespace FRDB_SQLite
 
         #region 4. Publics
 
+        private class Token
+        {
+            private TokenType _tokenType;
+            private String _value;
+
+            public TokenType TokenType
+            {
+                get { return _tokenType; }
+                set { _tokenType = value; }
+            }
+
+            public String Value
+            {
+                get { return _value; }
+                set { _value = value; }
+            }
+
+            public Token(TokenType tokenType, String value)
+            {
+                this._tokenType = tokenType;
+                this._value = value;
+            }
+        }
+
         private class TokenType {
             private String _name;
             private String _pattern;
@@ -118,7 +142,12 @@ namespace FRDB_SQLite
         private static class TokenTypes
         {
             public static TokenType Select = new TokenType("select", "select");
-            public static TokenType AllColumns = new TokenType("all columns", "*");
+            public static TokenType AllColumns = new TokenType("all columns", @"\*");
+            public static TokenType ColumnName = new TokenType("column name", @"\w");
+            public static TokenType Comma = new TokenType("comma", ","); 
+            public static TokenType From = new TokenType("from", "from"); 
+            public static TokenType TableSource = new TokenType("table source", @"\w");
+            public static TokenType Where = new TokenType("where", "where");
         }
 
         private void NextString(TokenType tokenType)
@@ -150,24 +179,45 @@ namespace FRDB_SQLite
         public bool CheckSyntax()
         {
             this._lexs = this._queryText.Split(' ');
-            List<Action> actions = new List<Action>();
-            actions.Add(() => {
-                this.Accept(TokenTypes.Select);
-            });
-            actions.Add(() => {
-                if (!this.Accept(TokenTypes.AllColumns))
-                {
-                    this.Expect(TokenTypes.AllColumns);
-                }
-            });
-            int lexLength = this._lexs.Length;
-            int actionLength = actions.Count();
-            int actionIndex = 0;
-            while(this._currentIndex < lexLength && actionIndex < actionLength)
+
+            this.Expect(TokenTypes.Select);
+            if (!this.Accept(TokenTypes.AllColumns))
             {
-                actions[actionIndex].Invoke();
-                actionIndex++;
+                this.Expect(TokenTypes.ColumnName);
+                while (this.Accept(TokenTypes.Comma))
+                {
+                    this.Expect(TokenTypes.ColumnName);
+                };
             }
+            this.Expect(TokenTypes.From);
+            this.Expect(TokenTypes.TableSource);
+            while (this.Accept(TokenTypes.Comma))
+            {
+                this.Expect(TokenTypes.TableSource);
+            };
+            if (this.Accept(TokenTypes.Where))
+            {
+            }
+
+            //List<Action> actions = new List<Action>();
+            //actions.Add(() => {
+            //    this.Accept(TokenTypes.Select);
+            //});
+            //actions.Add(() => {
+            //    if (!this.Accept(TokenTypes.AllColumns))
+            //    {
+            //        this.Expect(TokenTypes.AllColumns);
+            //        while (this.Accept(TokenTypes.ColumnName)) ;
+            //    }
+            //});
+            //int lexLength = this._lexs.Length;
+            //int actionLength = actions.Count();
+            //int actionIndex = 0;
+            //while(this._currentIndex < lexLength && actionIndex < actionLength)
+            //{
+            //    actions[actionIndex].Invoke();
+            //    actionIndex++;
+            //}
             return true;
         }
 
