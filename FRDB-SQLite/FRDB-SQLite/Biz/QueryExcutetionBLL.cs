@@ -2880,7 +2880,7 @@ namespace FRDB_SQLite
                     string s = attrDuplicate1.ElementAt(i).Key.ToString();
                     IEnumerable<FzTupleEntity> tupleDistinct = tupleTmp2.Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(i).Key.ToString()).Select(x => x).ToList();
                     if (this._selectedAttributes.Count() > 2)
-                        tupleTmp.AddRange(ProcessDistinct_Sub(tupleDistinct, attrDuplicate1, i));
+                        tupleTmp.AddRange(ProcessDistinct_Sub(tupleDistinct));
                     else tupleTmp = tupleDistinct.Take(1).ToList();
                     int countTuples = tupleTmp2.Count();
                     int countTupleTmps = tupleTmp.Count();
@@ -2931,7 +2931,7 @@ namespace FRDB_SQLite
         }
 
 
-        public List<FzTupleEntity> ProcessDistinct_Sub(IEnumerable<FzTupleEntity> listTuple, IEnumerable<IGrouping<object, FzTupleEntity>> attrDuplicate1, int k)
+        public List<FzTupleEntity> ProcessDistinct_Sub(IEnumerable<FzTupleEntity> listTuple) //IEnumerable<IGrouping<object, FzTupleEntity>> attrDuplicate1, int k)
         {
             List<FzTupleEntity> tupleTmp = new List<FzTupleEntity>();
             List<FzTupleEntity> tupleResult = new List<FzTupleEntity>();
