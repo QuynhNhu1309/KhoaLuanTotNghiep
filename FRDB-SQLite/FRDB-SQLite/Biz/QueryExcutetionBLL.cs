@@ -1420,7 +1420,7 @@ namespace FRDB_SQLite
         private int IndexOfAttrGroupBy(string s)
         {
             int i = 0;
-            string tmp = "";
+            //string tmp = "";
             int flagCount = 0;
             if (IsNumber(s) && Int32.Parse(s) < this._selectedAttributes.Count - 1)//order by index of group by, must be in group by
             {
@@ -1447,12 +1447,12 @@ namespace FRDB_SQLite
                     if (this._selectedAttributeTexts[y].Contains(s))
                     {
                         
-                        tmp = this._selectedAttributeTexts[y];
-                        if (this._selectedAttributeTexts[y].Contains("-distinct-"))
-                            tmp = tmp.Substring(10);
+                        //tmp = this._selectedAttributeTexts[y];
+                        //if (this._selectedAttributeTexts[y].Contains("-distinct-"))
+                        //    tmp = tmp.Substring(10);
                         if (this._selectedAttributeTexts[y].Contains("-as"))
                         {
-                            tmp = tmp.Substring(0, this._selectedAttributeTexts[y].IndexOf("-as-"));
+                            //tmp = tmp.Substring(0, this._selectedAttributeTexts[y].IndexOf("-as-"));
                             s = this._selectedAttributeTexts[y].Substring(this._selectedAttributeTexts[y].IndexOf("-as-") + 4);
                             goto As;
                         }
