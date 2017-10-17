@@ -19,7 +19,7 @@ namespace FRDB_SQLite
         List<Item> itemSelects = new List<Item>();
         private int _currentIndex = 0;
         private String[] _lexs;
-        private List<TokenType> _tokens = new List<TokenType>();
+        private List<Token> _tokens = new List<Token>();
 
         private List<FzAttributeEntity> _selectedAttributes = new List<FzAttributeEntity>();
         private List<FzRelationEntity> _selectedRelations = new List<FzRelationEntity>();
@@ -118,50 +118,57 @@ namespace FRDB_SQLite
 
         private class TokenType {
             private String _name;
-            private String _pattern;
+            private Regex _pattern;
 
             public String Name
             {
                 get { return _name; }
-                set { _pattern = value; }
+                set { _name = value; }
             }
 
-            public String Pattern
+            public Regex Pattern
             {
                 get { return _pattern; }
                 set { _pattern = value; }
             }
 
-            public TokenType(String name, String pattern)
+            public TokenType(String name, String patternStr)
             {
                 this._name = name;
-                this._pattern = pattern;
+                this._pattern = new Regex(patternStr, RegexOptions.IgnoreCase);
             }
         }
 
         private static class TokenTypes
         {
-            public static TokenType Select = new TokenType("select", "select");
-            public static TokenType AllColumns = new TokenType("all columns", @"\*");
-            public static TokenType ColumnName = new TokenType("column name", @"\w");
-            public static TokenType Comma = new TokenType("comma", ","); 
+            public static TokenType Select = new TokenType("select", "^select$");
+            public static TokenType AllColumns = new TokenType("all columns", @"^\*$");
+            public static TokenType ColumnName = new TokenType("column name", @"^\w+$");
+            public static TokenType Comma = new TokenType("comma", "^,$"); 
             public static TokenType From = new TokenType("from", "from"); 
-            public static TokenType TableSource = new TokenType("table source", @"\w");
-            public static TokenType Where = new TokenType("where", "where");
+            public static TokenType TableSource = new TokenType("table source", @"^\w+$");
+            public static TokenType Where = new TokenType("where", "^where$"); 
+            public static TokenType LogicalOperatior = new TokenType("logical operatior", "^and|or$");
+            public static TokenType OpenParenthesis = new TokenType("open parenthesis", "^\\($"); 
+            public static TokenType CloseParenthesis = new TokenType("close parenthesis", "^\\)$"); 
+            public static TokenType Value = new TokenType("value", @"^\w+$");
+            public static TokenType ComparisonOperator = new TokenType("comparison operator", "^=|!=|>|<|>=|<=$");
         }
 
         private void NextString(TokenType tokenType)
         {
-            this._tokens.Add(tokenType);
+            this._tokens.Add(new Token(tokenType, this.CurrentString));
             this._currentIndex += 1;
         }
 
-        private bool Accept(TokenType tokenType)
+        private bool Accept(TokenType tokenType, bool isMoveNext = true)
         {
-            Regex regex = new Regex(tokenType.Pattern, RegexOptions.IgnoreCase);
-            if (regex.Match(this.CurrentString).Success)
+            if (tokenType.Pattern.Match(this.CurrentString).Success)
             {
-                this.NextString(tokenType);
+                if (isMoveNext)
+                {
+                    this.NextString(tokenType);
+                }
                 return true;
             }
             return false;
@@ -178,46 +185,85 @@ namespace FRDB_SQLite
 
         public bool CheckSyntax()
         {
+            this._queryText = Regex.Replace(this._queryText, "\\(", m => {
+                return $"{m.Value} ";
+            });
+            this._queryText = Regex.Replace(this._queryText, "\\)", m => {
+                return $" {m.Value}";
+            });
             this._lexs = this._queryText.Split(' ');
 
-            this.Expect(TokenTypes.Select);
-            if (!this.Accept(TokenTypes.AllColumns))
+            List<Action> actions = new List<Action>();
+            Action searchCondition = null;
+            searchCondition = () =>
             {
-                this.Expect(TokenTypes.ColumnName);
+                if (this.Accept(TokenTypes.OpenParenthesis, false))
+                {
+                    actions.Add(() => {
+                        this.Expect(TokenTypes.OpenParenthesis);
+                    });
+                    actions.Add(() => {
+                        searchCondition();
+                        actions.Add(() => {
+                            this.Expect(TokenTypes.CloseParenthesis);
+                        });
+                    });
+                }
+                else
+                {
+                    actions.Add(() =>
+                    {
+                        this.Expect(TokenTypes.ColumnName);
+                    });
+                    actions.Add(() =>
+                    {
+                        this.Expect(TokenTypes.ComparisonOperator);
+                    });
+                    actions.Add(() =>
+                    {
+                        this.Expect(TokenTypes.Value);
+                    });
+                }
+                actions.Add(() => {
+                    if (this.Accept(TokenTypes.LogicalOperatior))
+                    {
+                        searchCondition();
+                    }
+                });
+            };
+            Action columnName = () =>
+            {
+                if (!this.Accept(TokenTypes.AllColumns))
+                {
+                    this.Expect(TokenTypes.AllColumns);
+                    while (this.Accept(TokenTypes.ColumnName)) ;
+                }
+                this.Expect(TokenTypes.From);
+                this.Expect(TokenTypes.TableSource);
                 while (this.Accept(TokenTypes.Comma))
                 {
-                    this.Expect(TokenTypes.ColumnName);
+                    this.Expect(TokenTypes.TableSource);
                 };
-            }
-            this.Expect(TokenTypes.From);
-            this.Expect(TokenTypes.TableSource);
-            while (this.Accept(TokenTypes.Comma))
-            {
-                this.Expect(TokenTypes.TableSource);
+                if (this.Accept(TokenTypes.Where))
+                {
+                    actions.Add(searchCondition);
+                }
             };
-            if (this.Accept(TokenTypes.Where))
+            Action selectStatement = () =>
             {
+                if (this.Expect(TokenTypes.Select))
+                {
+                    actions.Add(columnName);
+                }
+            };
+            actions.Add(selectStatement);
+            int lexLength = this._lexs.Length;
+            int actionIndex = 0;
+            while (this._currentIndex < lexLength && actionIndex < actions.Count())
+            {
+                actions[actionIndex].Invoke();
+                actionIndex++;
             }
-
-            //List<Action> actions = new List<Action>();
-            //actions.Add(() => {
-            //    this.Accept(TokenTypes.Select);
-            //});
-            //actions.Add(() => {
-            //    if (!this.Accept(TokenTypes.AllColumns))
-            //    {
-            //        this.Expect(TokenTypes.AllColumns);
-            //        while (this.Accept(TokenTypes.ColumnName)) ;
-            //    }
-            //});
-            //int lexLength = this._lexs.Length;
-            //int actionLength = actions.Count();
-            //int actionIndex = 0;
-            //while(this._currentIndex < lexLength && actionIndex < actionLength)
-            //{
-            //    actions[actionIndex].Invoke();
-            //    actionIndex++;
-            //}
             return true;
         }
 
@@ -750,6 +796,7 @@ namespace FRDB_SQLite
             List<Item> result = new List<Item>();
             int i = 0, j = 0, k = 0;
             bool flag = false;
+            condition = "not (duration > 300 and cost < 500)";
             while (i < condition.Length - 1)
             {
                 Item item = new Item();
