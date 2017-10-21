@@ -1781,8 +1781,10 @@ namespace FRDB_SQLite
                 {
                     if (i < (condition.Length - 8) && condition.Substring(i, 8) == "between ")
                     {
-                        int k = i;
                         bool isNotEle = false;
+                        bool isNotBetween = condition.Substring(i - 4, 12) == "not between ";
+                        int k = isNotBetween ? i - 4 : i;
+                        i = k;
                         // Find the index of the first ')' before "between"
                         while (k > 0 && (condition.Substring(k, 5) != " and " || (condition.Substring(k, 4) != " or ")))
                             k--;
@@ -1802,13 +1804,19 @@ namespace FRDB_SQLite
                         }
                         String attributeName = condition.Substring(k, i - k);
                         // Replace the text "between" with the comparison operator ">="
-                        condition = condition.Replace("between", ">=");
+                        condition = condition.Replace($"{(isNotBetween ? "not " : "")}between", isNotBetween ? "<=" : ">=");
                         int j = i + 1;
                         // Find the index of the text " and "
                         while (j < (condition.Length - 5) && condition.Substring(j, 5) != " and ") j++;
+                        if (isNotBetween)
+                        {
+                            condition = condition.Remove(j, 5);
+                            condition = condition.Insert(j, " or ");
+                            j = j - 1;
+                        }
                         // Insert the attribute name and the comparison operator "<=" for the second value
                         // If there is "not" statement, we add "not" statement for second conditions
-                        condition = condition.Insert(j + 5, $"{(isNotEle ? "not " : "")}{attributeName} <= ");
+                        condition = condition.Insert(j + 5, $"{(isNotEle ? "not " : "")}{attributeName} {(isNotBetween ? ">=" : "<=")} ");
                     }
                     if (logic == " and ")
                     {
