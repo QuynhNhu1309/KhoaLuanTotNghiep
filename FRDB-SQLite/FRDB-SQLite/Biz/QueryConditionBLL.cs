@@ -166,20 +166,14 @@ namespace FRDB_SQLite
         {
             
             this._resultTuple = new FzTupleEntity() { ValuesOnPerRow = tuple.ValuesOnPerRow };//select * from rpatient where age <> "old"
-            //_uRelation = Convert.ToDouble(tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1]);
             _uRelation = (tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1]).ToString();
             List<string> _memberships = new List<string>();
-            //String logicText = String.Empty;
-
             for (int i = 0; i < list.Count; i++)
             {
                 String membership = string.Empty;
                 if (list[i].elements.Count == 3 && list[i].aggregateFunction == "")// single expression: age='young'.
                 {
                    membership= SatisfyItem(list[i].elements, tuple, i - 1);
-                    //    logicText += "1" + list[i].nextLogic;
-                    //else
-                    //    logicText += "0" + list[i].nextLogic;
                 }
                 else if (list[i].elements.Count != 3 && list[i].aggregateFunction == "")// Multiple expression: weight='heavy' and height>165
                 {
@@ -209,20 +203,13 @@ namespace FRDB_SQLite
                     if(list[i].aggregateFunction !="")
                         ItemConditions[i].valueAggregate = list[i].valueAggregate;
                     ItemConditions[i].resultCondition = true;
-                    //ItemConditions[i].keyTuple = (tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1]).ToString();
-
                 }
-                    //ItemConditions[i].resultCondition = true;
-
                 if (i != 0 && _memberships.Count > 0)// Getting previous logicality
                     _memberships.Add(list[i-1].nextLogic);
                 _memberships.Add(membership.ToString());
             }
             string NewMembership = UpdateMembership(_memberships);
             _resultTuple.ValuesOnPerRow[_resultTuple.ValuesOnPerRow.Count - 1] = NewMembership;
-            //QueryConditionBLL query = new QueryConditionBLL();
-            //List<Item> ItemConditions = new List<Item>();
-            
             return NewMembership;
         }
 
@@ -740,23 +727,16 @@ namespace FRDB_SQLite
                 check_uRelation = 1; //_uRelation is a fuzzyset
             if (itemCondition[1] == "->" || itemCondition[1] == "→")
             {
-                //fs = fs.Substring(1, fs.Length - 2);
-                //conFS = new FuzzyProcess().ReadEachConFS(path + fs + ".conFS");
-                //disFS = new FuzzyProcess().ReadEachDisFS(path + fs + ".disFS");//2 is value of user input
                 conFS = GetConFS(path, fs);
                 disFS = GetDisFS(path, fs);
             }
             if (conFS != null)//continuous fuzzy set is priorer than discrete fuzzy set
             {
-                //itemCondition[1] is operator, uValue is the membership of the value on current cell for the selected fuzzy set
                 Double uValue = FuzzyCompare(Convert.ToDouble(value), conFS, itemCondition[1]);
                 if (check_uRelation == 0) //if _uRelation is a number
                 {
                     uValue = Math.Min(uValue, Convert.ToDouble(_uRelation));//Update the min value
                     result= uValue.ToString();
-                        //if (i != -1 && _memberships.Count > 0)// Getting previous logicality
-                        //    _memberships.Add(_itemConditions[i].nextLogic);
-                        //_memberships.Add(uValue.ToString());
                 }
                 if (check_uRelation == 1) //if _uRelation is fuzzyset 
                 {
@@ -765,9 +745,6 @@ namespace FRDB_SQLite
                     uDisFS.MembershipSet.Add(1);
                     string FSName = Min_DisFS(disFS_uRelation, uDisFS);
                     result= FSName;
-                        //if (i != -1 && _memberships.Count > 0)// Getting previous logicality
-                        //    _memberships.Add(_itemConditions[i].nextLogic);
-                        //_memberships.Add(FSName);
                 }
             }
             if (disFS != null && conFS == null)
@@ -777,9 +754,6 @@ namespace FRDB_SQLite
                 {
                     uValue = Math.Min(uValue, Convert.ToDouble(_uRelation));//Update the min value
                     result= uValue.ToString();
-                        //if (i != -1 && _memberships.Count > 0)// Getting previous logicality
-                        //    _memberships.Add(_itemConditions[i].nextLogic);
-                        //_memberships.Add(uValue.ToString());
                 }
                 if (check_uRelation == 1) //if _uRelation is fuzzyset //hỏi lại
                 {
@@ -788,24 +762,14 @@ namespace FRDB_SQLite
                     uDisFS.MembershipSet.Add(1);
                     string FSName = Min_DisFS(disFS_uRelation, uDisFS);
                     result= FSName;
-                        //if (i != -1 && _memberships.Count > 0)// Getting previous logicality
-                        //    _memberships.Add(_itemConditions[i].nextLogic);
-                        //_memberships.Add(FSName);
                 }
             }
             if (disFS == null && conFS == null)
             {
-                //if (fs.Contains("\""))
-                //    fs = fs.Substring(1, fs.Length - 2);
                 if (ObjectCompare(value, fs, itemCondition[1], dataType))
                 {
                     if (check_uRelation==0)
-                    {
                         result= tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1].ToString();
-                        //if (i != -1 && _memberships.Count > 0)// Getting previous logicality
-                        //    _memberships.Add(_itemConditions[i].nextLogic);
-                        //_memberships.Add(tuple.ValuesOnPerRow[tuple.ValuesOnPerRow.Count - 1].ToString());
-                    }
                     if (check_uRelation==1)
                     {
                         DisFS uDisFS = new DisFS();
@@ -813,10 +777,6 @@ namespace FRDB_SQLite
                         uDisFS.MembershipSet.Add(1);
                         string FSName = Min_DisFS(disFS_uRelation, uDisFS);
                         result= FSName;
-                        //if (i != -1 && _memberships.Count > 0)// Getting previous logicality
-                        //    _memberships.Add(_itemConditions[i].nextLogic);
-                        //_memberships.Add(FSName);
-
                     }
                 }
             }
