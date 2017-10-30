@@ -22,6 +22,7 @@ using DevExpress.XtraBars.Ribbon;
 using System.IO;
 using System.Diagnostics;
 using System.Linq;
+using System.Globalization;
 
 namespace FRDB_SQLite.Gui
 {
@@ -3336,12 +3337,12 @@ namespace FRDB_SQLite.Gui
                 string membership = GridViewData.Rows[i].Cells[GridViewData.ColumnCount - 1].Value.ToString();
                 if (IsNumber(membership))
                 {
-                    Double value = Double.Parse(membership);
+                    Double value = Double.Parse(membership, CultureInfo.InvariantCulture);
 
                     if (value > 1 || value <= 0)
                     {
-                        MessageBox.Show("The membership value at row " + (i + 1) + " must be between (0-1]");
-                        return false;
+                        //MessageBox.Show("The membership value at row " + (i + 1) + " must be between (0-1]");
+                        //return false;
                     }
 
                 }

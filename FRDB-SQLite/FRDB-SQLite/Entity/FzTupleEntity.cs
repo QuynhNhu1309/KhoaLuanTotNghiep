@@ -47,6 +47,15 @@ namespace FRDB_SQLite
             this._valuesOnPerRow = new List<object>();
         }
 
+        public FzTupleEntity(List<string> valuesOnPerRow)
+        {
+            for (int i = 0; i < valuesOnPerRow.Count(); i++)
+            {
+                this._valuesOnPerRow.Add(valuesOnPerRow[i]);
+            }
+            this._memberShipIndex = this._valuesOnPerRow.Count - 1;
+        }
+
         public FzTupleEntity(String valuesOnPerRow)///consist of values of column on the same row
         {
             this._valuesOnPerRow = new List<Object>();

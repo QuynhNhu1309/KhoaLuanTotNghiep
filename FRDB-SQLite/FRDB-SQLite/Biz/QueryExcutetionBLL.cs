@@ -85,7 +85,7 @@ namespace FRDB_SQLite
             FzRelationEntity result = null;
             try
             {
-                if (this._selectedRelationTexts.Count() == 2)
+                if (this._selectedRelationTexts != null && this._selectedRelationTexts.Count() == 2)
                 {
                     QueryConditionBLL condition = new QueryConditionBLL();
                     String joinType = "inner";
@@ -183,8 +183,9 @@ namespace FRDB_SQLite
                                             .Where((item, index) => index != secondRelationTuple.ValuesOnPerRow.Count - 1))
                                         .Select(item => item.ToString())
                                         .ToList();
-                                    string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
-                                    FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
+                                    valuesOnPerRow.Add(membershipValue);
+                                    //string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
+                                    FzTupleEntity newTuple = new FzTupleEntity(valuesOnPerRow);
                                     joinRelation.Tuples.Add(newTuple);
                                 }
                             }
@@ -198,8 +199,9 @@ namespace FRDB_SQLite
                                         .Select(item => "null"))
                                     .Select(item => item.ToString())
                                     .ToList();
-                                string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + firstMembershipStr;
-                                FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
+                                //valuesOnPerRow.Add(membershipValue);
+                                //string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
+                                FzTupleEntity newTuple = new FzTupleEntity(valuesOnPerRow);
                                 joinRelation.Tuples.Add(newTuple);
                             }
                         }
@@ -228,8 +230,9 @@ namespace FRDB_SQLite
                                             .Where((item, index) => index != secondRelationTuple.ValuesOnPerRow.Count - 1))
                                         .Select(item => item.ToString())
                                         .ToList();
-                                    string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
-                                    FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
+                                    valuesOnPerRow.Add(membershipValue);
+                                    //string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
+                                    FzTupleEntity newTuple = new FzTupleEntity(valuesOnPerRow);
                                     joinRelation.Tuples.Add(newTuple);
                                 }
                             }
@@ -244,8 +247,9 @@ namespace FRDB_SQLite
                                         .Where((item, index) => index != secondRelationTuple.ValuesOnPerRow.Count - 1))
                                     .Select(item => item.ToString())
                                     .ToList();
-                                string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + secondMembershipStr;
-                                FzTupleEntity newTuple = new FzTupleEntity(newValuePerRow);
+                                //valuesOnPerRow.Add(membershipValue);
+                                //string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
+                                FzTupleEntity newTuple = new FzTupleEntity(valuesOnPerRow);
                                 joinRelation.Tuples.Add(newTuple);
                             }
                         }
@@ -497,17 +501,24 @@ namespace FRDB_SQLite
                         DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
                         if (fstDisFS == null && sndDisFS == null)
                         {
-                            newFS = Math.Max(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
+                            newFS = Math.Max(Convert.ToDouble(fstMemberShip.Replace('.', ',')), Convert.ToDouble(sndMemberShip.Replace('.', ','))).ToString();
+                            newFS = newFS.Replace(',', '.');
                         }
                         else if (fstDisFS == null)
                         {
-                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip.Replace('.', ',')));
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                            newFS = newFS.Replace(',', '.');
                         }
-                        else
+                        else if (sndDisFS == null)
                         {
-                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip.Replace('.', ',')));
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                            newFS = newFS.Replace(',', '.');
+                        } else
+                        {
+                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                            newFS = newFS.Replace(',', '.');
                         }
                         fstRelationTuple.MemberShip = newFS;
                     }
@@ -545,10 +556,16 @@ namespace FRDB_SQLite
                             fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
+                        else if (sndDisFS == null)
+                        {
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip.Replace('.', ',')));
+                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                            newFS = newFS.Replace(',', '.');
+                        }
                         else
                         {
-                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
-                            newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
+                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                            newFS = newFS.Replace(',', '.');
                         }
                         result.Add(new FzTupleEntity(fstRelationTuple, newFS));
                     }
