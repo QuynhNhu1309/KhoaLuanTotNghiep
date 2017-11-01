@@ -215,6 +215,7 @@ namespace FRDB_SQLite
 
         public Item findAndMarkAggregatetion (Item condition, List<FzTupleEntity> filterResultHaving)
         {
+            condition.resultCondition = false;
             string operation = condition.elements[1];// 3 = 40
             string aggregatetionFunction = condition.aggregateFunction;// min, max, avg,...
             double a = 0, b = 0;
