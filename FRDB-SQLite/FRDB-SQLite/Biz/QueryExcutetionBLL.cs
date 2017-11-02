@@ -5,6 +5,7 @@ using System.IO;
 using System.Data;
 using System.Text.RegularExpressions;
 using FRDB_SQLite.Biz;
+using System.Globalization;
 
 namespace FRDB_SQLite
 {
@@ -501,24 +502,20 @@ namespace FRDB_SQLite
                         DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
                         if (fstDisFS == null && sndDisFS == null)
                         {
-                            newFS = Math.Max(Convert.ToDouble(fstMemberShip.Replace('.', ',')), Convert.ToDouble(sndMemberShip.Replace('.', ','))).ToString();
-                            newFS = newFS.Replace(',', '.');
+                            newFS = Math.Max(Convert.ToDouble(fstMemberShip, CultureInfo.InvariantCulture), Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture)).ToString();
                         }
                         else if (fstDisFS == null)
                         {
-                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip.Replace('.', ',')));
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip, CultureInfo.InvariantCulture));
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
-                            newFS = newFS.Replace(',', '.');
                         }
                         else if (sndDisFS == null)
                         {
-                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip.Replace('.', ',')));
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture));
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
-                            newFS = newFS.Replace(',', '.');
                         } else
                         {
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
-                            newFS = newFS.Replace(',', '.');
                         }
                         fstRelationTuple.MemberShip = newFS;
                     }
@@ -549,23 +546,21 @@ namespace FRDB_SQLite
                         DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
                         if (fstDisFS == null && sndDisFS == null)
                         {
-                            newFS = Math.Min(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
+                            newFS = Math.Min(Convert.ToDouble(fstMemberShip, CultureInfo.InvariantCulture), Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture)).ToString();
                         }
                         else if (fstDisFS == null)
                         {
-                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip, CultureInfo.InvariantCulture));
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else if (sndDisFS == null)
                         {
-                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip.Replace('.', ',')));
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture));
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
-                            newFS = newFS.Replace(',', '.');
                         }
                         else
                         {
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
-                            newFS = newFS.Replace(',', '.');
                         }
                         result.Add(new FzTupleEntity(fstRelationTuple, newFS));
                     }
