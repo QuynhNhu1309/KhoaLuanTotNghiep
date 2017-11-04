@@ -556,11 +556,11 @@ namespace FRDB_SQLite
                         else if (sndDisFS == null)
                         {
                             sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture));
-                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                            newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else
                         {
-                            newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
+                            newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         result.Add(new FzTupleEntity(fstRelationTuple, newFS));
                     }
@@ -2322,7 +2322,11 @@ namespace FRDB_SQLite
         {
             string orderByAttr = "";
             int indexAttr = 0;
-            for (int p = 0; p < listOrder.Count(); p++)
+            //if (this._queryText.Contains("union") || this._queryText.Contains("intersect") || this._queryText.Contains("except"))
+            //{
+            //    this._selectedAttributes = this._selectedRelations[0].Scheme.Attributes;
+            //}
+                for (int p = 0; p < listOrder.Count(); p++)
             {
                 if (listOrder[p].IndexOf(" ") == 0)
                     listOrder[p] = listOrder[p].Remove(0, 1);
