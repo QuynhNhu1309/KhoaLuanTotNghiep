@@ -138,8 +138,23 @@ namespace FRDB_SQLite
                     {
                         Scheme = joinScheme
                     };
-                    int whereIndex = this._queryText.Contains("where") ? this._queryText.IndexOf("where") : this._queryText.Length;
-                    String[] joinKeys = this._queryText.Substring(this._queryText.IndexOf("on") + 2, whereIndex - (this._queryText.IndexOf("on") + 2)).Split('=');
+                    int whereIndex = this._queryText.IndexOf("where");
+                    int orderIndex = this._queryText.IndexOf("order by");
+                    int endIndex;
+                    if (whereIndex != -1)
+                    {
+                        endIndex = whereIndex;
+                    }
+                    else if (orderIndex != -1)
+                    {
+                        endIndex = orderIndex;
+                    }
+                    else
+                    {
+                        endIndex = this._queryText.Length;
+                    }
+                    String[] joinKeys = this._queryText
+                        .Substring(this._queryText.IndexOf("on") + 2, endIndex - (this._queryText.IndexOf("on") + 2)).Split('=');
                     String firstKeyRelation = joinKeys[0].Split('.')[0];
                     String secondKeyRelation = joinKeys[1].Split('.')[0];
                     //Check if the key order is inverted
@@ -274,7 +289,7 @@ namespace FRDB_SQLite
                     // Select * from rPatient_rDiagnose where rPatient.Age > 10
                     string newQuery = this._queryText
                         .Replace(
-                            this._queryText.Substring(this._queryText.IndexOf("from") + 5, whereIndex - (this._queryText.IndexOf("from") + 5)
+                            this._queryText.Substring(this._queryText.IndexOf("from") + 5, endIndex - (this._queryText.IndexOf("from") + 5)
                         ), firstRelation.RelationName + "_" + secondRelation.RelationName + " ");
                     this._queryText = newQuery;
                     this._fdbEntity = newFdbJoin;
