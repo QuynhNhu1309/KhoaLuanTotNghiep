@@ -6,6 +6,7 @@ using System.Data;
 using System.Text.RegularExpressions;
 using FRDB_SQLite.Biz;
 using System.Globalization;
+using System.Threading;
 
 namespace FRDB_SQLite
 {
@@ -69,6 +70,7 @@ namespace FRDB_SQLite
         public QueryExcutetionBLL() { }
         public QueryExcutetionBLL(String queryText, FdbEntity fdbEntity)
         {
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             this._queryText = queryText.ToLower();
             this._relationSet = fdbEntity.Relations;
             this._fdbEntity = fdbEntity;
@@ -502,16 +504,16 @@ namespace FRDB_SQLite
                         DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
                         if (fstDisFS == null && sndDisFS == null)
                         {
-                            newFS = Math.Max(Convert.ToDouble(fstMemberShip, CultureInfo.InvariantCulture), Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture)).ToString();
+                            newFS = Math.Max(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
                         }
                         else if (fstDisFS == null)
                         {
-                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip, CultureInfo.InvariantCulture));
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
                         }
                         else if (sndDisFS == null)
                         {
-                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture));
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
                             newFS = condition.Max_DisFS(fstDisFS, sndDisFS);
                         } else
                         {
@@ -546,16 +548,16 @@ namespace FRDB_SQLite
                         DisFS sndDisFS = condition.getDisFS(sndMemberShip, _fdbEntity);
                         if (fstDisFS == null && sndDisFS == null)
                         {
-                            newFS = Math.Min(Convert.ToDouble(fstMemberShip, CultureInfo.InvariantCulture), Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture)).ToString();
+                            newFS = Math.Min(Convert.ToDouble(fstMemberShip), Convert.ToDouble(sndMemberShip)).ToString();
                         }
                         else if (fstDisFS == null)
                         {
-                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip, CultureInfo.InvariantCulture));
+                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else if (sndDisFS == null)
                         {
-                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip, CultureInfo.InvariantCulture));
+                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else
@@ -573,23 +575,22 @@ namespace FRDB_SQLite
         {
             QueryConditionBLL condition = new QueryConditionBLL();
             List<FzTupleEntity> result = new List<FzTupleEntity>();
-            foreach (FzTupleEntity fstRelationTuple in fstRelationTuples)
+            string path = Directory.GetCurrentDirectory() + @"\lib\temp\";
+            sndRelationTuples.ForEach((tup) =>
             {
-                bool isTupleEqual = false;
-                foreach (FzTupleEntity sndRelationTuple in sndRelationTuples)
+                DisFS FSMembership = condition.GetDisFS(path, tup.MemberShip);
+                if (FSMembership != null)
                 {
-                    if (fstRelationTuple.Equals(sndRelationTuple))
-                    {
-                        isTupleEqual = true;
-                        break;
-                    }
+                    DisFS dis = new DisFS();
+                    dis.ValueSet.Add(1);
+                    dis.MembershipSet.Add(1);
+                    tup.MemberShip = condition.Diff_DisFS(dis, FSMembership);
                 }
-                if (!isTupleEqual)
-                {
-                    result.Add(fstRelationTuple);
-                }
-            }
-            return result;
+                else
+                    tup.MemberShip = (1 - Convert.ToDouble(tup.MemberShip)).ToString();
+            });
+
+            return GetIntersect(fstRelationTuples, sndRelationTuples);
         }
 
 

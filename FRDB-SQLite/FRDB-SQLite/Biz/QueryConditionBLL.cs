@@ -1079,7 +1079,7 @@ namespace FRDB_SQLite
         //    }
         //    return result;
         //}
-        private string Diff_DisFS (DisFS FuzzySet1, DisFS FuzzySet2) //FuzzySet1 - FuzzySet2
+        public string Diff_DisFS (DisFS FuzzySet1, DisFS FuzzySet2) //FuzzySet1 - FuzzySet2
         {
             try
             {

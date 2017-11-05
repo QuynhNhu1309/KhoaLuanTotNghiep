@@ -3341,8 +3341,8 @@ namespace FRDB_SQLite.Gui
 
                     if (value > 1 || value <= 0)
                     {
-                        //MessageBox.Show("The membership value at row " + (i + 1) + " must be between (0-1]");
-                        //return false;
+                        MessageBox.Show("The membership value at row " + (i + 1) + " must be between (0-1]");
+                        return false;
                     }
 
                 }
