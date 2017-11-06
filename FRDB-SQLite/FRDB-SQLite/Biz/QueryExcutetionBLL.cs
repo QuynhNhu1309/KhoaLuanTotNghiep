@@ -755,26 +755,51 @@ namespace FRDB_SQLite
                         this._errorMessage = "Query syntax is wrong";
                         throw new Exception(this._errorMessage);
                     }
-                    String[] fstQueryAttributes = GetAttributeTexts(this._singleQueries[0]);
-                    String[] sndQueryAttributes = GetAttributeTexts(this._singleQueries[1]);
-                    bool isEqual = fstQueryAttributes.SequenceEqual(sndQueryAttributes);
-                    if (!isEqual)
-                    {
-                        this._errorMessage = "The select statements do not have the same result columns";
-                        throw new Exception(this._errorMessage);
-                    }
                     String[] fstRelationTexts = GetRelationTexts(this._singleQueries[0]);
                     String[] sndRelationTexts = GetRelationTexts(this._singleQueries[1]);
                     FzRelationEntity fstRelation = this._fdbEntity.Relations
                         .Find(item => item.RelationName.Equals(fstRelationTexts[0], StringComparison.InvariantCultureIgnoreCase));
                     FzRelationEntity sndRelation = this._fdbEntity.Relations
                         .Find(item => item.RelationName.Equals(sndRelationTexts[0], StringComparison.InvariantCultureIgnoreCase));
+                    String[] fstQueryAttributes = GetAttributeTexts(this._singleQueries[0]);
+                    String[] sndQueryAttributes = GetAttributeTexts(this._singleQueries[1]);
+                    if (fstQueryAttributes == null)
+                    {
+                        fstQueryAttributes = fstRelation.Scheme.Attributes.Select((attribute) =>
+                        {
+                            return attribute.AttributeName;
+                        }).ToArray();
+                        sndQueryAttributes = sndRelation.Scheme.Attributes.Select((attribute) =>
+                        {
+                            return attribute.AttributeName;
+                        }).ToArray();
+                    }
+                    bool isEqual = fstQueryAttributes.SequenceEqual(sndQueryAttributes);
+                    if (!isEqual)
+                    {
+                        this._errorMessage = "The select statements do not have the same result columns";
+                        throw new Exception(this._errorMessage);
+                    }
                     for (int i = 0; i < fstQueryAttributes.Length; i++)
                     {
                         FzAttributeEntity fstAttr = fstRelation.Scheme.Attributes
                             .Find(attr => attr.AttributeName.Equals(fstQueryAttributes[i], StringComparison.InvariantCultureIgnoreCase));
                         FzAttributeEntity sndAttr = sndRelation.Scheme.Attributes
                             .Find(attr => attr.AttributeName.Equals(sndQueryAttributes[i], StringComparison.InvariantCultureIgnoreCase));
+                        if (fstAttr == null)
+                        {
+                            int asIndex = fstQueryAttributes[i].IndexOf("as");
+                            String attrText = fstQueryAttributes[i].Substring(0, asIndex - 1).Replace('-', ' ');
+                            fstAttr = fstRelation.Scheme.Attributes
+                            .Find(attr => attr.AttributeName.Equals(attrText, StringComparison.InvariantCultureIgnoreCase));
+                        }
+                        if (sndAttr == null)
+                        {
+                            int asIndex = sndQueryAttributes[i].IndexOf("as");
+                            String attrText = sndQueryAttributes[i].Substring(0, asIndex - 1).Replace('-', ' ');
+                            sndAttr = sndRelation.Scheme.Attributes
+                            .Find(attr => attr.AttributeName.Equals(attrText, StringComparison.InvariantCultureIgnoreCase));
+                        }
                         if (fstAttr.DataType.DataType != sndAttr.DataType.DataType)
                         {
                             this._errorMessage = "The select statements do not have the same result columns";
