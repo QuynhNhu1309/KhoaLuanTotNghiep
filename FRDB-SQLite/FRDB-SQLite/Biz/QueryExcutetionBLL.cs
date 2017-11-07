@@ -140,10 +140,15 @@ namespace FRDB_SQLite
                     };
                     int whereIndex = this._queryText.IndexOf("where");
                     int orderIndex = this._queryText.IndexOf("order by");
+                    int groupIndex = this._queryText.IndexOf("group by");
                     int endIndex;
                     if (whereIndex != -1)
                     {
                         endIndex = whereIndex;
+                    }
+                    else if (groupIndex != -1)
+                    {
+                        endIndex = groupIndex;
                     }
                     else if (orderIndex != -1)
                     {
