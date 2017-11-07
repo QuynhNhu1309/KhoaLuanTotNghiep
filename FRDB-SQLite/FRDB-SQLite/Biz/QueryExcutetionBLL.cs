@@ -590,10 +590,9 @@ namespace FRDB_SQLite
         {
             QueryConditionBLL condition = new QueryConditionBLL();
             List<FzTupleEntity> result = new List<FzTupleEntity>();
-            string path = Directory.GetCurrentDirectory() + @"\lib\temp\";
             sndRelationTuples.ForEach((tup) =>
             {
-                DisFS FSMembership = condition.GetDisFS(path, tup.MemberShip);
+                DisFS FSMembership = condition.getDisFS(tup.MemberShip, this._fdbEntity);
                 if (FSMembership != null)
                 {
                     DisFS dis = new DisFS();
