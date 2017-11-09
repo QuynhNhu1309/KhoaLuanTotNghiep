@@ -303,6 +303,8 @@ namespace FRDB_SQLite
 
                 if (this._queryType == Constants.QUERY_TYPE.COMBINATION)
                 {
+                    this.GetSelectedRelation(); if (this._error) throw new Exception(this._errorMessage);
+                    this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
                     // The SQL statement with Union is now ready to process
                     QueryExcutetionBLL fstExecution = new QueryExcutetionBLL(this._singleQueries[0], this._fdbEntity);
                     QueryExcutetionBLL sndExecution = new QueryExcutetionBLL(this._singleQueries[1], this._fdbEntity);
@@ -588,6 +590,8 @@ namespace FRDB_SQLite
                     }
                 }
             }
+            int countTupleOriginal = result.Count();
+            result = ProcessDistinct(result);
             return result;
         }
 
@@ -810,6 +814,7 @@ namespace FRDB_SQLite
                             throw new Exception(_errorMessage);
                         }
                     }
+                    this._selectedRelationTexts = GetRelationTexts(this._queryText);
                 }
                 else
                 {
