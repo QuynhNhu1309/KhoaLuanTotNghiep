@@ -1310,6 +1310,12 @@ namespace FRDB_SQLite
                     j = s.IndexOf(" where ");
                 else if (s.Contains(" group by "))
                     j = s.IndexOf(" group by ");
+                else if (s.Contains(" except "))
+                    j = s.IndexOf(" except ");
+                else if (s.Contains(" intersect "))
+                    j = s.IndexOf(" intersect ");
+                else if (s.Contains(" union "))
+                    j = s.IndexOf(" union ");
                 else if (s.Contains(" order by "))
                     j = s.IndexOf(" order by ");
                 String tmp = s.Substring(i, j - i);
