@@ -591,7 +591,10 @@ namespace FRDB_SQLite
                 }
             }
             int countTupleOriginal = result.Count();
-            result = ProcessDistinct(result);
+            if (countTupleOriginal > 0)
+            {
+                result = ProcessDistinct(result);
+            }
             return result;
         }
 
