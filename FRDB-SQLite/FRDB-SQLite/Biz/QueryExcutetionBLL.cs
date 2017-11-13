@@ -574,12 +574,16 @@ namespace FRDB_SQLite
                         }
                         else if (fstDisFS == null)
                         {
-                            fstDisFS = new DisFS(Convert.ToDouble(fstMemberShip));
+                            fstDisFS = new DisFS();
+                            fstDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
+                            fstDisFS.MembershipSet.Add(1);
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else if (sndDisFS == null)
                         {
-                            sndDisFS = new DisFS(Convert.ToDouble(sndMemberShip));
+                            sndDisFS = new DisFS();
+                            sndDisFS.ValueSet.Add(Convert.ToDouble(sndMemberShip));
+                            sndDisFS.MembershipSet.Add(1);
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else
@@ -800,14 +804,20 @@ namespace FRDB_SQLite
                         if (fstAttr == null)
                         {
                             int asIndex = fstQueryAttributes[i].IndexOf("as");
-                            String attrText = fstQueryAttributes[i].Substring(0, asIndex - 1).Replace('-', ' ');
+                            int distinctIndex = fstQueryAttributes[i].IndexOf("distinct");
+                            int startIndex = distinctIndex != -1 ? distinctIndex + 9 : 0;
+                            int substrLength = (asIndex != -1 ? asIndex - 1 : fstQueryAttributes[i].Length) - startIndex;
+                            String attrText = fstQueryAttributes[i].Substring(startIndex, substrLength).Replace('-', ' ');
                             fstAttr = fstRelation.Scheme.Attributes
                             .Find(attr => attr.AttributeName.Equals(attrText, StringComparison.InvariantCultureIgnoreCase));
                         }
                         if (sndAttr == null)
                         {
                             int asIndex = sndQueryAttributes[i].IndexOf("as");
-                            String attrText = sndQueryAttributes[i].Substring(0, asIndex - 1).Replace('-', ' ');
+                            int distinctIndex = fstQueryAttributes[i].IndexOf("distinct");
+                            int startIndex = distinctIndex != -1 ? distinctIndex + 9 : 0;
+                            int substrLength = (asIndex != -1 ? asIndex - 1 : fstQueryAttributes[i].Length) - startIndex;
+                            String attrText = fstQueryAttributes[i].Substring(startIndex, substrLength).Replace('-', ' ');
                             sndAttr = sndRelation.Scheme.Attributes
                             .Find(attr => attr.AttributeName.Equals(attrText, StringComparison.InvariantCultureIgnoreCase));
                         }
@@ -1309,16 +1319,21 @@ namespace FRDB_SQLite
             else
             {
                 int j = s.Length;//query text doesn't contain any conditions
-                if (s.Contains(" where "))//query text contains conditions
-                    j = s.IndexOf(" where ");
-                else if (s.Contains(" group by "))
-                    j = s.IndexOf(" group by ");
-                else if (s.Contains(" except "))
-                    j = s.IndexOf(" except ");
+                int k = 0;
+                if (s.Contains(" except "))
+                    k = s.IndexOf(" except ");
                 else if (s.Contains(" intersect "))
-                    j = s.IndexOf(" intersect ");
+                    k = s.IndexOf(" intersect ");
                 else if (s.Contains(" union "))
-                    j = s.IndexOf(" union ");
+                    k = s.IndexOf(" union ");
+                if (s.Contains(" where ") && (k == 0 || s.IndexOf(" where ") < k))//query text contains conditions
+                {
+                    j = s.IndexOf(" where ");
+                }
+                else if (k != 0)
+                    j = k;
+                else if (s.Contains(" group by "))
+                    k = s.IndexOf(" group by ");
                 else if (s.Contains(" order by "))
                     j = s.IndexOf(" order by ");
                 String tmp = s.Substring(i, j - i);
