@@ -304,6 +304,7 @@ namespace FRDB_SQLite
                 if (this._queryType == Constants.QUERY_TYPE.COMBINATION)
                 {
                     //this.GetSelectedRelation(); if (this._error) throw new Exception(this._errorMessage);
+                    //this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
                     // The SQL statement with Union is now ready to process
                     QueryExcutetionBLL fstExecution = new QueryExcutetionBLL(this._singleQueries[0], this._fdbEntity);
                     QueryExcutetionBLL sndExecution = new QueryExcutetionBLL(this._singleQueries[1], this._fdbEntity);
@@ -323,7 +324,8 @@ namespace FRDB_SQLite
                         Scheme = fstQueryResult.Scheme,
                     };
                     this._selectedRelations.Add(unionResult);
-                    this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
+                    this._selectedAttributes = unionResult.Scheme.Attributes;
+                    //this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
                     List<FzTupleEntity> resultTuples;
                     if (this._combinationType == Constants.COMBINATION_TYPE.UNION)
                     {
@@ -1334,7 +1336,7 @@ namespace FRDB_SQLite
                 else if (k != 0)
                     j = k;
                 else if (s.Contains(" group by "))
-                    k = s.IndexOf(" group by ");
+                    j = s.IndexOf(" group by ");
                 else if (s.Contains(" order by "))
                     j = s.IndexOf(" order by ");
                 String tmp = s.Substring(i, j - i);
