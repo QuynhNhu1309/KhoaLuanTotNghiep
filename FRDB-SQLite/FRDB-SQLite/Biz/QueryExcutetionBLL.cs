@@ -792,12 +792,6 @@ namespace FRDB_SQLite
                             return attribute.AttributeName;
                         }).ToArray();
                     }
-                    bool isEqual = fstQueryAttributes.SequenceEqual(sndQueryAttributes);
-                    if (!isEqual)
-                    {
-                        this._errorMessage = "The select statements do not have the same result columns";
-                        throw new Exception(this._errorMessage);
-                    }
                     for (int i = 0; i < fstQueryAttributes.Length; i++)
                     {
                         FzAttributeEntity fstAttr = fstRelation.Scheme.Attributes
@@ -817,12 +811,25 @@ namespace FRDB_SQLite
                         if (sndAttr == null)
                         {
                             int asIndex = sndQueryAttributes[i].IndexOf("as");
-                            int distinctIndex = fstQueryAttributes[i].IndexOf("distinct");
+                            int distinctIndex = sndQueryAttributes[i].IndexOf("distinct");
                             int startIndex = distinctIndex != -1 ? distinctIndex + 9 : 0;
-                            int substrLength = (asIndex != -1 ? asIndex - 1 : fstQueryAttributes[i].Length) - startIndex;
-                            String attrText = fstQueryAttributes[i].Substring(startIndex, substrLength).Replace('-', ' ');
+                            int substrLength = (asIndex != -1 ? asIndex - 1 : sndQueryAttributes[i].Length) - startIndex;
+                            String attrText = sndQueryAttributes[i].Substring(startIndex, substrLength).Replace('-', ' ');
                             sndAttr = sndRelation.Scheme.Attributes
                             .Find(attr => attr.AttributeName.Equals(attrText, StringComparison.InvariantCultureIgnoreCase));
+                        }
+                        if (fstQueryAttributes[i] != sndQueryAttributes[i] && fstAttr.AttributeName == sndAttr.AttributeName)
+                        {
+                            int distinctIndex = fstQueryAttributes[i].IndexOf("distinct");
+                            int startIndex = distinctIndex != -1 ? distinctIndex + 9 : 0;
+                            int substrLength = fstQueryAttributes[i].Length - startIndex;
+                            String attrText = fstQueryAttributes[i].Substring(startIndex, substrLength).Replace('-', ' ');
+                            this._queryText.Replace(sndQueryAttributes[i], attrText);
+                        }
+                        if (fstAttr.AttributeName != sndAttr.AttributeName)
+                        {
+                            this._errorMessage = "The select statements do not have the same result columns";
+                            throw new Exception(this._errorMessage);
                         }
                         if (fstAttr.DataType.DataType != sndAttr.DataType.DataType)
                         {
