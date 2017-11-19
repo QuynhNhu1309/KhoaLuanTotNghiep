@@ -32,6 +32,7 @@ namespace FRDB_SQLite
         private String _errorMessage;
         private Boolean _error;
         private FdbEntity _fdbEntity;
+        QueryConditionBLL condition;
 
         #endregion
 
@@ -71,6 +72,7 @@ namespace FRDB_SQLite
         public QueryExcutetionBLL(String queryText, FdbEntity fdbEntity)
         {
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+            condition = new QueryConditionBLL(fdbEntity);
             this._queryText = queryText.ToLower();
             this._relationSet = fdbEntity.Relations;
             this._fdbEntity = fdbEntity;
@@ -90,7 +92,6 @@ namespace FRDB_SQLite
             {
                 if (this._selectedRelationTexts != null && this._selectedRelationTexts.Count() == 2)
                 {
-                    QueryConditionBLL condition = new QueryConditionBLL();
                     String joinType = "inner";
                     FzRelationEntity firstRelation = this._relationSet
                         .Find(relation => this._selectedRelationTexts[0].Equals(relation.RelationName, StringComparison.InvariantCultureIgnoreCase));
@@ -182,7 +183,7 @@ namespace FRDB_SQLite
                         secondScheme.Attributes
                         .FindIndex(item => item.AttributeName.Equals(joinKeys[1].Split('.')[1].Trim(), StringComparison.InvariantCultureIgnoreCase));
                     //Run each tuple of 2 relation -> suitable for condition -> true
-
+                    Logger logger = new Logger();
                     //Run join with inner join and left join
                     if (joinType != "right")
                     {
@@ -199,7 +200,6 @@ namespace FRDB_SQLite
                                     String firstMembershipStr = firstRelationTuple.ValuesOnPerRow[firstRelationTuple.ValuesOnPerRow.Count - 1].ToString();
                                     String secondMembershipStr = secondRelationTuple.ValuesOnPerRow[secondRelationTuple.ValuesOnPerRow.Count - 1].ToString();
                                     string membershipValue = getFZValue(firstMembershipStr, secondMembershipStr, this._fdbEntity, condition);
-
                                     List<string> valuesOnPerRow = firstRelationTuple.ValuesOnPerRow
                                         .Where((item, index) => index != firstRelationTuple.ValuesOnPerRow.Count - 1)
                                         .Concat(secondRelationTuple.ValuesOnPerRow
@@ -207,6 +207,7 @@ namespace FRDB_SQLite
                                         .Select(item => item.ToString())
                                         .ToList();
                                     valuesOnPerRow.Add(membershipValue);
+                                    logger.Debug($"MembershipValue: {firstMembershipStr}, {secondMembershipStr}\n{String.Join(" | ", valuesOnPerRow.ToArray())}");
                                     //string newValuePerRow = String.Join(",", valuesOnPerRow.ToArray()) + "," + membershipValue;
                                     FzTupleEntity newTuple = new FzTupleEntity(valuesOnPerRow);
                                     joinRelation.Tuples.Add(newTuple);
@@ -1017,6 +1018,7 @@ namespace FRDB_SQLite
 
         private List<FzTupleEntity> GetSelectedAttributes(List<FzTupleEntity> resultTuple, FdbEntity _fdbEntity)
         {
+            condition.FdbEntity = _fdbEntity;
             List<FzTupleEntity> rs = new List<FzTupleEntity>();
             List<string> attributes = new List<string>();
             Boolean flagGetOneTuple = false;//use when have aggregate function & attributes
@@ -1056,7 +1058,6 @@ namespace FRDB_SQLite
                                 var arrMembership = resultTuple.Select(x => x.ValuesOnPerRow[this._selectedRelations[0].Scheme.Attributes.Count() - 1].ToString());
                                 List<String> membershipList = arrMembership.ToList();
                                 string FSName = "";
-                                QueryConditionBLL condition = new QueryConditionBLL(_fdbEntity);
                                 for (int i = 0; i < membershipList.Count(); i++)
                                 {
                                     FSName = condition.FindAndMarkFuzzy(membershipList[i].ToString(), FSName);
@@ -1072,7 +1073,6 @@ namespace FRDB_SQLite
                         }
                         else if (itemSelects.Count > 0)
                         {
-                            QueryConditionBLL condtition = new QueryConditionBLL(_fdbEntity);
                             int i = 0;
                             string FSName = "";
                             
@@ -1099,7 +1099,7 @@ namespace FRDB_SQLite
                                                 if (k == resultTuple.Count)
                                                     tmp = double.Parse((tmp / k).ToString());
                                             }
-                                            FSName1 = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName1);
+                                            FSName1 = condition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName1);
                                             break;
                                         }
                                         else if (int.Parse(item.elements[0]) == j && (item.aggregateFunction == "min" || item.aggregateFunction == "max"))
@@ -1132,7 +1132,7 @@ namespace FRDB_SQLite
                                                     if (y == 0) FSName2 = "";
                                                     if(double.Parse(resultTuple[y].ValuesOnPerRow[j].ToString()) == tmp)
                                                     {
-                                                        FSName2 = condtition.FindAndMarkFuzzy(resultTuple[y].ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName2);
+                                                        FSName2 = condition.FindAndMarkFuzzy(resultTuple[y].ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName2);
                                                     }
                                                 }
                                             }
@@ -1142,9 +1142,9 @@ namespace FRDB_SQLite
                                     if (k == 1) attributes.Add(item.attributeNameAs);
                                 }
                                 if (FSName1 != "")
-                                    FSName = condtition.FindAndMarkFuzzy(FSName1, FSName);
+                                    FSName = condition.FindAndMarkFuzzy(FSName1, FSName);
                                 if (FSName2 != "")
-                                    FSName = condtition.FindAndMarkFuzzy(FSName2, FSName);
+                                    FSName = condition.FindAndMarkFuzzy(FSName2, FSName);
 
                                 r.Add(tmp);
                                 
@@ -1187,7 +1187,6 @@ namespace FRDB_SQLite
             }
             else if (itemSelects.Count > 0)
             {
-                QueryConditionBLL condtition = new QueryConditionBLL(_fdbEntity);
                 FzTupleEntity r = new FzTupleEntity();
                 int i = 0;
                 string FSName = "";
@@ -1215,7 +1214,7 @@ namespace FRDB_SQLite
                                     if (k == resultTuple.Count)
                                         tmp = double.Parse((tmp / k).ToString());
                                 }
-                                FSName1 = condtition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName1);
+                                FSName1 = condition.FindAndMarkFuzzy(itemTuple.ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName1);
                                 break;
                             }
                             else if (int.Parse(item.elements[0]) == j && (item.aggregateFunction == "min" || item.aggregateFunction == "max"))
@@ -1247,7 +1246,7 @@ namespace FRDB_SQLite
                                         if (y == 0) FSName2 = "";
                                         if (double.Parse(resultTuple[y].ValuesOnPerRow[j].ToString()) == tmp)
                                         {
-                                            FSName2 = condtition.FindAndMarkFuzzy(resultTuple[y].ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName2);
+                                            FSName2 = condition.FindAndMarkFuzzy(resultTuple[y].ValuesOnPerRow[itemTuple.ValuesOnPerRow.Count - 1].ToString(), FSName2);
                                         }
                                     }
                                 }
@@ -1257,9 +1256,9 @@ namespace FRDB_SQLite
                     }  
                     r.Add(tmp);
                     if (FSName1 != "")
-                        FSName = condtition.FindAndMarkFuzzy(FSName1, FSName);
+                        FSName = condition.FindAndMarkFuzzy(FSName1, FSName);
                     if (FSName2 != "")
-                        FSName = condtition.FindAndMarkFuzzy(FSName2, FSName);
+                        FSName = condition.FindAndMarkFuzzy(FSName2, FSName);
                     if (i == itemSelects.Count)
                     {
                         r.Add(FSName);
@@ -2696,7 +2695,6 @@ namespace FRDB_SQLite
             resultTmp.Tuples.Clear();
             if (having < 0)//get select attribute with group by (without having condition)
             {
-                QueryConditionBLL condition = new QueryConditionBLL(_fdbEntity);
                 int countTuple = filterResult.Tuples.Count();
                 int j = 0;
                 while(j < countTuple)//format each tuple after group by

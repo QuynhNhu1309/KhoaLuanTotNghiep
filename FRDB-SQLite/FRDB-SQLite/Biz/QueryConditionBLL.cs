@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FRDB_SQLite;
+using FRDB_SQLite.Biz;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -15,6 +15,7 @@ namespace FRDB_SQLite
         private List<FzAttributeEntity> _attributes = new List<FzAttributeEntity>();
         //edit---
         private string _uRelation;
+        private Logger logger = new Logger(true);
     //--
         //private Double _uRelation;
         //private List<String> _memberships;
@@ -1436,30 +1437,30 @@ namespace FRDB_SQLite
         private String Random()
         {
             Random rd = new Random();
-            String result="";
-            Boolean flag = false;
-            while (!flag)
+            String result ="";
+            Boolean flag = true;
+            while (flag)
             {
                 result=Math.Round(rd.NextDouble(), 2).ToString();
                 System.Diagnostics.Debug.WriteLine("Random number: " + result);
                 System.Diagnostics.Debug.WriteLine("Random array: " + String.Join(",", random_array.Select(item => item.ToString()).ToArray()));
                 if (random_array.Count  != 0)
                 {
-                    foreach (var r in random_array)
-                    {
-                        if (r == Double.Parse(result))
-                            break;
-                        flag = true;
-                    }
+                    flag = random_array.Any((r) => {
+                        logger.Debug($"{r} == {Double.Parse(result)} {r == Double.Parse(result)}");
+                        return r == Double.Parse(result);
+                    });
                 }
                 else
                 {
-                    flag = true;
+                    flag = false;
                 }
             }
             Double re = Double.Parse(result);
             random_array.Add(re);
+            logger.Debug($"{String.Join(" | ", random_array.Select((item) => item.ToString()).ToArray())} {result}");
             System.Diagnostics.Debug.WriteLine("Random array add: " + String.Join(",", random_array.Select(item => item.ToString()).ToArray()));
+            
             return result;
         }
         private Boolean StringCompare(String a, String b, String opr)
