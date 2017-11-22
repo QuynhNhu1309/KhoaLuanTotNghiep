@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Biz\Constants.cs" />
+    <Compile Include="Biz\Logger.cs" />
     <Compile Include="Biz\QueryExecutionBLLv2.cs" />
     <Compile Include="Class\Checker.cs" />
     <Compile Include="Class\QueryPL.cs" />
