@@ -92,7 +92,26 @@ namespace FRDB_SQLite
             {
                 if (this._selectedRelationTexts != null && this._selectedRelationTexts.Count() == 2)
                 {
-                    String joinType = "inner";
+                    String joinType = "";
+                    int joinIndex = this._queryText.IndexOf("join");
+                    switch (this._queryText.Substring(joinIndex - 6, 10))
+                    {
+                        case "inner join":
+                            joinType = "inner";
+                            break;
+                        case " left join":
+                            joinType = "left";
+                            break;
+                        case "right join":
+                            joinType = "right";
+                            break;
+                        case " full join":
+                            joinType = "full";
+                            break;
+                        case "outer join":
+                            joinType = "outer";
+                            break;
+                    }
                     FzRelationEntity firstRelation = this._relationSet
                         .Find(relation => this._selectedRelationTexts[0].Equals(relation.RelationName, StringComparison.InvariantCultureIgnoreCase));
                     FzRelationEntity secondRelation = this._relationSet
@@ -1321,7 +1340,7 @@ namespace FRDB_SQLite
                 // firstRelationStr = rPatient
                 // secondRelationStr = rDiagnose
                 String firstRelationStr = this._queryText.Substring(i, joinIndex - i).Trim();
-                String secondRelationStr = this._queryText.Substring(this._queryText.IndexOf("join ") + 5, this._queryText.IndexOf("on") - (this._queryText.IndexOf("join ") + 5)).Trim();
+                String secondRelationStr = this._queryText.Substring(this._queryText.IndexOf("join ") + 5, this._queryText.IndexOf(" on ") - (this._queryText.IndexOf("join ") + 4)).Trim();
                 result.Add(firstRelationStr);
                 result.Add(secondRelationStr);
             }
@@ -1376,9 +1395,7 @@ namespace FRDB_SQLite
                 else if (!s.Contains(" order by "))
                     result = s.Substring(i);
             }
-            
-
-                return result;
+            return result;
         }
 
         private string[] getFilterGroupBy()
