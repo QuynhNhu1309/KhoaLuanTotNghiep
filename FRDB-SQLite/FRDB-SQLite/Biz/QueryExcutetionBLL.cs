@@ -598,15 +598,19 @@ namespace FRDB_SQLite
                         else if (fstDisFS == null)
                         {
                             fstDisFS = new DisFS();
-                            fstDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
-                            fstDisFS.MembershipSet.Add(1);
-                            newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
+                            fstDisFS.ValueSet.Add(1);
+                            fstDisFS.V = "1";
+                            fstDisFS.MembershipSet.Add(Convert.ToDouble(fstMemberShip));
+                            fstDisFS.M = fstMemberShip;
+                            newFS = condition.Min_DisFS(sndDisFS, fstDisFS);
                         }
                         else if (sndDisFS == null)
                         {
                             sndDisFS = new DisFS();
-                            sndDisFS.ValueSet.Add(Convert.ToDouble(sndMemberShip));
-                            sndDisFS.MembershipSet.Add(1);
+                            sndDisFS.ValueSet.Add(1);
+                            sndDisFS.V = "1";
+                            sndDisFS.MembershipSet.Add(Convert.ToDouble(sndMemberShip));
+                            sndDisFS.M = fstMemberShip;
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else
