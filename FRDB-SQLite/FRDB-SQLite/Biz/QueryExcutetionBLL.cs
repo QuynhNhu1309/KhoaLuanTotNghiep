@@ -418,7 +418,8 @@ namespace FRDB_SQLite
                         QueryConditionBLL condition = new QueryConditionBLL(items, this._selectedRelations, _fdbEntity);
                         foreach (FzTupleEntity tuple in this._selectedRelations[0].Tuples)
                         {
-                            if (condition.Satisfy(items, tuple) != "0")
+                            String disFS = condition.Satisfy(items, tuple);
+                            if (disFS != "0")
                             {
                                 if (this._selectedAttributeTexts != null)
                                     resultTmp.Add(condition.ResultTuple);//done
@@ -622,19 +623,19 @@ namespace FRDB_SQLite
                         else if (fstDisFS == null)
                         {
                             fstDisFS = new DisFS();
-                            fstDisFS.ValueSet.Add(1);
-                            fstDisFS.V = "1";
-                            fstDisFS.MembershipSet.Add(Convert.ToDouble(fstMemberShip));
-                            fstDisFS.M = fstMemberShip;
+                            fstDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
+                            fstDisFS.V = fstMemberShip;
+                            fstDisFS.MembershipSet.Add(1);
+                            fstDisFS.M = "1";
                             newFS = condition.Min_DisFS(sndDisFS, fstDisFS);
                         }
                         else if (sndDisFS == null)
                         {
                             sndDisFS = new DisFS();
-                            sndDisFS.ValueSet.Add(1);
-                            sndDisFS.V = "1";
-                            sndDisFS.MembershipSet.Add(Convert.ToDouble(sndMemberShip));
-                            sndDisFS.M = fstMemberShip;
+                            sndDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
+                            sndDisFS.V = fstMemberShip;
+                            sndDisFS.MembershipSet.Add(1);
+                            sndDisFS.M = "1";
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else
@@ -687,19 +688,19 @@ namespace FRDB_SQLite
                         else if (fstDisFS == null)
                         {
                             fstDisFS = new DisFS();
-                            fstDisFS.ValueSet.Add(1);
-                            fstDisFS.V = "1";
-                            fstDisFS.MembershipSet.Add(Convert.ToDouble(fstMemberShip));
-                            fstDisFS.M = fstMemberShip;
+                            fstDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
+                            fstDisFS.V = fstMemberShip;
+                            fstDisFS.MembershipSet.Add(1);
+                            fstDisFS.M = "1";
                             newFS = condition.Min_DisFS(condition.getDisFS(sndMemberShip, _fdbEntity), fstDisFS);
                         }
                         else if (sndDisFS == null)
                         {
                             sndDisFS = new DisFS();
-                            sndDisFS.ValueSet.Add(1);
-                            sndDisFS.V = "1";
-                            sndDisFS.MembershipSet.Add(Convert.ToDouble(sndMemberShip));
-                            sndDisFS.M = sndMemberShip;
+                            sndDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
+                            sndDisFS.V = fstMemberShip;
+                            sndDisFS.MembershipSet.Add(1);
+                            sndDisFS.M = "1";
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
                         else
@@ -718,10 +719,10 @@ namespace FRDB_SQLite
                     if (fstDisFS == null)
                     {
                         fstDisFS = new DisFS();
-                        fstDisFS.ValueSet.Add(1);
-                        fstDisFS.V = "1";
-                        fstDisFS.MembershipSet.Add(Convert.ToDouble(fstMemberShip));
-                        fstDisFS.M = fstMemberShip;
+                        fstDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
+                        fstDisFS.V = fstMemberShip;
+                        fstDisFS.MembershipSet.Add(1);
+                        fstDisFS.M = "1";
                         newFS = condition.Min_DisFS(sndDisFS, fstDisFS);
                     }
                     else
