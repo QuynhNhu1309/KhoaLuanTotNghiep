@@ -369,6 +369,8 @@ namespace FRDB_SQLite
                     };
                     this._selectedRelations.Add(unionResult);
                     this._selectedAttributes = unionResult.Scheme.Attributes;
+                    this._selectedAttributeTexts = unionResult.Scheme.Attributes
+                        .Select((attr) => attr.AttributeName).ToArray();
                     //this.GetSelectedAttr(); if (this._error) throw new Exception(this._errorMessage);
                     List<FzTupleEntity> resultTuples;
                     if (this._combinationType == Constants.COMBINATION_TYPE.UNION)
@@ -632,7 +634,7 @@ namespace FRDB_SQLite
                         else if (sndDisFS == null)
                         {
                             sndDisFS = new DisFS();
-                            sndDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
+                            sndDisFS.ValueSet.Add(Convert.ToDouble(sndMemberShip));
                             sndDisFS.V = fstMemberShip;
                             sndDisFS.MembershipSet.Add(1);
                             sndDisFS.M = "1";
@@ -697,7 +699,7 @@ namespace FRDB_SQLite
                         else if (sndDisFS == null)
                         {
                             sndDisFS = new DisFS();
-                            sndDisFS.ValueSet.Add(Convert.ToDouble(fstMemberShip));
+                            sndDisFS.ValueSet.Add(Convert.ToDouble(sndMemberShip));
                             sndDisFS.V = fstMemberShip;
                             sndDisFS.MembershipSet.Add(1);
                             sndDisFS.M = "1";
@@ -729,6 +731,11 @@ namespace FRDB_SQLite
                         newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                     result.Add(new FzTupleEntity(fstRelationTuple, newFS));
                 }
+            }
+            int countTupleOriginal = result.Count();
+            if (countTupleOriginal > 0)
+            {
+                result = ProcessDistinct(result);
             }
 
             return result;
