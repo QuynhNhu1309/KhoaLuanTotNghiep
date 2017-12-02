@@ -709,6 +709,7 @@ namespace FRDB_SQLite
                         {
                             newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
                         }
+                        if(newFS != "0")
                         result.Add(new FzTupleEntity(fstRelationTuple, newFS));
                     }
                 }
@@ -729,7 +730,8 @@ namespace FRDB_SQLite
                     }
                     else
                         newFS = condition.Min_DisFS(fstDisFS, sndDisFS);
-                    result.Add(new FzTupleEntity(fstRelationTuple, newFS));
+                    if (newFS != "0")
+                        result.Add(new FzTupleEntity(fstRelationTuple, newFS));
                 }
             }
             int countTupleOriginal = result.Count();
