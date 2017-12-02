@@ -347,6 +347,8 @@ namespace FRDB_SQLite
                         dis1 = new DisFS();
                         dis1.ValueSet.Add(v1);
                         dis1.MembershipSet.Add(1);
+                        dis1.V = v1.ToString();
+                        dis1.M = "1";
                     }
                     if (dis1 != null && dis2 == null)
                     {
@@ -354,6 +356,8 @@ namespace FRDB_SQLite
                         dis2 = new DisFS();
                         dis2.ValueSet.Add(v2);
                         dis2.MembershipSet.Add(1);
+                        dis2.V = v2.ToString();
+                        dis2.M = "1";
                     }
                     switch (memberships[1])
                     {
@@ -1139,12 +1143,12 @@ namespace FRDB_SQLite
                 {
                     return "0";
                 }
-                if ((FuzzySet1.ValueSet.Count == 1 && FuzzySet1.ValueSet[0] == 1))
+                if (FuzzySet1.ValueSet.Count == 1 && FuzzySet1.ValueSet[0] == 1)
                 {
                     result.Add(FuzzySet2.V);
                     result.Add(FuzzySet2.M);
                 }
-                if ((FuzzySet2.ValueSet.Count == 1 && FuzzySet2.ValueSet[0] == 1))
+                if (FuzzySet2.ValueSet.Count == 1 && FuzzySet2.ValueSet[0] == 1 && result.Count() < 1)
                 {
                     result.Add(FuzzySet1.V);
                     result.Add(FuzzySet1.M);
