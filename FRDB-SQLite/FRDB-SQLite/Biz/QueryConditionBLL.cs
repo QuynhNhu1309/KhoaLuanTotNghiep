@@ -210,6 +210,9 @@ namespace FRDB_SQLite
                 _memberships.Add(membership.ToString());
             }
             string NewMembership = UpdateMembership(_memberships);
+            DisFS FSMembership_New = GetDisFS(Directory.GetCurrentDirectory() + @"\lib\temp\", NewMembership);
+            if (FSMembership_New != null && FSMembership_New.ValueSet.Count == 1 && FSMembership_New.MembershipSet[0] == 0)
+                NewMembership = "0";
             _resultTuple.ValuesOnPerRow[_resultTuple.ValuesOnPerRow.Count - 1] = NewMembership;
             return NewMembership;
         }
@@ -1240,7 +1243,7 @@ namespace FRDB_SQLite
                     String values = "";
                     String memberships = "";
                     DisFS dis = new DisFS();
-                    if ((FuzzySet1.ValueSet.Count == 1 && FuzzySet1.ValueSet[0] == 1) || (FuzzySet2.ValueSet.Count == 1 && FuzzySet2.ValueSet[0] == 1))
+                    if ((FuzzySet1.ValueSet.Count == 1 && FuzzySet1.ValueSet[0] == 1 && FuzzySet1.MembershipSet[0] == 1) || (FuzzySet2.ValueSet.Count == 1 && FuzzySet2.ValueSet[0] == 1 && FuzzySet2.MembershipSet[0] == 1))
                     {
                         return "1";
                     }
@@ -1249,7 +1252,7 @@ namespace FRDB_SQLite
                         result.Add(FuzzySet2.V);
                         result.Add(FuzzySet2.M);
                     }
-                    if ((FuzzySet2.ValueSet.Count == 1 && FuzzySet2.ValueSet[0] == 0))
+                    if ((FuzzySet2.ValueSet.Count == 1 && FuzzySet2.ValueSet[0] == 0) && result.Count() < 1)
                     {
                         result.Add(FuzzySet1.V);
                         result.Add(FuzzySet1.M);
