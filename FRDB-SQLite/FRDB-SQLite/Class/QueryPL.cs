@@ -129,6 +129,40 @@ namespace FRDB_SQLite.Class
             return result;
         }
 
+        public static String CheckNumberReSyntax(String query)
+        {
+            String mess1 = "";
+            String mess2 = "", message = "";
+            if (query.Contains(" union ") || query.Contains(" intersect ") || query.Contains(" except "))
+            {
+                String query1 = "";
+                String query2 = "";
+                if (query.Contains(" union "))
+                {
+                    query1 = query.Substring(0, query.IndexOf(" union "));
+                    query2 = query.Substring(query.IndexOf(" union ") + 7);
+                }
+                if (query.Contains(" except "))
+                {
+                    query1 = query.Substring(0, query.IndexOf(" except "));
+                    query2 = query.Substring(query.IndexOf(" except ") + 8);
+                }
+                if (query.Contains(" intersect "))
+                {
+                    query1 = query.Substring(0, query.IndexOf(" intersect "));
+                    query2 = query.Substring(query.IndexOf(" intersect ") + 11);
+                }
+                mess1 = CheckSyntax(query1);
+                mess2 = CheckSyntax(query2);
+                if (mess1 != "")
+                    message = mess1;
+                if (mess2 != "" && message == "")
+                    message = mess2;
+            }
+            else message = CheckSyntax(query);
+            return message;
+        }
+
         public static String CheckSyntax(String query)// Query must be standarded and remain single space between specify word
         {
             String message = "";
@@ -203,9 +237,9 @@ namespace FRDB_SQLite.Class
             if (query.Contains(" group by "))
             {
                 groupby = query.IndexOf(" group by ");
-                if (groupby < selectAttr || groupby < select || groupby < from || groupby < where)
+                if ((groupby < selectAttr || groupby < select || groupby < from || groupby < where) && !query.Contains("union") && !query.Contains("except") && !query.Contains("intersect"))
                 {
-                    return message = "'Group by' clause is reuquired after 'select, from, where'";
+                    return message = "'Group by' clause is required after 'select, from, where'";
                 }
             }
 
@@ -213,9 +247,9 @@ namespace FRDB_SQLite.Class
             if (query.Contains(" having "))
             {
                 having = query.IndexOf(" having ");
-                if (having < groupby || groupby < 0)
+                if ((having < groupby || groupby < 0) && !query.Contains("union") && !query.Contains("except") && !query.Contains("intersect"))
                 {
-                    return message = "'Group by' clause is reuquired before 'having'";
+                    return message = "'Group by' clause is required before 'having'";
                 }
             }
 
@@ -225,7 +259,7 @@ namespace FRDB_SQLite.Class
                 orderby = query.IndexOf(" order by ");
                 if (orderby < having || orderby < selectAttr || orderby < select || orderby < from || orderby < where)
                 {
-                    return message = "'Order by' clause is reuquired after 'select, from, where, group by, having'";
+                    return message = "'Order by' clause is required after 'select, from, where, group by, having'";
                 }
             }
 
@@ -271,7 +305,7 @@ namespace FRDB_SQLite.Class
                     return message = "'where'condition must not contain aggregate function";
                 }
 
-                if(where < from) return message = "'Where' clause is reuquired after 'select, from'";
+                if(where < from && !query.Contains("union") && !query.Contains("except") && !query.Contains("intersect")) return message = "'Where' clause is reuquired after 'select, from'";
                 //---------------
 
                 //m = CaseCheckFuzzySet(query, "->", 2);
@@ -305,19 +339,19 @@ namespace FRDB_SQLite.Class
                 else if (having <= 0 && orderby <= 0)
                     endGroupbyAttr = query.Length;
                 groupbyAttr = query.Substring(startGroupbyAttr + 1, endGroupbyAttr - startGroupbyAttr - 1).ToLower();
-                MatchCollection attr = Regex.Matches(groupbyAttr, @"[\w]+");// count word in group by clause
-                MatchCollection attrComma = Regex.Matches(groupbyAttr, @"[,]+");// count comma in group by clause
-                if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1 && selectAttr < 0)
-                {
-                    for (int i = 0; i < selectAttrArr.Length; i++)
-                    {
-                        if (!groupbyAttr.Contains(selectAttrArr[i].Trim().ToLower()) && !selectAttrArr[i].Trim().ToLower().Contains("min") && !selectAttrArr[i].Trim().ToLower().Contains("max") && !selectAttrArr[i].Trim().ToLower().Contains("count") && !selectAttrArr[i].Trim().ToLower().Contains("avg") && !selectAttrArr[i].Trim().ToLower().Contains("sum") && !selectAttrArr[i].Trim().ToLower().Contains("as") && !selectAttrArr[i].Trim().ToLower().Contains("distinct"))
-                            return message = "Attributes in 'select' must be included in 'group by'";
-                    }
-                }
-                else
-                    if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
-                    return message = "Missing comma in 'group by' clause";
+                //MatchCollection attr = Regex.Matches(groupbyAttr, @"[\w]+");// count word in group by clause
+                //MatchCollection attrComma = Regex.Matches(groupbyAttr, @"[,]+");// count comma in group by clause
+                //if ((attr.Count > 1 || attr.Count == 1) && attrComma.Count == attr.Count - 1 && selectAttr < 0)
+                //{
+                //    for (int i = 0; i < selectAttrArr.Length; i++)
+                //    {
+                //        if (!groupbyAttr.Contains(selectAttrArr[i].Trim().ToLower()) && !selectAttrArr[i].Trim().ToLower().Contains("min") && !selectAttrArr[i].Trim().ToLower().Contains("max") && !selectAttrArr[i].Trim().ToLower().Contains("count") && !selectAttrArr[i].Trim().ToLower().Contains("avg") && !selectAttrArr[i].Trim().ToLower().Contains("sum") && !selectAttrArr[i].Trim().ToLower().Contains("as") && !selectAttrArr[i].Trim().ToLower().Contains("distinct"))
+                //            return message = "Attributes in 'select' must be included in 'group by'";
+                //    }
+                //}
+                //else
+                //    if (attrComma.Count != attr.Count - 1 && attr.Count > 1)
+                //    return message = "Missing comma in 'group by' clause";
                 //if (selectAttr < 0) // not contain * in select
             }
             return message;
@@ -410,9 +444,9 @@ namespace FRDB_SQLite.Class
                 if (pos == query.Length || (posOpen < 0 && posClose < 0)) break;
             }
             if (countOpen > countClose)
-                return message = "Missing close parenthesis ')'. 0.1";
+                return message = "Missing close parenthesis ')'.";
             else if (countOpen < countClose)
-                return message = "Missing open parenthesis '('. 0.2";
+                return message = "Missing open parenthesis '('.";
             else if (countOpen == countClose)
             {
                 while (i < query.Length - 1)
