@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FRDB-SQLite", "FRDB-SQLite\FRDB-SQLite.csproj", "{BDF8D71F-9CD8-4AF7-B71D-B092DE2FE9F6}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{41524C36-377E-4A50-ABC9-58DF52725B94}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,12 +27,12 @@ Global
 		{BDF8D71F-9CD8-4AF7-B71D-B092DE2FE9F6}.Release|Mixed Platforms.Build.0 = Release|x86
 		{BDF8D71F-9CD8-4AF7-B71D-B092DE2FE9F6}.Release|x86.ActiveCfg = Release|x86
 		{BDF8D71F-9CD8-4AF7-B71D-B092DE2FE9F6}.Release|x86.Build.0 = Release|x86
-		{41524C36-377E-4A50-ABC9-58DF52725B94}.Debug|Any CPU.ActiveCfg = Debug
-		{41524C36-377E-4A50-ABC9-58DF52725B94}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{41524C36-377E-4A50-ABC9-58DF52725B94}.Debug|x86.ActiveCfg = Debug
-		{41524C36-377E-4A50-ABC9-58DF52725B94}.Release|Any CPU.ActiveCfg = Release
-		{41524C36-377E-4A50-ABC9-58DF52725B94}.Release|Mixed Platforms.ActiveCfg = Release
-		{41524C36-377E-4A50-ABC9-58DF52725B94}.Release|x86.ActiveCfg = Release
+		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Debug|Any CPU.ActiveCfg = Debug
+		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Debug|x86.ActiveCfg = Debug
+		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Release|Any CPU.ActiveCfg = Release
+		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Release|Mixed Platforms.ActiveCfg = Release
+		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
