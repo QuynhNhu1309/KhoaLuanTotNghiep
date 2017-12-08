@@ -25,7 +25,7 @@ namespace FRDB_SQLite
         private List<Item> _itemConditions;
         private String _errorMessage;
         private FdbEntity _fdbEntity;
-        private List<Double> random_array = new List<Double>();
+        private List<int> random_array = new List<int>();
         #endregion
 
         #region 2. Properties
@@ -1439,32 +1439,23 @@ namespace FRDB_SQLite
             }
         }
 
-       
+        private int GiveMeANumber()
+        {
+            var exclude = new HashSet<int>(random_array);
+            var range = Enumerable.Range(1, 100).Where(i => !exclude.Contains(i));
+
+            var rand = new Random();
+            int index = rand.Next(1, 99 - exclude.Count);
+            return range.ElementAt(index);
+        }
 
         private String Random()
         {
-            Random rd = new Random();
             String result ="";
-            Boolean flag = true;
-            while (flag)
-            {
-                result=Math.Round(rd.NextDouble(), 2).ToString();
-                System.Diagnostics.Debug.WriteLine("Random number: " + result);
-                System.Diagnostics.Debug.WriteLine("Random array: " + String.Join(",", random_array.Select(item => item.ToString()).ToArray()));
-                if (random_array.Count  != 0)
-                {
-                    flag = random_array.Any((r) => {
-                        logger.Debug($"{r} == {Double.Parse(result)} {r == Double.Parse(result)}");
-                        return r == Double.Parse(result);
-                    });
-                }
-                else
-                {
-                    flag = false;
-                }
-            }
-            Double re = Double.Parse(result);
-            random_array.Add(re);
+            int randomNumber = GiveMeANumber();
+            Double randomDouble = (Double.Parse(randomNumber.ToString()) / 100);
+            result = randomDouble.ToString();
+            random_array.Add(randomNumber);
             logger.Debug($"{String.Join(" | ", random_array.Select((item) => item.ToString()).ToArray())} {result}");
             System.Diagnostics.Debug.WriteLine("Random array add: " + String.Join(",", random_array.Select(item => item.ToString()).ToArray()));
             

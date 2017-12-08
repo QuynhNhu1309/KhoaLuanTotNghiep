@@ -105,8 +105,8 @@ namespace FRDB_SQLite
                         case "right join":
                             joinType = "right";
                             break;
-                        case " full join":
-                            joinType = "full";
+                        case "cross join":
+                            joinType = "cross";
                             break;
                         case "outer join":
                             joinType = "outer";
@@ -178,7 +178,7 @@ namespace FRDB_SQLite
                     {
                         endIndex = this._queryText.Length;
                     }
-                    if (joinType == "full")
+                    if (joinType == "cross")
                     {
                         foreach (FzTupleEntity firstRelationTuple in firstRelation.Tuples)
                         {
@@ -202,11 +202,11 @@ namespace FRDB_SQLite
                     }
                     else
                     {
-                        String[] joinKeys = joinType != "full" ?
+                        String[] joinKeys = joinType != "cross" ?
                             this._queryText.Substring(this._queryText.IndexOf("on") + 2, endIndex - (this._queryText.IndexOf("on") + 2)).Split('=') :
                             new String[0];
-                        String firstKeyRelation = joinType != "full" ? joinKeys[0].Split('.')[0] : "";
-                        String secondKeyRelation = joinType != "full" ? joinKeys[1].Split('.')[0] : "";
+                        String firstKeyRelation = joinType != "cross" ? joinKeys[0].Split('.')[0] : "";
+                        String secondKeyRelation = joinType != "cross" ? joinKeys[1].Split('.')[0] : "";
                         //Check if the key order is inverted
                         bool isInverted = false;
                         if (!firstKeyRelation.Equals(firstRelation.RelationName, StringComparison.InvariantCultureIgnoreCase) ||
@@ -1424,9 +1424,9 @@ namespace FRDB_SQLite
                         joinType = "right";
                         joinIndex -= 6;
                         break;
-                    case " full join":
-                        joinType = "full";
-                        joinIndex -= 5;
+                    case "cross join":
+                        joinType = "cross";
+                        joinIndex -= 6;
                         break;
                     case "outer join":
                         joinType = "outer";
@@ -1441,7 +1441,7 @@ namespace FRDB_SQLite
                 int orderIndex = this._queryText.IndexOf("order by");
                 int groupIndex = this._queryText.IndexOf("group by");
                 int endIndex;
-                if (joinType != "full")
+                if (joinType != "cross")
                 {
                     endIndex = this._queryText.IndexOf(" on ");
                 }
