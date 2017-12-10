@@ -1977,7 +1977,7 @@ namespace FRDB_SQLite
                         }
                         String attributeName = condition.Substring(k, i - k);
                         // Replace the text "between" with the comparison operator ">="
-                        condition = condition.Replace($"{(isNotBetween ? "not " : "")}between", isNotBetween ? "<=" : ">=");
+                        condition = condition.Replace($"{(isNotBetween ? "not " : "")}between", isNotBetween ? "<" : ">=");
                         int j = i + 1;
                         // Find the index of the text " and "
                         while (j < (condition.Length - 5) && condition.Substring(j, 5) != " and ") j++;
@@ -1989,7 +1989,7 @@ namespace FRDB_SQLite
                         }
                         // Insert the attribute name and the comparison operator "<=" for the second value
                         // If there is "not" statement, we add "not" statement for second conditions
-                        condition = condition.Insert(j + 5, $"{(isNotEle ? "not " : "")}{attributeName} {(isNotBetween ? ">=" : "<=")} ");
+                        condition = condition.Insert(j + 5, $"{(isNotEle ? "not " : "")}{attributeName} {(isNotBetween ? ">" : "<=")} ");
                         if (isNotEle)
                         {
                             condition = condition.Remove(j, 4);
