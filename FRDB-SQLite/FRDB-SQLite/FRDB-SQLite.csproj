@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -385,6 +388,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FuzzySetLibrary.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="app.manifest" />
     <None Include="Data\about_100km.conFS" />
     <None Include="Data\about_10h.conFS" />
     <None Include="Data\about_10kg.conFS" />

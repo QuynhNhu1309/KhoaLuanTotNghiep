@@ -15,499 +15,433 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_03A8EC6002834B1BA3DF0839F06EF8B8"
+        "MsmKey" = "8:_00BD36C644EC4A8B9107177C332F958D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_080E02EE568E4E599B75FED026D6051E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0AB4B465DE2B48609BCC925DB0DAC6E8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0C79B791FFF8463080C96A82C51675CC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0D69FD4D188A47CEBEDD508872375F42"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
-        "OwnerKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
-        "OwnerKey" = "8:_E131CF8CD1233332305C276A27567CCB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
-        "OwnerKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
-        "OwnerKey" = "8:_78E1E9D1CAD62A31CDCD79F309A89867"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
-        "OwnerKey" = "8:_3EE819C678BFD29CD44CC1547A508027"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
-        "OwnerKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
+        "MsmKey" = "8:_04D1DBCC68FD71A4A75D28E0ABD99CB5"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0EE945F6B9C6413FB663BB8B4AED36D5"
+        "MsmKey" = "8:_05EE23CAA3634E8DA16FB155253FBA4C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0F2C6E9943E9481B96AC8A512C03A083"
+        "MsmKey" = "8:_0DBB8B53512E4BFB83A40A525ED0457D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_2A556F141F6522748E59479C7CE37109"
+        "MsmKey" = "8:_1BD47707330A4D9A96BD6D5D1332B026"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_E131CF8CD1233332305C276A27567CCB"
+        "MsmKey" = "8:_2383FFA7C2D2C2A926531E012078607A"
+        "OwnerKey" = "8:_FEB75C95870D4BA3D7939104EDA87D2A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_4BB48E693CAF1F76259FFFBFAFFD886C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_78E1E9D1CAD62A31CDCD79F309A89867"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_3EE819C678BFD29CD44CC1547A508027"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_42AF9FE656A1FF61264CDB62436EEC66"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
+        "MsmKey" = "8:_2383FFA7C2D2C2A926531E012078607A"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_5FBA13192C1D510CF343FA0C129A1692"
+        "MsmKey" = "8:_2383FFA7C2D2C2A926531E012078607A"
+        "OwnerKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-        "OwnerKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_14910ADF0E940CD361EC927ED702AEDF"
+        "MsmKey" = "8:_246C7EA612609E06EA2276648351D0BE"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_14910ADF0E940CD361EC927ED702AEDF"
-        "OwnerKey" = "8:_AC2905B0E42430A304B673FC58B51201"
+        "MsmKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
+        "OwnerKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1494114A16F5456180741162D0AF33E6"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
+        "OwnerKey" = "8:_CB9FBDB3A7C7F58199AF59910557925E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1B41509D00EB4FAC8A79BE313AAEA5D2"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
+        "OwnerKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_259D6D94B9304F148ABE3584EBE7F486"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
+        "OwnerKey" = "8:_2383FFA7C2D2C2A926531E012078607A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_28A53AD914364C97AC16C909AA446F1D"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
+        "OwnerKey" = "8:_FEB75C95870D4BA3D7939104EDA87D2A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "OwnerKey" = "8:_362B74F1D634BDD1EC87ADD097E7EB8C"
+        "MsmKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
+        "OwnerKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "OwnerKey" = "8:_E131CF8CD1233332305C276A27567CCB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "OwnerKey" = "8:_4BB48E693CAF1F76259FFFBFAFFD886C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "OwnerKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "OwnerKey" = "8:_78E1E9D1CAD62A31CDCD79F309A89867"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "OwnerKey" = "8:_3EE819C678BFD29CD44CC1547A508027"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "OwnerKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
-        "OwnerKey" = "8:_42AF9FE656A1FF61264CDB62436EEC66"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2A556F141F6522748E59479C7CE37109"
+        "MsmKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_2A88BCEA8CB841D08D1A0D36F3DC001D"
+        "MsmKey" = "8:_2C2DCEBE1AA749FCB704174DB498CE85"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_2D39F229E3884215A2BD272A99A2A3CE"
+        "MsmKey" = "8:_2FA0F8AE33304FA8B4B6502190E021F7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_362B74F1D634BDD1EC87ADD097E7EB8C"
+        "MsmKey" = "8:_32495091560A4BEB8DB8673D83273DC0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_38DF3620BD204812B0D35CF9F8CC5488"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_39FBB09027594EDFB8D24C167374A715"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3AAB460F5E3C4C02B00CD19F6D8BA961"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3CDAEF155F4948B7990DB9EF180D85A7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3F415909120144BD834A8F2D88121D6E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3FAFAFA3B43243278BB6EB264201259A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_401D3BC1D1DD41088E0F8B3E58434003"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_488123B0FF114716BF0CFC0671D217B1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4A5B84FB92674534A8CFFBF8C81B7DC1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5164817D36524D508C285459652471E2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_554EC77DFEF14DD59B4193F69CD6181E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_596AE40A44914811876E76806E88DE81"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5A61824A84CB444293290C651B444F5B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5BCE8186982235592051DCFFF689D3D8"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_38343D6D6EC84282909646ED806761B9"
+        "MsmKey" = "8:_60C579EE491144A8BD6D0C9FBA22A142"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3A87D95E73BA48BCB43258310BDAF29D"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "OwnerKey" = "8:_246C7EA612609E06EA2276648351D0BE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3EE819C678BFD29CD44CC1547A508027"
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "OwnerKey" = "8:_CB9FBDB3A7C7F58199AF59910557925E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "OwnerKey" = "8:_04D1DBCC68FD71A4A75D28E0ABD99CB5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "OwnerKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "OwnerKey" = "8:_2383FFA7C2D2C2A926531E012078607A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "OwnerKey" = "8:_FEB75C95870D4BA3D7939104EDA87D2A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "OwnerKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "OwnerKey" = "8:_FB5CA64FC2A8BBBD11C6A53AC19E843F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_42AF9FE656A1FF61264CDB62436EEC66"
+        "MsmKey" = "8:_6AD270EF508A42E7AB35F3399F73D7B1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6C94A57489434637B8704D6F24DAC789"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6F9D4AF5146E41108B19A2770363D9C2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_751044199497B8493BBC0ECE88A18F52"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_42AF9FE656A1FF61264CDB62436EEC66"
-        "OwnerKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
+        "MsmKey" = "8:_757DDD62D63B4FCEBA3F46E3C4664A42"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
-        "OwnerKey" = "8:_3EE819C678BFD29CD44CC1547A508027"
+        "MsmKey" = "8:_76369CCE0E274FAA8C728EE8A2E5EA3E"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
-        "OwnerKey" = "8:_E131CF8CD1233332305C276A27567CCB"
+        "MsmKey" = "8:_783747E6DF0C490AAD656A0591EC8B70"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
+        "MsmKey" = "8:_7D083D270646431D971A8A8034408B21"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_86E680BCFC7C42E89CE0873170D7090E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_87E2E8D1F73CFCF2B383284D222C4260"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_43E415D0593442A5A342ECA26EE0A5B0"
+        "MsmKey" = "8:_87E2E8D1F73CFCF2B383284D222C4260"
+        "OwnerKey" = "8:_751044199497B8493BBC0ECE88A18F52"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8B13380B5D16478AB311FB0A32AC4409"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4A7F9B44720E45E08B080ADC388A58D1"
+        "MsmKey" = "8:_8F2656F966564703B02D9F7D89AF2B7F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4BB48E693CAF1F76259FFFBFAFFD886C"
+        "MsmKey" = "8:_9A2AED2B84E04D90B8D3A127C0F6FCEA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9FA35F99905946C985DD120191F4535E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9FDAD602F8D6472BBF40D6C07458E48E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_CB9FBDB3A7C7F58199AF59910557925E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_04D1DBCC68FD71A4A75D28E0ABD99CB5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_2383FFA7C2D2C2A926531E012078607A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_FEB75C95870D4BA3D7939104EDA87D2A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_FB5CA64FC2A8BBBD11C6A53AC19E843F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5B509B3332B142D5A92D8640874A49C7"
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_5BCE8186982235592051DCFFF689D3D8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
+        "OwnerKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A982721BF8894A3A8815A851A6C243F0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5C44DF55B89C412788B960E716C137CF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5FBA13192C1D510CF343FA0C129A1692"
-        "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6299A39D21DA443A938DB3A1545890FD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_639EBE0622C64E71B4768E67C69CF3C5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6D8A528BD49E4D2194B9D4512B8EF77E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_77C71E152DDF41DBB32C69B3A113C0BC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_78E1E9D1CAD62A31CDCD79F309A89867"
-        "OwnerKey" = "8:_3EE819C678BFD29CD44CC1547A508027"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_78E1E9D1CAD62A31CDCD79F309A89867"
-        "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_78E1E9D1CAD62A31CDCD79F309A89867"
-        "OwnerKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8C6D2AEB9B0A479E953D284A572DCBEA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_90909950373E4454BE8A5B7967C0DF3E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "OwnerKey" = "8:_42AF9FE656A1FF61264CDB62436EEC66"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "OwnerKey" = "8:_E131CF8CD1233332305C276A27567CCB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "OwnerKey" = "8:_4BB48E693CAF1F76259FFFBFAFFD886C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "OwnerKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "OwnerKey" = "8:_78E1E9D1CAD62A31CDCD79F309A89867"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "OwnerKey" = "8:_3EE819C678BFD29CD44CC1547A508027"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_94AD038C6B028F3447776E28D84425F6"
-        "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9754635DE85646149172950C0728546D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_975FAA336BCF4110BA527F0D0CF02024"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9CCE0F1DD94A4FDEABFE0B178B3CC964"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9FF65B905D1046AC8FE27F3E325B5C1B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A21114E54B1847258F7562D973909AEE"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A5108F3AE16E4850A32262B4F6F00F2F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AAF796A4E4AA4949B646BD78AF41B71B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AC2905B0E42430A304B673FC58B51201"
-        "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B33C22F3AA844288A30667642E9B343A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B630C686DF8746348885F07D260CE31F"
+        "MsmKey" = "8:_AA1E8A8BB43049A7920617277D0D8A90"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -519,43 +453,121 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BF94C7632E0B43338B21429A6AE828EE"
+        "MsmKey" = "8:_B8C840A8F1E5473BB3064E1AA041374C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C422F6DC252740DF98BAC321CC4F81C0"
+        "MsmKey" = "8:_C41401DFCB2E43419D7C9C49E79D7E91"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C5D8935C92524AF0BA96050AE59010F5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CB51EA3E7D7748FCB75FD0EAAFD0D89E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E131CF8CD1233332305C276A27567CCB"
+        "MsmKey" = "8:_CB9FBDB3A7C7F58199AF59910557925E"
         "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E6C24AEEDA33415AB28E3903141CCBE8"
+        "MsmKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
+        "OwnerKey" = "8:_FEB75C95870D4BA3D7939104EDA87D2A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
+        "OwnerKey" = "8:_CB9FBDB3A7C7F58199AF59910557925E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
+        "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "OwnerKey" = "8:_FB5CA64FC2A8BBBD11C6A53AC19E843F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "OwnerKey" = "8:_CB9FBDB3A7C7F58199AF59910557925E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "OwnerKey" = "8:_04D1DBCC68FD71A4A75D28E0ABD99CB5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "OwnerKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "OwnerKey" = "8:_2383FFA7C2D2C2A926531E012078607A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "OwnerKey" = "8:_FEB75C95870D4BA3D7939104EDA87D2A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
+        "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EF14D9A0B45A4222BDCA3BA6C78C949C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_FFBD6E4A3CAE4E7A8067A19EAB291E4B"
+        "MsmKey" = "8:_F9DBB8833F7944BD9E54AE556A3C8E92"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FB5CA64FC2A8BBBD11C6A53AC19E843F"
+        "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FB5CA64FC2A8BBBD11C6A53AC19E843F"
+        "OwnerKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FC093372778E4394809795093BB0B14A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FEB75C95870D4BA3D7939104EDA87D2A"
+        "OwnerKey" = "8:_B7FE6777043943F99B8BB7BBBF2873DA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FF403816AC874D739A3FA8E3407D2EAE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -568,85 +580,85 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AC2905B0E42430A304B673FC58B51201"
+        "OwnerKey" = "8:_751044199497B8493BBC0ECE88A18F52"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_14910ADF0E940CD361EC927ED702AEDF"
+        "OwnerKey" = "8:_87E2E8D1F73CFCF2B383284D222C4260"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E131CF8CD1233332305C276A27567CCB"
+        "OwnerKey" = "8:_CB9FBDB3A7C7F58199AF59910557925E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4BB48E693CAF1F76259FFFBFAFFD886C"
+        "OwnerKey" = "8:_04D1DBCC68FD71A4A75D28E0ABD99CB5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3EE819C678BFD29CD44CC1547A508027"
+        "OwnerKey" = "8:_FEB75C95870D4BA3D7939104EDA87D2A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_434BA7E6B65B23984CD8B3F874C663B5"
+        "OwnerKey" = "8:_CF600CA7E63719AEA9293680BE639BF3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_78E1E9D1CAD62A31CDCD79F309A89867"
+        "OwnerKey" = "8:_2383FFA7C2D2C2A926531E012078607A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_42AF9FE656A1FF61264CDB62436EEC66"
+        "OwnerKey" = "8:_FB5CA64FC2A8BBBD11C6A53AC19E843F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_94AD038C6B028F3447776E28D84425F6"
+        "OwnerKey" = "8:_D03F76A12F6C68251561A7C8BECAD152"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5FBA13192C1D510CF343FA0C129A1692"
+        "OwnerKey" = "8:_5BCE8186982235592051DCFFF689D3D8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_362B74F1D634BDD1EC87ADD097E7EB8C"
+        "OwnerKey" = "8:_246C7EA612609E06EA2276648351D0BE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2A556F141F6522748E59479C7CE37109"
+        "OwnerKey" = "8:_671EF5DD5D4E302546A29B7F9FDC21A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0E165434496098C74EA14CBEFE8D6D8C"
+        "OwnerKey" = "8:_25317549491FCF12F3EF597D4FC1C59B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1045CD8ECCC009E587E2FCAB81B3CFC4"
+        "OwnerKey" = "8:_A13A9D235CB93D24967CF5502A2A0A57"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -744,12 +756,12 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_03A8EC6002834B1BA3DF0839F06EF8B8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_00BD36C644EC4A8B9107177C332F958D"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.64.disFS"
-            "TargetName" = "8:appox_0.64.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\about_100km.conFS"
+            "TargetName" = "8:about_100km.conFS"
             "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -764,582 +776,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_080E02EE568E4E599B75FED026D6051E"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.28.disFS"
-            "TargetName" = "8:appox_0.28.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0AB4B465DE2B48609BCC925DB0DAC6E8"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\middle.conFS"
-            "TargetName" = "8:middle.conFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0C79B791FFF8463080C96A82C51675CC"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\tall.disFS"
-            "TargetName" = "8:tall.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0D69FD4D188A47CEBEDD508872375F42"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\new sVn.conFS"
-            "TargetName" = "8:new sVn.conFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0E165434496098C74EA14CBEFE8D6D8C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_0E165434496098C74EA14CBEFE8D6D8C"
-                    {
-                    "Name" = "8:DevExpress.Printing.v16.1.Core.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.Printing.v16.1.Core.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0EE945F6B9C6413FB663BB8B4AED36D5"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\old.disFS"
-            "TargetName" = "8:old.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0F2C6E9943E9481B96AC8A512C03A083"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\test1.disFS"
-            "TargetName" = "8:test1.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1045CD8ECCC009E587E2FCAB81B3CFC4"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Data.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_1045CD8ECCC009E587E2FCAB81B3CFC4"
-                    {
-                    "Name" = "8:DevExpress.Data.v16.1.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.Data.v16.1.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_14910ADF0E940CD361EC927ED702AEDF"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_14910ADF0E940CD361EC927ED702AEDF"
-                    {
-                    "Name" = "8:System.Data.SQLite.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Data.SQLite.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1494114A16F5456180741162D0AF33E6"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\about_1thang.conFS"
-            "TargetName" = "8:about_1thang.conFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1B41509D00EB4FAC8A79BE313AAEA5D2"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\young.disFS"
-            "TargetName" = "8:young.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_259D6D94B9304F148ABE3584EBE7F486"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.78.disFS"
-            "TargetName" = "8:appox_0.78.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_28A53AD914364C97AC16C909AA446F1D"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.12.disFS"
-            "TargetName" = "8:appox_0.12.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2A556F141F6522748E59479C7CE37109"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_2A556F141F6522748E59479C7CE37109"
-                    {
-                    "Name" = "8:DevExpress.Utils.v16.1.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.Utils.v16.1.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2A88BCEA8CB841D08D1A0D36F3DC001D"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\heavy.disFS"
-            "TargetName" = "8:heavy.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2D39F229E3884215A2BD272A99A2A3CE"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\about_2kg.conFS"
-            "TargetName" = "8:about_2kg.conFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_362B74F1D634BDD1EC87ADD097E7EB8C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.BonusSkins.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_362B74F1D634BDD1EC87ADD097E7EB8C"
-                    {
-                    "Name" = "8:DevExpress.BonusSkins.v16.1.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.BonusSkins.v16.1.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38343D6D6EC84282909646ED806761B9"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\young.conFS"
-            "TargetName" = "8:young.conFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3A87D95E73BA48BCB43258310BDAF29D"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.08.disFS"
-            "TargetName" = "8:appox_0.08.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3EE819C678BFD29CD44CC1547A508027"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraGrid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_3EE819C678BFD29CD44CC1547A508027"
-                    {
-                    "Name" = "8:DevExpress.XtraGrid.v16.1.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.XtraGrid.v16.1.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_42AF9FE656A1FF61264CDB62436EEC66"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_42AF9FE656A1FF61264CDB62436EEC66"
-                    {
-                    "Name" = "8:DevExpress.XtraBars.v16.1.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.XtraBars.v16.1.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_434BA7E6B65B23984CD8B3F874C663B5"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraPrinting.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_434BA7E6B65B23984CD8B3F874C663B5"
-                    {
-                    "Name" = "8:DevExpress.XtraPrinting.v16.1.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.XtraPrinting.v16.1.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_43E415D0593442A5A342ECA26EE0A5B0"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\middle.disFS"
-            "TargetName" = "8:middle.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4A7F9B44720E45E08B080ADC388A58D1"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.38.disFS"
-            "TargetName" = "8:appox_0.38.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4BB48E693CAF1F76259FFFBFAFFD886C"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_04D1DBCC68FD71A4A75D28E0ABD99CB5"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraNavBar.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_4BB48E693CAF1F76259FFFBFAFFD886C"
+                    "_04D1DBCC68FD71A4A75D28E0ABD99CB5"
                     {
                     "Name" = "8:DevExpress.XtraNavBar.v16.1.dll"
                     "Attributes" = "3:512"
@@ -1363,12 +807,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5B509B3332B142D5A92D8640874A49C7"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_05EE23CAA3634E8DA16FB155253FBA4C"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\test6.disFS"
-            "TargetName" = "8:test6.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\old.conFS"
+            "TargetName" = "8:old.conFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1383,83 +827,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5C44DF55B89C412788B960E716C137CF"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0DBB8B53512E4BFB83A40A525ED0457D"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\about_10kg.conFS"
-            "TargetName" = "8:about_10kg.conFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5FBA13192C1D510CF343FA0C129A1692"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Charts.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_5FBA13192C1D510CF343FA0C129A1692"
-                    {
-                    "Name" = "8:DevExpress.Charts.v16.1.Core.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.Charts.v16.1.Core.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6299A39D21DA443A938DB3A1545890FD"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\about_10km.conFS"
-            "TargetName" = "8:about_10km.conFS"
-            "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_639EBE0622C64E71B4768E67C69CF3C5"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\theFuzzySet.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\theFuzzySet.disFS"
             "TargetName" = "8:theFuzzySet.disFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1474,12 +847,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6D8A528BD49E4D2194B9D4512B8EF77E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1BD47707330A4D9A96BD6D5D1332B026"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\test.disFS"
-            "TargetName" = "8:test.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\about_36h.conFS"
+            "TargetName" = "8:about_36h.conFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1494,34 +867,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_77C71E152DDF41DBB32C69B3A113C0BC"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\membershipFS\\high.disFS"
-            "TargetName" = "8:high.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_897A71B7C4F24B3F9F2353652054B578"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_78E1E9D1CAD62A31CDCD79F309A89867"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2383FFA7C2D2C2A926531E012078607A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraLayout.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_78E1E9D1CAD62A31CDCD79F309A89867"
+                    "_2383FFA7C2D2C2A926531E012078607A"
                     {
                     "Name" = "8:DevExpress.XtraLayout.v16.1.dll"
                     "Attributes" = "3:512"
@@ -1545,60 +898,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8C6D2AEB9B0A479E953D284A572DCBEA"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.94.disFS"
-            "TargetName" = "8:appox_0.94.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_90909950373E4454BE8A5B7967C0DF3E"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.09.disFS"
-            "TargetName" = "8:appox_0.09.disFS"
-            "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_94AD038C6B028F3447776E28D84425F6"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_246C7EA612609E06EA2276648351D0BE"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.BonusSkins.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_94AD038C6B028F3447776E28D84425F6"
+                    "_246C7EA612609E06EA2276648351D0BE"
                     {
-                    "Name" = "8:DevExpress.XtraEditors.v16.1.dll"
+                    "Name" = "8:DevExpress.BonusSkins.v16.1.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:DevExpress.XtraEditors.v16.1.dll"
+            "SourcePath" = "8:DevExpress.BonusSkins.v16.1.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
@@ -1616,12 +929,43 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9754635DE85646149172950C0728546D"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_25317549491FCF12F3EF597D4FC1C59B"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\AA.conFS"
-            "TargetName" = "8:AA.conFS"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_25317549491FCF12F3EF597D4FC1C59B"
+                    {
+                    "Name" = "8:DevExpress.Printing.v16.1.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.Printing.v16.1.Core.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2C2DCEBE1AA749FCB704174DB498CE85"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\about_10h.conFS"
+            "TargetName" = "8:about_10h.conFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1636,9 +980,189 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_975FAA336BCF4110BA527F0D0CF02024"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2FA0F8AE33304FA8B4B6502190E021F7"
             {
-            "SourcePath" = "8:uninstall.bat"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\middle.disFS"
+            "TargetName" = "8:middle.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_32495091560A4BEB8DB8673D83273DC0"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\new sVn.conFS"
+            "TargetName" = "8:new sVn.conFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38DF3620BD204812B0D35CF9F8CC5488"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.02.disFS"
+            "TargetName" = "8:appox_0.02.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_39FBB09027594EDFB8D24C167374A715"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.62.disFS"
+            "TargetName" = "8:appox_0.62.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3AAB460F5E3C4C02B00CD19F6D8BA961"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\heavy.disFS"
+            "TargetName" = "8:heavy.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3CDAEF155F4948B7990DB9EF180D85A7"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.23.disFS"
+            "TargetName" = "8:appox_0.23.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3F415909120144BD834A8F2D88121D6E"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.82.disFS"
+            "TargetName" = "8:appox_0.82.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3FAFAFA3B43243278BB6EB264201259A"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\test6.disFS"
+            "TargetName" = "8:test6.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_401D3BC1D1DD41088E0F8B3E58434003"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\about_10kg.conFS"
+            "TargetName" = "8:about_10kg.conFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_488123B0FF114716BF0CFC0671D217B1"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\uninstall.bat"
             "TargetName" = "8:uninstall.bat"
             "Tag" = "8:"
             "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
@@ -1656,12 +1180,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9CCE0F1DD94A4FDEABFE0B178B3CC964"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4A5B84FB92674534A8CFFBF8C81B7DC1"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\temp\\appox_0.92.disFS"
-            "TargetName" = "8:appox_0.92.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\young.disFS"
+            "TargetName" = "8:young.disFS"
             "Tag" = "8:"
-            "Folder" = "8:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1676,12 +1200,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FF65B905D1046AC8FE27F3E325B5C1B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5164817D36524D508C285459652471E2"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\about_10h.conFS"
-            "TargetName" = "8:about_10h.conFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.33.disFS"
+            "TargetName" = "8:appox_0.33.disFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1696,12 +1220,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A21114E54B1847258F7562D973909AEE"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_554EC77DFEF14DD59B4193F69CD6181E"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\membershipFS\\test.conFS"
-            "TargetName" = "8:test.conFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\about_2kg.conFS"
+            "TargetName" = "8:about_2kg.conFS"
             "Tag" = "8:"
-            "Folder" = "8:_897A71B7C4F24B3F9F2353652054B578"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1716,12 +1240,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A5108F3AE16E4850A32262B4F6F00F2F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_596AE40A44914811876E76806E88DE81"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\test.conFS"
-            "TargetName" = "8:test.conFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\about_1thang.conFS"
+            "TargetName" = "8:about_1thang.conFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1736,12 +1260,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AAF796A4E4AA4949B646BD78AF41B71B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5A61824A84CB444293290C651B444F5B"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\old.conFS"
-            "TargetName" = "8:old.conFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\cheap_price.conFS"
+            "TargetName" = "8:cheap_price.conFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1756,14 +1280,156 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AC2905B0E42430A304B673FC58B51201"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5BCE8186982235592051DCFFF689D3D8"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Charts.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5BCE8186982235592051DCFFF689D3D8"
+                    {
+                    "Name" = "8:DevExpress.Charts.v16.1.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.Charts.v16.1.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_60C579EE491144A8BD6D0C9FBA22A142"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.57.disFS"
+            "TargetName" = "8:appox_0.57.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_671EF5DD5D4E302546A29B7F9FDC21A6"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_671EF5DD5D4E302546A29B7F9FDC21A6"
+                    {
+                    "Name" = "8:DevExpress.Utils.v16.1.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.Utils.v16.1.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6AD270EF508A42E7AB35F3399F73D7B1"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\test1.disFS"
+            "TargetName" = "8:test1.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6C94A57489434637B8704D6F24DAC789"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.53.disFS"
+            "TargetName" = "8:appox_0.53.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6F9D4AF5146E41108B19A2770363D9C2"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\middle.conFS"
+            "TargetName" = "8:middle.conFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_751044199497B8493BBC0ECE88A18F52"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Data.SQLite.Linq, Version=2.0.38.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_AC2905B0E42430A304B673FC58B51201"
+                    "_751044199497B8493BBC0ECE88A18F52"
                     {
                     "Name" = "8:System.Data.SQLite.Linq.dll"
                     "Attributes" = "3:512"
@@ -1787,12 +1453,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B33C22F3AA844288A30667642E9B343A"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_757DDD62D63B4FCEBA3F46E3C4664A42"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\about_100km.conFS"
-            "TargetName" = "8:about_100km.conFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\about_10km.conFS"
+            "TargetName" = "8:about_10km.conFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1807,12 +1473,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B630C686DF8746348885F07D260CE31F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_76369CCE0E274FAA8C728EE8A2E5EA3E"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\test34.disFS"
-            "TargetName" = "8:test34.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\tall.disFS"
+            "TargetName" = "8:tall.disFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1827,12 +1493,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF94C7632E0B43338B21429A6AE828EE"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_783747E6DF0C490AAD656A0591EC8B70"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\high.disFS"
-            "TargetName" = "8:high.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\AA.conFS"
+            "TargetName" = "8:AA.conFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1847,12 +1513,83 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C422F6DC252740DF98BAC321CC4F81C0"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7D083D270646431D971A8A8034408B21"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\tempdontKnow.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.93.disFS"
+            "TargetName" = "8:appox_0.93.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_86E680BCFC7C42E89CE0873170D7090E"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\young.conFS"
+            "TargetName" = "8:young.conFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_87E2E8D1F73CFCF2B383284D222C4260"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_87E2E8D1F73CFCF2B383284D222C4260"
+                    {
+                    "Name" = "8:System.Data.SQLite.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Data.SQLite.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B13380B5D16478AB311FB0A32AC4409"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\tempdontKnow.disFS"
             "TargetName" = "8:tempdontKnow.disFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1867,12 +1604,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C5D8935C92524AF0BA96050AE59010F5"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8F2656F966564703B02D9F7D89AF2B7F"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\cheap_price.conFS"
-            "TargetName" = "8:cheap_price.conFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.36.disFS"
+            "TargetName" = "8:appox_0.36.disFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1887,12 +1624,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CB51EA3E7D7748FCB75FD0EAAFD0D89E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9A2AED2B84E04D90B8D3A127C0F6FCEA"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\new fs.disFS"
-            "TargetName" = "8:new fs.disFS"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\membershipFS\\high.disFS"
+            "TargetName" = "8:high.disFS"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_ECEDBF29CC874EB48F47BC2351657B8D"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1907,14 +1644,165 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E131CF8CD1233332305C276A27567CCB"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FA35F99905946C985DD120191F4535E"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.18.disFS"
+            "TargetName" = "8:appox_0.18.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FDAD602F8D6472BBF40D6C07458E48E"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\test.conFS"
+            "TargetName" = "8:test.conFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A13A9D235CB93D24967CF5502A2A0A57"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Data.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A13A9D235CB93D24967CF5502A2A0A57"
+                    {
+                    "Name" = "8:DevExpress.Data.v16.1.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.Data.v16.1.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A982721BF8894A3A8815A851A6C243F0"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\test.disFS"
+            "TargetName" = "8:test.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AA1E8A8BB43049A7920617277D0D8A90"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\old.disFS"
+            "TargetName" = "8:old.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B8C840A8F1E5473BB3064E1AA041374C"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\temp\\appox_0.67.disFS"
+            "TargetName" = "8:appox_0.67.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C41401DFCB2E43419D7C9C49E79D7E91"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\high.disFS"
+            "TargetName" = "8:high.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CB9FBDB3A7C7F58199AF59910557925E"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraVerticalGrid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E131CF8CD1233332305C276A27567CCB"
+                    "_CB9FBDB3A7C7F58199AF59910557925E"
                     {
                     "Name" = "8:DevExpress.XtraVerticalGrid.v16.1.dll"
                     "Attributes" = "3:512"
@@ -1938,12 +1826,74 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E6C24AEEDA33415AB28E3903141CCBE8"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CF600CA7E63719AEA9293680BE639BF3"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\lib\\about_36h.conFS"
-            "TargetName" = "8:about_36h.conFS"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraPrinting.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_CF600CA7E63719AEA9293680BE639BF3"
+                    {
+                    "Name" = "8:DevExpress.XtraPrinting.v16.1.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.XtraPrinting.v16.1.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_189E335B943A43FCABEEAD77413F9F8E"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D03F76A12F6C68251561A7C8BECAD152"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D03F76A12F6C68251561A7C8BECAD152"
+                    {
+                    "Name" = "8:DevExpress.XtraEditors.v16.1.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.XtraEditors.v16.1.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EF14D9A0B45A4222BDCA3BA6C78C949C"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\membershipFS\\test.conFS"
+            "TargetName" = "8:test.conFS"
+            "Tag" = "8:"
+            "Folder" = "8:_ECEDBF29CC874EB48F47BC2351657B8D"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1958,12 +1908,114 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FFBD6E4A3CAE4E7A8067A19EAB291E4B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F9DBB8833F7944BD9E54AE556A3C8E92"
             {
-            "SourcePath" = "8:..\\bin\\Debug\\previous_path.txt"
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\previous_path.txt"
             "TargetName" = "8:previous_path.txt"
             "Tag" = "8:"
             "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FB5CA64FC2A8BBBD11C6A53AC19E843F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_FB5CA64FC2A8BBBD11C6A53AC19E843F"
+                    {
+                    "Name" = "8:DevExpress.XtraBars.v16.1.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.XtraBars.v16.1.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FC093372778E4394809795093BB0B14A"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\test34.disFS"
+            "TargetName" = "8:test34.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FEB75C95870D4BA3D7939104EDA87D2A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraGrid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_FEB75C95870D4BA3D7939104EDA87D2A"
+                    {
+                    "Name" = "8:DevExpress.XtraGrid.v16.1.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.XtraGrid.v16.1.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_064C9B3DCEAD4C4496F7EF3EE824F4F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FF403816AC874D739A3FA8E3407D2EAE"
+            {
+            "SourcePath" = "8:..\\FRDB-SQLite\\bin\\Debug\\lib\\new fs.disFS"
+            "TargetName" = "8:new fs.disFS"
+            "Tag" = "8:"
+            "Folder" = "8:_2837C95809CF4067BCBB03B40D9D0DF1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1994,33 +2046,33 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_189E335B943A43FCABEEAD77413F9F8E"
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_2837C95809CF4067BCBB03B40D9D0DF1"
                     {
                     "Name" = "8:lib"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
-                    "Property" = "8:_164A85B345C44A39B44591F422E7FCC4"
+                    "Property" = "8:_A037481415944086BECADFE803A1E645"
                         "Folders"
                         {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_897A71B7C4F24B3F9F2353652054B578"
-                            {
-                            "Name" = "8:membershipFS"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_021C27D490C54EB5ADE347D4ABCBC17D"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_C298A9FA729E4FCFB1DF94A2CDB72AB8"
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_7BA3BBDC8F804BE3AA03A6E00D0B5BA7"
                             {
                             "Name" = "8:temp"
                             "AlwaysCreate" = "11:FALSE"
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
-                            "Property" = "8:_60E0BCE672264FC9B79CFC95B86783F7"
+                            "Property" = "8:_756F43F89DF44040B094ABB43D37D353"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_ECEDBF29CC874EB48F47BC2351657B8D"
+                            {
+                            "Name" = "8:membershipFS"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_1DEA5414D16648328EEDCFA0F003C06F"
                                 "Folders"
                                 {
                                 }
@@ -2079,7 +2131,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{8E86FD94-B3A4-4194-BE4E-CFE6FBE30966}"
-        "PackageCode" = "8:{ACD9D10B-9A00-42C9-A409-BD04557DEE3C}"
+        "PackageCode" = "8:{6DAA6F02-66E8-47EF-83F5-982777E509F3}"
         "UpgradeCode" = "8:{C7DDE28C-2B69-4F84-A18F-91EA21BADECB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
