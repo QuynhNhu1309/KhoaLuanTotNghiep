@@ -596,6 +596,73 @@ namespace FRDB_SQLite
             }
             return FSName;
         }
+
+
+        public string FindAndMarkFuzzy_Max(string dis1, string dis2)
+        {
+            string FSName = "";
+
+            if (dis1 == "")
+                FSName = dis2;
+            else if (dis2 == "") FSName = dis1;
+            if (dis1 == "" || dis2 == "")
+                return FSName;
+
+            DisFS disFS1 = null;
+            DisFS disFS2 = null;
+            string path = "";
+            List<String> arr = new List<string>();
+            arr.Add(dis1);
+            arr.Add(dis2);
+            for (int o = 0; o < arr.Count(); o++)
+            {
+                FzContinuousFuzzySetEntity get_conFS = ContinuousFuzzySetBLL.GetConFNByName(arr[o].ToString(), _fdbEntity);
+                ConFS conFS1 = null;
+                if (get_conFS != null)
+                {
+                    conFS1 = new ConFS(get_conFS.Name, get_conFS.Bottom_Left, get_conFS.Top_Left, get_conFS.Top_Right, get_conFS.Bottom_Right);
+                    disFS2 = transContoDis(conFS1); //trans CF to DF
+                }
+                else
+                {
+                    FzDiscreteFuzzySetEntity get_disFS = DiscreteFuzzySetBLL.GetDisFNByName(arr[o].ToString(), _fdbEntity);
+                    if (get_disFS != null)
+                        disFS2 = new DisFS(get_disFS.Name, get_disFS.V, get_disFS.M, get_disFS.ValueSet, get_disFS.MembershipSet);
+                    else if (!IsNumber(arr[o]) && !arr[o].Contains("appox_"))
+                        return "FN not exists";
+                }
+                if (o == 0)
+                {
+                    disFS1 = disFS2;
+                    disFS2 = null;
+                }
+            }
+            path = Directory.GetCurrentDirectory() + @"\lib\temp\";
+            if (disFS1 == null)
+                disFS1 = GetDisFS(path, dis1);
+            if (disFS2 == null) disFS2 = GetDisFS(path, dis2);
+            if (disFS1 != null && disFS2 != null)
+                FSName = Max_DisFS(disFS1, disFS2);
+            else if (disFS1 == null && disFS2 != null)
+            {
+                DisFS dis = new DisFS();
+                dis.ValueSet.Add(double.Parse(dis1));
+                dis.MembershipSet.Add(1);
+                FSName = Max_DisFS(dis, disFS2);
+            }
+            else if (disFS1 != null && disFS2 == null)
+            {
+                DisFS dis = new DisFS();
+                dis.ValueSet.Add(double.Parse(dis2));
+                dis.MembershipSet.Add(1);
+                FSName = Max_DisFS(disFS1, dis);
+            }
+            else if (disFS1 == null && disFS2 == null)
+            {
+                FSName = Math.Max(double.Parse(dis1), double.Parse(dis2)).ToString();
+            }
+            return FSName;
+        }
         //public string FindAndMarkFuzzy(string dis1, string dis2, Boolean filter)
         //{
         //    DisFS disFS1 = null;
