@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FRDB-SQLite", "FRDB-SQLite\
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{D769B0EC-247E-4E07-9040-47D025781872}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Release|Any CPU.ActiveCfg = Release
 		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Release|Mixed Platforms.ActiveCfg = Release
 		{3719E1DB-C956-4209-A7E1-C127DDCCAC2F}.Release|x86.ActiveCfg = Release
+		{D769B0EC-247E-4E07-9040-47D025781872}.Debug|Any CPU.ActiveCfg = Debug
+		{D769B0EC-247E-4E07-9040-47D025781872}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{D769B0EC-247E-4E07-9040-47D025781872}.Debug|x86.ActiveCfg = Debug
+		{D769B0EC-247E-4E07-9040-47D025781872}.Release|Any CPU.ActiveCfg = Release
+		{D769B0EC-247E-4E07-9040-47D025781872}.Release|Mixed Platforms.ActiveCfg = Release
+		{D769B0EC-247E-4E07-9040-47D025781872}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
