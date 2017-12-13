@@ -651,7 +651,7 @@ namespace FRDB_SQLite
             int countTupleOriginal = result.Count();
             if (countTupleOriginal > 0)
             {
-                result = ProcessDistinct(result);
+                result = ProcessDistinct_Min(result);
             }
             return result;
         }
@@ -737,7 +737,7 @@ namespace FRDB_SQLite
             int countTupleOriginal = result.Count();
             if (countTupleOriginal > 0)
             {
-                result = ProcessDistinct(result);
+                result = ProcessDistinct_Min(result);
             }
 
             return result;
@@ -3042,7 +3042,7 @@ namespace FRDB_SQLite
                         {
                             if (tupleTmp[j] == tupleTmp2[k])
                             {
-                                //find and set min membership
+                                //find and set max membership
                                 String FsName = tupleTmp2[k].ValuesOnPerRow[this._selectedAttributes.Count() - 1].ToString();
                                 QueryConditionBLL condition = new QueryConditionBLL(_fdbEntity);
                                 for (int z = k + 1; z < countTuples; z++)
@@ -3054,7 +3054,7 @@ namespace FRDB_SQLite
                                             count++;
                                         if (count == this._selectedAttributes.Count() - 1)
                                         {
-                                            FsName = condition.FindAndMarkFuzzy(FsName, tupleTmp2[z].ValuesOnPerRow[this._selectedAttributes.Count() - 1].ToString());
+                                            FsName = condition.FindAndMarkFuzzy_Max(FsName, tupleTmp2[z].ValuesOnPerRow[this._selectedAttributes.Count() - 1].ToString());
                                             tupleTmp2.RemoveAt(z);
                                             countTuples = tupleTmp2.Count();
                                             z--;
@@ -3080,6 +3080,77 @@ namespace FRDB_SQLite
             }
             return tupleResult;
             
+        }
+
+        public List<FzTupleEntity> ProcessDistinct_Min(List<FzTupleEntity> tuples)
+        {
+            this._errorMessage = checkDistinctSelect();
+            if (ErrorMessage != "") throw new Exception(this._errorMessage);
+            List<FzTupleEntity> tupleTmp = new List<FzTupleEntity>();
+            List<FzTupleEntity> tupleTmp2 = new List<FzTupleEntity>();
+            List<FzTupleEntity> tupleResult = new List<FzTupleEntity>();
+            for (int l = 0; l < tuples.Count(); l++)
+                tupleTmp2.Add(tuples[l]);
+            tupleResult = tuples.AsEnumerable().GroupBy(x => x.ValuesOnPerRow[0]).SelectMany(grouping => grouping.Take(1)).ToList();
+            var attrDuplicate1 = from tuple in tuples
+                                 group tuple by tuple.ValuesOnPerRow[0] into g
+                                 where g.Count() > 1
+                                 select g;
+            if (attrDuplicate1.Count() > 0)//except memership => count() > 2
+            {
+                for (int i = 0; i < attrDuplicate1.Count(); i++)
+                {
+                    string s = attrDuplicate1.ElementAt(i).Key.ToString();
+                    IEnumerable<FzTupleEntity> tupleDistinct = tupleTmp2.Where(x => x.ValuesOnPerRow[0].ToString() == attrDuplicate1.ElementAt(i).Key.ToString()).Select(x => x).ToList();
+                    if (this._selectedAttributes.Count() > 2)
+                        tupleTmp.AddRange(ProcessDistinct_Sub(tupleDistinct));
+                    else tupleTmp = tupleDistinct.Take(1).ToList();
+                    int countTuples = tupleTmp2.Count();
+                    int countTupleTmps = tupleTmp.Count();
+                    for (int k = 0; k < countTuples; k++)
+                    {
+                        for (int j = 0; j < countTupleTmps; j++)
+                        {
+                            if (tupleTmp[j] == tupleTmp2[k])
+                            {
+                                //find and set min membership
+                                String FsName = tupleTmp2[k].ValuesOnPerRow[this._selectedAttributes.Count() - 1].ToString();
+                                QueryConditionBLL condition = new QueryConditionBLL(_fdbEntity);
+                                for (int z = k + 1; z < countTuples; z++)
+                                {
+                                    int count = 0;
+                                    for (int u = 0; u < this._selectedAttributes.Count() - 1; u++)
+                                    {
+                                        if (tupleTmp2[z].ValuesOnPerRow[u].ToString() == tupleTmp[j].ValuesOnPerRow[u].ToString())
+                                            count++;
+                                        if (count == this._selectedAttributes.Count() - 1)
+                                        {
+                                            FsName = condition.FindAndMarkFuzzy(FsName, tupleTmp2[z].ValuesOnPerRow[this._selectedAttributes.Count() - 1].ToString());
+                                            tupleTmp2.RemoveAt(z);
+                                            countTuples = tupleTmp2.Count();
+                                            z--;
+                                        }
+
+                                    }
+                                }
+                                tupleTmp.RemoveAt(j);
+                                tupleTmp2[k].ValuesOnPerRow[this._selectedAttributes.Count() - 1] = FsName;
+                                countTupleTmps = tupleTmp.Count();
+                                j--;
+                                break;
+                            }
+                        }
+
+                    }
+                    tupleTmp = new List<FzTupleEntity>();
+                }
+                tupleResult.Clear();
+                tupleResult = tupleTmp2;
+
+
+            }
+            return tupleResult;
+
         }
 
 
